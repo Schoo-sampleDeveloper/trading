@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デイリー金融ニュース {{ date_str }}</title>
+  <link rel="manifest" href="{{ base_url }}/manifest.json">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="金融ニュース">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text2: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --red: #f85149;
+      --yellow: #d29922;
+      --tag-bg: #1f2937;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f8fa;
+        --bg2: #ffffff;
+        --bg3: #f0f2f5;
+        --border: #d0d7de;
+        --text: #1f2328;
+        --text2: #656d76;
+        --accent: #0969da;
+        --green: #1a7f37;
+        --red: #cf222e;
+        --yellow: #9a6700;
+        --tag-bg: #ddf4ff;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    header {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    header .meta {
+      font-size: 0.85rem;
+      color: var(--text2);
+    }
+    header .feed-link {
+      margin-top: 10px;
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text2);
+      margin: 24px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--accent); }
+    .card.featured { border-left: 3px solid var(--accent); }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .impact {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .headline {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0;
+    }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .tag.impact-bullish { color: var(--green); border-color: var(--green); }
+    .tag.impact-bearish { color: var(--red); border-color: var(--red); }
+    .tag.impact-neutral { color: var(--yellow); border-color: var(--yellow); }
+    .summary {
+      font-size: 0.92rem;
+      color: var(--text2);
+      margin: 8px 0;
+    }
+    .summary li {
+      list-style: none;
+      padding-left: 1em;
+      position: relative;
+    }
+    .summary li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .explanation {
+      background: var(--bg3);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      color: var(--text);
+      margin: 10px 0;
+      border-left: 3px solid var(--yellow);
+    }
+    .explanation::before {
+      content: "📌 ";
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text2);
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .card-footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .card-footer a:hover { text-decoration: underline; }
+    footer {
+      text-align: center;
+      color: var(--text2);
+      font-size: 0.8rem;
+      margin-top: 40px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📈 デイリー金融ニュース</h1>
+    <div class="meta">{{ date_str }} &nbsp;|&nbsp; 更新: {{ generated_at }}</div>
+    <a class="feed-link" href="{{ base_url }}/feed.xml">📡 RSSを購読</a>
+  </header>
+
+  <h2>⭐ 今日の注目 TOP{{ featured|length }}</h2>
+  {% for art in featured %}
+  <div class="card featured">
+    <div class="card-header">
+      <span class="impact">{{ art.impact_emoji }}</span>
+      <div class="headline">{{ art.headline }}</div>
+    </div>
+    <div class="tags">
+      <span class="tag">{{ art.category }}</span>
+      <span class="tag impact-{{ art.impact }}">{{ art.impact_emoji }} {{ art.impact_label }}</span>
+    </div>
+    {% if art.summary_lines %}
+    <ul class="summary">
+      {% for line in art.summary_lines %}{% if line.strip() %}
+      <li>{{ line }}</li>
+      {% endif %}{% endfor %}
+    </ul>
+    {% endif %}
+    {% if art.explanation %}
+    <div class="explanation">{{ art.explanation }}</div>
+    {% endif %}
+    <div class="card-footer">
+      <span>{{ art.source }} &nbsp;|&nbsp; {{ art.published.strftime('%H:%M UTC') }}</span>
+      {% if art.link %}<a href="{{ art.link }}" target="_blank" rel="noopener">元記事 →</a>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <h2>📰 全ニュース一覧 ({{ articles|length }} 件)</h2>
+  {% for art in articles %}
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">{{ art.impact_emoji }}</span>
+      <div class="headline">{{ art.headline }}</div>
+    </div>
+    <div class="tags">
+      <span class="tag">{{ art.category }}</span>
+      <span class="tag impact-{{ art.impact }}">{{ art.impact_label }}</span>
+    </div>
+    {% if art.summary_lines %}
+    <ul class="summary">
+      {% for line in art.summary_lines %}{% if line.strip() %}
+      <li>{{ line }}</li>
+      {% endif %}{% endfor %}
+    </ul>
+    {% endif %}
+    <div class="card-footer">
+      <span>{{ art.source }} &nbsp;|&nbsp; {{ art.published.strftime('%H:%M UTC') }}</span>
+      {% if art.link %}<a href="{{ art.link }}" target="_blank" rel="noopener">元記事 →</a>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <footer>
+    <p>デイリー金融ニュース &mdash; Powered by Groq (llama-3.3-70b) &amp; GitHub Pages</p>
+    <p><a href="{{ base_url }}/feed.xml" style="color:var(--accent)">📡 feed.xml</a></p>
+  </footer>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/trading/sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>

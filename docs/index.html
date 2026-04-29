@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デイリー金融ニュース 2026-04-29</title>
+  <link rel="manifest" href="https://kazuki922.github.io/trading/manifest.json">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="金融ニュース">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text2: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --red: #f85149;
+      --yellow: #d29922;
+      --tag-bg: #1f2937;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f8fa;
+        --bg2: #ffffff;
+        --bg3: #f0f2f5;
+        --border: #d0d7de;
+        --text: #1f2328;
+        --text2: #656d76;
+        --accent: #0969da;
+        --green: #1a7f37;
+        --red: #cf222e;
+        --yellow: #9a6700;
+        --tag-bg: #ddf4ff;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    header {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    header .meta {
+      font-size: 0.85rem;
+      color: var(--text2);
+    }
+    header .feed-link {
+      margin-top: 10px;
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text2);
+      margin: 24px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--accent); }
+    .card.featured { border-left: 3px solid var(--accent); }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .impact {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .headline {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0;
+    }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .tag.impact-bullish { color: var(--green); border-color: var(--green); }
+    .tag.impact-bearish { color: var(--red); border-color: var(--red); }
+    .tag.impact-neutral { color: var(--yellow); border-color: var(--yellow); }
+    .summary {
+      font-size: 0.92rem;
+      color: var(--text2);
+      margin: 8px 0;
+    }
+    .summary li {
+      list-style: none;
+      padding-left: 1em;
+      position: relative;
+    }
+    .summary li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .explanation {
+      background: var(--bg3);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      color: var(--text);
+      margin: 10px 0;
+      border-left: 3px solid var(--yellow);
+    }
+    .explanation::before {
+      content: "📌 ";
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text2);
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .card-footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .card-footer a:hover { text-decoration: underline; }
+    footer {
+      text-align: center;
+      color: var(--text2);
+      font-size: 0.8rem;
+      margin-top: 40px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📈 デイリー金融ニュース</h1>
+    <div class="meta">2026-04-29 &nbsp;|&nbsp; 更新: 2026/04/29 13:00 JST</div>
+    <a class="feed-link" href="https://kazuki922.github.io/trading/feed.xml">📡 RSSを購読</a>
+  </header>
+
+  <h2>⭐ 今日の注目 TOP7</h2>
+  
+  <div class="card featured">
+    <div class="card-header">
+      <span class="impact">➡️</span>
+      <div class="headline">日銀が金利据え置き</div>
+    </div>
+    <div class="tags">
+      <span class="tag">日本株</span>
+      <span class="tag impact-neutral">➡️ 中立</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>日銀が3会合連続で金利据え置きを行った。</li>
+      
+      <li>委員3人が利上げを主張した。</li>
+      
+      <li>植田総裁は「緊急度はない」と述べた</li>
+      
+    </ul>
+    
+    
+    <div class="explanation">金利据え置きは経済への影響が少ない</div>
+    
+    <div class="card-footer">
+      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 01:01 UTC</span>
+      <a href="https://news.google.com/rss/articles/CBMiVkFVX3lxTE90WTRyVDRNbk1rV3J0NllEaFpvdWRMZ0VpN1BnZWk1ZlRKNkFFNTBLS3h4NGxBQVM4SHZxRm50WV9ocnRVMzZrem5wVVI1ZFBOWDZ5MUpB?oc=5" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card featured">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">元の夏の弱さ</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bearish">🔽 弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>元の夏の弱さが早く訪れる</li>
+      
+    </ul>
+    
+    
+    <div class="explanation">中国企業の配当が原因</div>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 23:50 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-28/yuan-rally-seen-facing-summer-test-early-as-record-payouts-loom" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card featured">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">日銀が利上げ見送り</div>
+    </div>
+    <div class="tags">
+      <span class="tag">日本株</span>
+      <span class="tag impact-bearish">🔽 弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>日銀が利上げを見送った。</li>
+      
+      <li>   一部の委員が異議を唱えた。</li>
+      
+      <li>   物価上振れへの警戒が強まっている</li>
+      
+    </ul>
+    
+    
+    <div class="explanation">利上げとは金利を上げること</div>
+    
+    <div class="card-footer">
+      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 22:30 UTC</span>
+      <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE0tQ0g3UFluZS1tQ3FqRWEydWdlYU1qLTcyeU1QYVBfd3JmU0J6Nml6Vm5ZMnlvNVQyellKVmlkaHhvbmJKa3AwdlJqaVlhUmFhOWw2QVhhUTdfOTF2SkM2QVM5Yy1YVmhuOUxVZE9Zd1ZOOFJVYUE?oc=5" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card featured">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">日銀がインフレ警戒</div>
+    </div>
+    <div class="tags">
+      <span class="tag">日本株</span>
+      <span class="tag impact-bullish">🔼 強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>日銀の植田総裁が記者会見を行った。</li>
+      
+      <li>   インフレ加速を警戒している。</li>
+      
+      <li>   利上げの可能性が浮上した</li>
+      
+    </ul>
+    
+    
+    <div class="explanation">インフレが加速すると、物価が上昇する</div>
+    
+    <div class="card-footer">
+      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 21:21 UTC</span>
+      <a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTE42RHRkNzdJZ3dQUUpkMF9Fb290bGZLSUMzbkJKWUEzOUFFaEp4Q1ZmU2VSczYwODlMcDFVdnNjMW9qRXdwWWlaODM5MUFjZHpYdmk1dEstaw?oc=5" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card featured">
+    <div class="card-header">
+      <span class="impact">➡️</span>
+      <div class="headline">日銀、利上げを見送り</div>
+    </div>
+    <div class="tags">
+      <span class="tag">日本株</span>
+      <span class="tag impact-neutral">➡️ 中立</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>日銀が利上げを見送った。</li>
+      
+      <li>   政権の影響が懸念される。</li>
+      
+      <li>   日本経済への影響が注目される</li>
+      
+    </ul>
+    
+    
+    <div class="explanation">利上げとは金利を上げること</div>
+    
+    <div class="card-footer">
+      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 21:00 UTC</span>
+      <a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4xb2YxbmM1N2wycW5melAzQ2F5Xzllb01qUFRzbFN0V1FIQ210MkdXcnlBQmpmSDJXN1hJM2RKeTFNNUw3VlFIRG9XUHVHaUZBVkJCckNIN2dva193NUpxdTBvMnZ4dE0?oc=5" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card featured">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">スターバックスの復活</div>
+    </div>
+    <div class="tags">
+      <span class="tag">米国株</span>
+      <span class="tag impact-bullish">🔼 強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>スターバックスの売上が予想を上回った。</li>
+      
+      <li>   若者や低所得層の顧客が増えた。</li>
+      
+      <li>   会社は見通しを上方修正した</li>
+      
+    </ul>
+    
+    
+    <div class="explanation">スターバックスは若者や低所得層に人気</div>
+    
+    <div class="card-footer">
+      <span>MarketWatch &nbsp;|&nbsp; 00:21 UTC</span>
+      <a href="https://www.marketwatch.com/story/starbucks-is-getting-customers-back-into-its-stores-faster-than-expected-f4ee80ab?mod=mw_rss_topstories" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card featured">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">UAEがOPEC脱退</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bearish">🔽 弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>UAEがOPEC脱退を発表した。</li>
+      
+      <li>   この決定はOPECのパートナーを驚かせた。</li>
+      
+      <li>   供給調整による原油価格管理能力が低下する。</li>
+      
+    </ul>
+    
+    
+    <div class="explanation">OPECは原油価格を調整する組織</div>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 03:48 UTC</span>
+      <a href="https://www.bloomberg.com/news/videos/2026-04-29/understanding-the-uae-s-decision-to-leave-opec-video" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+
+  <h2>📰 全ニュース一覧 (30 件)</h2>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">➡️</span>
+      <div class="headline">日銀が金利据え置き</div>
+    </div>
+    <div class="tags">
+      <span class="tag">日本株</span>
+      <span class="tag impact-neutral">中立</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>日銀が3会合連続で金利据え置きを行った。</li>
+      
+      <li>委員3人が利上げを主張した。</li>
+      
+      <li>植田総裁は「緊急度はない」と述べた</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 01:01 UTC</span>
+      <a href="https://news.google.com/rss/articles/CBMiVkFVX3lxTE90WTRyVDRNbk1rV3J0NllEaFpvdWRMZ0VpN1BnZWk1ZlRKNkFFNTBLS3h4NGxBQVM4SHZxRm50WV9ocnRVMzZrem5wVVI1ZFBOWDZ5MUpB?oc=5" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">元の夏の弱さ</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bearish">弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>元の夏の弱さが早く訪れる</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 23:50 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-28/yuan-rally-seen-facing-summer-test-early-as-record-payouts-loom" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">日銀が利上げ見送り</div>
+    </div>
+    <div class="tags">
+      <span class="tag">日本株</span>
+      <span class="tag impact-bearish">弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>日銀が利上げを見送った。</li>
+      
+      <li>   一部の委員が異議を唱えた。</li>
+      
+      <li>   物価上振れへの警戒が強まっている</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 22:30 UTC</span>
+      <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE0tQ0g3UFluZS1tQ3FqRWEydWdlYU1qLTcyeU1QYVBfd3JmU0J6Nml6Vm5ZMnlvNVQyellKVmlkaHhvbmJKa3AwdlJqaVlhUmFhOWw2QVhhUTdfOTF2SkM2QVM5Yy1YVmhuOUxVZE9Zd1ZOOFJVYUE?oc=5" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">日銀がインフレ警戒</div>
+    </div>
+    <div class="tags">
+      <span class="tag">日本株</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>日銀の植田総裁が記者会見を行った。</li>
+      
+      <li>   インフレ加速を警戒している。</li>
+      
+      <li>   利上げの可能性が浮上した</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 21:21 UTC</span>
+      <a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTE42RHRkNzdJZ3dQUUpkMF9Fb290bGZLSUMzbkJKWUEzOUFFaEp4Q1ZmU2VSczYwODlMcDFVdnNjMW9qRXdwWWlaODM5MUFjZHpYdmk1dEstaw?oc=5" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">➡️</span>
+      <div class="headline">日銀、利上げを見送り</div>
+    </div>
+    <div class="tags">
+      <span class="tag">日本株</span>
+      <span class="tag impact-neutral">中立</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>日銀が利上げを見送った。</li>
+      
+      <li>   政権の影響が懸念される。</li>
+      
+      <li>   日本経済への影響が注目される</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 21:00 UTC</span>
+      <a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4xb2YxbmM1N2wycW5melAzQ2F5Xzllb01qUFRzbFN0V1FIQ210MkdXcnlBQmpmSDJXN1hJM2RKeTFNNUw3VlFIRG9XUHVHaUZBVkJCckNIN2dva193NUpxdTBvMnZ4dE0?oc=5" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">スターバックスの復活</div>
+    </div>
+    <div class="tags">
+      <span class="tag">米国株</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>スターバックスの売上が予想を上回った。</li>
+      
+      <li>   若者や低所得層の顧客が増えた。</li>
+      
+      <li>   会社は見通しを上方修正した</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>MarketWatch &nbsp;|&nbsp; 00:21 UTC</span>
+      <a href="https://www.marketwatch.com/story/starbucks-is-getting-customers-back-into-its-stores-faster-than-expected-f4ee80ab?mod=mw_rss_topstories" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">UAEがOPEC脱退</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bearish">弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>UAEがOPEC脱退を発表した。</li>
+      
+      <li>   この決定はOPECのパートナーを驚かせた。</li>
+      
+      <li>   供給調整による原油価格管理能力が低下する。</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 03:48 UTC</span>
+      <a href="https://www.bloomberg.com/news/videos/2026-04-29/understanding-the-uae-s-decision-to-leave-opec-video" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">鉄鉱石価格上昇</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>鉄鉱石価格が1カ月ぶりの高値に近づく</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 03:28 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/iron-ore-advances-as-rising-costs-offset-bhp-cmrg-resolution" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">人民元の躍進</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>貿易戦争や地域紛争の中で、</li>
+      
+      <li>アジアの富の流れが変化している、</li>
+      
+      <li>ブルームバーグのイベントで討論された。</li>
+      
+      <li>アジアの経済動向が注目される</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 03:25 UTC</span>
+      <a href="https://www.bloomberg.com/news/videos/2026-04-29/is-the-yuan-ready-to-meet-the-moment-video" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">台湾に注目</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bearish">弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>中国が台湾を孤立させる可能性を探る。</li>
+      
+      <li>   地域の業界への影響を分析。</li>
+      
+      <li>   シンガポールでのイベントで議論された</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 03:24 UTC</span>
+      <a href="https://www.bloomberg.com/news/videos/2026-04-29/keeping-an-eye-on-taiwan-video" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">➡️</span>
+      <div class="headline">株式市場の復帰</div>
+    </div>
+    <div class="tags">
+      <span class="tag">米国株</span>
+      <span class="tag impact-neutral">中立</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>S&amp;P 500は過去最高値に戻った</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>MarketWatch &nbsp;|&nbsp; 22:31 UTC</span>
+      <a href="https://www.marketwatch.com/story/the-stock-markets-comeback-from-the-iran-inspired-selloff-hasnt-been-as-powerful-as-you-might-think-6138bbec?mod=mw_rss_topstories" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">インド小型株が12年ぶり上昇</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>インドの小型株が上昇中。</li>
+      
+      <li>   12年ぶりの上昇ペース。</li>
+      
+      <li>   収益見通しと評価の改善が要因。</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 03:11 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/indian-small-caps-set-for-best-month-since-2014-after-rare-rally" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">オーストラリアでガス探査</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>オーストラリアのニューサウスウェールズ州で10年ぶりに新しいガス探査地域が開かれる。</li>
+      
+      <li>   エネルギー安全保障を確保するため。</li>
+      
+      <li>   国の人口密度の高い東海岸での不足に備える</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 03:07 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/australian-state-allows-new-gas-exploration-for-first-time-in-decade" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">➡️</span>
+      <div class="headline">アジアの資金流れの変化</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-neutral">中立</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>アジアの資金流れが変化している</li>
+      
+      <li>貿易戦争や地域紛争の影響</li>
+      
+      <li>アジアの富の流れの戦略的シフト</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 03:04 UTC</span>
+      <a href="https://www.bloomberg.com/news/videos/2026-04-29/where-asia-s-money-moves-next-video" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">UAEがOPEC離脱</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bearish">弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>UAEがOPEC離脱を決定した。</li>
+      
+      <li>OPECの石油価格管理能力が低下する。</li>
+      
+      <li>UAEとサウジアラビアの対立が原因。</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 02:56 UTC</span>
+      <a href="https://www.bloomberg.com/news/videos/2026-04-29/why-the-uae-opec-rift-was-years-in-the-making-video" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">インドの猛暑</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>インドの猛暑によりエアコンや飲料の需要が高まり、</li>
+      
+      <li>   関連株が上昇した。</li>
+      
+      <li>   投資家は猛暑を構造的なトレンドとして見なしている。</li>
+      
+      <li>   これは、将来の需要増加を予測していることを示唆している。</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 02:46 UTC</span>
+      <a href="https://www.bloomberg.com/news/newsletters/2026-04-29/ac-firms-beverage-makers-rally-as-summer-gets-harsher-maruti-misses-estimates" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">米投資家の懸念</div>
+    </div>
+    <div class="tags">
+      <span class="tag">米国株</span>
+      <span class="tag impact-bearish">弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>チップ株の下落が続く</li>
+      
+      <li>市場への影響が心配される</li>
+      
+      <li>下落が広がる可能性</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>MarketWatch &nbsp;|&nbsp; 21:52 UTC</span>
+      <a href="https://www.marketwatch.com/story/this-is-the-most-critical-question-facing-u-s-investors-right-now-and-it-has-nothing-to-do-with-iran-45bc8f2e?mod=mw_rss_topstories" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">フィリピン国債から撤退</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bearish">弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>Mirova Green Fundがフィリピン国債から撤退した。</li>
+      
+      <li>   汚職スキャンダルが原因。</li>
+      
+      <li>   投資家が汚職プロジェクトを間接的に支援していた可能性がある</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 02:30 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/mirova-green-fund-exits-philippine-debt-after-corruption-scandal" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">➡️</span>
+      <div class="headline">AI投資の地位低下</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-neutral">中立</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>UBSのHartmut Isselがホルムズ海峡封鎖について語る。</li>
+      
+      <li>AIテーマがポートフォリオに与える影響。</li>
+      
+      <li>投資戦略の多様化が進む</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 02:10 UTC</span>
+      <a href="https://www.bloomberg.com/news/videos/2026-04-29/ai-is-no-longer-the-only-game-in-town-ubs-says-video" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">中国のLNG輸入量が8年ぶり低水準</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bearish">弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>中国のLNG輸入量は8年ぶり低水準に落ち込む見込みです。</li>
+      
+      <li>   中東戦争により高騰した価格が需要を抑制しています。</li>
+      
+      <li>   これはKplerの船舶追跡データに基づく予測です。</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 02:01 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/china-s-april-lng-imports-set-to-hit-eight-year-low-kpler-says" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">AIラリーが半導体供給链に波及</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>AIラリーがアジアで拡大中です。</li>
+      
+      <li>   供給链に波及が広がっています。</li>
+      
+      <li>   新規の勝者が現れています。</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 02:00 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/ai-rally-ripples-through-chip-supply-chain-minting-new-winners" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">MUFGがインド不動産に進出</div>
+    </div>
+    <div class="tags">
+      <span class="tag">先物</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>MUFGはインドの不動産会社への融資を開始する。</li>
+      
+      <li>   インドの低税率地域での外国為替先物取引を拡大する。</li>
+      
+      <li>   世界で最も急成長している主要経済国での存在感を高める</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 01:48 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/mufg-to-foray-into-indian-real-estate-expand-forex-derivatives" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">➡️</span>
+      <div class="headline">韓国、プライベートクレジットの審査強化</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-neutral">中立</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>韓国金融当局は、海外プライベートクレジットへのリスクを調査している。</li>
+      
+      <li>   全ての分野を対象としている。</li>
+      
+      <li>   グローバルでのプライベートクレジットへの懸念から</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 01:32 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/korea-ramps-up-private-credit-scrutiny-to-gauge-vulnerabilities" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">➡️</span>
+      <div class="headline">ゴールドマン、AnthropicのAIアクセス停止</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-neutral">中立</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>ゴールドマン・サックスの香港スタッフが、</li>
+      
+      <li>AnthropicのClaudeにアクセスできなくなった。</li>
+      
+      <li>ClaudeはAIエージェントで、</li>
+      
+      <li>ソフトウェアの開発を支援する。</li>
+      
+      <li>この変更の理由は不明</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 01:26 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/goldman-staff-in-hong-kong-lose-access-to-anthropic-s-claude" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">オーストラリア、天然ガス輸出契約維持</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>オーストラリアは天然ガス輸出契約を維持する。</li>
+      
+      <li>   エネルギー危機の際に契約を変更すると投資が減り、燃料の安全保障が損なわれる。</li>
+      
+      <li>   政府はエネルギー供給の安定を優先する。</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 01:22 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/albanese-says-australia-won-t-undermine-natural-gas-export-contracts" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">化石燃料の復活</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bearish">弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>中国での化石燃料の使用が増加した。</li>
+      
+      <li>   クリーンエネルギーの成長が遅れた。</li>
+      
+      <li>   天候変動とグリッド制約が要因</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 01:19 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/china-s-gentle-winds-allow-fossil-fuel-power-to-make-a-comeback" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔽</span>
+      <div class="headline">BYDの借入が急増</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bearish">弱気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>BYDの借入が大幅に増加した。</li>
+      
+      <li>   借入の増加は、収益の低下によるもの。</li>
+      
+      <li>   会社の財務状況に影響を与える可能性がある</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 10:43 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-28/byd-posts-lowest-quarterly-profit-in-years-as-price-war-rages-on" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">台湾株式市場がカナダを上回る</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>台湾の株式市場はカナダを上回った。</li>
+      
+      <li>   第6位の座に就いた。</li>
+      
+      <li>   人工知能関連株の需要が高かった</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 00:47 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/taiwan-overtakes-canada-as-world-s-sixth-largest-stock-market" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">オーストラリアのウッズサイド</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>ウッズサイド・エナジー・グループは、将来の四半期にLNG価格の上昇が収益を押し上げることを予想している。</li>
+      
+      <li>   供給契約のタイムラグが要因である。</li>
+      
+      <li>   収益の増加が見込まれる</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 00:42 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/australia-s-woodside-sees-higher-lng-prices-boosting-results" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <span class="impact">🔼</span>
+      <div class="headline">アクマンのファンドIPO</div>
+    </div>
+    <div class="tags">
+      <span class="tag">マクロ</span>
+      <span class="tag impact-bullish">強気</span>
+    </div>
+    
+    <ul class="summary">
+      
+      <li>アクマンのファンドIPOが50億ドルを調達した。</li>
+      
+      <li>   長期投資の戦略を強化する。</li>
+      
+      <li>   バフェット氏の投資スタイルに影響を受けた戦略</li>
+      
+    </ul>
+    
+    <div class="card-footer">
+      <span>Bloomberg Markets &nbsp;|&nbsp; 00:29 UTC</span>
+      <a href="https://www.bloomberg.com/news/articles/2026-04-29/ackman-s-fund-ipo-raises-5-billion-for-permanent-capital-plan" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+  
+
+  <footer>
+    <p>デイリー金融ニュース &mdash; Powered by Groq (llama-3.3-70b) &amp; GitHub Pages</p>
+    <p><a href="https://kazuki922.github.io/trading/feed.xml" style="color:var(--accent)">📡 feed.xml</a></p>
+  </footer>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/trading/sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
