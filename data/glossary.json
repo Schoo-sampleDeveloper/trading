@@ -23,18 +23,23 @@
   },
   "金利": {
     "definition": "お金を借りる際の利子率",
-    "example": "金利が高いと、借り入れコストが増える",
+    "example": "住宅ローンの金利が上昇した場合、借り入れ額が増加する",
     "articles": [
       {
         "date": "2026-04-29",
         "headline": "日銀が3会合連続で金利据え置き",
         "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE90WTRyVDRNbk1rV3J0NllEaFpvdWRMZ0VpN1BnZWk1ZlRKNkFFNTBLS3h4NGxBQVM4SHZxRm50WV9ocnRVMzZrem5wVVI1ZFBOWDZ5MUpB?oc=5"
+      },
+      {
+        "date": "2026-04-30",
+        "headline": "日銀利上げ見送りでも住宅ローン金利上昇への備え不可欠",
+        "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNaTBfYWJ5LWVDTGhPcGpYLXUyLXVwRjJCOWowWVlhRUFTbTZUNE10SXdLMDB3Um5uRTlTWlZHVmVocHlQaWVuTmNTUDNqdDFaYzFCTGxRcFVlLXdnc3NTNEVpcUl6clJnZDFSbkxvM1FBdmlBa3I2MWZyVUp0REUyU3pqTnpHS3c0V3pFVElBRGx5RXJTTm9KQzhGZjk1UUJyOXd0d19B?oc=5"
       }
     ]
   },
   "利上げ": {
     "definition": "金利を上げること",
-    "example": "日銀が利上げを行うと、金利が上昇する",
+    "example": "Fedが利上げを実施すると、金利が上昇する",
     "articles": [
       {
         "date": "2026-04-29",
@@ -50,6 +55,11 @@
         "date": "2026-04-29",
         "headline": "日銀が利上げを見送り",
         "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4xb2YxbmM1N2wycW5melAzQ2F5Xzllb01qUFRzbFN0V1FIQ210MkdXcnlBQmpmSDJXN1hJM2RKeTFNNUw3VlFIRG9XUHVHaUZBVkJCckNIN2dva193NUpxdTBvMnZ4dE0?oc=5"
+      },
+      {
+        "date": "2026-04-30",
+        "headline": "米国債が下落、2027年に利上げの可能性が浮上",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/us-treasury-yields-hit-highest-levels-since-march-as-oil-surges"
       }
     ]
   },
@@ -142,8 +152,8 @@
     ]
   },
   "OPEC": {
-    "definition": "石油輸出国機構。世界の主要な石油生産国が加盟する国際組織で、石油価格の管理を目的とする。",
-    "example": "サウジアラビア、ロシア、イランなどがOPECの主要な加盟国である。",
+    "definition": "石油輸出国機構。世界の主要な石油生産国が加盟し、石油生産量を調整する。",
+    "example": "OPEC加盟国は、世界の石油生産量の約40%を占める。",
     "articles": [
       {
         "date": "2026-04-29",
@@ -154,6 +164,11 @@
         "date": "2026-04-29",
         "headline": "UAEがOPEC離脱、石油価格への影響",
         "link": "https://www.bloomberg.com/news/videos/2026-04-29/why-the-uae-opec-rift-was-years-in-the-making-video"
+      },
+      {
+        "date": "2026-04-30",
+        "headline": "トランプ大統領「UAEのOPEC離脱でエネルギー価格下落」",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/trump-hails-uae-s-exit-from-opec-says-will-lower-energy-prices"
       }
     ]
   },
@@ -335,6 +350,279 @@
         "date": "2026-04-29",
         "headline": "韓国、プライベートクレジットのリスク検証を強化",
         "link": "https://www.bloomberg.com/news/articles/2026-04-29/korea-ramps-up-private-credit-scrutiny-to-gauge-vulnerabilities"
+      }
+    ]
+  },
+  "ユーロ債券": {
+    "definition": "ユーロ建てで発行される債券",
+    "example": "日本企業が欧州の投資家から資金を調達するために発行する債券",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "日本のユーロ債券販売が歴史的最高を記録",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/japan-s-record-sales-of-euro-bonds-show-historic-funding-shift"
+      }
+    ]
+  },
+  "連邦準備制度理事会": {
+    "definition": "米国の中央銀行。金融政策を決定する上で重要な役割を果たす。",
+    "example": "連邦準備制度理事会は、利率を調整して経済成長を促進する。",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "ジェローム・パウエルが連邦準備制度理事会を去る時期",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/when-will-jerome-powell-leave-the-fed-video"
+      }
+    ]
+  },
+  "連邦準備制度理事会（Fed）": {
+    "definition": "米国の中央銀行で、金融政策を担当する",
+    "example": "連邦準備制度理事会は、利率を調整して経済を安定させる",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "パウエル議長、連邦準備制度理事会に留まる",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/powell-says-he-has-no-choice-but-to-stay-at-fed-video"
+      }
+    ]
+  },
+  "原油": {
+    "definition": "石油を採掘した後の、まだ精製されていない状態の石油",
+    "example": "原油は、ガソリンや軽油などの燃料に精製される",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "原油価格、2022年6月以来の高値に",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/brent-oil-hits-highest-since-june-2022-on-us-iran-stalemate"
+      }
+    ]
+  },
+  "クローズドエンドファンド": {
+    "definition": "一定期間、資金を運用する投資信託の形態",
+    "example": "Pershing Square USAはクローズドエンドファンドの一例である",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "ビル・アクマンのPershing Square USA、IPO後16%下落",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/ackman-s-5-billion-pershing-ipo-squeaks-across-the-finish-line"
+      }
+    ]
+  },
+  "ローン": {
+    "definition": "金利を付けて一定期間返済する借入金",
+    "example": "SoFiは学生ローンや個人ローンを提供している",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "SoFi、ローン記録を樹立するも株価は下落",
+        "link": "https://www.marketwatch.com/story/sofi-just-set-a-slew-of-lending-records-but-heres-why-its-stock-is-falling-4c7801a6?mod=mw_rss_topstories"
+      }
+    ]
+  },
+  "メガカップ企業": {
+    "definition": "時価総額が非常に大きい企業",
+    "example": "Apple、Amazonなどの大手企業",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "米国株式は混沌、原油価格が急上昇",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/us-stock-futures-edge-up-on-tech-gains-before-megacap-earnings"
+      }
+    ]
+  },
+  "FRB": {
+    "definition": "連邦準備制度(米国の中央銀行)",
+    "example": "FRBは、米国の金融政策を決定する機関である",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "パウエルFRB議長、トランプ氏の圧力に抵抗",
+        "link": "https://www.marketwatch.com/story/powell-says-hell-stay-at-fed-as-governor-after-his-term-as-chair-ends-in-mid-may-c906c044?mod=mw_rss_topstories"
+      },
+      {
+        "date": "2026-04-30",
+        "headline": "ブラックロックのローゼンバーグ氏、分裂したFRBは継続",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/divided-fed-likely-to-continue-blackrock-s-rosenberg-video"
+      }
+    ]
+  },
+  "ホルムズ海峡": {
+    "definition": "ペルシャ湾とオマーン湾を結ぶ、世界的に重要な海峡",
+    "example": "約20%の世界の石油輸出がこの海峡を通過する",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "オイル価格上昇、ホルムズ海峡封鎖続く",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/latest-oil-market-news-and-analysis-for-april-30"
+      }
+    ]
+  },
+  "原油価格": {
+    "definition": "原油の価格。世界経済の成長に大きな影響を与える。",
+    "example": "原油価格の高騰は、ガソリンの価格を押し上げる。",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "アジア株式市場が下落、原油価格高騰の影響",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/stock-market-today-dow-s-p-live-updates"
+      }
+    ]
+  },
+  "CFO": {
+    "definition": "最高財務責任者。企業の財務戦略を担当する。",
+    "example": "フォードのCFOはシェリー・ハウスである。",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "フォードのCFO、第1四半期の業績とガス価格の影響について語る",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/ford-cfo-on-earnings-outlook-and-impact-of-gas-prices-video"
+      }
+    ]
+  },
+  "高頻度取引": {
+    "definition": "高速なアルゴリズムを使用して、短時間で大量の取引を行う手法",
+    "example": "高頻度取引は、取引速度を高めるために、高速なコンピューターシステムを使用する",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "インドの高頻度取引ユニコーン、Gravitonがグローバル進出",
+        "link": "https://www.bloomberg.com/news/features/2026-04-29/india-s-hft-unicorn-graviton-goes-global-as-foreign-rivals-dial-up-competition"
+      }
+    ]
+  },
+  "ペントハウス": {
+    "definition": "高層ビルの最上階に位置する、高級な住宅",
+    "example": "マンハッタンの高級ペントハウス",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "グリフィンとマムダニの対立が60億ドルタワーの計画を危うくする",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/mamdani-vs-griffin-fight-puts-6-billion-tower-at-risk-video"
+      },
+      {
+        "date": "2026-04-30",
+        "headline": "ケン・グリフィンとマムダニの対立が600万ドルのタワーを危うくする",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/mamdani-vs-griffin-fight-puts-6-million-tower-at-risk-video"
+      }
+    ]
+  },
+  "エネルギー復興": {
+    "definition": "エネルギー産業の発展と成長",
+    "example": "ベネズエラのエネルギー復興は、外国企業の投資を誘致するための重要な要素である。",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "BPとベネズエラ、沖合ガス探査で合意",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/bp-and-venezuela-sign-pact-to-explore-for-offshore-gas"
+      }
+    ]
+  },
+  "M&A (合併・買収)": {
+    "definition": "企業が他の企業を買収したり合併したりすること",
+    "example": "企業Aが企業Bを買収する",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "Bloomberg Deals 4/29/2026: 世界的市場を形作る企業取引",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/bloomberg-deals-4-29-2026-video"
+      }
+    ]
+  },
+  "M&A": {
+    "definition": "企業の合併・買収",
+    "example": "日本航空と全日本空輸の合併",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "戦争と燃料価格高が旅行業界にM&Aをもたらす",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/war-fuel-prices-seen-steering-travel-industry-toward-m-a"
+      },
+      {
+        "date": "2026-04-30",
+        "headline": "LionTreeのアドバイザー、旅行関連M&Aで小規模・中規模企業に機会",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/opportunity-in-small-midcap-travel-m-a-liontree-video"
+      },
+      {
+        "date": "2026-04-30",
+        "headline": "ボストンコンサルティング、航空会社のM&A増加を予測",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/significant-airline-m-a-on-the-horizon-mccaleb-video"
+      }
+    ]
+  },
+  "ブランドの強さ": {
+    "definition": "ブランドの評判や認知度を示す指標",
+    "example": "高級ホテルのブランドは、ブランドの強さが高いと言える",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "Cain CEO: 旅行ブランドへの投資の重要性",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/need-to-invest-in-distinctive-travel-brands-cain-ceo-video"
+      }
+    ]
+  },
+  "旅行需要": {
+    "definition": "旅行する人の数や旅行の頻度",
+    "example": "旅行需要が強いと、航空会社の予約が増える",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "ジェットブルー、ブッキングが旅行需要について混合したアップデートを発表",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/jetblue-booking-give-mixed-update-on-travel-demand-video"
+      }
+    ]
+  },
+  "対称的政策": {
+    "definition": "経済が過熱した場合に利上げを行うだけでなく、経済が低迷した場合にも利下げを行うという考え方",
+    "example": "例えば、経済が低迷した場合に、利下げを行うことで経済を刺激する",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "米連邦準備制度理事会（Fed）が対称的政策へ、JPMorganのMichele氏",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/fed-moving-towards-symmetrical-policy-jpm-s-michele-video"
+      }
+    ]
+  },
+  "買収": {
+    "definition": "企業が他の企業を買い取ること",
+    "example": "エリ・リリーのアジャックス・セラピューティクス買収",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "サンファーマ、ライリーが最新のヘルスケア・デアルラッシュを牽引",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/sun-pharma-lilly-lead-latest-healthcare-deal-rush-video"
+      }
+    ]
+  },
+  "貿易": {
+    "definition": "国と国との間で行われる商品やサービスの交換",
+    "example": "カナダとアメリカの間で行われる貿易",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "カナダ鉄道の収益が減少、貿易・政治的緊張が影響",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/cn-rail-shares-drop-the-most-since-2021-amid-macro-uncertainty"
+      }
+    ]
+  },
+  "サプライチェーン": {
+    "definition": "企業が製品を生産するために必要な資源や部品を調達するプロセス",
+    "example": "自動車メーカーが部品を調達するプロセス",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "原油高と円安の二重苦",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBZcnQ5X1lXbURRYzhDckkyeDlJVGQ1VlFrTFlla0phX3dqdEhtUWdPc3BVYUhQMnV1ZXlpcElGN2lZMFV3Z0Q3ZWVaUWE5MHBYT0d1UFFoSEJCZVRIT2NDLXlramgtX29FZUxDZXlQOGIwdXJBb0taa1I1VndSTkk?oc=5"
+      }
+    ]
+  },
+  "インフレ圧力": {
+    "definition": "物価やサービス価格が上昇する圧力",
+    "example": "原油価格の高騰がインフレ圧力の増大につながる",
+    "articles": [
+      {
+        "date": "2026-04-30",
+        "headline": "NY株が280ドル安、原油高・利下げ観測後退で円安",
+        "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1YVXRxT2VybjN5b1c1VlUzSkRwdXNvYUFBLUtYa2J0TFUwaUV5TTJXWk51V2R0dmg1MlpkU0hrVVd1R2VKTFJlRzBzN0tQWFRpdmRySlV1WGRja1BiVHllWnRrQ19LMHFURVAzLQ?oc=5"
       }
     ]
   }
