@@ -1,1181 +1,874 @@
+
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>デイリー金融ニュース 2026-04-29</title>
-  <link rel="manifest" href="https://kazuki922.github.io/trading/manifest.json">
+  <link rel="manifest" href="https://example.github.io/trading/manifest.json">
   <meta name="theme-color" content="#0d1117">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="金融ニュース">
   <style>
     :root {
-      --bg: #0d1117;
-      --bg2: #161b22;
-      --bg3: #21262d;
-      --border: #30363d;
-      --text: #e6edf3;
-      --text2: #8b949e;
-      --accent: #58a6ff;
-      --green: #3fb950;
-      --red: #f85149;
-      --yellow: #d29922;
-      --tag-bg: #1f2937;
+      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --bg4: #2d333b;
+      --border: #30363d; --text: #e6edf3; --text2: #8b949e;
+      --accent: #58a6ff; --green: #3fb950; --red: #f85149;
+      --yellow: #d29922; --purple: #bc8cff; --tag-bg: #1f2937;
+      --card-hover: #1c2230;
     }
     @media (prefers-color-scheme: light) {
       :root {
-        --bg: #f6f8fa;
-        --bg2: #ffffff;
-        --bg3: #f0f2f5;
-        --border: #d0d7de;
-        --text: #1f2328;
-        --text2: #656d76;
-        --accent: #0969da;
-        --green: #1a7f37;
-        --red: #cf222e;
-        --yellow: #9a6700;
-        --tag-bg: #ddf4ff;
+        --bg: #f6f8fa; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e8ecf0;
+        --border: #d0d7de; --text: #1f2328; --text2: #656d76;
+        --accent: #0969da; --green: #1a7f37; --red: #cf222e;
+        --yellow: #9a6700; --purple: #8250df; --tag-bg: #ddf4ff;
+        --card-hover: #f0f6ff;
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg); color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 16px;
+      font-size: 16px; line-height: 1.7;
     }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 800px; margin: 0 auto; padding: 12px 16px; }
+
+    /* Header */
     header {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
     }
-    header h1 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 4px;
+    header h1 { font-size: 1.35rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    header .meta { font-size: 0.85rem; color: var(--text2); }
+    .header-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 7px 16px; border-radius: 20px; font-size: 0.85rem;
+      font-weight: 600; cursor: pointer; border: none; min-height: 44px;
+      transition: opacity .15s; text-decoration: none;
     }
-    header .meta {
-      font-size: 0.85rem;
-      color: var(--text2);
+    .btn:hover { opacity: .85; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
+
+    /* Theme box */
+    .theme-box {
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+      border: 1px solid var(--accent); border-radius: 12px;
+      padding: 16px 18px; margin-bottom: 14px;
     }
-    header .feed-link {
-      margin-top: 10px;
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      text-decoration: none;
-      font-weight: 600;
+    .theme-box h2 { font-size: .95rem; color: var(--accent); margin-bottom: 6px; }
+    .theme-text { font-size: 0.9rem; color: var(--text); white-space: pre-wrap; }
+
+    /* Section title */
+    .section-title {
+      font-size: 1.05rem; font-weight: 700; color: var(--text2);
+      margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
     }
-    h2 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text2);
-      margin: 24px 0 12px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid var(--border);
+    .badge {
+      background: var(--bg3); color: var(--text2);
+      font-size: 0.72rem; padding: 2px 8px; border-radius: 10px;
+      border: 1px solid var(--border); font-weight: 600;
     }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 14px; align-items: center;
+    }
+    .filter-btn {
+      padding: 6px 14px; border-radius: 16px; font-size: 0.83rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 36px;
+      transition: all .15s;
+    }
+    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* Category nav */
+    .cat-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 8px 0; margin-bottom: 14px;
+    }
+    .cat-nav-inner {
+      max-width: 800px; margin: 0 auto; padding: 0 16px;
+      display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+    }
+    .cat-nav-inner::-webkit-scrollbar { display: none; }
+    .cat-link {
+      white-space: nowrap; padding: 5px 12px; border-radius: 14px;
+      font-size: 0.8rem; font-weight: 600;
+      background: var(--bg3); color: var(--text2);
+      border: 1px solid var(--border); min-height: 36px;
+      display: inline-flex; align-items: center; transition: all .15s;
+    }
+    .cat-link:hover { background: var(--bg4); color: var(--text); text-decoration: none; }
+
+    /* Cards */
     .card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 14px;
-      transition: border-color 0.2s;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; margin-bottom: 10px;
+      transition: border-color .2s, background .2s; overflow: hidden;
     }
-    .card:hover { border-color: var(--accent); }
+    .card:hover { border-color: var(--accent); background: var(--card-hover); }
     .card.featured { border-left: 3px solid var(--accent); }
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 10px;
+    .card[data-importance="5"] { border-left: 3px solid var(--red); }
+    .card[data-importance="4"] { border-left: 3px solid var(--yellow); }
+
+    .card-summary {
+      padding: 14px 16px; cursor: pointer;
+      display: flex; gap: 10px; align-items: flex-start;
     }
-    .impact {
-      font-size: 1.2rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .headline {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.4;
-    }
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 8px 0;
-    }
+    .impact-emoji { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .card-summary-body { flex: 1; min-width: 0; }
+    .headline { font-size: 1.0rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
     .tag {
-      background: var(--tag-bg);
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      background: var(--tag-bg); color: var(--accent);
+      font-size: 0.72rem; font-weight: 600;
+      padding: 2px 8px; border-radius: 10px; border: 1px solid var(--border);
     }
-    .tag.impact-bullish { color: var(--green); border-color: var(--green); }
-    .tag.impact-bearish { color: var(--red); border-color: var(--red); }
-    .tag.impact-neutral { color: var(--yellow); border-color: var(--yellow); }
-    .summary {
-      font-size: 0.92rem;
-      color: var(--text2);
-      margin: 8px 0;
+    .tag.impact-強気 { color: var(--green); border-color: var(--green); }
+    .tag.impact-弱気 { color: var(--red); border-color: var(--red); }
+    .tag.impact-中立 { color: var(--yellow); border-color: var(--yellow); }
+    .tag.imp-5 { background: rgba(248,81,73,.12); color: var(--red); border-color: var(--red); }
+    .tag.imp-4 { background: rgba(210,153,34,.12); color: var(--yellow); border-color: var(--yellow); }
+    .stars { color: var(--yellow); font-size: 0.8rem; letter-spacing: 1px; }
+    .what-preview {
+      font-size: .86rem; color: var(--text2); margin-top: 5px;
+      overflow: hidden; display: -webkit-box;
+      -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     }
-    .summary li {
-      list-style: none;
-      padding-left: 1em;
-      position: relative;
+    .expand-hint {
+      font-size: .78rem; color: var(--accent); margin-top: 5px;
+      display: flex; align-items: center; gap: 3px;
     }
-    .summary li::before {
-      content: "▸";
-      position: absolute;
-      left: 0;
-      color: var(--accent);
+    .expand-icon { transition: transform .2s; display: inline-block; }
+    .card.open .expand-icon { transform: rotate(90deg); }
+
+    .card-detail { display: none; border-top: 1px solid var(--border); padding: 14px 16px; }
+    .card.open .card-detail { display: block; }
+
+    .detail-section { margin-bottom: 14px; }
+    .detail-label {
+      font-size: 0.8rem; font-weight: 700; color: var(--text2);
+      margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
     }
-    .explanation {
-      background: var(--bg3);
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 0.88rem;
-      color: var(--text);
-      margin: 10px 0;
-      border-left: 3px solid var(--yellow);
+    .detail-body { font-size: 0.9rem; color: var(--text); }
+
+    .term-cards { display: flex; flex-direction: column; gap: 7px; }
+    .term-card {
+      background: var(--bg3); border-radius: 8px;
+      padding: 10px 12px; border: 1px solid var(--border);
     }
-    .explanation::before {
-      content: "📌 ";
+    .term-name { font-weight: 700; font-size: .88rem; }
+    .term-def { font-size: .85rem; color: var(--text); margin-top: 3px; }
+    .term-ex { font-size: .82rem; color: var(--text2); margin-top: 2px; }
+
+    .impact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;
     }
+    @media (max-width: 480px) { .impact-grid { grid-template-columns: 1fr; } }
+    .impact-cell {
+      background: var(--bg3); border-radius: 8px;
+      padding: 8px 10px; border: 1px solid var(--border); font-size: .85rem;
+    }
+    .impact-cell-label { font-size: .75rem; color: var(--text2); margin-bottom: 3px; font-weight: 700; }
+    .asset-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .asset-chip {
+      padding: 4px 10px; border-radius: 12px; font-size: .82rem;
+      background: var(--bg4); border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    .persp-tabs { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
+    .persp-tab {
+      padding: 5px 12px; border-radius: 12px; font-size: .78rem; font-weight: 600;
+      cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 36px;
+      display: inline-flex; align-items: center;
+    }
+    .persp-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .persp-panel { display: none; font-size: .88rem; color: var(--text); }
+    .persp-panel.active { display: block; }
+    .persp-note { font-size: .75rem; color: var(--text2); margin-top: 6px; font-style: italic; }
+
+    .concept-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .concept-chip {
+      padding: 4px 12px; border-radius: 12px; font-size: .8rem;
+      background: var(--bg3); border: 1px solid var(--border); color: var(--text2);
+    }
+
     .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-      font-size: 0.8rem;
-      color: var(--text2);
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .card-footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-    .card-footer a:hover { text-decoration: underline; }
-    footer {
-      text-align: center;
-      color: var(--text2);
-      font-size: 0.8rem;
-      margin-top: 40px;
-      padding: 20px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 16px; background: var(--bg3);
+      font-size: 0.78rem; color: var(--text2); flex-wrap: wrap; gap: 4px;
       border-top: 1px solid var(--border);
     }
+
+    /* Category sections */
+    .cat-section { margin-bottom: 20px; }
+    .cat-section-header {
+      display: flex; align-items: center; gap: 8px;
+      cursor: pointer; padding: 10px 0; user-select: none;
+    }
+    .cat-section-title { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .cat-toggle { color: var(--text2); transition: transform .2s; }
+    .cat-section.collapsed .cat-toggle { transform: rotate(-90deg); }
+    .cat-section.collapsed .cat-body { display: none; }
+
+    /* Filter hidden */
+    .card.hidden-by-filter { display: none; }
+    .cat-section.all-hidden { display: none; }
+
+    /* Preferences form */
+    #tomorrow-preferences {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin-top: 24px;
+    }
+    #tomorrow-preferences h2 { font-size: 1.05rem; color: var(--accent); margin-bottom: 6px; }
+    #tomorrow-preferences > p { font-size: .88rem; color: var(--text2); margin-bottom: 16px; }
+    .pref-group { margin-bottom: 16px; }
+    .pref-label { font-size: .85rem; font-weight: 700; color: var(--text2); margin-bottom: 8px; display: block; }
+    .cat-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 480px) { .cat-checkboxes { grid-template-columns: 1fr; } }
+    .cat-checkbox-item {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg3); border: 2px solid var(--border);
+      border-radius: 10px; padding: 10px 12px; cursor: pointer;
+      min-height: 44px; font-size: .88rem; transition: all .15s; user-select: none;
+    }
+    .cat-checkbox-item:hover { border-color: var(--accent); }
+    .cat-checkbox-item.selected { border-color: var(--accent); background: rgba(88,166,255,.08); color: var(--accent); }
+    .cat-checkbox-item input[type=checkbox] { display: none; }
+    .kw-input {
+      width: 100%; padding: 10px 14px; border-radius: 10px;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text); font-size: .9rem; font-family: inherit; min-height: 44px;
+    }
+    .kw-input:focus { outline: none; border-color: var(--accent); }
+    .count-options { display: flex; gap: 8px; flex-wrap: wrap; }
+    .count-option {
+      padding: 8px 18px; border-radius: 20px; border: 2px solid var(--border);
+      background: var(--bg3); color: var(--text2); cursor: pointer;
+      font-size: .88rem; min-height: 44px; display: flex; align-items: center;
+      transition: all .15s; font-weight: 600; user-select: none;
+    }
+    .count-option.selected { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,.08); }
+    .pref-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .pref-note { font-size: .75rem; color: var(--text2); margin-top: 10px; line-height: 1.5; }
+    .pref-status {
+      font-size: .85rem; margin-top: 10px; padding: 8px 12px;
+      border-radius: 8px; display: none;
+    }
+    .pref-status.success { background: rgba(63,185,80,.12); color: var(--green); display: block; }
+    .pref-status.error { background: rgba(248,81,73,.12); color: var(--red); display: block; }
+
+    /* Footer */
+    footer {
+      text-align: center; color: var(--text2); font-size: 0.8rem;
+      margin-top: 40px; padding: 20px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .disclaimer {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px; margin-bottom: 14px;
+      text-align: left; font-size: .82rem; line-height: 1.6;
+    }
+
+    /* Glossary link bar */
+    .glossary-link-bar { text-align: center; margin: 18px 0; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>📈 デイリー金融ニュース</h1>
-    <div class="meta">2026-04-29 &nbsp;|&nbsp; 更新: 2026/04/29 13:00 JST</div>
-    <a class="feed-link" href="https://kazuki922.github.io/trading/feed.xml">📡 RSSを購読</a>
-  </header>
 
-  <h2>⭐ 今日の注目 TOP7</h2>
-  
-  <div class="card featured">
-    <div class="card-header">
-      <span class="impact">➡️</span>
-      <div class="headline">日銀が金利据え置き</div>
-    </div>
-    <div class="tags">
-      <span class="tag">日本株</span>
-      <span class="tag impact-neutral">➡️ 中立</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>日銀が3会合連続で金利据え置きを行った。</li>
-      
-      <li>委員3人が利上げを主張した。</li>
-      
-      <li>植田総裁は「緊急度はない」と述べた</li>
-      
-    </ul>
-    
-    
-    <div class="explanation">金利据え置きは経済への影響が少ない</div>
-    
-    <div class="card-footer">
-      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 01:01 UTC</span>
-      <a href="https://news.google.com/rss/articles/CBMiVkFVX3lxTE90WTRyVDRNbk1rV3J0NllEaFpvdWRMZ0VpN1BnZWk1ZlRKNkFFNTBLS3h4NGxBQVM4SHZxRm50WV9ocnRVMzZrem5wVVI1ZFBOWDZ5MUpB?oc=5" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card featured">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">元の夏の弱さ</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bearish">🔽 弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>元の夏の弱さが早く訪れる</li>
-      
-    </ul>
-    
-    
-    <div class="explanation">中国企業の配当が原因</div>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 23:50 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-28/yuan-rally-seen-facing-summer-test-early-as-record-payouts-loom" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card featured">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">日銀が利上げ見送り</div>
-    </div>
-    <div class="tags">
-      <span class="tag">日本株</span>
-      <span class="tag impact-bearish">🔽 弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>日銀が利上げを見送った。</li>
-      
-      <li>   一部の委員が異議を唱えた。</li>
-      
-      <li>   物価上振れへの警戒が強まっている</li>
-      
-    </ul>
-    
-    
-    <div class="explanation">利上げとは金利を上げること</div>
-    
-    <div class="card-footer">
-      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 22:30 UTC</span>
-      <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE0tQ0g3UFluZS1tQ3FqRWEydWdlYU1qLTcyeU1QYVBfd3JmU0J6Nml6Vm5ZMnlvNVQyellKVmlkaHhvbmJKa3AwdlJqaVlhUmFhOWw2QVhhUTdfOTF2SkM2QVM5Yy1YVmhuOUxVZE9Zd1ZOOFJVYUE?oc=5" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card featured">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">日銀がインフレ警戒</div>
-    </div>
-    <div class="tags">
-      <span class="tag">日本株</span>
-      <span class="tag impact-bullish">🔼 強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>日銀の植田総裁が記者会見を行った。</li>
-      
-      <li>   インフレ加速を警戒している。</li>
-      
-      <li>   利上げの可能性が浮上した</li>
-      
-    </ul>
-    
-    
-    <div class="explanation">インフレが加速すると、物価が上昇する</div>
-    
-    <div class="card-footer">
-      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 21:21 UTC</span>
-      <a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTE42RHRkNzdJZ3dQUUpkMF9Fb290bGZLSUMzbkJKWUEzOUFFaEp4Q1ZmU2VSczYwODlMcDFVdnNjMW9qRXdwWWlaODM5MUFjZHpYdmk1dEstaw?oc=5" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card featured">
-    <div class="card-header">
-      <span class="impact">➡️</span>
-      <div class="headline">日銀、利上げを見送り</div>
-    </div>
-    <div class="tags">
-      <span class="tag">日本株</span>
-      <span class="tag impact-neutral">➡️ 中立</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>日銀が利上げを見送った。</li>
-      
-      <li>   政権の影響が懸念される。</li>
-      
-      <li>   日本経済への影響が注目される</li>
-      
-    </ul>
-    
-    
-    <div class="explanation">利上げとは金利を上げること</div>
-    
-    <div class="card-footer">
-      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 21:00 UTC</span>
-      <a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4xb2YxbmM1N2wycW5melAzQ2F5Xzllb01qUFRzbFN0V1FIQ210MkdXcnlBQmpmSDJXN1hJM2RKeTFNNUw3VlFIRG9XUHVHaUZBVkJCckNIN2dva193NUpxdTBvMnZ4dE0?oc=5" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card featured">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">スターバックスの復活</div>
-    </div>
-    <div class="tags">
-      <span class="tag">米国株</span>
-      <span class="tag impact-bullish">🔼 強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>スターバックスの売上が予想を上回った。</li>
-      
-      <li>   若者や低所得層の顧客が増えた。</li>
-      
-      <li>   会社は見通しを上方修正した</li>
-      
-    </ul>
-    
-    
-    <div class="explanation">スターバックスは若者や低所得層に人気</div>
-    
-    <div class="card-footer">
-      <span>MarketWatch &nbsp;|&nbsp; 00:21 UTC</span>
-      <a href="https://www.marketwatch.com/story/starbucks-is-getting-customers-back-into-its-stores-faster-than-expected-f4ee80ab?mod=mw_rss_topstories" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card featured">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">UAEがOPEC脱退</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bearish">🔽 弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>UAEがOPEC脱退を発表した。</li>
-      
-      <li>   この決定はOPECのパートナーを驚かせた。</li>
-      
-      <li>   供給調整による原油価格管理能力が低下する。</li>
-      
-    </ul>
-    
-    
-    <div class="explanation">OPECは原油価格を調整する組織</div>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 03:48 UTC</span>
-      <a href="https://www.bloomberg.com/news/videos/2026-04-29/understanding-the-uae-s-decision-to-leave-opec-video" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
+  <div class="container">
 
-  <h2>📰 全ニュース一覧 (30 件)</h2>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">➡️</span>
-      <div class="headline">日銀が金利据え置き</div>
-    </div>
-    <div class="tags">
-      <span class="tag">日本株</span>
-      <span class="tag impact-neutral">中立</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>日銀が3会合連続で金利据え置きを行った。</li>
-      
-      <li>委員3人が利上げを主張した。</li>
-      
-      <li>植田総裁は「緊急度はない」と述べた</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 01:01 UTC</span>
-      <a href="https://news.google.com/rss/articles/CBMiVkFVX3lxTE90WTRyVDRNbk1rV3J0NllEaFpvdWRMZ0VpN1BnZWk1ZlRKNkFFNTBLS3h4NGxBQVM4SHZxRm50WV9ocnRVMzZrem5wVVI1ZFBOWDZ5MUpB?oc=5" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">元の夏の弱さ</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bearish">弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>元の夏の弱さが早く訪れる</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 23:50 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-28/yuan-rally-seen-facing-summer-test-early-as-record-payouts-loom" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">日銀が利上げ見送り</div>
-    </div>
-    <div class="tags">
-      <span class="tag">日本株</span>
-      <span class="tag impact-bearish">弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>日銀が利上げを見送った。</li>
-      
-      <li>   一部の委員が異議を唱えた。</li>
-      
-      <li>   物価上振れへの警戒が強まっている</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 22:30 UTC</span>
-      <a href="https://news.google.com/rss/articles/CBMidkFVX3lxTE0tQ0g3UFluZS1tQ3FqRWEydWdlYU1qLTcyeU1QYVBfd3JmU0J6Nml6Vm5ZMnlvNVQyellKVmlkaHhvbmJKa3AwdlJqaVlhUmFhOWw2QVhhUTdfOTF2SkM2QVM5Yy1YVmhuOUxVZE9Zd1ZOOFJVYUE?oc=5" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">日銀がインフレ警戒</div>
-    </div>
-    <div class="tags">
-      <span class="tag">日本株</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>日銀の植田総裁が記者会見を行った。</li>
-      
-      <li>   インフレ加速を警戒している。</li>
-      
-      <li>   利上げの可能性が浮上した</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 21:21 UTC</span>
-      <a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTE42RHRkNzdJZ3dQUUpkMF9Fb290bGZLSUMzbkJKWUEzOUFFaEp4Q1ZmU2VSczYwODlMcDFVdnNjMW9qRXdwWWlaODM5MUFjZHpYdmk1dEstaw?oc=5" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">➡️</span>
-      <div class="headline">日銀、利上げを見送り</div>
-    </div>
-    <div class="tags">
-      <span class="tag">日本株</span>
-      <span class="tag impact-neutral">中立</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>日銀が利上げを見送った。</li>
-      
-      <li>   政権の影響が懸念される。</li>
-      
-      <li>   日本経済への影響が注目される</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Google News (日銀 金融政策) &nbsp;|&nbsp; 21:00 UTC</span>
-      <a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4xb2YxbmM1N2wycW5melAzQ2F5Xzllb01qUFRzbFN0V1FIQ210MkdXcnlBQmpmSDJXN1hJM2RKeTFNNUw3VlFIRG9XUHVHaUZBVkJCckNIN2dva193NUpxdTBvMnZ4dE0?oc=5" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">スターバックスの復活</div>
-    </div>
-    <div class="tags">
-      <span class="tag">米国株</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>スターバックスの売上が予想を上回った。</li>
-      
-      <li>   若者や低所得層の顧客が増えた。</li>
-      
-      <li>   会社は見通しを上方修正した</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>MarketWatch &nbsp;|&nbsp; 00:21 UTC</span>
-      <a href="https://www.marketwatch.com/story/starbucks-is-getting-customers-back-into-its-stores-faster-than-expected-f4ee80ab?mod=mw_rss_topstories" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">UAEがOPEC脱退</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bearish">弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>UAEがOPEC脱退を発表した。</li>
-      
-      <li>   この決定はOPECのパートナーを驚かせた。</li>
-      
-      <li>   供給調整による原油価格管理能力が低下する。</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 03:48 UTC</span>
-      <a href="https://www.bloomberg.com/news/videos/2026-04-29/understanding-the-uae-s-decision-to-leave-opec-video" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">鉄鉱石価格上昇</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>鉄鉱石価格が1カ月ぶりの高値に近づく</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 03:28 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/iron-ore-advances-as-rising-costs-offset-bhp-cmrg-resolution" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">人民元の躍進</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>貿易戦争や地域紛争の中で、</li>
-      
-      <li>アジアの富の流れが変化している、</li>
-      
-      <li>ブルームバーグのイベントで討論された。</li>
-      
-      <li>アジアの経済動向が注目される</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 03:25 UTC</span>
-      <a href="https://www.bloomberg.com/news/videos/2026-04-29/is-the-yuan-ready-to-meet-the-moment-video" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">台湾に注目</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bearish">弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>中国が台湾を孤立させる可能性を探る。</li>
-      
-      <li>   地域の業界への影響を分析。</li>
-      
-      <li>   シンガポールでのイベントで議論された</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 03:24 UTC</span>
-      <a href="https://www.bloomberg.com/news/videos/2026-04-29/keeping-an-eye-on-taiwan-video" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">➡️</span>
-      <div class="headline">株式市場の復帰</div>
-    </div>
-    <div class="tags">
-      <span class="tag">米国株</span>
-      <span class="tag impact-neutral">中立</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>S&amp;P 500は過去最高値に戻った</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>MarketWatch &nbsp;|&nbsp; 22:31 UTC</span>
-      <a href="https://www.marketwatch.com/story/the-stock-markets-comeback-from-the-iran-inspired-selloff-hasnt-been-as-powerful-as-you-might-think-6138bbec?mod=mw_rss_topstories" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">インド小型株が12年ぶり上昇</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>インドの小型株が上昇中。</li>
-      
-      <li>   12年ぶりの上昇ペース。</li>
-      
-      <li>   収益見通しと評価の改善が要因。</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 03:11 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/indian-small-caps-set-for-best-month-since-2014-after-rare-rally" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">オーストラリアでガス探査</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>オーストラリアのニューサウスウェールズ州で10年ぶりに新しいガス探査地域が開かれる。</li>
-      
-      <li>   エネルギー安全保障を確保するため。</li>
-      
-      <li>   国の人口密度の高い東海岸での不足に備える</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 03:07 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/australian-state-allows-new-gas-exploration-for-first-time-in-decade" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">➡️</span>
-      <div class="headline">アジアの資金流れの変化</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-neutral">中立</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>アジアの資金流れが変化している</li>
-      
-      <li>貿易戦争や地域紛争の影響</li>
-      
-      <li>アジアの富の流れの戦略的シフト</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 03:04 UTC</span>
-      <a href="https://www.bloomberg.com/news/videos/2026-04-29/where-asia-s-money-moves-next-video" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">UAEがOPEC離脱</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bearish">弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>UAEがOPEC離脱を決定した。</li>
-      
-      <li>OPECの石油価格管理能力が低下する。</li>
-      
-      <li>UAEとサウジアラビアの対立が原因。</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 02:56 UTC</span>
-      <a href="https://www.bloomberg.com/news/videos/2026-04-29/why-the-uae-opec-rift-was-years-in-the-making-video" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">インドの猛暑</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>インドの猛暑によりエアコンや飲料の需要が高まり、</li>
-      
-      <li>   関連株が上昇した。</li>
-      
-      <li>   投資家は猛暑を構造的なトレンドとして見なしている。</li>
-      
-      <li>   これは、将来の需要増加を予測していることを示唆している。</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 02:46 UTC</span>
-      <a href="https://www.bloomberg.com/news/newsletters/2026-04-29/ac-firms-beverage-makers-rally-as-summer-gets-harsher-maruti-misses-estimates" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">米投資家の懸念</div>
-    </div>
-    <div class="tags">
-      <span class="tag">米国株</span>
-      <span class="tag impact-bearish">弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>チップ株の下落が続く</li>
-      
-      <li>市場への影響が心配される</li>
-      
-      <li>下落が広がる可能性</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>MarketWatch &nbsp;|&nbsp; 21:52 UTC</span>
-      <a href="https://www.marketwatch.com/story/this-is-the-most-critical-question-facing-u-s-investors-right-now-and-it-has-nothing-to-do-with-iran-45bc8f2e?mod=mw_rss_topstories" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">フィリピン国債から撤退</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bearish">弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>Mirova Green Fundがフィリピン国債から撤退した。</li>
-      
-      <li>   汚職スキャンダルが原因。</li>
-      
-      <li>   投資家が汚職プロジェクトを間接的に支援していた可能性がある</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 02:30 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/mirova-green-fund-exits-philippine-debt-after-corruption-scandal" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">➡️</span>
-      <div class="headline">AI投資の地位低下</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-neutral">中立</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>UBSのHartmut Isselがホルムズ海峡封鎖について語る。</li>
-      
-      <li>AIテーマがポートフォリオに与える影響。</li>
-      
-      <li>投資戦略の多様化が進む</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 02:10 UTC</span>
-      <a href="https://www.bloomberg.com/news/videos/2026-04-29/ai-is-no-longer-the-only-game-in-town-ubs-says-video" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">中国のLNG輸入量が8年ぶり低水準</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bearish">弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>中国のLNG輸入量は8年ぶり低水準に落ち込む見込みです。</li>
-      
-      <li>   中東戦争により高騰した価格が需要を抑制しています。</li>
-      
-      <li>   これはKplerの船舶追跡データに基づく予測です。</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 02:01 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/china-s-april-lng-imports-set-to-hit-eight-year-low-kpler-says" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">AIラリーが半導体供給链に波及</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>AIラリーがアジアで拡大中です。</li>
-      
-      <li>   供給链に波及が広がっています。</li>
-      
-      <li>   新規の勝者が現れています。</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 02:00 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/ai-rally-ripples-through-chip-supply-chain-minting-new-winners" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">MUFGがインド不動産に進出</div>
-    </div>
-    <div class="tags">
-      <span class="tag">先物</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>MUFGはインドの不動産会社への融資を開始する。</li>
-      
-      <li>   インドの低税率地域での外国為替先物取引を拡大する。</li>
-      
-      <li>   世界で最も急成長している主要経済国での存在感を高める</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 01:48 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/mufg-to-foray-into-indian-real-estate-expand-forex-derivatives" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">➡️</span>
-      <div class="headline">韓国、プライベートクレジットの審査強化</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-neutral">中立</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>韓国金融当局は、海外プライベートクレジットへのリスクを調査している。</li>
-      
-      <li>   全ての分野を対象としている。</li>
-      
-      <li>   グローバルでのプライベートクレジットへの懸念から</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 01:32 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/korea-ramps-up-private-credit-scrutiny-to-gauge-vulnerabilities" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">➡️</span>
-      <div class="headline">ゴールドマン、AnthropicのAIアクセス停止</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-neutral">中立</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>ゴールドマン・サックスの香港スタッフが、</li>
-      
-      <li>AnthropicのClaudeにアクセスできなくなった。</li>
-      
-      <li>ClaudeはAIエージェントで、</li>
-      
-      <li>ソフトウェアの開発を支援する。</li>
-      
-      <li>この変更の理由は不明</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 01:26 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/goldman-staff-in-hong-kong-lose-access-to-anthropic-s-claude" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">オーストラリア、天然ガス輸出契約維持</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>オーストラリアは天然ガス輸出契約を維持する。</li>
-      
-      <li>   エネルギー危機の際に契約を変更すると投資が減り、燃料の安全保障が損なわれる。</li>
-      
-      <li>   政府はエネルギー供給の安定を優先する。</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 01:22 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/albanese-says-australia-won-t-undermine-natural-gas-export-contracts" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">化石燃料の復活</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bearish">弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>中国での化石燃料の使用が増加した。</li>
-      
-      <li>   クリーンエネルギーの成長が遅れた。</li>
-      
-      <li>   天候変動とグリッド制約が要因</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 01:19 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/china-s-gentle-winds-allow-fossil-fuel-power-to-make-a-comeback" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔽</span>
-      <div class="headline">BYDの借入が急増</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bearish">弱気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>BYDの借入が大幅に増加した。</li>
-      
-      <li>   借入の増加は、収益の低下によるもの。</li>
-      
-      <li>   会社の財務状況に影響を与える可能性がある</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 10:43 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-28/byd-posts-lowest-quarterly-profit-in-years-as-price-war-rages-on" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">台湾株式市場がカナダを上回る</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>台湾の株式市場はカナダを上回った。</li>
-      
-      <li>   第6位の座に就いた。</li>
-      
-      <li>   人工知能関連株の需要が高かった</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 00:47 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/taiwan-overtakes-canada-as-world-s-sixth-largest-stock-market" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">オーストラリアのウッズサイド</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>ウッズサイド・エナジー・グループは、将来の四半期にLNG価格の上昇が収益を押し上げることを予想している。</li>
-      
-      <li>   供給契約のタイムラグが要因である。</li>
-      
-      <li>   収益の増加が見込まれる</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 00:42 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/australia-s-woodside-sees-higher-lng-prices-boosting-results" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">🔼</span>
-      <div class="headline">アクマンのファンドIPO</div>
-    </div>
-    <div class="tags">
-      <span class="tag">マクロ</span>
-      <span class="tag impact-bullish">強気</span>
-    </div>
-    
-    <ul class="summary">
-      
-      <li>アクマンのファンドIPOが50億ドルを調達した。</li>
-      
-      <li>   長期投資の戦略を強化する。</li>
-      
-      <li>   バフェット氏の投資スタイルに影響を受けた戦略</li>
-      
-    </ul>
-    
-    <div class="card-footer">
-      <span>Bloomberg Markets &nbsp;|&nbsp; 00:29 UTC</span>
-      <a href="https://www.bloomberg.com/news/articles/2026-04-29/ackman-s-fund-ipo-raises-5-billion-for-permanent-capital-plan" target="_blank" rel="noopener">元記事 →</a>
-    </div>
-  </div>
-  
+    <!-- Header -->
+    <header>
+      <h1>📈 デイリー金融ニュース</h1>
+      <div class="meta">2026-04-29 &nbsp;|&nbsp; 更新: 2026/04/29 13:36 JST &nbsp;|&nbsp; 1 本</div>
+      <div class="header-actions">
+        <a class="btn btn-primary" href="https://example.github.io/trading/feed.xml">📡 RSSを購読</a>
+        <a class="btn btn-secondary" href="https://example.github.io/trading/glossary.html">📚 用語集</a>
+        <a class="btn btn-secondary" href="https://example.github.io/trading/preferences-history.html">🕓 設定履歴</a>
+      </div>
+    </header>
 
-  <footer>
-    <p>デイリー金融ニュース &mdash; Powered by Groq (llama-3.3-70b) &amp; GitHub Pages</p>
-    <p><a href="https://kazuki922.github.io/trading/feed.xml" style="color:var(--accent)">📡 feed.xml</a></p>
-  </footer>
+    <!-- Today's Theme -->
+    
+    <div class="theme-box">
+      <h2>📖 今日のテーマ</h2>
+      <div class="theme-text">今日のテーマ: 米FRBの利下げ決定が為替・株式市場に与える影響を学びましょう。</div>
+    </div>
+    
+
+    <!-- Featured TOP -->
+    <div class="section-title" id="featured">
+      ⭐ 今日の注目 TOP1
+      <span class="badge">全カテゴリ横断・重要度順</span>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <span style="font-size:.85rem;color:var(--text2)">フィルタ:</span>
+      <button class="filter-btn" id="filter-all" onclick="setFilter('all')">すべて表示</button>
+      <button class="filter-btn" id="filter-4up" onclick="setFilter('4up')">★4以上のみ</button>
+    </div>
+
+  </div><!-- /container (nav goes outside for full-width sticky) -->
+
+  <!-- Category Nav (sticky, full width) -->
+  <nav class="cat-nav">
+    <div class="cat-nav-inner">
+      <a class="cat-link" href="#featured">⭐ 注目TOP</a>
+      
+      <a class="cat-link" href="#cat-fx_macro">💱 為替・マクロ</a>
+      
+      <a class="cat-link" href="#tomorrow-preferences">🔮 明日の設定</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Featured cards -->
+    
+    
+
+
+
+<div class="card featured"
+     data-importance="5"
+     data-category="fx_macro">
+
+  
+  <div class="card-summary" onclick="toggleCard(this)">
+    <span class="impact-emoji">🔽</span>
+    <div class="card-summary-body">
+      <div class="headline">FOMCが0.25%利下げ決定、ドル安円高に</div>
+      <div class="tags">
+        <span class="tag imp-5"><span class="stars">★★★★★</span></span>
+        <span class="tag">💱 為替・マクロ</span>
+        <span class="tag impact-弱気">🔽 弱気</span>
+      </div>
+      
+      <div class="what-preview">FRBは7月会合で政策金利を0.25%引き下げた。市場予想通りの決定だった。</div>
+      
+      <div class="expand-hint"><span class="expand-icon">▶</span> もっと詳しく</div>
+    </div>
+  </div>
+
+  
+  <div class="card-detail">
+
+    
+    <div class="detail-section">
+      <div class="detail-label">📝 何が起きた?</div>
+      <div class="detail-body">FRBは7月会合で政策金利を0.25%引き下げた。市場予想通りの決定だった。</div>
+    </div>
+    
+
+    
+    <div class="detail-section">
+      <div class="detail-label">🔍 なぜ重要?</div>
+      <div class="detail-body">FRBの利下げはドル安につながりやすく、日本の輸出企業に逆風となる。</div>
+    </div>
+    
+
+    
+    <div class="detail-section">
+      <div class="detail-label">💡 用語解説</div>
+      <div class="term-cards">
+        
+        <div class="term-card">
+          <div class="term-name">
+            <a href="https://example.github.io/trading/glossary.html#term-FOMC" target="_blank" rel="noopener" style="color:var(--purple)">FOMC</a>
+          </div>
+          <div class="term-def">Federal Open Market Committee。米国の金融政策決定機関</div>
+          <div class="term-ex">例: FOMCが利上げを決定した</div>
+        </div>
+        
+        <div class="term-card">
+          <div class="term-name">
+            <a href="https://example.github.io/trading/glossary.html#term-利下げ" target="_blank" rel="noopener" style="color:var(--purple)">利下げ</a>
+          </div>
+          <div class="term-def">中央銀行が政策金利を下げること</div>
+          <div class="term-ex">例: 0.25%の利下げ</div>
+        </div>
+        
+      </div>
+    </div>
+    
+
+    
+    
+    <div class="detail-section">
+      <div class="detail-label">📊 市場への影響</div>
+      <div class="impact-grid">
+        
+        <div class="impact-cell">
+          <div class="impact-cell-label">📅 短期（数日〜1週間）</div>
+          ドル安円高、株式市場は様子見
+        </div>
+        
+        
+        <div class="impact-cell">
+          <div class="impact-cell-label">📆 中期（1〜3ヶ月）</div>
+          景気刺激効果で株高になる可能性
+        </div>
+        
+      </div>
+      
+      <div class="asset-chips">
+        
+        <div class="asset-chip">🔽 ドル円</div>
+        
+        <div class="asset-chip">🔼 米国債</div>
+        
+      </div>
+      
+    </div>
+    
+
+    
+    
+    <div class="detail-section">
+      <div class="detail-label">🎯 投資判断のヒント</div>
+      <div class="persp-wrapper">
+        <div class="persp-tabs">
+          <button class="persp-tab active" data-target="lt-f0" onclick="switchTab(this)">📈 長期投資家</button>
+          <button class="persp-tab" data-target="at-f0" onclick="switchTab(this)">⚡ アクティブ</button>
+          <button class="persp-tab" data-target="ca-f0" onclick="switchTab(this)">⚠️ 注意点</button>
+        </div>
+        <div id="lt-f0" class="persp-panel active">インデックス長期投資家は短期的な為替変動に左右されず、定期積立を継続することが重要です。</div>
+        <div id="at-f0" class="persp-panel">ドル円の下落方向に注目しつつ、利下げサイクルの長さを見極める視点が大切です。</div>
+        <div id="ca-f0" class="persp-panel">市場は既に利下げを織り込んでいるため、追加の値動きが限られる場合があります。</div>
+        <div class="persp-note">※AIによる解釈であり投資推奨ではありません</div>
+      </div>
+    </div>
+    
+
+    
+    <div class="detail-section">
+      <div class="detail-label">📚 関連学習トピック</div>
+      <div class="concept-chips">
+        
+        <span class="concept-chip">金融緩和</span>
+        
+        <span class="concept-chip">テーパリング</span>
+        
+        <span class="concept-chip">為替リスク</span>
+        
+      </div>
+    </div>
+    
+
+    <div class="card-footer">
+      <span>Bloomberg &nbsp;|&nbsp; 04/29 04:36 UTC</span>
+      <a href="https://example.com/fomc" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+</div>
+
+    
+
+    <!-- Category sections -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <section class="cat-section" id="cat-fx_macro">
+      <div class="cat-section-header" onclick="toggleCat(this)">
+        <span class="cat-section-title">💱 為替・マクロ</span>
+        <span class="badge">1 本</span>
+        <span class="cat-toggle">▾</span>
+      </div>
+      <div class="cat-body">
+        
+        
+
+
+
+<div class="card"
+     data-importance="5"
+     data-category="fx_macro">
+
+  
+  <div class="card-summary" onclick="toggleCard(this)">
+    <span class="impact-emoji">🔽</span>
+    <div class="card-summary-body">
+      <div class="headline">FOMCが0.25%利下げ決定、ドル安円高に</div>
+      <div class="tags">
+        <span class="tag imp-5"><span class="stars">★★★★★</span></span>
+        <span class="tag">💱 為替・マクロ</span>
+        <span class="tag impact-弱気">🔽 弱気</span>
+      </div>
+      
+      <div class="what-preview">FRBは7月会合で政策金利を0.25%引き下げた。市場予想通りの決定だった。</div>
+      
+      <div class="expand-hint"><span class="expand-icon">▶</span> もっと詳しく</div>
+    </div>
+  </div>
+
+  
+  <div class="card-detail">
+
+    
+    <div class="detail-section">
+      <div class="detail-label">📝 何が起きた?</div>
+      <div class="detail-body">FRBは7月会合で政策金利を0.25%引き下げた。市場予想通りの決定だった。</div>
+    </div>
+    
+
+    
+    <div class="detail-section">
+      <div class="detail-label">🔍 なぜ重要?</div>
+      <div class="detail-body">FRBの利下げはドル安につながりやすく、日本の輸出企業に逆風となる。</div>
+    </div>
+    
+
+    
+    <div class="detail-section">
+      <div class="detail-label">💡 用語解説</div>
+      <div class="term-cards">
+        
+        <div class="term-card">
+          <div class="term-name">
+            <a href="https://example.github.io/trading/glossary.html#term-FOMC" target="_blank" rel="noopener" style="color:var(--purple)">FOMC</a>
+          </div>
+          <div class="term-def">Federal Open Market Committee。米国の金融政策決定機関</div>
+          <div class="term-ex">例: FOMCが利上げを決定した</div>
+        </div>
+        
+        <div class="term-card">
+          <div class="term-name">
+            <a href="https://example.github.io/trading/glossary.html#term-利下げ" target="_blank" rel="noopener" style="color:var(--purple)">利下げ</a>
+          </div>
+          <div class="term-def">中央銀行が政策金利を下げること</div>
+          <div class="term-ex">例: 0.25%の利下げ</div>
+        </div>
+        
+      </div>
+    </div>
+    
+
+    
+    
+    <div class="detail-section">
+      <div class="detail-label">📊 市場への影響</div>
+      <div class="impact-grid">
+        
+        <div class="impact-cell">
+          <div class="impact-cell-label">📅 短期（数日〜1週間）</div>
+          ドル安円高、株式市場は様子見
+        </div>
+        
+        
+        <div class="impact-cell">
+          <div class="impact-cell-label">📆 中期（1〜3ヶ月）</div>
+          景気刺激効果で株高になる可能性
+        </div>
+        
+      </div>
+      
+      <div class="asset-chips">
+        
+        <div class="asset-chip">🔽 ドル円</div>
+        
+        <div class="asset-chip">🔼 米国債</div>
+        
+      </div>
+      
+    </div>
+    
+
+    
+    
+    <div class="detail-section">
+      <div class="detail-label">🎯 投資判断のヒント</div>
+      <div class="persp-wrapper">
+        <div class="persp-tabs">
+          <button class="persp-tab active" data-target="lt-fx_macro0" onclick="switchTab(this)">📈 長期投資家</button>
+          <button class="persp-tab" data-target="at-fx_macro0" onclick="switchTab(this)">⚡ アクティブ</button>
+          <button class="persp-tab" data-target="ca-fx_macro0" onclick="switchTab(this)">⚠️ 注意点</button>
+        </div>
+        <div id="lt-fx_macro0" class="persp-panel active">インデックス長期投資家は短期的な為替変動に左右されず、定期積立を継続することが重要です。</div>
+        <div id="at-fx_macro0" class="persp-panel">ドル円の下落方向に注目しつつ、利下げサイクルの長さを見極める視点が大切です。</div>
+        <div id="ca-fx_macro0" class="persp-panel">市場は既に利下げを織り込んでいるため、追加の値動きが限られる場合があります。</div>
+        <div class="persp-note">※AIによる解釈であり投資推奨ではありません</div>
+      </div>
+    </div>
+    
+
+    
+    <div class="detail-section">
+      <div class="detail-label">📚 関連学習トピック</div>
+      <div class="concept-chips">
+        
+        <span class="concept-chip">金融緩和</span>
+        
+        <span class="concept-chip">テーパリング</span>
+        
+        <span class="concept-chip">為替リスク</span>
+        
+      </div>
+    </div>
+    
+
+    <div class="card-footer">
+      <span>Bloomberg &nbsp;|&nbsp; 04/29 04:36 UTC</span>
+      <a href="https://example.com/fomc" target="_blank" rel="noopener">元記事 →</a>
+    </div>
+  </div>
+</div>
+
+        
+      </div>
+    </section>
+    
+    
+
+    <!-- Glossary link -->
+    <div class="glossary-link-bar">
+      <a href="https://example.github.io/trading/glossary.html" class="btn btn-secondary">📚 用語集ページへ</a>
+    </div>
+
+    <!-- Tomorrow Preferences Form -->
+    <section id="tomorrow-preferences">
+      <h2>🔮 明日のニュース、どこを重点的に?</h2>
+      <p>選択した分野の記事が多めに収集されます（最大3カテゴリ）</p>
+
+      <div class="pref-group">
+        <span class="pref-label">📑 カテゴリ（複数選択可、最大3つ）</span>
+        <div class="cat-checkboxes" id="pref-cats">
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="jp_stock">🇯🇵 日本個別株
+          </label>
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="jp_index">📊 日本インデックス
+          </label>
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="foreign_stock">🇺🇸 外国個別株
+          </label>
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="foreign_index">📈 外国インデックス
+          </label>
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="futures">🎯 先物
+          </label>
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="fx_macro">💱 為替・マクロ経済
+          </label>
+        </div>
+      </div>
+
+      <div class="pref-group">
+        <label class="pref-label" for="pref-keywords">🔍 注目キーワード（任意、カンマ区切り）</label>
+        <input type="text" id="pref-keywords" class="kw-input"
+               placeholder="例: FOMC, 半導体, トヨタ, 日銀, 円安">
+      </div>
+
+      <div class="pref-group">
+        <span class="pref-label">📰 記事の本数</span>
+        <div class="count-options" id="pref-count">
+          <div class="count-option" data-value="20" onclick="selectCount(this)">コンパクト（20本）</div>
+          <div class="count-option selected" data-value="30" onclick="selectCount(this)">バランス（30本）</div>
+          <div class="count-option" data-value="40" onclick="selectCount(this)">詳細（40本）</div>
+        </div>
+      </div>
+
+      <div class="pref-actions">
+        <button class="btn btn-primary" onclick="submitPreferences()">📨 明日の設定を送信</button>
+        <button class="btn btn-secondary" onclick="resetPreferences()">🔄 設定をリセット</button>
+      </div>
+      <div class="pref-note">
+        ※ 送信時にGitHubトークンの入力が必要です。トークンはブラウザのみに保存されます。<br>
+        Issues read/write 権限のみの Fine-grained PAT を推奨します。
+      </div>
+      <div id="pref-status" class="pref-status"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="disclaimer">
+        <strong>免責事項</strong><br>
+        本サイトの情報はAIによる自動生成であり、投資推奨ではありません。<br>
+        投資判断はご自身の責任で行ってください。情報の正確性は保証されません。<br>
+        ニュース原文は各リンク先でご確認ください。
+      </div>
+      <p>デイリー金融ニュース &mdash; Powered by Groq (llama-3.3-70b) &amp; GitHub Pages</p>
+      <p style="margin-top:6px">
+        <a href="https://example.github.io/trading/feed.xml">📡 feed.xml</a> &nbsp;|&nbsp;
+        <a href="https://example.github.io/trading/glossary.html">📚 用語集</a> &nbsp;|&nbsp;
+        <a href="https://example.github.io/trading/preferences-history.html">🕓 設定履歴</a>
+      </p>
+    </footer>
+
+  </div><!-- /container -->
+
+  <!-- PAT Modal -->
+  <div id="pat-modal" style="display:none;position:fixed;inset:0;
+       background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;">
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;
+                padding:24px;max-width:420px;width:90%;margin:auto;">
+      <h3 style="color:var(--accent);margin-bottom:10px">🔑 GitHub PAT を入力</h3>
+      <p style="font-size:.87rem;color:var(--text2);margin-bottom:14px">
+        Issues read/write 権限のみの Fine-grained Personal Access Token を入力してください。<br>
+        トークンはこのブラウザにのみ保存され、サーバーへは送信されません。
+      </p>
+      <input type="password" id="pat-input" placeholder="github_pat_..." class="kw-input" style="margin-bottom:12px">
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary" onclick="savePat()" style="flex:1">保存して送信</button>
+        <button class="btn btn-secondary" onclick="closePat()">キャンセル</button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // ── Filter ──
+    const FILTER_KEY = 'finance_filter';
+    function setFilter(mode) {
+      localStorage.setItem(FILTER_KEY, mode);
+      document.getElementById('filter-all').classList.toggle('active', mode === 'all');
+      document.getElementById('filter-4up').classList.toggle('active', mode === '4up');
+      document.querySelectorAll('.card').forEach(card => {
+        if (mode === '4up') {
+          card.classList.toggle('hidden-by-filter', parseInt(card.dataset.importance || '3') < 4);
+        } else {
+          card.classList.remove('hidden-by-filter');
+        }
+      });
+      document.querySelectorAll('.cat-section').forEach(sec => {
+        const vis = sec.querySelectorAll('.card:not(.hidden-by-filter)').length > 0;
+        sec.classList.toggle('all-hidden', !vis);
+      });
+    }
+    (function() { setFilter(localStorage.getItem(FILTER_KEY) || '4up'); })();
+
+    // ── Card expand ──
+    function toggleCard(el) { el.closest('.card').classList.toggle('open'); }
+
+    // ── Category section toggle ──
+    function toggleCat(header) { header.closest('.cat-section').classList.toggle('collapsed'); }
+
+    // ── Perspective tabs ──
+    function switchTab(btn) {
+      const wrapper = btn.closest('.persp-wrapper');
+      wrapper.querySelectorAll('.persp-tab').forEach(t => t.classList.remove('active'));
+      wrapper.querySelectorAll('.persp-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const target = document.getElementById(btn.dataset.target);
+      if (target) target.classList.add('active');
+    }
+
+    // ── Preferences ──
+    function selectCount(el) {
+      document.querySelectorAll('.count-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    document.querySelectorAll('.cat-checkbox-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const cb = item.querySelector('input[type=checkbox]');
+        if (item.classList.contains('selected')) {
+          item.classList.remove('selected'); cb.checked = false;
+        } else if (document.querySelectorAll('.cat-checkbox-item.selected').length < 3) {
+          item.classList.add('selected'); cb.checked = true;
+        }
+      });
+    });
+
+    let _pendingBody = null, _pendingDate = null, _pendingTime = null;
+    function submitPreferences() {
+      const cats = Array.from(document.querySelectorAll('.cat-checkbox-item.selected input'))
+                        .map(i => i.value);
+      const kw = document.getElementById('pref-keywords').value.trim();
+      const keywords = kw ? kw.split(',').map(k => k.trim()).filter(Boolean) : [];
+      const count = parseInt(document.querySelector('.count-option.selected')?.dataset.value || '30');
+      const now = new Date();
+      const dateStr = now.toISOString().slice(0, 10);
+      const timeStr = now.toTimeString().slice(0, 5);
+      const body = JSON.stringify({ date: dateStr, focus_categories: cats, keywords, article_count: count }, null, 2);
+      const token = localStorage.getItem('gh_pat');
+      if (!token) {
+        _pendingBody = body; _pendingDate = dateStr; _pendingTime = timeStr;
+        document.getElementById('pat-modal').style.display = 'flex';
+        return;
+      }
+      _doSubmit(token, body, dateStr, timeStr);
+    }
+
+    function _doSubmit(token, body, dateStr, timeStr) {
+      const m = 'https://example.github.io/trading'.match(/https?:\/\/([^.]+)\.github\.io\/(.+)/);
+      if (!m) { showStatus('error', 'BASE_URLからリポジトリを特定できませんでした。'); return; }
+      const [, owner, repoName] = m;
+      fetch(`https://api.github.com/repos/${owner}/${repoName}/issues`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+        body: JSON.stringify({ title: `[preferences] ${dateStr} ${timeStr}`, body, labels: ['preferences'] }),
+      })
+      .then(r => r.ok
+        ? showStatus('success', '✅ 設定を送信しました！明日のニュース収集に反映されます。')
+        : r.json().then(d => showStatus('error', `送信失敗: ${d.message || r.status}`))
+      )
+      .catch(e => showStatus('error', `送信エラー: ${e.message}`));
+    }
+
+    function savePat() {
+      const token = document.getElementById('pat-input').value.trim();
+      if (!token) return;
+      localStorage.setItem('gh_pat', token);
+      closePat();
+      if (_pendingBody) {
+        _doSubmit(token, _pendingBody, _pendingDate, _pendingTime);
+        _pendingBody = null;
+      }
+    }
+    function closePat() {
+      document.getElementById('pat-modal').style.display = 'none';
+      document.getElementById('pat-input').value = '';
+    }
+    function resetPreferences() {
+      document.querySelectorAll('.cat-checkbox-item').forEach(i => {
+        i.classList.remove('selected'); i.querySelector('input').checked = false;
+      });
+      document.getElementById('pref-keywords').value = '';
+      document.querySelectorAll('.count-option').forEach(o => o.classList.remove('selected'));
+      document.querySelector('.count-option[data-value="30"]').classList.add('selected');
+      localStorage.removeItem('gh_pat');
+      showStatus('success', '設定をリセットしました（トークンも削除）。');
+    }
+    function showStatus(type, msg) {
+      const el = document.getElementById('pref-status');
+      el.className = 'pref-status ' + type; el.textContent = msg;
+      setTimeout(() => { el.style.display = 'none'; el.className = 'pref-status'; }, 6000);
+    }
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/trading/sw.js').catch(() => {});
     }

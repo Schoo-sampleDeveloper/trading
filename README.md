@@ -1,24 +1,39 @@
 # 📈 デイリー金融ニュース
 
-毎朝6:30 JST に金融ニュースを自動収集・AI要約し、  
+毎朝6:30 JST に金融ニュースを自動収集・AI学習コンテンツ化し、  
 GitHub Pages で公開 → iPhone の RSS リーダーで通知受信するシステムです。
 
 ---
 
-## カバー対象
-- 🇯🇵 日本株（日経平均、TOPIX）
-- 🇺🇸 米国株（S&P500、NASDAQ、ダウ）
-- 💱 為替（ドル円・ユーロ円）
-- 📊 株価指数先物（CME）
-- 🏦 マクロ経済（FOMC・日銀・CPI・GDP）
+## カバー対象 (6カテゴリ)
+
+| カテゴリID | 表示名 | 対象 |
+|---|---|---|
+| `jp_stock` | 🇯🇵 日本株式 | 日本個別株・企業決算 |
+| `jp_index` | 📊 日本インデックス | 日経平均・TOPIX・グロース等 |
+| `foreign_stock` | 🇺🇸 外国株式 | Apple/Tesla等 外国個別株 |
+| `foreign_index` | 📈 外国インデックス | S&P500・NASDAQ・DAX等 |
+| `futures` | 🎯 先物 | 日経先物・CME・商品先物 |
+| `fx_macro` | 💱 為替・マクロ | 為替・金利・中央銀行・マクロ経済 |
+
+---
+
+## 主な機能
+
+- **学習コンテンツ化**: 各記事につき「何が起きた・なぜ重要・用語解説・市場影響・投資判断のヒント」を生成
+- **今日のテーマ**: 全記事を横断した学習コラムをトップに表示
+- **重要度フィルタ**: ★4以上/全表示 を LocalStorage で記憶
+- **用語集**: 各記事の専門用語を `data/glossary.json` に蓄積し `docs/glossary.html` として公開
+- **カテゴリ別表示**: 折りたたみ可・タップでセクションジャンプ
+- **翌日設定フォーム**: 重点カテゴリ・キーワード・本数を GitHub Issues 経由で送信
+- **設定履歴**: `docs/preferences-history.html` で過去の設定を確認
+- **免責事項**: 全ページに投資推奨でない旨を明記
 
 ---
 
 ## セットアップ手順
 
 ### 1. リポジトリ作成
-
-GitHub で新しいリポジトリを作成し、このコードをプッシュします。
 
 ```bash
 git init
@@ -28,75 +43,91 @@ git remote add origin https://github.com/あなたのユーザー名/trading.git
 git push -u origin main
 ```
 
----
-
 ### 2. Groq API キーの取得
 
-1. [https://console.groq.com/](https://console.groq.com/) にアクセス
-2. 無料アカウントを作成
-3. 「API Keys」→「Create API Key」でキーを生成
-4. 生成されたキー（`gsk_xxx...`）をコピーして保管
-
----
+1. [https://console.groq.com/](https://console.groq.com/) でアカウント作成
+2. 「API Keys」→「Create API Key」でキーを生成 (`gsk_xxx...`)
 
 ### 3. GitHub Secrets の設定
 
-リポジトリの **Settings → Secrets and variables → Actions → New repository secret** で以下を追加:
+**Settings → Secrets and variables → Actions → New repository secret**:
 
 | シークレット名 | 値 |
 |---|---|
-| `GROQ_API_KEY` | 取得した Groq API キー |
+| `GROQ_API_KEY` | Groq API キー |
 | `SITE_BASE_URL` | `https://あなたのユーザー名.github.io/trading` |
 
----
+> `GITHUB_TOKEN` はワークフロー実行時に自動付与されます。
 
 ### 4. GitHub Pages の有効化
 
-1. リポジトリの **Settings → Pages**
+1. **Settings → Pages**
 2. **Source**: `Deploy from a branch`
-3. **Branch**: `main` / `docs` フォルダ を選択
-4. **Save** をクリック
-5. 数分後に `https://あなたのユーザー名.github.io/trading` で公開されます
+3. **Branch**: `main` / `docs` フォルダ → **Save**
+4. 数分後に公開されます
 
----
+### 5. iPhone RSS 購読
 
-### 5. iPhone で RSS を購読する
+- **Reeder** / **NetNewsWire** 等で `https://ユーザー名.github.io/trading/feed.xml` を登録
 
-#### Reeder (有料・高機能)
-1. App Store で「Reeder」をインストール
-2. アプリ内でアカウント追加 → **RSS**
-3. URL: `https://あなたのユーザー名.github.io/trading/feed.xml` を入力
-4. 新着通知を ON に設定
+### 6. ホーム画面に PWA 追加
 
-#### NetNewsWire (無料)
-1. App Store で「NetNewsWire」をインストール
-2. ＋ ボタン → **Add a Feed**
-3. URL: `https://あなたのユーザー名.github.io/trading/feed.xml` を入力
-
----
-
-### 6. ホーム画面にアプリとして追加 (PWA)
-
-1. iPhone の Safari で `https://あなたのユーザー名.github.io/trading` を開く
+1. Safari で `https://ユーザー名.github.io/trading` を開く
 2. 共有ボタン → **ホーム画面に追加**
-3. アプリのように起動できます
+
+---
+
+## 翌日設定フォームの使い方 (Fine-grained PAT)
+
+ページ下部「🔮 明日のニュース、どこを重点的に?」フォームを使うと  
+翌日の収集に反映されます。
+
+### PAT の発行手順
+
+1. GitHub → **Settings → Developer settings → Personal access tokens → Fine-grained tokens**
+2. **Generate new token**
+3. **Repository access**: 対象リポジトリのみ選択
+4. **Permissions**:
+   - **Issues**: `Read and write`
+5. **Generate token** → 生成されたトークン (`github_pat_...`) をコピー
+
+### フォームの使い方
+
+1. カテゴリを最大3つ選択
+2. キーワードをカンマ区切りで入力（任意）
+3. 記事本数を選択（20/30/40本）
+4. 「📨 明日の設定を送信」をタップ
+5. 初回のみトークン入力モーダルが表示されます（以降は自動使用）
+6. 「🔄 設定をリセット」でトークン削除も可能
+
+> **注意**: `article_count=40` はGroqのレート制限に近づきます。連続実行時は注意してください。
+
+---
+
+## カテゴリ分類キーワードのカスタマイズ
+
+`collector.py` の `CATEGORY_KEYWORDS` 辞書を編集することで、  
+各カテゴリへの分類精度を調整できます。
+
+```python
+CATEGORY_KEYWORDS = {
+    "jp_stock": ["トヨタ", "ソニー", ...],  # ← キーワード追加・削除
+    "fx_macro": ["FOMC", "日銀", ...],
+    ...
+}
+```
 
 ---
 
 ## ローカルテスト
 
 ```bash
-# 依存パッケージのインストール
 pip install -r requirements.txt
-
-# .env ファイルを作成
 cp .env.example .env
-# .env を編集して GROQ_API_KEY を設定
+# .env に GROQ_API_KEY を設定
 
-# 実行
-python main.py
+python3 main.py
 
-# 生成されたファイルを確認
 open docs/index.html
 ```
 
@@ -108,53 +139,39 @@ open docs/index.html
 trading/
 ├── .github/
 │   └── workflows/
-│       └── daily.yml        # GitHub Actions (平日6:30 JST 自動実行)
-├── docs/                    # GitHub Pages 公開ディレクトリ
-│   ├── index.html           # 最新ニュース (自動生成)
-│   ├── feed.xml             # RSS フィード (自動生成)
+│       └── daily.yml         # GitHub Actions (平日6:30 JST)
+├── data/
+│   └── glossary.json         # 用語集永続化データ (自動生成・累積)
+├── docs/                     # GitHub Pages 公開ディレクトリ
+│   ├── index.html            # 最新ニュース (自動生成)
+│   ├── feed.xml              # RSS フィード (自動生成)
+│   ├── glossary.html         # 用語集ページ (自動生成)
+│   ├── preferences-history.html  # 設定履歴ページ (自動生成)
 │   ├── archive/
-│   │   └── YYYY-MM-DD.html  # アーカイブ (自動生成)
-│   ├── manifest.json        # PWA マニフェスト
-│   └── sw.js                # Service Worker (オフライン対応)
+│   │   └── YYYY-MM-DD.html   # アーカイブ (自動生成)
+│   ├── manifest.json         # PWA マニフェスト
+│   └── sw.js                 # Service Worker
 ├── templates/
-│   └── index.html.j2        # HTML テンプレート
-├── collector.py             # RSSニュース収集
-├── summarizer.py            # Groq AI 要約
-├── build_site.py            # HTML/RSS 生成
-├── main.py                  # エントリポイント
-├── requirements.txt
-├── .env.example
-└── README.md
+│   └── index.html.j2         # Jinja2 テンプレート
+├── collector.py              # RSS収集・カテゴリ分類・preferences読み込み
+├── summarizer.py             # Groq AI 学習コンテンツ生成
+├── build_site.py             # HTML/RSS/用語集/履歴ページ生成
+├── main.py                   # エントリポイント
+└── requirements.txt
 ```
-
----
-
-## ニュースソース
-
-| ソース | カテゴリ |
-|---|---|
-| Bloomberg Markets RSS | マクロ経済 |
-| MarketWatch Top Stories | 米国株 |
-| Investing.com | マクロ経済 |
-| Google News (日経平均) | 日本株 |
-| Google News (ドル円) | 為替 |
-| Google News (FOMC) | マクロ |
-| Google News (日銀) | 日本株 |
-| Google News (S&P500) | 米国株 |
-| Google News (先物 CME) | 先物 |
-| Google News (ETF) | 指数 |
 
 ---
 
 ## 技術スタック
 
-- **Python 3.11**
+- **Python 3.9+**
 - **feedparser** — RSS 収集
 - **httpx** — HTTP クライアント
 - **groq** — AI 要約 (llama-3.3-70b-versatile)
 - **jinja2** — HTML テンプレート
 - **GitHub Actions** — 定期実行
 - **GitHub Pages** — 静的サイト公開
+- **GitHub Issues** — 翌日設定の受け渡し
 
 ---
 
@@ -163,8 +180,13 @@ trading/
 **Q: 無料で使えますか?**  
 A: はい。Groq API・GitHub Actions・GitHub Pages はすべて無料枠内で動作します。
 
+**Q: 記事30本のAPI消費は大丈夫ですか?**  
+A: llama-3.3-70bはGroq無料枠で1日30本程度は問題なく処理できます。  
+`article_count=40` を頻繁に使う場合はレート制限に注意してください。
+
 **Q: 土日はどうなりますか?**  
 A: GitHub Actions の cron 設定で平日（月〜金）のみ実行されます。手動実行も可能です。
 
-**Q: 記事が取得できない場合は?**  
-A: RSS ソースの一時的な障害の可能性があります。Actions の実行ログを確認してください。
+**Q: カテゴリ分類が間違っている場合は?**  
+A: `collector.py` の `CATEGORY_KEYWORDS` を調整するか、  
+明らかな誤分類は `fx_macro` にフォールバックされます。

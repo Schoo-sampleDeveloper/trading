@@ -1,0 +1,24 @@
+{
+  "FOMC": {
+    "definition": "Federal Open Market Committee。米国の金融政策決定機関",
+    "example": "FOMCが利上げを決定した",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "FOMCが0.25%利下げ決定、ドル安円高に",
+        "link": "https://example.com/fomc"
+      }
+    ]
+  },
+  "利下げ": {
+    "definition": "中央銀行が政策金利を下げること",
+    "example": "0.25%の利下げ",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "FOMCが0.25%利下げ決定、ドル安円高に",
+        "link": "https://example.com/fomc"
+      }
+    ]
+  }
+}

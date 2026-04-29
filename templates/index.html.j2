@@ -1,3 +1,131 @@
+{# ─────────────────────────────────────────
+   Macro: render one article card
+   uid: unique string for tab IDs
+───────────────────────────────────────── #}
+{% macro render_card(art, uid, is_featured=false) %}
+{% set imp = art.importance | default(3) | int %}
+{% set stars_full = '★' * imp %}
+{% set stars_empty = '☆' * (5 - imp) %}
+<div class="card{% if is_featured %} featured{% endif %}"
+     data-importance="{{ imp }}"
+     data-category="{{ art.category }}">
+
+  {# ── Always-visible summary (tap to expand) ── #}
+  <div class="card-summary" onclick="toggleCard(this)">
+    <span class="impact-emoji">{{ art.impact_emoji | default('➡️') }}</span>
+    <div class="card-summary-body">
+      <div class="headline">{{ art.headline | default(art.title) }}</div>
+      <div class="tags">
+        <span class="tag imp-{{ imp }}"><span class="stars">{{ stars_full }}{{ stars_empty }}</span></span>
+        <span class="tag">{{ category_labels.get(art.category, art.category) }}</span>
+        <span class="tag impact-{{ art.impact | default('中立') }}">{{ art.impact_emoji | default('➡️') }} {{ art.impact_label | default(art.impact) | default('中立') }}</span>
+      </div>
+      {% if art.what_happened %}
+      <div class="what-preview">{{ art.what_happened }}</div>
+      {% endif %}
+      <div class="expand-hint"><span class="expand-icon">▶</span> もっと詳しく</div>
+    </div>
+  </div>
+
+  {# ── Expandable detail ── #}
+  <div class="card-detail">
+
+    {% if art.what_happened %}
+    <div class="detail-section">
+      <div class="detail-label">📝 何が起きた?</div>
+      <div class="detail-body">{{ art.what_happened }}</div>
+    </div>
+    {% endif %}
+
+    {% if art.why_important %}
+    <div class="detail-section">
+      <div class="detail-label">🔍 なぜ重要?</div>
+      <div class="detail-body">{{ art.why_important }}</div>
+    </div>
+    {% endif %}
+
+    {% if art.terms %}
+    <div class="detail-section">
+      <div class="detail-label">💡 用語解説</div>
+      <div class="term-cards">
+        {% for t in art.terms %}
+        <div class="term-card">
+          <div class="term-name">
+            <a href="{{ base_url }}/glossary.html#term-{{ t.term }}" target="_blank" rel="noopener" style="color:var(--purple)">{{ t.term }}</a>
+          </div>
+          {% if t.definition %}<div class="term-def">{{ t.definition }}</div>{% endif %}
+          {% if t.example %}<div class="term-ex">例: {{ t.example }}</div>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if art.market_impact %}
+    {% set mi = art.market_impact %}
+    <div class="detail-section">
+      <div class="detail-label">📊 市場への影響</div>
+      <div class="impact-grid">
+        {% if mi.short_term %}
+        <div class="impact-cell">
+          <div class="impact-cell-label">📅 短期（数日〜1週間）</div>
+          {{ mi.short_term }}
+        </div>
+        {% endif %}
+        {% if mi.mid_term %}
+        <div class="impact-cell">
+          <div class="impact-cell-label">📆 中期（1〜3ヶ月）</div>
+          {{ mi.mid_term }}
+        </div>
+        {% endif %}
+      </div>
+      {% if mi.affected_assets %}
+      <div class="asset-chips">
+        {% for asset in mi.affected_assets %}
+        <div class="asset-chip">{{ asset.direction }} {{ asset.asset }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {% if art.investment_perspective %}
+    {% set ip = art.investment_perspective %}
+    <div class="detail-section">
+      <div class="detail-label">🎯 投資判断のヒント</div>
+      <div class="persp-wrapper">
+        <div class="persp-tabs">
+          <button class="persp-tab active" data-target="lt-{{ uid }}" onclick="switchTab(this)">📈 長期投資家</button>
+          <button class="persp-tab" data-target="at-{{ uid }}" onclick="switchTab(this)">⚡ アクティブ</button>
+          <button class="persp-tab" data-target="ca-{{ uid }}" onclick="switchTab(this)">⚠️ 注意点</button>
+        </div>
+        <div id="lt-{{ uid }}" class="persp-panel active">{{ ip.long_term_investor | default('-') }}</div>
+        <div id="at-{{ uid }}" class="persp-panel">{{ ip.active_trader | default('-') }}</div>
+        <div id="ca-{{ uid }}" class="persp-panel">{{ ip.cautions | default('-') }}</div>
+        <div class="persp-note">※AIによる解釈であり投資推奨ではありません</div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if art.related_concepts %}
+    <div class="detail-section">
+      <div class="detail-label">📚 関連学習トピック</div>
+      <div class="concept-chips">
+        {% for concept in art.related_concepts %}
+        <span class="concept-chip">{{ concept }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="card-footer">
+      <span>{{ art.source }} &nbsp;|&nbsp; {{ art.published.strftime('%m/%d %H:%M UTC') }}</span>
+      {% if art.link %}<a href="{{ art.link }}" target="_blank" rel="noopener">元記事 →</a>{% endif %}
+    </div>
+  </div>{# /card-detail #}
+</div>
+{% endmacro %}
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,243 +139,574 @@
   <meta name="apple-mobile-web-app-title" content="金融ニュース">
   <style>
     :root {
-      --bg: #0d1117;
-      --bg2: #161b22;
-      --bg3: #21262d;
-      --border: #30363d;
-      --text: #e6edf3;
-      --text2: #8b949e;
-      --accent: #58a6ff;
-      --green: #3fb950;
-      --red: #f85149;
-      --yellow: #d29922;
-      --tag-bg: #1f2937;
+      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --bg4: #2d333b;
+      --border: #30363d; --text: #e6edf3; --text2: #8b949e;
+      --accent: #58a6ff; --green: #3fb950; --red: #f85149;
+      --yellow: #d29922; --purple: #bc8cff; --tag-bg: #1f2937;
+      --card-hover: #1c2230;
     }
     @media (prefers-color-scheme: light) {
       :root {
-        --bg: #f6f8fa;
-        --bg2: #ffffff;
-        --bg3: #f0f2f5;
-        --border: #d0d7de;
-        --text: #1f2328;
-        --text2: #656d76;
-        --accent: #0969da;
-        --green: #1a7f37;
-        --red: #cf222e;
-        --yellow: #9a6700;
-        --tag-bg: #ddf4ff;
+        --bg: #f6f8fa; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e8ecf0;
+        --border: #d0d7de; --text: #1f2328; --text2: #656d76;
+        --accent: #0969da; --green: #1a7f37; --red: #cf222e;
+        --yellow: #9a6700; --purple: #8250df; --tag-bg: #ddf4ff;
+        --card-hover: #f0f6ff;
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg); color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 16px;
+      font-size: 16px; line-height: 1.7;
     }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 800px; margin: 0 auto; padding: 12px 16px; }
+
+    /* Header */
     header {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
     }
-    header h1 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 4px;
+    header h1 { font-size: 1.35rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    header .meta { font-size: 0.85rem; color: var(--text2); }
+    .header-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 7px 16px; border-radius: 20px; font-size: 0.85rem;
+      font-weight: 600; cursor: pointer; border: none; min-height: 44px;
+      transition: opacity .15s; text-decoration: none;
     }
-    header .meta {
-      font-size: 0.85rem;
-      color: var(--text2);
+    .btn:hover { opacity: .85; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
+
+    /* Theme box */
+    .theme-box {
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+      border: 1px solid var(--accent); border-radius: 12px;
+      padding: 16px 18px; margin-bottom: 14px;
     }
-    header .feed-link {
-      margin-top: 10px;
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      text-decoration: none;
-      font-weight: 600;
+    .theme-box h2 { font-size: .95rem; color: var(--accent); margin-bottom: 6px; }
+    .theme-text { font-size: 0.9rem; color: var(--text); white-space: pre-wrap; }
+
+    /* Section title */
+    .section-title {
+      font-size: 1.05rem; font-weight: 700; color: var(--text2);
+      margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
     }
-    h2 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text2);
-      margin: 24px 0 12px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid var(--border);
+    .badge {
+      background: var(--bg3); color: var(--text2);
+      font-size: 0.72rem; padding: 2px 8px; border-radius: 10px;
+      border: 1px solid var(--border); font-weight: 600;
     }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 14px; align-items: center;
+    }
+    .filter-btn {
+      padding: 6px 14px; border-radius: 16px; font-size: 0.83rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 36px;
+      transition: all .15s;
+    }
+    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* Category nav */
+    .cat-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 8px 0; margin-bottom: 14px;
+    }
+    .cat-nav-inner {
+      max-width: 800px; margin: 0 auto; padding: 0 16px;
+      display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+    }
+    .cat-nav-inner::-webkit-scrollbar { display: none; }
+    .cat-link {
+      white-space: nowrap; padding: 5px 12px; border-radius: 14px;
+      font-size: 0.8rem; font-weight: 600;
+      background: var(--bg3); color: var(--text2);
+      border: 1px solid var(--border); min-height: 36px;
+      display: inline-flex; align-items: center; transition: all .15s;
+    }
+    .cat-link:hover { background: var(--bg4); color: var(--text); text-decoration: none; }
+
+    /* Cards */
     .card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 14px;
-      transition: border-color 0.2s;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; margin-bottom: 10px;
+      transition: border-color .2s, background .2s; overflow: hidden;
     }
-    .card:hover { border-color: var(--accent); }
+    .card:hover { border-color: var(--accent); background: var(--card-hover); }
     .card.featured { border-left: 3px solid var(--accent); }
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 10px;
+    .card[data-importance="5"] { border-left: 3px solid var(--red); }
+    .card[data-importance="4"] { border-left: 3px solid var(--yellow); }
+
+    .card-summary {
+      padding: 14px 16px; cursor: pointer;
+      display: flex; gap: 10px; align-items: flex-start;
     }
-    .impact {
-      font-size: 1.2rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .headline {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.4;
-    }
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 8px 0;
-    }
+    .impact-emoji { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .card-summary-body { flex: 1; min-width: 0; }
+    .headline { font-size: 1.0rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
     .tag {
-      background: var(--tag-bg);
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      background: var(--tag-bg); color: var(--accent);
+      font-size: 0.72rem; font-weight: 600;
+      padding: 2px 8px; border-radius: 10px; border: 1px solid var(--border);
     }
-    .tag.impact-bullish { color: var(--green); border-color: var(--green); }
-    .tag.impact-bearish { color: var(--red); border-color: var(--red); }
-    .tag.impact-neutral { color: var(--yellow); border-color: var(--yellow); }
-    .summary {
-      font-size: 0.92rem;
-      color: var(--text2);
-      margin: 8px 0;
+    .tag.impact-強気 { color: var(--green); border-color: var(--green); }
+    .tag.impact-弱気 { color: var(--red); border-color: var(--red); }
+    .tag.impact-中立 { color: var(--yellow); border-color: var(--yellow); }
+    .tag.imp-5 { background: rgba(248,81,73,.12); color: var(--red); border-color: var(--red); }
+    .tag.imp-4 { background: rgba(210,153,34,.12); color: var(--yellow); border-color: var(--yellow); }
+    .stars { color: var(--yellow); font-size: 0.8rem; letter-spacing: 1px; }
+    .what-preview {
+      font-size: .86rem; color: var(--text2); margin-top: 5px;
+      overflow: hidden; display: -webkit-box;
+      -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     }
-    .summary li {
-      list-style: none;
-      padding-left: 1em;
-      position: relative;
+    .expand-hint {
+      font-size: .78rem; color: var(--accent); margin-top: 5px;
+      display: flex; align-items: center; gap: 3px;
     }
-    .summary li::before {
-      content: "▸";
-      position: absolute;
-      left: 0;
-      color: var(--accent);
+    .expand-icon { transition: transform .2s; display: inline-block; }
+    .card.open .expand-icon { transform: rotate(90deg); }
+
+    .card-detail { display: none; border-top: 1px solid var(--border); padding: 14px 16px; }
+    .card.open .card-detail { display: block; }
+
+    .detail-section { margin-bottom: 14px; }
+    .detail-label {
+      font-size: 0.8rem; font-weight: 700; color: var(--text2);
+      margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
     }
-    .explanation {
-      background: var(--bg3);
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 0.88rem;
-      color: var(--text);
-      margin: 10px 0;
-      border-left: 3px solid var(--yellow);
+    .detail-body { font-size: 0.9rem; color: var(--text); }
+
+    .term-cards { display: flex; flex-direction: column; gap: 7px; }
+    .term-card {
+      background: var(--bg3); border-radius: 8px;
+      padding: 10px 12px; border: 1px solid var(--border);
     }
-    .explanation::before {
-      content: "📌 ";
+    .term-name { font-weight: 700; font-size: .88rem; }
+    .term-def { font-size: .85rem; color: var(--text); margin-top: 3px; }
+    .term-ex { font-size: .82rem; color: var(--text2); margin-top: 2px; }
+
+    .impact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;
     }
+    @media (max-width: 480px) { .impact-grid { grid-template-columns: 1fr; } }
+    .impact-cell {
+      background: var(--bg3); border-radius: 8px;
+      padding: 8px 10px; border: 1px solid var(--border); font-size: .85rem;
+    }
+    .impact-cell-label { font-size: .75rem; color: var(--text2); margin-bottom: 3px; font-weight: 700; }
+    .asset-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .asset-chip {
+      padding: 4px 10px; border-radius: 12px; font-size: .82rem;
+      background: var(--bg4); border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    .persp-tabs { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
+    .persp-tab {
+      padding: 5px 12px; border-radius: 12px; font-size: .78rem; font-weight: 600;
+      cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 36px;
+      display: inline-flex; align-items: center;
+    }
+    .persp-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .persp-panel { display: none; font-size: .88rem; color: var(--text); }
+    .persp-panel.active { display: block; }
+    .persp-note { font-size: .75rem; color: var(--text2); margin-top: 6px; font-style: italic; }
+
+    .concept-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .concept-chip {
+      padding: 4px 12px; border-radius: 12px; font-size: .8rem;
+      background: var(--bg3); border: 1px solid var(--border); color: var(--text2);
+    }
+
     .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-      font-size: 0.8rem;
-      color: var(--text2);
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .card-footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-    .card-footer a:hover { text-decoration: underline; }
-    footer {
-      text-align: center;
-      color: var(--text2);
-      font-size: 0.8rem;
-      margin-top: 40px;
-      padding: 20px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 16px; background: var(--bg3);
+      font-size: 0.78rem; color: var(--text2); flex-wrap: wrap; gap: 4px;
       border-top: 1px solid var(--border);
     }
+
+    /* Category sections */
+    .cat-section { margin-bottom: 20px; }
+    .cat-section-header {
+      display: flex; align-items: center; gap: 8px;
+      cursor: pointer; padding: 10px 0; user-select: none;
+    }
+    .cat-section-title { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .cat-toggle { color: var(--text2); transition: transform .2s; }
+    .cat-section.collapsed .cat-toggle { transform: rotate(-90deg); }
+    .cat-section.collapsed .cat-body { display: none; }
+
+    /* Filter hidden */
+    .card.hidden-by-filter { display: none; }
+    .cat-section.all-hidden { display: none; }
+
+    /* Preferences form */
+    #tomorrow-preferences {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin-top: 24px;
+    }
+    #tomorrow-preferences h2 { font-size: 1.05rem; color: var(--accent); margin-bottom: 6px; }
+    #tomorrow-preferences > p { font-size: .88rem; color: var(--text2); margin-bottom: 16px; }
+    .pref-group { margin-bottom: 16px; }
+    .pref-label { font-size: .85rem; font-weight: 700; color: var(--text2); margin-bottom: 8px; display: block; }
+    .cat-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 480px) { .cat-checkboxes { grid-template-columns: 1fr; } }
+    .cat-checkbox-item {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg3); border: 2px solid var(--border);
+      border-radius: 10px; padding: 10px 12px; cursor: pointer;
+      min-height: 44px; font-size: .88rem; transition: all .15s; user-select: none;
+    }
+    .cat-checkbox-item:hover { border-color: var(--accent); }
+    .cat-checkbox-item.selected { border-color: var(--accent); background: rgba(88,166,255,.08); color: var(--accent); }
+    .cat-checkbox-item input[type=checkbox] { display: none; }
+    .kw-input {
+      width: 100%; padding: 10px 14px; border-radius: 10px;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text); font-size: .9rem; font-family: inherit; min-height: 44px;
+    }
+    .kw-input:focus { outline: none; border-color: var(--accent); }
+    .count-options { display: flex; gap: 8px; flex-wrap: wrap; }
+    .count-option {
+      padding: 8px 18px; border-radius: 20px; border: 2px solid var(--border);
+      background: var(--bg3); color: var(--text2); cursor: pointer;
+      font-size: .88rem; min-height: 44px; display: flex; align-items: center;
+      transition: all .15s; font-weight: 600; user-select: none;
+    }
+    .count-option.selected { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,.08); }
+    .pref-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .pref-note { font-size: .75rem; color: var(--text2); margin-top: 10px; line-height: 1.5; }
+    .pref-status {
+      font-size: .85rem; margin-top: 10px; padding: 8px 12px;
+      border-radius: 8px; display: none;
+    }
+    .pref-status.success { background: rgba(63,185,80,.12); color: var(--green); display: block; }
+    .pref-status.error { background: rgba(248,81,73,.12); color: var(--red); display: block; }
+
+    /* Footer */
+    footer {
+      text-align: center; color: var(--text2); font-size: 0.8rem;
+      margin-top: 40px; padding: 20px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .disclaimer {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px; margin-bottom: 14px;
+      text-align: left; font-size: .82rem; line-height: 1.6;
+    }
+
+    /* Glossary link bar */
+    .glossary-link-bar { text-align: center; margin: 18px 0; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>📈 デイリー金融ニュース</h1>
-    <div class="meta">{{ date_str }} &nbsp;|&nbsp; 更新: {{ generated_at }}</div>
-    <a class="feed-link" href="{{ base_url }}/feed.xml">📡 RSSを購読</a>
-  </header>
 
-  <h2>⭐ 今日の注目 TOP{{ featured|length }}</h2>
-  {% for art in featured %}
-  <div class="card featured">
-    <div class="card-header">
-      <span class="impact">{{ art.impact_emoji }}</span>
-      <div class="headline">{{ art.headline }}</div>
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <h1>📈 デイリー金融ニュース</h1>
+      <div class="meta">{{ date_str }} &nbsp;|&nbsp; 更新: {{ generated_at }} &nbsp;|&nbsp; {{ total_count }} 本</div>
+      <div class="header-actions">
+        <a class="btn btn-primary" href="{{ base_url }}/feed.xml">📡 RSSを購読</a>
+        <a class="btn btn-secondary" href="{{ base_url }}/glossary.html">📚 用語集</a>
+        <a class="btn btn-secondary" href="{{ base_url }}/preferences-history.html">🕓 設定履歴</a>
+      </div>
+    </header>
+
+    <!-- Today's Theme -->
+    {% if daily_theme %}
+    <div class="theme-box">
+      <h2>📖 今日のテーマ</h2>
+      <div class="theme-text">{{ daily_theme }}</div>
     </div>
-    <div class="tags">
-      <span class="tag">{{ art.category }}</span>
-      <span class="tag impact-{{ art.impact }}">{{ art.impact_emoji }} {{ art.impact_label }}</span>
+    {% endif %}
+
+    <!-- Featured TOP -->
+    <div class="section-title" id="featured">
+      ⭐ 今日の注目 TOP{{ featured|length }}
+      <span class="badge">全カテゴリ横断・重要度順</span>
     </div>
-    {% if art.summary_lines %}
-    <ul class="summary">
-      {% for line in art.summary_lines %}{% if line.strip() %}
-      <li>{{ line }}</li>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <span style="font-size:.85rem;color:var(--text2)">フィルタ:</span>
+      <button class="filter-btn" id="filter-all" onclick="setFilter('all')">すべて表示</button>
+      <button class="filter-btn" id="filter-4up" onclick="setFilter('4up')">★4以上のみ</button>
+    </div>
+
+  </div><!-- /container (nav goes outside for full-width sticky) -->
+
+  <!-- Category Nav (sticky, full width) -->
+  <nav class="cat-nav">
+    <div class="cat-nav-inner">
+      <a class="cat-link" href="#featured">⭐ 注目TOP</a>
+      {% for cat_key in categories_order %}{% if categories[cat_key] %}
+      <a class="cat-link" href="#cat-{{ cat_key }}">{{ category_labels[cat_key] }}</a>
       {% endif %}{% endfor %}
-    </ul>
+      <a class="cat-link" href="#tomorrow-preferences">🔮 明日の設定</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Featured cards -->
+    {% for art in featured %}
+    {{ render_card(art, 'f' ~ loop.index0, is_featured=true) }}
+    {% endfor %}
+
+    <!-- Category sections -->
+    {% for cat_key in categories_order %}
+    {% set cat_articles = categories[cat_key] %}
+    {% if cat_articles %}
+    <section class="cat-section" id="cat-{{ cat_key }}">
+      <div class="cat-section-header" onclick="toggleCat(this)">
+        <span class="cat-section-title">{{ category_labels[cat_key] }}</span>
+        <span class="badge">{{ cat_articles|length }} 本</span>
+        <span class="cat-toggle">▾</span>
+      </div>
+      <div class="cat-body">
+        {% for art in cat_articles %}
+        {{ render_card(art, cat_key ~ loop.index0) }}
+        {% endfor %}
+      </div>
+    </section>
     {% endif %}
-    {% if art.explanation %}
-    <div class="explanation">{{ art.explanation }}</div>
-    {% endif %}
-    <div class="card-footer">
-      <span>{{ art.source }} &nbsp;|&nbsp; {{ art.published.strftime('%H:%M UTC') }}</span>
-      {% if art.link %}<a href="{{ art.link }}" target="_blank" rel="noopener">元記事 →</a>{% endif %}
+    {% endfor %}
+
+    <!-- Glossary link -->
+    <div class="glossary-link-bar">
+      <a href="{{ base_url }}/glossary.html" class="btn btn-secondary">📚 用語集ページへ</a>
+    </div>
+
+    <!-- Tomorrow Preferences Form -->
+    <section id="tomorrow-preferences">
+      <h2>🔮 明日のニュース、どこを重点的に?</h2>
+      <p>選択した分野の記事が多めに収集されます（最大3カテゴリ）</p>
+
+      <div class="pref-group">
+        <span class="pref-label">📑 カテゴリ（複数選択可、最大3つ）</span>
+        <div class="cat-checkboxes" id="pref-cats">
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="jp_stock">🇯🇵 日本個別株
+          </label>
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="jp_index">📊 日本インデックス
+          </label>
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="foreign_stock">🇺🇸 外国個別株
+          </label>
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="foreign_index">📈 外国インデックス
+          </label>
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="futures">🎯 先物
+          </label>
+          <label class="cat-checkbox-item">
+            <input type="checkbox" value="fx_macro">💱 為替・マクロ経済
+          </label>
+        </div>
+      </div>
+
+      <div class="pref-group">
+        <label class="pref-label" for="pref-keywords">🔍 注目キーワード（任意、カンマ区切り）</label>
+        <input type="text" id="pref-keywords" class="kw-input"
+               placeholder="例: FOMC, 半導体, トヨタ, 日銀, 円安">
+      </div>
+
+      <div class="pref-group">
+        <span class="pref-label">📰 記事の本数</span>
+        <div class="count-options" id="pref-count">
+          <div class="count-option" data-value="20" onclick="selectCount(this)">コンパクト（20本）</div>
+          <div class="count-option selected" data-value="30" onclick="selectCount(this)">バランス（30本）</div>
+          <div class="count-option" data-value="40" onclick="selectCount(this)">詳細（40本）</div>
+        </div>
+      </div>
+
+      <div class="pref-actions">
+        <button class="btn btn-primary" onclick="submitPreferences()">📨 明日の設定を送信</button>
+        <button class="btn btn-secondary" onclick="resetPreferences()">🔄 設定をリセット</button>
+      </div>
+      <div class="pref-note">
+        ※ 送信時にGitHubトークンの入力が必要です。トークンはブラウザのみに保存されます。<br>
+        Issues read/write 権限のみの Fine-grained PAT を推奨します。
+      </div>
+      <div id="pref-status" class="pref-status"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="disclaimer">
+        <strong>免責事項</strong><br>
+        本サイトの情報はAIによる自動生成であり、投資推奨ではありません。<br>
+        投資判断はご自身の責任で行ってください。情報の正確性は保証されません。<br>
+        ニュース原文は各リンク先でご確認ください。
+      </div>
+      <p>デイリー金融ニュース &mdash; Powered by Groq (llama-3.3-70b) &amp; GitHub Pages</p>
+      <p style="margin-top:6px">
+        <a href="{{ base_url }}/feed.xml">📡 feed.xml</a> &nbsp;|&nbsp;
+        <a href="{{ base_url }}/glossary.html">📚 用語集</a> &nbsp;|&nbsp;
+        <a href="{{ base_url }}/preferences-history.html">🕓 設定履歴</a>
+      </p>
+    </footer>
+
+  </div><!-- /container -->
+
+  <!-- PAT Modal -->
+  <div id="pat-modal" style="display:none;position:fixed;inset:0;
+       background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;">
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;
+                padding:24px;max-width:420px;width:90%;margin:auto;">
+      <h3 style="color:var(--accent);margin-bottom:10px">🔑 GitHub PAT を入力</h3>
+      <p style="font-size:.87rem;color:var(--text2);margin-bottom:14px">
+        Issues read/write 権限のみの Fine-grained Personal Access Token を入力してください。<br>
+        トークンはこのブラウザにのみ保存され、サーバーへは送信されません。
+      </p>
+      <input type="password" id="pat-input" placeholder="github_pat_..." class="kw-input" style="margin-bottom:12px">
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary" onclick="savePat()" style="flex:1">保存して送信</button>
+        <button class="btn btn-secondary" onclick="closePat()">キャンセル</button>
+      </div>
     </div>
   </div>
-  {% endfor %}
 
-  <h2>📰 全ニュース一覧 ({{ articles|length }} 件)</h2>
-  {% for art in articles %}
-  <div class="card">
-    <div class="card-header">
-      <span class="impact">{{ art.impact_emoji }}</span>
-      <div class="headline">{{ art.headline }}</div>
-    </div>
-    <div class="tags">
-      <span class="tag">{{ art.category }}</span>
-      <span class="tag impact-{{ art.impact }}">{{ art.impact_label }}</span>
-    </div>
-    {% if art.summary_lines %}
-    <ul class="summary">
-      {% for line in art.summary_lines %}{% if line.strip() %}
-      <li>{{ line }}</li>
-      {% endif %}{% endfor %}
-    </ul>
-    {% endif %}
-    <div class="card-footer">
-      <span>{{ art.source }} &nbsp;|&nbsp; {{ art.published.strftime('%H:%M UTC') }}</span>
-      {% if art.link %}<a href="{{ art.link }}" target="_blank" rel="noopener">元記事 →</a>{% endif %}
-    </div>
-  </div>
-  {% endfor %}
-
-  <footer>
-    <p>デイリー金融ニュース &mdash; Powered by Groq (llama-3.3-70b) &amp; GitHub Pages</p>
-    <p><a href="{{ base_url }}/feed.xml" style="color:var(--accent)">📡 feed.xml</a></p>
-  </footer>
   <script>
+    // ── Filter ──
+    const FILTER_KEY = 'finance_filter';
+    function setFilter(mode) {
+      localStorage.setItem(FILTER_KEY, mode);
+      document.getElementById('filter-all').classList.toggle('active', mode === 'all');
+      document.getElementById('filter-4up').classList.toggle('active', mode === '4up');
+      document.querySelectorAll('.card').forEach(card => {
+        if (mode === '4up') {
+          card.classList.toggle('hidden-by-filter', parseInt(card.dataset.importance || '3') < 4);
+        } else {
+          card.classList.remove('hidden-by-filter');
+        }
+      });
+      document.querySelectorAll('.cat-section').forEach(sec => {
+        const vis = sec.querySelectorAll('.card:not(.hidden-by-filter)').length > 0;
+        sec.classList.toggle('all-hidden', !vis);
+      });
+    }
+    (function() { setFilter(localStorage.getItem(FILTER_KEY) || '4up'); })();
+
+    // ── Card expand ──
+    function toggleCard(el) { el.closest('.card').classList.toggle('open'); }
+
+    // ── Category section toggle ──
+    function toggleCat(header) { header.closest('.cat-section').classList.toggle('collapsed'); }
+
+    // ── Perspective tabs ──
+    function switchTab(btn) {
+      const wrapper = btn.closest('.persp-wrapper');
+      wrapper.querySelectorAll('.persp-tab').forEach(t => t.classList.remove('active'));
+      wrapper.querySelectorAll('.persp-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const target = document.getElementById(btn.dataset.target);
+      if (target) target.classList.add('active');
+    }
+
+    // ── Preferences ──
+    function selectCount(el) {
+      document.querySelectorAll('.count-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    document.querySelectorAll('.cat-checkbox-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const cb = item.querySelector('input[type=checkbox]');
+        if (item.classList.contains('selected')) {
+          item.classList.remove('selected'); cb.checked = false;
+        } else if (document.querySelectorAll('.cat-checkbox-item.selected').length < 3) {
+          item.classList.add('selected'); cb.checked = true;
+        }
+      });
+    });
+
+    let _pendingBody = null, _pendingDate = null, _pendingTime = null;
+    function submitPreferences() {
+      const cats = Array.from(document.querySelectorAll('.cat-checkbox-item.selected input'))
+                        .map(i => i.value);
+      const kw = document.getElementById('pref-keywords').value.trim();
+      const keywords = kw ? kw.split(',').map(k => k.trim()).filter(Boolean) : [];
+      const count = parseInt(document.querySelector('.count-option.selected')?.dataset.value || '30');
+      const now = new Date();
+      const dateStr = now.toISOString().slice(0, 10);
+      const timeStr = now.toTimeString().slice(0, 5);
+      const body = JSON.stringify({ date: dateStr, focus_categories: cats, keywords, article_count: count }, null, 2);
+      const token = localStorage.getItem('gh_pat');
+      if (!token) {
+        _pendingBody = body; _pendingDate = dateStr; _pendingTime = timeStr;
+        document.getElementById('pat-modal').style.display = 'flex';
+        return;
+      }
+      _doSubmit(token, body, dateStr, timeStr);
+    }
+
+    function _doSubmit(token, body, dateStr, timeStr) {
+      const m = '{{ base_url }}'.match(/https?:\/\/([^.]+)\.github\.io\/(.+)/);
+      if (!m) { showStatus('error', 'BASE_URLからリポジトリを特定できませんでした。'); return; }
+      const [, owner, repoName] = m;
+      fetch(`https://api.github.com/repos/${owner}/${repoName}/issues`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+        body: JSON.stringify({ title: `[preferences] ${dateStr} ${timeStr}`, body, labels: ['preferences'] }),
+      })
+      .then(r => r.ok
+        ? showStatus('success', '✅ 設定を送信しました！明日のニュース収集に反映されます。')
+        : r.json().then(d => showStatus('error', `送信失敗: ${d.message || r.status}`))
+      )
+      .catch(e => showStatus('error', `送信エラー: ${e.message}`));
+    }
+
+    function savePat() {
+      const token = document.getElementById('pat-input').value.trim();
+      if (!token) return;
+      localStorage.setItem('gh_pat', token);
+      closePat();
+      if (_pendingBody) {
+        _doSubmit(token, _pendingBody, _pendingDate, _pendingTime);
+        _pendingBody = null;
+      }
+    }
+    function closePat() {
+      document.getElementById('pat-modal').style.display = 'none';
+      document.getElementById('pat-input').value = '';
+    }
+    function resetPreferences() {
+      document.querySelectorAll('.cat-checkbox-item').forEach(i => {
+        i.classList.remove('selected'); i.querySelector('input').checked = false;
+      });
+      document.getElementById('pref-keywords').value = '';
+      document.querySelectorAll('.count-option').forEach(o => o.classList.remove('selected'));
+      document.querySelector('.count-option[data-value="30"]').classList.add('selected');
+      localStorage.removeItem('gh_pat');
+      showStatus('success', '設定をリセットしました（トークンも削除）。');
+    }
+    function showStatus(type, msg) {
+      const el = document.getElementById('pref-status');
+      el.className = 'pref-status ' + type; el.textContent = msg;
+      setTimeout(() => { el.style.display = 'none'; el.className = 'pref-status'; }, 6000);
+    }
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/trading/sw.js').catch(() => {});
     }

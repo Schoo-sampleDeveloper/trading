@@ -20,11 +20,11 @@ def main():
         print("[ERROR] ニュースを取得できませんでした。終了します。")
         sys.exit(1)
 
-    # 2. 要約
-    summarized = summarize(articles)
+    # 2. 要約 (戻り値: articles, daily_theme)
+    summarized, daily_theme = summarize(articles)
 
     # 3. サイト生成
-    build(summarized)
+    build(summarized, daily_theme=daily_theme)
 
     print("=" * 50)
     print("  完了! docs/ を GitHub Pages で公開してください。")
