@@ -20,5 +20,322 @@
         "link": "https://example.com/fomc"
       }
     ]
+  },
+  "金利": {
+    "definition": "お金を借りる際の利子率",
+    "example": "金利が高いと、借り入れコストが増える",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "日銀が3会合連続で金利据え置き",
+        "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE90WTRyVDRNbk1rV3J0NllEaFpvdWRMZ0VpN1BnZWk1ZlRKNkFFNTBLS3h4NGxBQVM4SHZxRm50WV9ocnRVMzZrem5wVVI1ZFBOWDZ5MUpB?oc=5"
+      }
+    ]
+  },
+  "利上げ": {
+    "definition": "金利を上げること",
+    "example": "日銀が利上げを行うと、金利が上昇する",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "日銀が利上げ見送り 政策委員3人が異例の反対",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9aSnk1b0xpcXZpMmVzLVRIcUQtV2szbFRpeFZyMG4zbEJiVXVuUFM2WnlxRFFXQW1xOFFObFVUY2VrV05meTBiTWNCeFJCQzlIV1lKbDBGaFBUenFWU1Q4ZXd3YlVzQ1BhTFhjOUNFRmh5YjR4by13SW5YMHZYOVU?oc=5"
+      },
+      {
+        "date": "2026-04-29",
+        "headline": "日銀3委員が利上げ見送りに異議",
+        "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE0tQ0g3UFluZS1tQ3FqRWEydWdlYU1qLTcyeU1QYVBfd3JmU0J6Nml6Vm5ZMnlvNVQyellKVmlkaHhvbmJKa3AwdlJqaVlhUmFhOWw2QVhhUTdfOTF2SkM2QVM5Yy1YVmhuOUxVZE9Zd1ZOOFJVYUE?oc=5"
+      },
+      {
+        "date": "2026-04-29",
+        "headline": "日銀が利上げを見送り",
+        "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4xb2YxbmM1N2wycW5melAzQ2F5Xzllb01qUFRzbFN0V1FIQ210MkdXcnlBQmpmSDJXN1hJM2RKeTFNNUw3VlFIRG9XUHVHaUZBVkJCckNIN2dva193NUpxdTBvMnZ4dE0?oc=5"
+      }
+    ]
+  },
+  "ウォール街": {
+    "definition": "アメリカの金融街。ニューヨーク証券取引所が所在する",
+    "example": "ウォール街の予想を上回った",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "スターバックス、若者や低所得層の客に支えられ復調",
+        "link": "https://www.marketwatch.com/story/starbucks-is-getting-customers-back-into-its-stores-faster-than-expected-f4ee80ab?mod=mw_rss_topstories"
+      }
+    ]
+  },
+  "熱帯林": {
+    "definition": "赤道付近の地域に広がる、常緑樹で構成される森林",
+    "example": "アマゾン熱帯雨林",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "2025年の熱帯林減少、前年の記録高から減少",
+        "link": "https://www.investing.com/news/world-news/tropical-forest-loss-eases-in-2025-from-record-high-report-shows-4643500"
+      }
+    ]
+  },
+  "希土類金属": {
+    "definition": "レアアースと呼ばれる17種類の金属元素の総称。高性能技術製品に不可欠な材料である。",
+    "example": "スマートフォンや電気自動車の製造に使用される。",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "中国希土類金属株が上昇、北京が生産違反を狙う",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/china-rare-earth-shares-rally-as-beijing-targets-output-breaches"
+      }
+    ]
+  },
+  "利率": {
+    "definition": "金融機関が貸出を行う際に設定する金利",
+    "example": "ECBが設定する利率は、欧州経済に大きな影響を与える",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "ECB、イラン戦争の経済への影響を調査",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/ecb-finds-no-clear-case-to-hike-yet-on-lane-s-data-dashboard"
+      }
+    ]
+  },
+  "銅": {
+    "definition": "電気や電子部品の重要な材料",
+    "example": "電線や電子部品の製造に使用される",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "銅価格が4日間の下落を断ち、中国の買いが要因",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/copper-snaps-four-day-decline-on-china-buying-ahead-of-holiday"
+      }
+    ]
+  },
+  "供給チェーン": {
+    "definition": "企業が製品を生産するために必要な部品やサービスを入手するプロセス",
+    "example": "半導体の供給チェーンは、原材料の採掘から製品の出荷までのプロセスを含む",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "半導体供給チェーンが戦争の次の犠牲者になるリスク",
+        "link": "https://www.bloomberg.com/opinion/newsletters/2026-04-29/chip-supply-chains-risk-being-next-casualty-of-war"
+      }
+    ]
+  },
+  "MSCIチャイナヘルスケア指数": {
+    "definition": "中国のヘルスケア業界を代表する株価指数",
+    "example": "MSCIチャイナヘルスケア指数を構成する企業の株価の変動を追うことができる",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "RemeGen: 中国国内ビジネスに注力",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/remegen-focused-on-growing-domestic-business-video"
+      }
+    ]
+  },
+  "IPO": {
+    "definition": "株式を一般に公開して資金を調達すること",
+    "example": "会社が初めて株式を市場に公開すること",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "中国トラックメーカーXCMG、香港で50億ドル上場を検討",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/chinese-truckmaker-xcmg-auto-is-said-to-consider-500-million-hong-kong-ipo"
+      }
+    ]
+  },
+  "OPEC": {
+    "definition": "石油輸出国機構。世界の主要な石油生産国が加盟する国際組織で、石油価格の管理を目的とする。",
+    "example": "サウジアラビア、ロシア、イランなどがOPECの主要な加盟国である。",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "UAEがOPEC脱退、石油価格への影響",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/understanding-the-uae-s-decision-to-leave-opec-video"
+      },
+      {
+        "date": "2026-04-29",
+        "headline": "UAEがOPEC離脱、石油価格への影響",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/why-the-uae-opec-rift-was-years-in-the-making-video"
+      }
+    ]
+  },
+  "農業政策": {
+    "definition": "農業の生産、流通、消費に関する政府の政策",
+    "example": "中国の農業政策は、食糧自給率の向上を目指している",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "中国、農業担当の高官を2年間で2度目の交代",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/china-changes-agriculture-chief-for-second-time-in-two-years"
+      }
+    ]
+  },
+  "鉄鉱石": {
+    "definition": "鉄鋼生産の原材料となる鉱石",
+    "example": "鉄鉱石は鉄鋼業界の重要な原材料である",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "鉄鉱石価格が1ヶ月ぶりの高値に向上",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/iron-ore-advances-as-rising-costs-offset-bhp-cmrg-resolution"
+      }
+    ]
+  },
+  "貿易戦争": {
+    "definition": "国が他国に対して関税や制限を課すことで起こる経済的な対立",
+    "example": "アメリカと中国の貿易戦争",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "中国の経済が世界に与える影響",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/is-the-yuan-ready-to-meet-the-moment-video"
+      },
+      {
+        "date": "2026-04-29",
+        "headline": "アジアの資金が次に動く先",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/where-asia-s-money-moves-next-video"
+      }
+    ]
+  },
+  "地政学的リスク": {
+    "definition": "国や地域の政治的、経済的な状況が投資やビジネスに与える影響",
+    "example": "米中貿易戦争は地政学的リスクの典型例である",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "台湾を取り巻く情勢に注目",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/keeping-an-eye-on-taiwan-video"
+      }
+    ]
+  },
+  "等価重み指数": {
+    "definition": "すべての銘柄に同等の重みを与える指数",
+    "example": "SP500の等価重み指数",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "SP500が過去最高値を回復したが、等価重み指数はまだ低迷",
+        "link": "https://www.marketwatch.com/story/the-stock-markets-comeback-from-the-iran-inspired-selloff-hasnt-been-as-powerful-as-you-might-think-6138bbec?mod=mw_rss_topstories"
+      }
+    ]
+  },
+  "小型株": {
+    "definition": "市場価値が小さく、成長可能性が高い株",
+    "example": "インドの小型株は、経済成長の先行指標とみなされることが多い",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "インドの小型株、2014年以来の最高月間上昇",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/indian-small-caps-set-for-best-month-since-2014-after-rare-rally"
+      }
+    ]
+  },
+  "ガス探査": {
+    "definition": "地下に埋蔵されている天然ガスの存在を探す活動",
+    "example": "オーストラリアの東海岸で新しいガス探査エリアが開放される",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "オーストラリア・ニューサウスウェールズ州、10年ぶりに新ガス探査エリアを開放",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/australian-state-allows-new-gas-exploration-for-first-time-in-decade"
+      }
+    ]
+  },
+  "構造的なトレンド": {
+    "definition": "市場や経済の長期的な傾向",
+    "example": "気候変動による温暖化がもたらすエネルギー需要の増加",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "インドの厳しい夏、エアコン・飲料・電力株が上昇",
+        "link": "https://www.bloomberg.com/news/newsletters/2026-04-29/ac-firms-beverage-makers-rally-as-summer-gets-harsher-maruti-misses-estimates"
+      }
+    ]
+  },
+  "パラボリックラリー": {
+    "definition": "急激な価格上昇",
+    "example": "特定の株価が短期間で急激に上昇する",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "米国投資家が直面する最も重要な問題",
+        "link": "https://www.marketwatch.com/story/this-is-the-most-critical-question-facing-u-s-investors-right-now-and-it-has-nothing-to-do-with-iran-45bc8f2e?mod=mw_rss_topstories"
+      }
+    ]
+  },
+  "グリーンファンド": {
+    "definition": "環境に優しいプロジェクトに投資するファンド",
+    "example": "風力発電所や水力発電所への投資",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "Mirovaグリーンファンド、フィリピン国債から撤退",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/mirova-green-fund-exits-philippine-debt-after-corruption-scandal"
+      }
+    ]
+  },
+  "ESG": {
+    "definition": "環境、社会、ガバナンスの3要素を考慮した投資",
+    "example": "企業の環境への影響や社会貢献度を評価した投資",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "Mirovaグリーンファンド、フィリピン国債から撤退",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/mirova-green-fund-exits-philippine-debt-after-corruption-scandal"
+      }
+    ]
+  },
+  "ホルムズ海峡封鎖": {
+    "definition": "イランとオマーンの間にある海峡の封鎖。世界経済に大きな影響を与える可能性がある。",
+    "example": "ホルムズ海峡封鎖は、石油価格に大きな影響を与える可能性がある。",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "UBS: AIはもはや唯一の選択肢ではない",
+        "link": "https://www.bloomberg.com/news/videos/2026-04-29/ai-is-no-longer-the-only-game-in-town-ubs-says-video"
+      }
+    ]
+  },
+  "LNG": {
+    "definition": "液化天然ガス。天然ガスを極低温で液化したもの。",
+    "example": "LNGは、輸送や貯蔵が容易なため、世界的なエネルギー需要を賄う重要な資源である。",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "中国のLNG輸入、8年ぶり低水準に",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/china-s-april-lng-imports-set-to-hit-eight-year-low-kpler-says"
+      }
+    ]
+  },
+  "AIラリー": {
+    "definition": "AI関連株の値上がりを指す",
+    "example": "AI関連株の値上がりが続いている",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "AI関連株の新たな動き",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/ai-rally-ripples-through-chip-supply-chain-minting-new-winners"
+      }
+    ]
+  },
+  "外国為替先物取引": {
+    "definition": "外国為替の先物取引。将来の特定の日付けで、事前に決められたレートで外国為替を買ったり売ったりする取引。",
+    "example": "ドル円の先物取引",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "MUFG、インドの不動産市場に進出",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/mufg-to-foray-into-indian-real-estate-expand-forex-derivatives"
+      }
+    ]
+  },
+  "プライベートクレジット": {
+    "definition": "非公開の貸借や投資を指す。金融機関や投資家が、企業や個人に直接貸し付ける資金",
+    "example": "企業が金融機関から受けるローン",
+    "articles": [
+      {
+        "date": "2026-04-29",
+        "headline": "韓国、プライベートクレジットのリスク検証を強化",
+        "link": "https://www.bloomberg.com/news/articles/2026-04-29/korea-ramps-up-private-credit-scrutiny-to-gauge-vulnerabilities"
+      }
+    ]
   }
 }
