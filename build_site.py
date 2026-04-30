@@ -1,12 +1,13 @@
 """
 build_site.py
 Jinja2 テンプレートから HTML / RSS を生成して docs/ に出力する。
-用語集(glossary.json)の永続化、preferences-history ページも生成する。
+用語集(glossary)の生成はスキップ(プロ向けリファイン後は不要)。
+data/glossary.json は保持するが更新しない。
+preferences-history ページも生成する。
 """
 
 import json
 import os
-import unicodedata
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 from email.utils import formatdate
@@ -26,8 +27,6 @@ TEMPLATES_DIR = Path(__file__).parent / "templates"
 JST = timezone(timedelta(hours=9))
 BASE_URL = os.environ.get("SITE_BASE_URL", "https://example.github.io/trading").rstrip("/")
 
-GLOSSARY_FILE = DATA_DIR / "glossary.json"
-
 
 def _jst_now() -> datetime:
     return datetime.now(JST)
@@ -35,151 +34,6 @@ def _jst_now() -> datetime:
 
 def _rss_date(dt: datetime) -> str:
     return formatdate(dt.timestamp(), usegmt=True)
-
-
-def _kana_key(text: str) -> str:
-    """五十音順ソート用キー。ひらがな→カタカナ統一、英数字はZZZ...プレフィックス。"""
-    t = text.strip()
-    # ひらがな→カタカナ変換
-    result = ""
-    for ch in t:
-        code = ord(ch)
-        if 0x3041 <= code <= 0x3096:
-            result += chr(code + 0x60)
-        else:
-            result += ch
-    # 英数字始まりは後ろへ
-    if result and (result[0].isascii()):
-        return "zzz" + result.lower()
-    return unicodedata.normalize("NFKC", result)
-
-
-def _update_glossary(articles: list[dict], date_str: str) -> dict:
-    """
-    記事の terms を glossary.json に追記・更新する。
-    {term: {definition, example, articles: [{date, headline, link}]}}
-    """
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-
-    glossary: dict = {}
-    if GLOSSARY_FILE.exists():
-        try:
-            glossary = json.loads(GLOSSARY_FILE.read_text(encoding="utf-8"))
-        except Exception:
-            glossary = {}
-
-    for art in articles:
-        for term_obj in art.get("terms", []):
-            term = term_obj.get("term", "").strip()
-            if not term:
-                continue
-            entry = glossary.setdefault(term, {
-                "definition": term_obj.get("definition", ""),
-                "example": term_obj.get("example", ""),
-                "articles": [],
-            })
-            # 定義を最新で更新
-            entry["definition"] = term_obj.get("definition", entry["definition"])
-            entry["example"] = term_obj.get("example", entry["example"])
-            # 記事リンクを追記(重複チェック)
-            art_ref = {
-                "date": date_str,
-                "headline": art.get("headline", art.get("title", ""))[:40],
-                "link": art.get("link", ""),
-            }
-            existing_links = {a["link"] for a in entry["articles"]}
-            if art_ref["link"] not in existing_links:
-                entry["articles"].append(art_ref)
-                # 最新20件に制限
-                entry["articles"] = entry["articles"][-20:]
-
-    GLOSSARY_FILE.write_text(json.dumps(glossary, ensure_ascii=False, indent=2), encoding="utf-8")
-    return glossary
-
-
-def _build_glossary_html(glossary: dict) -> None:
-    """docs/glossary.html を生成。"""
-    DOCS_DIR.mkdir(parents=True, exist_ok=True)
-
-    # 五十音 / 英数字 に分類してソート
-    jp_terms = {}
-    en_terms = {}
-    for term, data in glossary.items():
-        if term and term[0].isascii():
-            en_terms[term] = data
-        else:
-            jp_terms[term] = data
-
-    jp_sorted = sorted(jp_terms.items(), key=lambda x: _kana_key(x[0]))
-    en_sorted = sorted(en_terms.items(), key=lambda x: x[0].lower())
-
-    env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=True)
-    try:
-        tmpl = env.get_template("glossary.html.j2")
-    except Exception:
-        # テンプレートが無ければ簡易HTML生成
-        _write_glossary_html_simple(jp_sorted, en_sorted)
-        return
-
-    ctx = {
-        "jp_terms": jp_sorted,
-        "en_terms": en_sorted,
-        "generated_at": _jst_now().strftime("%Y/%m/%d %H:%M JST"),
-        "base_url": BASE_URL,
-    }
-    (DOCS_DIR / "glossary.html").write_text(tmpl.render(**ctx), encoding="utf-8")
-    print("  生成: docs/glossary.html")
-
-
-def _write_glossary_html_simple(jp_sorted: list, en_sorted: list) -> None:
-    """テンプレートなしの簡易用語集HTML。"""
-    lines = [
-        '<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8">',
-        '<meta name="viewport" content="width=device-width,initial-scale=1.0">',
-        '<title>用語集 | デイリー金融ニュース</title>',
-        '<style>',
-        'body{background:#0d1117;color:#e6edf3;font-family:-apple-system,sans-serif;',
-        'font-size:16px;line-height:1.6;max-width:800px;margin:0 auto;padding:16px}',
-        'h1{color:#58a6ff}h2{color:#8b949e;border-bottom:1px solid #30363d;padding-bottom:6px}',
-        '.term{background:#161b22;border:1px solid #30363d;border-radius:10px;',
-        'padding:14px;margin-bottom:12px}',
-        '.term-name{font-size:1.1rem;font-weight:700;color:#58a6ff}',
-        '.definition{margin:6px 0;font-size:.9rem}',
-        '.example{font-size:.85rem;color:#8b949e}',
-        '.art-link{font-size:.8rem;color:#58a6ff;text-decoration:none}',
-        'a{color:#58a6ff}',
-        '</style></head><body>',
-        '<h1>📚 用語集</h1>',
-        '<p style="color:#8b949e;font-size:.85rem">AIが記事から自動抽出した用語集です。</p>',
-    ]
-    if jp_sorted:
-        lines.append('<h2>日本語</h2>')
-        for term, data in jp_sorted:
-            lines.append(f'<div class="term" id="term-{term}">')
-            lines.append(f'<div class="term-name">{term}</div>')
-            lines.append(f'<div class="definition">{data.get("definition","")}</div>')
-            if data.get("example"):
-                lines.append(f'<div class="example">例: {data["example"]}</div>')
-            for art in data.get("articles", [])[-3:]:
-                lines.append(f'<a class="art-link" href="{art["link"]}" target="_blank" rel="noopener">→ {art["headline"]} ({art["date"]})</a><br>')
-            lines.append('</div>')
-    if en_sorted:
-        lines.append('<h2>English / 英数字</h2>')
-        for term, data in en_sorted:
-            lines.append(f'<div class="term" id="term-{term}">')
-            lines.append(f'<div class="term-name">{term}</div>')
-            lines.append(f'<div class="definition">{data.get("definition","")}</div>')
-            if data.get("example"):
-                lines.append(f'<div class="example">例: {data["example"]}</div>')
-            for art in data.get("articles", [])[-3:]:
-                lines.append(f'<a class="art-link" href="{art["link"]}" target="_blank" rel="noopener">→ {art["headline"]} ({art["date"]})</a><br>')
-            lines.append('</div>')
-    lines.append('<footer style="text-align:center;color:#8b949e;font-size:.8rem;margin-top:40px;padding:20px 0;border-top:1px solid #30363d">')
-    lines.append(f'<a href="{BASE_URL}/index.html" style="color:#58a6ff">← トップへ</a><br>')
-    lines.append('本サイトの情報はAIによる自動生成であり、投資推奨ではありません。</footer>')
-    lines.append('</body></html>')
-    (DOCS_DIR / "glossary.html").write_text("\n".join(lines), encoding="utf-8")
-    print("  生成: docs/glossary.html (簡易版)")
 
 
 def _build_preferences_history(base_url: str) -> None:
@@ -199,7 +53,10 @@ def _build_preferences_history(base_url: str) -> None:
             "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28",
         }
-        url = f"https://api.github.com/repos/{repo}/issues?labels=preferences&state=closed&per_page=30&sort=created&direction=desc"
+        url = (
+            f"https://api.github.com/repos/{repo}/issues"
+            f"?labels=preferences&state=closed&per_page=30&sort=created&direction=desc"
+        )
         try:
             resp = httpx.get(url, headers=headers, timeout=15)
             issues = resp.json()
@@ -246,7 +103,7 @@ def _build_preferences_history(base_url: str) -> None:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>設定履歴 | デイリー金融ニュース</title>
+  <title>設定履歴 | マーケットニュース</title>
   <style>
     body{{background:#0d1117;color:#e6edf3;font-family:-apple-system,sans-serif;
     font-size:16px;line-height:1.6;max-width:800px;margin:0 auto;padding:16px}}
@@ -264,7 +121,7 @@ def _build_preferences_history(base_url: str) -> None:
 </head>
 <body>
   <h1>🕓 過去の設定履歴</h1>
-  <p style="color:#8b949e;font-size:.9rem">「明日の重点設定」フォームで送信した設定の記録です。</p>
+  <p style="color:#8b949e;font-size:.9rem">「翌日重点設定」フォームで送信した設定の記録です。</p>
   <div class="header-row">
     <span>日付</span><span>重点カテゴリ</span><span>キーワード</span><span>本数</span>
   </div>
@@ -279,7 +136,7 @@ def _build_preferences_history(base_url: str) -> None:
     print("  生成: docs/preferences-history.html")
 
 
-def build_html(articles: list[dict], date_str: str, daily_theme: str = "") -> None:
+def build_html(articles: list, date_str: str, daily_theme: str = "") -> None:
     """index.html と archive/{date}.html を生成。"""
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
@@ -288,10 +145,9 @@ def build_html(articles: list[dict], date_str: str, daily_theme: str = "") -> No
     tmpl = env.get_template("index.html.j2")
 
     featured = [a for a in articles if a.get("featured")]
-    # カテゴリ別グループ化
     from collector import CATEGORY_LABELS
     categories_order = list(CATEGORY_LABELS.keys())
-    categories: dict[str, list[dict]] = {cat: [] for cat in categories_order}
+    categories: dict = {cat: [] for cat in categories_order}
     for art in articles:
         cat = art.get("category", "fx_macro")
         if cat not in categories:
@@ -319,7 +175,7 @@ def build_html(articles: list[dict], date_str: str, daily_theme: str = "") -> No
     print(f"  生成: docs/archive/{date_str}.html")
 
 
-def build_rss(articles: list[dict], date_str: str) -> None:
+def build_rss(articles: list, date_str: str) -> None:
     """RSS 2.0 フィードを docs/feed.xml に生成。"""
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -333,9 +189,9 @@ def build_rss(articles: list[dict], date_str: str) -> None:
         el.text = text
         return el
 
-    _sub(channel, "title", "デイリー金融ニュース")
+    _sub(channel, "title", "プロ向けマーケットニュース")
     _sub(channel, "link", f"{BASE_URL}/index.html")
-    _sub(channel, "description", "毎朝6:30 JST 更新。日本株・米国株・為替・マクロ経済の重要ニュースをAIが要約。")
+    _sub(channel, "description", "毎朝6:30 JST 更新。機関投資家向けの市況分析・シナリオ・トレードアイデア。")
     _sub(channel, "language", "ja")
     _sub(channel, "lastBuildDate", _rss_date(_jst_now()))
     atom_link = ET.SubElement(channel, "atom:link")
@@ -348,8 +204,7 @@ def build_rss(articles: list[dict], date_str: str) -> None:
         item = ET.SubElement(channel, "item")
         category_tag = CATEGORY_LABELS.get(art.get("category", "fx_macro"), art.get("category", ""))
         headline = art.get("headline", art["title"])
-        what_happened = art.get("what_happened", "")
-        why_important = art.get("why_important", "")
+        summary = art.get("summary", "")
         impact_emoji = art.get("impact_emoji", "➡️")
         impact_label = art.get("impact_label", "中立")
         importance = art.get("importance", 3)
@@ -360,13 +215,14 @@ def build_rss(articles: list[dict], date_str: str) -> None:
         _sub(item, "link", art.get("link", ""))
 
         desc_parts = [f"{stars} 重要度{importance}/5"]
-        if what_happened:
-            desc_parts.append(what_happened)
-        if why_important:
-            desc_parts.append(f"📌 {why_important}")
+        if summary:
+            desc_parts.append(summary)
+        # シナリオがあれば追記
+        sc = art.get("scenarios", {})
+        if sc.get("base"):
+            desc_parts.append(f"ベースシナリオ: {sc['base']}")
         desc_parts.append(f"市場影響: {impact_emoji} {impact_label}")
         desc_parts.append(f"出典: {art.get('source', '')}")
-        desc_parts.append("※AIによる解釈であり投資推奨ではありません")
         _sub(item, "description", "\n".join(desc_parts))
 
         _sub(item, "pubDate", _rss_date(art["published"]))
@@ -382,17 +238,15 @@ def build_rss(articles: list[dict], date_str: str) -> None:
     print(f"  生成: docs/feed.xml ({len(articles)} 件)")
 
 
-def build(articles: list[dict], daily_theme: str = "") -> None:
+def build(articles: list, daily_theme: str = "") -> None:
     date_str = _jst_now().strftime("%Y-%m-%d")
     print("=== サイト生成開始 ===")
 
-    # 用語集更新
-    glossary = _update_glossary(articles, date_str)
-    print(f"  用語集更新: {len(glossary)} 語")
+    # 用語集更新・生成はスキップ(プロ向けリファイン後は不要)
+    # data/glossary.json は保持するが更新しない
 
     build_html(articles, date_str, daily_theme=daily_theme)
     build_rss(articles, date_str)
-    _build_glossary_html(glossary)
     _build_preferences_history(BASE_URL)
     _copy_static()
     print("サイト生成完了\n")

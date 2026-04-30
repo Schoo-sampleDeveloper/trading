@@ -1,120 +1,160 @@
 {# ─────────────────────────────────────────
-   Macro: render one article card
-   uid: unique string for tab IDs
+   Macro: render one article card (pro layout)
+   Default visible: headline + tags + summary + key_data + technical + scenarios
+   Expandable: fundamental + positioning + trade_ideas + watch_points + analog
 ───────────────────────────────────────── #}
 {% macro render_card(art, uid, is_featured=false) %}
 {% set imp = art.importance | default(3) | int %}
 {% set stars_full = '★' * imp %}
 {% set stars_empty = '☆' * (5 - imp) %}
+{% set tv = art.technical_view | default({}) %}
+{% set sc = art.scenarios | default({}) %}
+{% set fv = art.fundamental_view | default({}) %}
+{% set pos = art.positioning | default({}) %}
+{% set ti = art.trade_ideas | default({}) %}
+{% set has_tv = tv.levels or tv.momentum or tv.pattern %}
+{% set has_sc = sc.base or sc.bull or sc.bear %}
+{% set has_expandable = fv.drivers or fv.valuation or fv.catalysts or pos.consensus or pos.surprise_factor or pos.flow or ti.directional or ti.relative_value or ti.hedge or art.watch_points or art.historical_analog %}
 <div class="card{% if is_featured %} featured{% endif %}"
      data-importance="{{ imp }}"
      data-category="{{ art.category }}">
 
-  {# ── Always-visible summary (tap to expand) ── #}
-  <div class="card-summary" onclick="toggleCard(this)">
-    <span class="impact-emoji">{{ art.impact_emoji | default('➡️') }}</span>
-    <div class="card-summary-body">
-      <div class="headline">{{ art.headline | default(art.title) }}</div>
-      <div class="tags">
-        <span class="tag imp-{{ imp }}"><span class="stars">{{ stars_full }}{{ stars_empty }}</span></span>
-        <span class="tag">{{ category_labels.get(art.category, art.category) }}</span>
-        <span class="tag impact-{{ art.impact | default('中立') }}">{{ art.impact_emoji | default('➡️') }} {{ art.impact_label | default(art.impact) | default('中立') }}</span>
+  {# ── Always-visible content ── #}
+  <div class="card-always">
+
+    {# Header: impact emoji + headline + tags #}
+    <div class="card-header-row">
+      <span class="impact-emoji">{{ art.impact_emoji | default('➡️') }}</span>
+      <div class="card-header-body">
+        <div class="headline">{{ art.headline | default(art.title) }}</div>
+        <div class="tags">
+          <span class="tag imp-{{ imp }}"><span class="stars">{{ stars_full }}{{ stars_empty }}</span></span>
+          <span class="tag">{{ category_labels.get(art.category, art.category) }}</span>
+          <span class="tag impact-{{ art.impact | default('中立') }}">{{ art.impact_emoji | default('➡️') }} {{ art.impact_label | default(art.impact) | default('中立') }}</span>
+        </div>
       </div>
-      {% if art.what_happened %}
-      <div class="what-preview">{{ art.what_happened }}</div>
-      {% endif %}
-      <div class="expand-hint"><span class="expand-icon">▶</span> もっと詳しく</div>
     </div>
+
+    {# Summary text #}
+    {% if art.summary %}
+    <div class="card-summary-text">{{ art.summary }}</div>
+    {% elif art.what_happened %}
+    <div class="card-summary-text">{{ art.what_happened }}</div>
+    {% endif %}
+
+    {# Key data badges #}
+    {% if art.key_data %}
+    <div class="key-data-row">
+      {% for kd in art.key_data %}
+      <span class="kd-badge">
+        <span class="kd-label">{{ kd.label }}</span>
+        <span class="kd-value">{{ kd.value }}</span>
+      </span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {# Technical view #}
+    {% if has_tv %}
+    <div class="card-technical">
+      <div class="section-mini-label">テクニカル</div>
+      {% if tv.levels %}<div class="tv-row"><span class="tv-key">水準</span><span>{{ tv.levels }}</span></div>{% endif %}
+      {% if tv.momentum %}<div class="tv-row"><span class="tv-key">モメンタム</span><span>{{ tv.momentum }}</span></div>{% endif %}
+      {% if tv.pattern %}<div class="tv-row"><span class="tv-key">パターン</span><span>{{ tv.pattern }}</span></div>{% endif %}
+    </div>
+    {% endif %}
+
+    {# Scenarios grid #}
+    {% if has_sc %}
+    <div class="card-scenarios">
+      <div class="section-mini-label">シナリオ</div>
+      <div class="scenario-grid">
+        {% if sc.base %}
+        <div class="scenario-cell base">
+          <div class="sc-label">ベース(~60%)</div>
+          {{ sc.base }}
+        </div>
+        {% endif %}
+        {% if sc.bull %}
+        <div class="scenario-cell bull">
+          <div class="sc-label">強気(~25%)</div>
+          {{ sc.bull }}
+        </div>
+        {% endif %}
+        {% if sc.bear %}
+        <div class="scenario-cell bear">
+          <div class="sc-label">弱気(~25%)</div>
+          {{ sc.bear }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div>{# /card-always #}
+
+  {# ── Expand bar ── #}
+  {% if has_expandable %}
+  <div class="expand-bar" onclick="toggleCard(this)">
+    <span class="expand-icon">▶</span>
+    ファンダメンタル・ポジショニング・トレードアイデア
   </div>
 
   {# ── Expandable detail ── #}
   <div class="card-detail">
 
-    {% if art.what_happened %}
+    {# Fundamental view #}
+    {% if fv.drivers or fv.valuation or fv.catalysts %}
     <div class="detail-section">
-      <div class="detail-label">📝 何が起きた?</div>
-      <div class="detail-body">{{ art.what_happened }}</div>
+      <div class="detail-label">ファンダメンタル</div>
+      {% if fv.drivers %}<div class="fv-row"><span class="fv-key">ドライバー</span><span>{{ fv.drivers }}</span></div>{% endif %}
+      {% if fv.valuation %}<div class="fv-row"><span class="fv-key">バリュエーション</span><span>{{ fv.valuation }}</span></div>{% endif %}
+      {% if fv.catalysts %}<div class="fv-row"><span class="fv-key">カタリスト</span><span>{{ fv.catalysts }}</span></div>{% endif %}
     </div>
     {% endif %}
 
-    {% if art.why_important %}
+    {# Positioning #}
+    {% if pos.consensus or pos.surprise_factor or pos.flow %}
     <div class="detail-section">
-      <div class="detail-label">🔍 なぜ重要?</div>
-      <div class="detail-body">{{ art.why_important }}</div>
+      <div class="detail-label">ポジショニング</div>
+      {% if pos.consensus %}<div class="pos-row"><span class="pos-key">コンセンサス</span><span>{{ pos.consensus }}</span></div>{% endif %}
+      {% if pos.surprise_factor %}<div class="pos-row"><span class="pos-key">サプライズ</span><span>{{ pos.surprise_factor }}</span></div>{% endif %}
+      {% if pos.flow %}<div class="pos-row"><span class="pos-key">フロー</span><span>{{ pos.flow }}</span></div>{% endif %}
     </div>
     {% endif %}
 
-    {% if art.terms %}
+    {# Trade ideas (collapsible) #}
+    {% if ti.directional or ti.relative_value or ti.hedge %}
     <div class="detail-section">
-      <div class="detail-label">💡 用語解説</div>
-      <div class="term-cards">
-        {% for t in art.terms %}
-        <div class="term-card">
-          <div class="term-name">
-            <a href="{{ base_url }}/glossary.html#term-{{ t.term }}" target="_blank" rel="noopener" style="color:var(--purple)">{{ t.term }}</a>
-          </div>
-          {% if t.definition %}<div class="term-def">{{ t.definition }}</div>{% endif %}
-          {% if t.example %}<div class="term-ex">例: {{ t.example }}</div>{% endif %}
-        </div>
+      <div class="detail-label ti-toggle" onclick="toggleTradeIdeas(this)">
+        <span class="ti-expand-icon">▶</span> トレードアイデア <span class="ti-note">(仮説)</span>
+      </div>
+      <div class="ti-body" style="display:none">
+        {% if ti.directional %}<div class="ti-row"><span class="ti-key">方向性</span><span>{{ ti.directional }}</span></div>{% endif %}
+        {% if ti.relative_value %}<div class="ti-row"><span class="ti-key">RV</span><span>{{ ti.relative_value }}</span></div>{% endif %}
+        {% if ti.hedge %}<div class="ti-row"><span class="ti-key">ヘッジ</span><span>{{ ti.hedge }}</span></div>{% endif %}
+        {% if ti.risk_reward %}<div class="ti-row"><span class="ti-key">R/R</span><span>{{ ti.risk_reward }}</span></div>{% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    {# Watch points #}
+    {% if art.watch_points %}
+    <div class="detail-section">
+      <div class="detail-label">注視ポイント</div>
+      <ul class="watch-list">
+        {% for wp in art.watch_points %}
+        <li>{{ wp }}</li>
         {% endfor %}
-      </div>
+      </ul>
     </div>
     {% endif %}
 
-    {% if art.market_impact %}
-    {% set mi = art.market_impact %}
+    {# Historical analog #}
+    {% if art.historical_analog %}
     <div class="detail-section">
-      <div class="detail-label">📊 市場への影響</div>
-      <div class="impact-grid">
-        {% if mi.short_term %}
-        <div class="impact-cell">
-          <div class="impact-cell-label">📅 短期（数日〜1週間）</div>
-          {{ mi.short_term }}
-        </div>
-        {% endif %}
-        {% if mi.mid_term %}
-        <div class="impact-cell">
-          <div class="impact-cell-label">📆 中期（1〜3ヶ月）</div>
-          {{ mi.mid_term }}
-        </div>
-        {% endif %}
-      </div>
-      {% if mi.affected_assets %}
-      <div class="asset-chips">
-        {% for asset in mi.affected_assets %}
-        <div class="asset-chip">{{ asset.direction }} {{ asset.asset }}</div>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-    {% endif %}
-
-    {% if art.investment_perspective %}
-    {% set ip = art.investment_perspective %}
-    <div class="detail-section">
-      <div class="detail-label">🎯 投資判断のヒント</div>
-      <div class="persp-wrapper">
-        <div class="persp-tabs">
-          <button class="persp-tab active" data-target="lt-{{ uid }}" onclick="switchTab(this)">📈 長期投資家</button>
-          <button class="persp-tab" data-target="at-{{ uid }}" onclick="switchTab(this)">⚡ アクティブ</button>
-          <button class="persp-tab" data-target="ca-{{ uid }}" onclick="switchTab(this)">⚠️ 注意点</button>
-        </div>
-        <div id="lt-{{ uid }}" class="persp-panel active">{{ ip.long_term_investor | default('-') }}</div>
-        <div id="at-{{ uid }}" class="persp-panel">{{ ip.active_trader | default('-') }}</div>
-        <div id="ca-{{ uid }}" class="persp-panel">{{ ip.cautions | default('-') }}</div>
-        <div class="persp-note">※AIによる解釈であり投資推奨ではありません</div>
-      </div>
-    </div>
-    {% endif %}
-
-    {% if art.related_concepts %}
-    <div class="detail-section">
-      <div class="detail-label">📚 関連学習トピック</div>
-      <div class="concept-chips">
-        {% for concept in art.related_concepts %}
-        <span class="concept-chip">{{ concept }}</span>
-        {% endfor %}
-      </div>
+      <div class="detail-label">過去の類似局面</div>
+      <div class="analog-text">{{ art.historical_analog }}</div>
     </div>
     {% endif %}
 
@@ -122,7 +162,16 @@
       <span>{{ art.source }} &nbsp;|&nbsp; {{ art.published.strftime('%m/%d %H:%M UTC') }}</span>
       {% if art.link %}<a href="{{ art.link }}" target="_blank" rel="noopener">元記事 →</a>{% endif %}
     </div>
+
   </div>{# /card-detail #}
+  {% else %}
+  {# No expandable content: show only source footer #}
+  <div class="card-footer-simple">
+    <span>{{ art.source }} &nbsp;|&nbsp; {{ art.published.strftime('%m/%d %H:%M UTC') }}</span>
+    {% if art.link %}<a href="{{ art.link }}" target="_blank" rel="noopener">元記事 →</a>{% endif %}
+  </div>
+  {% endif %}
+
 </div>
 {% endmacro %}
 
@@ -131,12 +180,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>デイリー金融ニュース {{ date_str }}</title>
+  <title>プロ向けマーケットニュース {{ date_str }}</title>
   <link rel="manifest" href="{{ base_url }}/manifest.json">
   <meta name="theme-color" content="#0d1117">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="金融ニュース">
+  <meta name="apple-mobile-web-app-title" content="マーケットニュース">
   <style>
     :root {
       --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --bg4: #2d333b;
@@ -162,14 +211,14 @@
     }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .container { max-width: 800px; margin: 0 auto; padding: 12px 16px; }
+    .container { max-width: 840px; margin: 0 auto; padding: 12px 16px; }
 
-    /* Header */
+    /* ── Header ── */
     header {
       background: var(--bg2); border: 1px solid var(--border);
       border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
     }
-    header h1 { font-size: 1.35rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    header h1 { font-size: 1.3rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
     header .meta { font-size: 0.85rem; color: var(--text2); }
     .header-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .btn {
@@ -182,16 +231,16 @@
     .btn-primary { background: var(--accent); color: #fff; }
     .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
 
-    /* Theme box */
+    /* ── Theme box ── */
     .theme-box {
       background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
       border: 1px solid var(--accent); border-radius: 12px;
       padding: 16px 18px; margin-bottom: 14px;
     }
-    .theme-box h2 { font-size: .95rem; color: var(--accent); margin-bottom: 6px; }
-    .theme-text { font-size: 0.9rem; color: var(--text); white-space: pre-wrap; }
+    .theme-box h2 { font-size: .95rem; color: var(--accent); margin-bottom: 8px; }
+    .theme-text { font-size: 0.88rem; color: var(--text); white-space: pre-wrap; line-height: 1.7; }
 
-    /* Section title */
+    /* ── Section title ── */
     .section-title {
       font-size: 1.05rem; font-weight: 700; color: var(--text2);
       margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
@@ -203,7 +252,7 @@
       border: 1px solid var(--border); font-weight: 600;
     }
 
-    /* Filter bar */
+    /* ── Filter bar ── */
     .filter-bar {
       display: flex; gap: 8px; flex-wrap: wrap;
       margin-bottom: 14px; align-items: center;
@@ -216,14 +265,14 @@
     }
     .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-    /* Category nav */
+    /* ── Category nav ── */
     .cat-nav {
       position: sticky; top: 0; z-index: 100;
       background: var(--bg); border-bottom: 1px solid var(--border);
       padding: 8px 0; margin-bottom: 14px;
     }
     .cat-nav-inner {
-      max-width: 800px; margin: 0 auto; padding: 0 16px;
+      max-width: 840px; margin: 0 auto; padding: 0 16px;
       display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
     }
     .cat-nav-inner::-webkit-scrollbar { display: none; }
@@ -236,24 +285,25 @@
     }
     .cat-link:hover { background: var(--bg4); color: var(--text); text-decoration: none; }
 
-    /* Cards */
+    /* ── Cards ── */
     .card {
       background: var(--bg2); border: 1px solid var(--border);
       border-radius: 10px; margin-bottom: 10px;
-      transition: border-color .2s, background .2s; overflow: hidden;
+      transition: border-color .2s; overflow: hidden;
     }
-    .card:hover { border-color: var(--accent); background: var(--card-hover); }
+    .card:hover { border-color: var(--accent); }
     .card.featured { border-left: 3px solid var(--accent); }
     .card[data-importance="5"] { border-left: 3px solid var(--red); }
     .card[data-importance="4"] { border-left: 3px solid var(--yellow); }
 
-    .card-summary {
-      padding: 14px 16px; cursor: pointer;
-      display: flex; gap: 10px; align-items: flex-start;
+    .card-always { padding: 14px 16px; }
+    .card-header-row {
+      display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px;
     }
     .impact-emoji { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
-    .card-summary-body { flex: 1; min-width: 0; }
+    .card-header-body { flex: 1; min-width: 0; }
     .headline { font-size: 1.0rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+
     .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
     .tag {
       background: var(--tag-bg); color: var(--accent);
@@ -266,79 +316,125 @@
     .tag.imp-5 { background: rgba(248,81,73,.12); color: var(--red); border-color: var(--red); }
     .tag.imp-4 { background: rgba(210,153,34,.12); color: var(--yellow); border-color: var(--yellow); }
     .stars { color: var(--yellow); font-size: 0.8rem; letter-spacing: 1px; }
-    .what-preview {
-      font-size: .86rem; color: var(--text2); margin-top: 5px;
-      overflow: hidden; display: -webkit-box;
-      -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-    }
-    .expand-hint {
-      font-size: .78rem; color: var(--accent); margin-top: 5px;
-      display: flex; align-items: center; gap: 3px;
-    }
-    .expand-icon { transition: transform .2s; display: inline-block; }
-    .card.open .expand-icon { transform: rotate(90deg); }
 
-    .card-detail { display: none; border-top: 1px solid var(--border); padding: 14px 16px; }
-    .card.open .card-detail { display: block; }
-
-    .detail-section { margin-bottom: 14px; }
-    .detail-label {
-      font-size: 0.8rem; font-weight: 700; color: var(--text2);
-      margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
+    .card-summary-text {
+      font-size: .88rem; color: var(--text); line-height: 1.65;
+      margin-bottom: 8px;
     }
-    .detail-body { font-size: 0.9rem; color: var(--text); }
 
-    .term-cards { display: flex; flex-direction: column; gap: 7px; }
-    .term-card {
+    /* ── Key data badges ── */
+    .key-data-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .kd-badge {
+      display: inline-flex; align-items: center;
+      background: var(--bg4); border: 1px solid var(--border);
+      border-radius: 6px; overflow: hidden; font-size: .8rem;
+    }
+    .kd-label {
+      background: var(--bg3); color: var(--text2);
+      padding: 3px 7px; border-right: 1px solid var(--border);
+      font-size: .72rem; font-weight: 600;
+    }
+    .kd-value { padding: 3px 8px; font-weight: 700; color: var(--text); }
+
+    /* ── Technical view ── */
+    .card-technical {
+      background: var(--bg3); border-radius: 8px;
+      padding: 10px 12px; margin-bottom: 8px;
+      border: 1px solid var(--border);
+    }
+    .section-mini-label {
+      font-size: .7rem; font-weight: 700; color: var(--text2);
+      text-transform: uppercase; letter-spacing: .6px; margin-bottom: 6px;
+    }
+    .tv-row, .fv-row, .pos-row, .ti-row {
+      display: grid; grid-template-columns: 88px 1fr;
+      gap: 6px; font-size: .85rem; margin-bottom: 4px; align-items: baseline;
+    }
+    .tv-key, .fv-key, .pos-key, .ti-key {
+      font-weight: 700; color: var(--text2); font-size: .75rem;
+      white-space: nowrap;
+    }
+
+    /* ── Scenarios ── */
+    .card-scenarios {
       background: var(--bg3); border-radius: 8px;
       padding: 10px 12px; border: 1px solid var(--border);
     }
-    .term-name { font-weight: 700; font-size: .88rem; }
-    .term-def { font-size: .85rem; color: var(--text); margin-top: 3px; }
-    .term-ex { font-size: .82rem; color: var(--text2); margin-top: 2px; }
+    .scenario-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
+    }
+    @media (max-width: 600px) { .scenario-grid { grid-template-columns: 1fr; } }
+    .scenario-cell {
+      border-radius: 7px; padding: 8px 10px;
+      border: 1px solid var(--border); font-size: .82rem; line-height: 1.5;
+    }
+    .scenario-cell.base { border-color: var(--accent); background: rgba(88,166,255,.06); }
+    .scenario-cell.bull { border-color: var(--green); background: rgba(63,185,80,.06); }
+    .scenario-cell.bear { border-color: var(--red); background: rgba(248,81,73,.06); }
+    .sc-label { font-size: .7rem; font-weight: 700; margin-bottom: 3px; }
+    .scenario-cell.base .sc-label { color: var(--accent); }
+    .scenario-cell.bull .sc-label { color: var(--green); }
+    .scenario-cell.bear .sc-label { color: var(--red); }
 
-    .impact-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;
-    }
-    @media (max-width: 480px) { .impact-grid { grid-template-columns: 1fr; } }
-    .impact-cell {
-      background: var(--bg3); border-radius: 8px;
-      padding: 8px 10px; border: 1px solid var(--border); font-size: .85rem;
-    }
-    .impact-cell-label { font-size: .75rem; color: var(--text2); margin-bottom: 3px; font-weight: 700; }
-    .asset-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .asset-chip {
-      padding: 4px 10px; border-radius: 12px; font-size: .82rem;
-      background: var(--bg4); border: 1px solid var(--border);
-      display: flex; align-items: center; gap: 4px;
-    }
-
-    .persp-tabs { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
-    .persp-tab {
-      padding: 5px 12px; border-radius: 12px; font-size: .78rem; font-weight: 600;
-      cursor: pointer; border: 1px solid var(--border);
-      background: var(--bg3); color: var(--text2); min-height: 36px;
-      display: inline-flex; align-items: center;
-    }
-    .persp-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .persp-panel { display: none; font-size: .88rem; color: var(--text); }
-    .persp-panel.active { display: block; }
-    .persp-note { font-size: .75rem; color: var(--text2); margin-top: 6px; font-style: italic; }
-
-    .concept-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .concept-chip {
-      padding: 4px 12px; border-radius: 12px; font-size: .8rem;
-      background: var(--bg3); border: 1px solid var(--border); color: var(--text2);
-    }
-
-    .card-footer {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 16px; background: var(--bg3);
-      font-size: 0.78rem; color: var(--text2); flex-wrap: wrap; gap: 4px;
+    /* ── Expand bar ── */
+    .expand-bar {
+      padding: 8px 16px; cursor: pointer;
+      font-size: .78rem; color: var(--accent);
+      display: flex; align-items: center; gap: 5px;
       border-top: 1px solid var(--border);
+      background: var(--bg2); user-select: none;
+      transition: background .15s;
+    }
+    .expand-bar:hover { background: var(--card-hover); }
+    .expand-icon { transition: transform .2s; display: inline-block; }
+    .card.open .expand-bar .expand-icon { transform: rotate(90deg); }
+
+    /* ── Card detail (expandable) ── */
+    .card-detail { display: none; border-top: 1px solid var(--border); }
+    .card.open .card-detail { display: block; }
+
+    .detail-section {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .detail-section:last-child { border-bottom: none; }
+    .detail-label {
+      font-size: .75rem; font-weight: 700; color: var(--text2);
+      text-transform: uppercase; letter-spacing: .5px;
+      margin-bottom: 7px;
     }
 
-    /* Category sections */
+    /* Trade ideas */
+    .ti-toggle { cursor: pointer; display: flex; align-items: center; gap: 5px; }
+    .ti-toggle:hover { color: var(--text); }
+    .ti-expand-icon { transition: transform .2s; display: inline-block; font-size: .7rem; }
+    .ti-toggle.open .ti-expand-icon { transform: rotate(90deg); }
+    .ti-note { color: var(--text2); font-size: .7rem; font-weight: 400; }
+    .ti-body { margin-top: 8px; }
+
+    /* Watch list */
+    .watch-list { padding-left: 18px; font-size: .88rem; }
+    .watch-list li { margin-bottom: 4px; }
+
+    /* Historical analog */
+    .analog-text { font-size: .88rem; color: var(--text2); font-style: italic; line-height: 1.6; }
+
+    /* Card footer */
+    .card-footer {
+      padding: 8px 16px;
+      font-size: 0.78rem; color: var(--text2);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 4px;
+      background: var(--bg3);
+    }
+    .card-footer-simple {
+      padding: 8px 16px; border-top: 1px solid var(--border);
+      font-size: 0.78rem; color: var(--text2);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 4px;
+    }
+
+    /* ── Category sections ── */
     .cat-section { margin-bottom: 20px; }
     .cat-section-header {
       display: flex; align-items: center; gap: 8px;
@@ -353,7 +449,7 @@
     .card.hidden-by-filter { display: none; }
     .cat-section.all-hidden { display: none; }
 
-    /* Preferences form */
+    /* ── Preferences form ── */
     #tomorrow-preferences {
       background: var(--bg2); border: 1px solid var(--border);
       border-radius: 12px; padding: 20px; margin-top: 24px;
@@ -389,14 +485,43 @@
     .count-option.selected { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,.08); }
     .pref-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
     .pref-note { font-size: .75rem; color: var(--text2); margin-top: 10px; line-height: 1.5; }
+
+    /* Status messages */
     .pref-status {
-      font-size: .85rem; margin-top: 10px; padding: 8px 12px;
-      border-radius: 8px; display: none;
+      font-size: .85rem; margin-top: 10px; padding: 10px 14px;
+      border-radius: 8px; display: none; line-height: 1.5;
     }
     .pref-status.success { background: rgba(63,185,80,.12); color: var(--green); display: block; }
     .pref-status.error { background: rgba(248,81,73,.12); color: var(--red); display: block; }
+    .pref-status.loading { background: rgba(88,166,255,.08); color: var(--accent); display: block; }
+    .pref-status a { color: inherit; text-decoration: underline; }
 
-    /* Footer */
+    /* Spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      display: inline-block; width: 13px; height: 13px;
+      border: 2px solid var(--border); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin .6s linear infinite;
+      vertical-align: middle; margin-right: 5px;
+    }
+
+    /* Debug panel */
+    .debug-toggle-link {
+      font-size: .75rem; color: var(--text2); cursor: pointer;
+      margin-top: 10px; display: inline-block;
+    }
+    .debug-toggle-link:hover { color: var(--accent); }
+    .debug-panel {
+      margin-top: 8px; background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px; font-size: .75rem;
+      font-family: 'SF Mono', 'Consolas', monospace; color: var(--text2);
+      display: none;
+    }
+    .debug-panel.open { display: block; }
+    .debug-row { margin-bottom: 5px; word-break: break-all; }
+    .debug-key { color: var(--accent); margin-right: 6px; }
+
+    /* ── Footer ── */
     footer {
       text-align: center; color: var(--text2); font-size: 0.8rem;
       margin-top: 40px; padding: 20px 16px;
@@ -407,9 +532,6 @@
       border-radius: 8px; padding: 12px 14px; margin-bottom: 14px;
       text-align: left; font-size: .82rem; line-height: 1.6;
     }
-
-    /* Glossary link bar */
-    .glossary-link-bar { text-align: center; margin: 18px 0; }
   </style>
 </head>
 <body>
@@ -418,19 +540,18 @@
 
     <!-- Header -->
     <header>
-      <h1>📈 デイリー金融ニュース</h1>
+      <h1>📊 プロ向けマーケットニュース</h1>
       <div class="meta">{{ date_str }} &nbsp;|&nbsp; 更新: {{ generated_at }} &nbsp;|&nbsp; {{ total_count }} 本</div>
       <div class="header-actions">
         <a class="btn btn-primary" href="{{ base_url }}/feed.xml">📡 RSSを購読</a>
-        <a class="btn btn-secondary" href="{{ base_url }}/glossary.html">📚 用語集</a>
         <a class="btn btn-secondary" href="{{ base_url }}/preferences-history.html">🕓 設定履歴</a>
       </div>
     </header>
 
-    <!-- Today's Theme -->
+    <!-- Market Environment (Today's Theme) -->
     {% if daily_theme %}
     <div class="theme-box">
-      <h2>📖 今日のテーマ</h2>
+      <h2>📊 本日のマーケット環境</h2>
       <div class="theme-text">{{ daily_theme }}</div>
     </div>
     {% endif %}
@@ -448,7 +569,7 @@
       <button class="filter-btn" id="filter-4up" onclick="setFilter('4up')">★4以上のみ</button>
     </div>
 
-  </div><!-- /container (nav goes outside for full-width sticky) -->
+  </div><!-- /container -->
 
   <!-- Category Nav (sticky, full width) -->
   <nav class="cat-nav">
@@ -457,7 +578,7 @@
       {% for cat_key in categories_order %}{% if categories[cat_key] %}
       <a class="cat-link" href="#cat-{{ cat_key }}">{{ category_labels[cat_key] }}</a>
       {% endif %}{% endfor %}
-      <a class="cat-link" href="#tomorrow-preferences">🔮 明日の設定</a>
+      <a class="cat-link" href="#tomorrow-preferences">🔮 翌日設定</a>
     </div>
   </nav>
 
@@ -487,18 +608,13 @@
     {% endif %}
     {% endfor %}
 
-    <!-- Glossary link -->
-    <div class="glossary-link-bar">
-      <a href="{{ base_url }}/glossary.html" class="btn btn-secondary">📚 用語集ページへ</a>
-    </div>
-
     <!-- Tomorrow Preferences Form -->
     <section id="tomorrow-preferences">
-      <h2>🔮 明日のニュース、どこを重点的に?</h2>
-      <p>選択した分野の記事が多めに収集されます（最大3カテゴリ）</p>
+      <h2>🔮 翌日の重点設定</h2>
+      <p>選択したカテゴリ・キーワードの記事が優先収集されます（最大3カテゴリ）</p>
 
       <div class="pref-group">
-        <span class="pref-label">📑 カテゴリ（複数選択可、最大3つ）</span>
+        <span class="pref-label">📑 カテゴリ（最大3つ）</span>
         <div class="cat-checkboxes" id="pref-cats">
           <label class="cat-checkbox-item">
             <input type="checkbox" value="jp_stock">🇯🇵 日本個別株
@@ -516,7 +632,7 @@
             <input type="checkbox" value="futures">🎯 先物
           </label>
           <label class="cat-checkbox-item">
-            <input type="checkbox" value="fx_macro">💱 為替・マクロ経済
+            <input type="checkbox" value="fx_macro">💱 為替・マクロ
           </label>
         </div>
       </div>
@@ -524,27 +640,40 @@
       <div class="pref-group">
         <label class="pref-label" for="pref-keywords">🔍 注目キーワード（任意、カンマ区切り）</label>
         <input type="text" id="pref-keywords" class="kw-input"
-               placeholder="例: FOMC, 半導体, トヨタ, 日銀, 円安">
+               placeholder="例: FOMC, 半導体, トヨタ, 日銀, VIX">
       </div>
 
       <div class="pref-group">
         <span class="pref-label">📰 記事の本数</span>
         <div class="count-options" id="pref-count">
-          <div class="count-option" data-value="20" onclick="selectCount(this)">コンパクト（20本）</div>
-          <div class="count-option selected" data-value="30" onclick="selectCount(this)">バランス（30本）</div>
-          <div class="count-option" data-value="40" onclick="selectCount(this)">詳細（40本）</div>
+          <div class="count-option" data-value="20" onclick="selectCount(this)">20本</div>
+          <div class="count-option selected" data-value="30" onclick="selectCount(this)">30本</div>
+          <div class="count-option" data-value="40" onclick="selectCount(this)">40本</div>
         </div>
       </div>
 
       <div class="pref-actions">
-        <button class="btn btn-primary" onclick="submitPreferences()">📨 明日の設定を送信</button>
-        <button class="btn btn-secondary" onclick="resetPreferences()">🔄 設定をリセット</button>
+        <button class="btn btn-primary" onclick="submitPreferences()">📨 設定を送信</button>
+        <button class="btn btn-secondary" onclick="resetPat()">🔑 PATを再設定</button>
+        <button class="btn btn-secondary" onclick="resetPreferences()">🔄 フォームをリセット</button>
       </div>
       <div class="pref-note">
-        ※ 送信時にGitHubトークンの入力が必要です。トークンはブラウザのみに保存されます。<br>
-        Issues read/write 権限のみの Fine-grained PAT を推奨します。
+        ※ 送信時にGitHub Personal Access Token(PAT)が必要です。<br>
+        Issues read/write 権限のみの Fine-grained PAT を推奨。ブラウザのみに保存されます。
       </div>
       <div id="pref-status" class="pref-status"></div>
+
+      <!-- Debug panel -->
+      <span class="debug-toggle-link" onclick="toggleDebug()">🔧 デバッグ情報を表示</span>
+      <div id="debug-panel" class="debug-panel">
+        <div class="debug-row"><span class="debug-key">PAT:</span><span id="dbg-pat">—</span></div>
+        <div class="debug-row"><span class="debug-key">最終送信:</span><span id="dbg-time">—</span></div>
+        <div class="debug-row"><span class="debug-key">結果:</span><span id="dbg-result">—</span></div>
+        <div class="debug-row"><span class="debug-key">URL:</span><span id="dbg-url">—</span></div>
+        <div class="debug-row"><span class="debug-key">Method:</span><span id="dbg-method">—</span></div>
+        <div class="debug-row"><span class="debug-key">Status:</span><span id="dbg-status">—</span></div>
+        <div class="debug-row"><span class="debug-key">Response:</span><span id="dbg-resp">—</span></div>
+      </div>
     </section>
 
     <!-- Footer -->
@@ -553,12 +682,11 @@
         <strong>免責事項</strong><br>
         本サイトの情報はAIによる自動生成であり、投資推奨ではありません。<br>
         投資判断はご自身の責任で行ってください。情報の正確性は保証されません。<br>
-        ニュース原文は各リンク先でご確認ください。
+        トレードアイデアは「市場参加者がどう動きうるかの仮説」であり推奨ではありません。
       </div>
-      <p>デイリー金融ニュース &mdash; Powered by Groq (llama-3.3-70b) &amp; GitHub Pages</p>
+      <p>プロ向けマーケットニュース &mdash; Powered by Groq (llama-3.3-70b) &amp; GitHub Pages</p>
       <p style="margin-top:6px">
         <a href="{{ base_url }}/feed.xml">📡 feed.xml</a> &nbsp;|&nbsp;
-        <a href="{{ base_url }}/glossary.html">📚 用語集</a> &nbsp;|&nbsp;
         <a href="{{ base_url }}/preferences-history.html">🕓 設定履歴</a>
       </p>
     </footer>
@@ -567,9 +695,9 @@
 
   <!-- PAT Modal -->
   <div id="pat-modal" style="display:none;position:fixed;inset:0;
-       background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;">
+       background:rgba(0,0,0,.78);z-index:999;align-items:center;justify-content:center;">
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;
-                padding:24px;max-width:420px;width:90%;margin:auto;">
+                padding:24px;max-width:440px;width:90%;margin:auto;">
       <h3 style="color:var(--accent);margin-bottom:10px">🔑 GitHub PAT を入力</h3>
       <p style="font-size:.87rem;color:var(--text2);margin-bottom:14px">
         Issues read/write 権限のみの Fine-grained Personal Access Token を入力してください。<br>
@@ -604,23 +732,26 @@
     }
     (function() { setFilter(localStorage.getItem(FILTER_KEY) || '4up'); })();
 
-    // ── Card expand ──
-    function toggleCard(el) { el.closest('.card').classList.toggle('open'); }
+    // ── Card expand (via expand-bar) ──
+    function toggleCard(el) {
+      el.closest('.card').classList.toggle('open');
+    }
+
+    // ── Trade ideas toggle ──
+    function toggleTradeIdeas(el) {
+      const body = el.closest('.detail-section').querySelector('.ti-body');
+      const icon = el.querySelector('.ti-expand-icon');
+      if (body) {
+        const isOpen = body.style.display !== 'none';
+        body.style.display = isOpen ? 'none' : 'block';
+        el.classList.toggle('open', !isOpen);
+      }
+    }
 
     // ── Category section toggle ──
     function toggleCat(header) { header.closest('.cat-section').classList.toggle('collapsed'); }
 
-    // ── Perspective tabs ──
-    function switchTab(btn) {
-      const wrapper = btn.closest('.persp-wrapper');
-      wrapper.querySelectorAll('.persp-tab').forEach(t => t.classList.remove('active'));
-      wrapper.querySelectorAll('.persp-panel').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      const target = document.getElementById(btn.dataset.target);
-      if (target) target.classList.add('active');
-    }
-
-    // ── Preferences ──
+    // ── Preferences form ──
     function selectCount(el) {
       document.querySelectorAll('.count-option').forEach(o => o.classList.remove('selected'));
       el.classList.add('selected');
@@ -636,45 +767,60 @@
       });
     });
 
-    let _pendingBody = null, _pendingDate = null, _pendingTime = null;
-    function submitPreferences() {
-      const cats = Array.from(document.querySelectorAll('.cat-checkbox-item.selected input'))
-                        .map(i => i.value);
-      const kw = document.getElementById('pref-keywords').value.trim();
-      const keywords = kw ? kw.split(',').map(k => k.trim()).filter(Boolean) : [];
-      const count = parseInt(document.querySelector('.count-option.selected')?.dataset.value || '30');
-      const now = new Date();
-      const dateStr = now.toISOString().slice(0, 10);
-      const timeStr = now.toTimeString().slice(0, 5);
-      const body = JSON.stringify({ date: dateStr, focus_categories: cats, keywords, article_count: count }, null, 2);
-      const token = localStorage.getItem('gh_pat');
-      if (!token) {
-        _pendingBody = body; _pendingDate = dateStr; _pendingTime = timeStr;
-        document.getElementById('pat-modal').style.display = 'flex';
-        return;
-      }
-      _doSubmit(token, body, dateStr, timeStr);
+    // ── Debug panel ──
+    const _dbg = {
+      patMasked: '', lastTime: '', lastResult: '',
+      lastUrl: '', lastMethod: '', lastStatus: '', lastResp: ''
+    };
+
+    function _esc(s) {
+      return String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
-    function _doSubmit(token, body, dateStr, timeStr) {
-      const m = '{{ base_url }}'.match(/https?:\/\/([^.]+)\.github\.io\/(.+)/);
-      if (!m) { showStatus('error', 'BASE_URLからリポジトリを特定できませんでした。'); return; }
-      const [, owner, repoName] = m;
-      fetch(`https://api.github.com/repos/${owner}/${repoName}/issues`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/vnd.github+json',
-          'Content-Type': 'application/json',
-          'X-GitHub-Api-Version': '2022-11-28',
-        },
-        body: JSON.stringify({ title: `[preferences] ${dateStr} ${timeStr}`, body, labels: ['preferences'] }),
-      })
-      .then(r => r.ok
-        ? showStatus('success', '✅ 設定を送信しました！明日のニュース収集に反映されます。')
-        : r.json().then(d => showStatus('error', `送信失敗: ${d.message || r.status}`))
-      )
-      .catch(e => showStatus('error', `送信エラー: ${e.message}`));
+    function _updateDebugPanel() {
+      const pat = localStorage.getItem('gh_pat') || '';
+      const masked = pat.length >= 8
+        ? pat.slice(0, 4) + '*'.repeat(Math.max(0, pat.length - 8)) + pat.slice(-4)
+        : (pat ? '****' : '(未設定)');
+      document.getElementById('dbg-pat').textContent = masked;
+      document.getElementById('dbg-time').textContent = _dbg.lastTime || '—';
+      document.getElementById('dbg-result').textContent = _dbg.lastResult || '—';
+      document.getElementById('dbg-url').textContent = _dbg.lastUrl || '—';
+      document.getElementById('dbg-method').textContent = _dbg.lastMethod || '—';
+      document.getElementById('dbg-status').textContent = _dbg.lastStatus || '—';
+      document.getElementById('dbg-resp').textContent = _dbg.lastResp || '—';
+    }
+
+    function toggleDebug() {
+      const panel = document.getElementById('debug-panel');
+      panel.classList.toggle('open');
+      if (panel.classList.contains('open')) _updateDebugPanel();
+    }
+
+    // ── Status display ──
+    let _statusTimer = null;
+    function showStatus(type, html) {
+      const el = document.getElementById('pref-status');
+      el.className = 'pref-status ' + type;
+      el.innerHTML = html;
+      if (_statusTimer) clearTimeout(_statusTimer);
+      if (type !== 'loading') {
+        _statusTimer = setTimeout(() => {
+          el.style.display = 'none';
+          el.className = 'pref-status';
+        }, 9000);
+      }
+    }
+
+    // ── PAT helpers ──
+    let _pendingBody = null, _pendingDate = null, _pendingTime = null;
+
+    function resetPat() {
+      _pendingBody = null;
+      document.getElementById('pat-input').value = '';
+      document.getElementById('pat-modal').style.display = 'flex';
     }
 
     function savePat() {
@@ -687,10 +833,114 @@
         _pendingBody = null;
       }
     }
+
     function closePat() {
       document.getElementById('pat-modal').style.display = 'none';
       document.getElementById('pat-input').value = '';
     }
+
+    // ── Main submit ──
+    function submitPreferences() {
+      const cats = Array.from(document.querySelectorAll('.cat-checkbox-item.selected input'))
+                        .map(i => i.value);
+      const kw = document.getElementById('pref-keywords').value.trim();
+      const keywords = kw ? kw.split(',').map(k => k.trim()).filter(Boolean) : [];
+      const count = parseInt(document.querySelector('.count-option.selected')?.dataset.value || '30');
+      const now = new Date();
+      const dateStr = now.toISOString().slice(0, 10);
+      const timeStr = now.toTimeString().slice(0, 5);
+      const body = JSON.stringify(
+        { date: dateStr, focus_categories: cats, keywords, article_count: count }, null, 2
+      );
+      const token = localStorage.getItem('gh_pat');
+      if (!token) {
+        _pendingBody = body; _pendingDate = dateStr; _pendingTime = timeStr;
+        document.getElementById('pat-modal').style.display = 'flex';
+        return;
+      }
+      _doSubmit(token, body, dateStr, timeStr);
+    }
+
+    function _doSubmit(token, body, dateStr, timeStr) {
+      // base_url から owner/repo を抽出 (大文字小文字非依存)
+      const baseUrl = '{{ base_url }}';
+      const m = baseUrl.match(/https?:\/\/([^.]+)\.github\.io\/([^/?#]+)/i);
+      if (!m) {
+        showStatus('error', '❌ BASE_URLからリポジトリを特定できません: ' + _esc(baseUrl));
+        return;
+      }
+      const owner = m[1];
+      const repoName = m[2];
+      const apiUrl = 'https://api.github.com/repos/' + owner + '/' + repoName + '/issues';
+      const issuePayload = JSON.stringify({
+        title: '[preferences] ' + dateStr + ' ' + timeStr,
+        body: body,
+        labels: ['preferences']
+      });
+
+      _dbg.lastTime = new Date().toLocaleString('ja-JP');
+      _dbg.lastUrl = apiUrl;
+      _dbg.lastMethod = 'POST';
+      _dbg.lastStatus = '...';
+      _dbg.lastResp = '...';
+      if (document.getElementById('debug-panel').classList.contains('open')) _updateDebugPanel();
+
+      showStatus('loading', '<span class="spinner"></span>📡 GitHub APIに接続中...');
+
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+        body: issuePayload,
+      })
+      .then(function(r) {
+        _dbg.lastStatus = String(r.status);
+        return r.text().then(function(text) { return { ok: r.ok, status: r.status, text: text }; });
+      })
+      .then(function(res) {
+        _dbg.lastResp = res.text.slice(0, 200);
+        if (document.getElementById('debug-panel').classList.contains('open')) _updateDebugPanel();
+
+        if (res.ok) {
+          var data = JSON.parse(res.text);
+          var issueNum = data.number;
+          var issueUrl = data.html_url;
+          _dbg.lastResult = '成功 Issue #' + issueNum;
+          showStatus('success',
+            '✅ 送信完了。<a href="' + _esc(issueUrl) + '" target="_blank" rel="noopener">Issue #' + issueNum + '</a> を作成しました'
+          );
+        } else {
+          var errMsg = '';
+          try { errMsg = JSON.parse(res.text).message || res.text; } catch(e) { errMsg = res.text; }
+          _dbg.lastResult = '失敗 ' + res.status + ': ' + errMsg.slice(0, 80);
+          if (document.getElementById('debug-panel').classList.contains('open')) _updateDebugPanel();
+
+          if (res.status === 401) {
+            showStatus('error',
+              '❌ 401: PATが無効です。再設定してください。' +
+              '<button class="btn btn-secondary" style="padding:4px 10px;font-size:.78rem;margin-left:8px;min-height:28px" onclick="resetPat()">🔑 PATを再設定</button>'
+            );
+          } else if (res.status === 403) {
+            showStatus('error', '❌ 403: 権限不足。Issues read/write 権限を確認してください。');
+          } else if (res.status === 404) {
+            showStatus('error', '❌ 404: リポジトリが見つかりません。owner/repo設定を確認: ' + _esc(owner + '/' + repoName));
+          } else {
+            showStatus('error', '❌ ' + res.status + ': ' + _esc(errMsg.slice(0, 200)));
+          }
+        }
+      })
+      .catch(function(e) {
+        _dbg.lastResult = 'fetch error: ' + e.message;
+        _dbg.lastStatus = 'network error';
+        if (document.getElementById('debug-panel').classList.contains('open')) _updateDebugPanel();
+        showStatus('error', '❌ 通信エラー: ' + _esc(e.message));
+      });
+    }
+
     function resetPreferences() {
       document.querySelectorAll('.cat-checkbox-item').forEach(i => {
         i.classList.remove('selected'); i.querySelector('input').checked = false;
@@ -698,13 +948,7 @@
       document.getElementById('pref-keywords').value = '';
       document.querySelectorAll('.count-option').forEach(o => o.classList.remove('selected'));
       document.querySelector('.count-option[data-value="30"]').classList.add('selected');
-      localStorage.removeItem('gh_pat');
-      showStatus('success', '設定をリセットしました（トークンも削除）。');
-    }
-    function showStatus(type, msg) {
-      const el = document.getElementById('pref-status');
-      el.className = 'pref-status ' + type; el.textContent = msg;
-      setTimeout(() => { el.style.display = 'none'; el.className = 'pref-status'; }, 6000);
+      showStatus('success', '✅ フォームをリセットしました。');
     }
 
     if ('serviceWorker' in navigator) {
