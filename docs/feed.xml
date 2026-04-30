@@ -1,400 +1,370 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>デイリー金融ニュース</title>
+    <title>プロ向けマーケットニュース</title>
     <link>https://schoo-sampledeveloper.github.io/trading/index.html</link>
-    <description>毎朝6:30 JST 更新。日本株・米国株・為替・マクロ経済の重要ニュースをAIが要約。</description>
+    <description>毎朝6:30 JST 更新。機関投資家向けの市況分析・シナリオ・トレードアイデア。</description>
     <language>ja</language>
-    <lastBuildDate>Wed, 29 Apr 2026 22:32:35 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 30 Apr 2026 12:37:13 GMT</lastBuildDate>
     <atom:link href="https://schoo-sampledeveloper.github.io/trading/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>➡️[💱 為替・マクロ] 日本のユーロ債券販売が歴史的最高を記録</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/japan-s-record-sales-of-euro-bonds-show-historic-funding-shift</link>
-      <description>★★★★☆ 重要度4/5
-日本の借り手がユーロ建て債券を史上最高額で販売している。日本企業がドルへの依存度を減らす動きが顕著になっている。ユーロ債券市場での日本企業の販売額が増加している。
-📌 ドルへの依存度を減らすことで、為替変動によるリスクを軽減できる。日本企業が多様な資金調達方法を採用することで、金融のグローバル化が進展している。投資家は為替変動のリスクを考慮する必要がある。
+      <title>➡️[💱 為替・マクロ] ヨーロッパ電力価格、太陽光発電増加で史上初のマイナス</title>
+      <link>https://www.bloomberg.com/news/articles/2026-04-30/european-power-plunges-to-record-negative-prices-on-solar-surge</link>
+      <description>★★★☆☆ 重要度3/5
+ドイツとフランスの電力価格が史上初のマイナス水準に。強い太陽光発電と祝日による需要減少が要因。金曜日には大幅な下落が見られた。ドイツの電力価格は-100ユーロ/MWh、フランスの電力価格は-50ユーロ/MWhを記録した。
+ベースシナリオ: 電力価格は、需要と供給のバランスが回復するまで下落する(確率60%)
 市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 22:00:00 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/japan-s-record-sales-of-euro-bonds-show-historic-funding-shift</guid>
+出典: Bloomberg Markets</description>
+      <pubDate>Thu, 30 Apr 2026 11:47:10 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-04-30/european-power-plunges-to-record-negative-prices-on-solar-surge</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] ジェローム・パウエルが連邦準備制度理事会を去る時期</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/when-will-jerome-powell-leave-the-fed-video</link>
-      <description>★★★★☆ 重要度4/5
-連邦準備制度理事会（Fed）の議長であるジェローム・パウエルは、理事会の理事会員として残る意向を表明したが、完全に退任する時期は明らかではない。ジム・ビアンコ（Jim Bianco）氏は、パウエルが混乱をもたらす存在として残る可能性があると述べた。
-📌 連邦準備制度理事会の議長は、米国の金融政策を決定する上で重要な役割を果たす。パウエルの退任時期が決まらないことは、金融市場に影響を与える可能性がある。投資家は、パウエルの残留が金融政策に与える影響を考慮する必要がある。
+      <title>➡️[💱 為替・マクロ] インド・ルピー、原油高で史上最安後回復</title>
+      <link>https://www.bloomberg.com/news/articles/2026-04-30/india-s-rupee-defense-faces-tough-test-as-capital-flows-stall</link>
+      <description>★★★☆☆ 重要度3/5
+インド・ルピーは、原油価格の急上昇を受けて史上最安値に落ち込んだが、原油価格が4年高の高値から下げ幅を拡大したことで大部分の損失を回復した。
+ベースシナリオ: インド・ルピーは、対ドルで78.50-80.00のレンジで推移する(50%)
 市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 20:38:17 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/when-will-jerome-powell-leave-the-fed-video</guid>
+出典: Bloomberg Markets</description>
+      <pubDate>Thu, 30 Apr 2026 01:18:07 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-04-30/india-s-rupee-defense-faces-tough-test-as-capital-flows-stall</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] パウエル議長、連邦準備制度理事会に留まる</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/powell-says-he-has-no-choice-but-to-stay-at-fed-video</link>
+      <title>➡️[💱 為替・マクロ] 植田日銀総裁6月講演</title>
+      <link>https://news.google.com/rss/articles/CBMidkFVX3lxTE9nZUQ0UVYzX19pdkxobWNJc1JSaFI0el85cjI0U3hxN0luUkJXdTc3OE54eWxtTXVRZFpiZjJjemtoR29PSGQzZHRZVHdlR3VHQzRwSVJndkpkczhVVU1NaFFXMWFMeEZBeTR1cm1fSHE5LUZHcUE?oc=5</link>
       <description>★★★★☆ 重要度4/5
-連邦準備制度理事会（Fed）議長のジェローム・パウエルは、最近の法的攻撃により、連邦準備制度理事会に留まることを決定したと述べた。パウエル議長の任期は5月15日に終了するが、理事会の議席は2028年まで続く。
-📌 パウエル議長の留任は、米国の金融政策に大きな影響を与える。連邦準備制度理事会は、米国の金融システムを安定させ、インフレを抑えるために重要な役割を果たしている。パウエル議長の決定は、金融政策の方向性に影響を与える可能性がある。
+植田日銀総裁が6月に講演することが発表された。利上げへの言及が焦点となる。共同通信きさらぎ会での講演予定。
+ベースシナリオ: 利上げなし(50%)
 市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 19:06:56 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/powell-says-he-has-no-choice-but-to-stay-at-fed-video</guid>
+出典: Google News (日銀 金融政策)</description>
+      <pubDate>Thu, 30 Apr 2026 03:48:47 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMidkFVX3lxTE9nZUQ0UVYzX19pdkxobWNJc1JSaFI0el85cjI0U3hxN0luUkJXdTc3OE54eWxtTXVRZFpiZjJjemtoR29PSGQzZHRZVHdlR3VHQzRwSVJndkpkczhVVU1NaFFXMWFMeEZBeTR1cm1fSHE5LUZHcUE?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔼[💱 為替・マクロ] 原油価格、2022年6月以来の高値に</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/brent-oil-hits-highest-since-june-2022-on-us-iran-stalemate</link>
-      <description>★★★★★ 重要度5/5
-原油価格が2022年6月以来の高値に達した。米イラン間の対立が続き、ホルムズ海峡を通るエネルギー供給が途絶え、世界的な供給余力が急速に減少していることが要因である。原油価格の高騰は、世界的な経済への影響を懸念させる。
-📌 原油価格の変動は、世界的な経済に大きな影響を及ぼす。原油は、多くの産業で使用される重要なエネルギー資源であり、その価格の変動は、インフレ率や経済成長率に影響を与える。特に、輸入に大きく依存している日本では、原油価格の高騰は、物価の上昇や経済の減速につながる可能性がある。
+      <title>➡️[💱 為替・マクロ] ECB 金利据置</title>
+      <link>https://www.bloomberg.com/news/articles/2026-04-30/ecb-keeps-interest-rates-steady-with-war-s-hit-to-economy-still-unfolding</link>
+      <description>★★★★☆ 重要度4/5
+ECBは金利を据置。イラン戦争の経済への影響をより時間をかけて評価する必要があると見られる。
+ベースシナリオ: 経済への影響が予想通りで、金利据置が継続する(50%)
+市場影響: ➡️ 中立
+出典: Bloomberg Markets</description>
+      <pubDate>Thu, 30 Apr 2026 12:15:57 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-04-30/ecb-keeps-interest-rates-steady-with-war-s-hit-to-economy-still-unfolding</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] BOE Bailey: インフレ率年末に3.5%超見通し</title>
+      <link>https://www.bloomberg.com/news/videos/2026-04-30/digi-andrew-bailey-on-uk-inflation-pre-and-during-iran-war-oil-and-gas</link>
+      <description>★★★★☆ 重要度4/5
+イングランド銀行総裁Andrew Baileyは、インフレ率は中東の紛争の直接的な結果として年末までに「3.5%を少し上回る」と予想している。利上げを見送った決定後の記者会見での発言。将来の利上げを検討する可能性を示唆した。
+ベースシナリオ: インフレ率が3.5%を超える(50%)、利上げの可能性が高まる
+市場影響: ➡️ 中立
+出典: Bloomberg Markets</description>
+      <pubDate>Thu, 30 Apr 2026 12:11:07 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/videos/2026-04-30/digi-andrew-bailey-on-uk-inflation-pre-and-during-iran-war-oil-and-gas</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] ドル円155円台</title>
+      <link>https://news.google.com/rss/articles/CBMifEFVX3lxTE1lYm11amM0VFpqZ3ZkalV3eUZJT2Z6b1RtMnF3LXpQR1lURnRwcXRoWlFvTTAxTEdTOGVjWEwyX1N4S3VDd2lBbnBUeUtuR3drc2lIVmlCbm0za28wRjhUeWNCUkM4QjdmNEY2MmlIRVdiVzAyb2l1aGFVb0k?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+2026年4月30日、ドル円が155円台に急騰。前日比で約2.5円高。米国の経済指標や米連邦準備制度理事会の政策決定が要因とみられる。
+ベースシナリオ: ドル円が160円台まで上昇するシナリオ（50%）
 市場影響: 🔼 強気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 17:06:33 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/brent-oil-hits-highest-since-june-2022-on-us-iran-stalemate</guid>
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Thu, 30 Apr 2026 12:00:03 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMifEFVX3lxTE1lYm11amM0VFpqZ3ZkalV3eUZJT2Z6b1RtMnF3LXpQR1lURnRwcXRoWlFvTTAxTEdTOGVjWEwyX1N4S3VDd2lBbnBUeUtuR3drc2lIVmlCbm0za28wRjhUeWNCUkM4QjdmNEY2MmlIRVdiVzAyb2l1aGFVb0k?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔽[🎯 先物] ビル・アクマンのPershing Square USA、IPO後16%下落</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/ackman-s-5-billion-pershing-ipo-squeaks-across-the-finish-line</link>
+      <title>🔽[💱 為替・マクロ] ドル円155円台に急騰</title>
+      <link>https://news.google.com/rss/articles/CBMiZ0FVX3lxTE8zdER1aV9uQThNU21hVEtVdW1ZbTktZWtCbGFreFdpM2d3X1NwbUVMQ21rdGtoaVBQQ3dYdE42c0F4VU5yVG02LXZVLTZjRzhGank5dldiXzhUaGtMX1RISzB5Qkx4bzQ?oc=5</link>
       <description>★★★★☆ 重要度4/5
-ビル・アクマンのPershing Square USA Ltd.の株価が、IPO初日で18%下落した。同社のIPOにより、50億ドルの資金が調達された。
-📌 Pershing Square USAは、ビル・アクマンが運営するクローズドエンドファンドであり、50億ドルのIPOは大規模なものである。IPO後の株価の動きは、投資家の市場への信頼を反映しており、将来の市場動向に影響を与える可能性がある。クローズドエンドファンドは、投資家が一定期間、資金を運用する形態であり、IPO後の株価の動きは、投資家の期待と実際の運用成果のギャップを示すことがある。
+ドル円が一時155円台に急騰。財務相らが為替介入を示唆した直後、円安が進んだ。為替相場の動きは、財務省と日本銀行の対応に注目が集まっている。
+ベースシナリオ: ドル円が155.50まで上昇する(50%)
 市場影響: 🔽 弱気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 12:36:14 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/ackman-s-5-billion-pershing-ipo-squeaks-across-the-finish-line</guid>
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Thu, 30 Apr 2026 11:55:57 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiZ0FVX3lxTE8zdER1aV9uQThNU21hVEtVdW1ZbTktZWtCbGFreFdpM2d3X1NwbUVMQ21rdGtoaVBQQ3dYdE42c0F4VU5yVG02LXZVLTZjRzhGank5dldiXzhUaGtMX1RISzB5Qkx4bzQ?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[🎯 先物] マクロン、フランス国立銀行頭取にムーランを指名</title>
+      <link>https://www.bloomberg.com/news/articles/2026-04-30/macron-moves-to-name-top-ally-moulin-to-lead-bank-of-france</link>
+      <description>★★★★☆ 重要度4/5
+フランス大統領マクロンは、首席補佐官のムーランを来週退任させ、フランス国立銀行の頭取に指名する見通し。ムーランはマクロンの親密な同盟者であり、この人事はマクロンの経済政策に影響を与える可能性がある。フランス国立銀行の頭取就任は、欧州中央銀行の政策にも影響を及ぼす。
+ベースシナリオ: ムーランの指名が決定し、ユーロが買われる(50%)
+市場影響: ➡️ 中立
+出典: Bloomberg Markets</description>
+      <pubDate>Thu, 30 Apr 2026 06:14:14 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-04-30/macron-moves-to-name-top-ally-moulin-to-lead-bank-of-france</guid>
       <category>🎯 先物</category>
     </item>
     <item>
-      <title>🔽[🇺🇸 外国株式] SoFi、ローン記録を樹立するも株価は下落</title>
-      <link>https://www.marketwatch.com/story/sofi-just-set-a-slew-of-lending-records-but-heres-why-its-stock-is-falling-4c7801a6?mod=mw_rss_topstories</link>
+      <title>➡️[💱 為替・マクロ] 日銀会合：利率据え置き</title>
+      <link>https://news.google.com/rss/articles/CBMif0FVX3lxTE5qSUxWWlpWWlBZLUFPLWtHQm9Ib05MZkdNemdONER3RnI4a0N5MXBwa052cERsWExReVpUa0ltaVdrRlFIcllYMDVIZFNBeGQzcmNaWDlQSFhDV0NZUEJLSVpMQndvcV9iV180a3RxdmRPUVZhZmZmU1czMS01ZnM?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+日銀は2024年3月の会合で、短期金利目標を-0.1%、10年国債の長期金利目標を0%のまま据え置いた。予想通りだったが、追加の緩和策も示唆した。
+ベースシナリオ: 日銀が緩和を継続し、日本株が上昇する(50%)
+市場影響: ➡️ 中立
+出典: Google News (日銀 金融政策)</description>
+      <pubDate>Thu, 30 Apr 2026 09:57:34 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMif0FVX3lxTE5qSUxWWlpWWlBZLUFPLWtHQm9Ib05MZkdNemdONER3RnI4a0N5MXBwa052cERsWExReVpUa0ltaVdrRlFIcllYMDVIZFNBeGQzcmNaWDlQSFhDV0NZUEJLSVpMQndvcV9iV180a3RxdmRPUVZhZmZmU1czMS01ZnM?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] 原油価格急騰、ブレント126.41ドル</title>
+      <link>https://news.google.com/rss/articles/CBMiY0FVX3lxTE53TzdGbEpnQ2doaEtUcXlBX1NjOHZja0p1WFotV2l5WkVRNUVsM1diTWR3OEVzZlVGb3VBdFZORGV4ZlZHZzFJeWxBMmxlMzZZSjNnWE9IVW5ZU3owOWRwYWNFaw?oc=5</link>
+      <description>★★★★★ 重要度5/5
+ホルムズ海峡封鎖により、原油価格が急騰。ブレント原油先物が126.41ドルまで上昇した。原油供給への影響が懸念される。
+ベースシナリオ: 原油価格は120ドル前後で推移する(50%)
+市場影響: 🔼 強気
+出典: Google News (原油価格)</description>
+      <pubDate>Thu, 30 Apr 2026 09:19:32 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiY0FVX3lxTE53TzdGbEpnQ2doaEtUcXlBX1NjOHZja0p1WFotV2l5WkVRNUVsM1diTWR3OEVzZlVGb3VBdFZORGV4ZlZHZzFJeWxBMmxlMzZZSjNnWE9IVW5ZU3owOWRwYWNFaw?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] 日銀が利上げを見送り</title>
+      <link>https://news.google.com/rss/articles/CBMiX0FVX3lxTE1rVDRndHhsR3lCMXZNbjJLUFp5VEI4dk9aMXVCMDRXRF9pN0p3NC1wZjFBS0hmZUtmSlhTODJ2dEF5T1p6SjltajQwdUZnaGNwZHpaYjlaQ1ZMNDFteE9V?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+日銀は利上げを見送った。野村證券の森田京平は、リスクは「より速くて多い利上げ」にあると指摘した。金利は据え置きとなった。
+ベースシナリオ: メインシナリオ(50%)は日経平均が25,500まで上昇する
+市場影響: ➡️ 中立
+出典: Google News (日銀 金融政策)</description>
+      <pubDate>Thu, 30 Apr 2026 09:02:39 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiX0FVX3lxTE1rVDRndHhsR3lCMXZNbjJLUFp5VEI4dk9aMXVCMDRXRF9pN0p3NC1wZjFBS0hmZUtmSlhTODJ2dEF5T1p6SjltajQwdUZnaGNwZHpaYjlaQ1ZMNDFteE9V?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] 関西電力、連結業績予想を発表</title>
+      <link>https://news.google.com/rss/articles/CBMihwFBVV95cUxORDZkcl91cDMydmtwUUNsWVdkbjMxYUt6a24tVE0zUS1tRmF3eGF4QU1leHhYREkxaEVxLUZubl9LeG9CN0dBbVJKYnpmZHhHSExOdW9Yem9UcjJIMDdNMTlqeklGUTBsb0ZMYWZTMzVTc2lfbzhIU2dhOUgxNVRoc2ZQUkZOWTA?oc=5</link>
       <description>★★★☆☆ 重要度3/5
-SoFiは最新の四半期で予想を上回る業績を達成したが、全年見通しを引き上げなかった。ローンの新規顧客獲得数は記録的な水準だったが、株価は下落した。
-📌 SoFiは金融テクノロジー企業であり、ローンや金融サービスを提供している。企業の業績は金融市場のトレンドや消費者行動の変化を反映している。投資家は企業の業績と見通しを注目することで、市場の動向を理解することができる。
+関西電力が今期の連結業績予想を発表し、経常利益は2285億円の減益を見込む。中東情勢の緊迫化による原油価格高騰が影響。原油価格の高騰により燃料費が増加したことが要因。関西電力の業績予想は、原子力発電所の運転状況や電力需要の動向にも左右される。
+ベースシナリオ: 原油価格が高騰し、関西電力の業績が悪化するシナリオ(60%)。関西電力の株価は、下押し続きの可能性が高い。
 市場影響: 🔽 弱気
-出典: MarketWatch
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 21:18:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/sofi-just-set-a-slew-of-lending-records-but-heres-why-its-stock-is-falling-4c7801a6?mod=mw_rss_topstories</guid>
+出典: Google News (原油価格)</description>
+      <pubDate>Thu, 30 Apr 2026 09:01:02 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMihwFBVV95cUxORDZkcl91cDMydmtwUUNsWVdkbjMxYUt6a24tVE0zUS1tRmF3eGF4QU1leHhYREkxaEVxLUZubl9LeG9CN0dBbVJKYnpmZHhHSExOdW9Yem9UcjJIMDdNMTlqeklGUTBsb0ZMYWZTMzVTc2lfbzhIU2dhOUgxNVRoc2ZQUkZOWTA?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] ドル円急落</title>
+      <link>https://news.google.com/rss/articles/CBMiY0FVX3lxTFBtXzZ0aEdraVVvQ2VYTVNwY3FiRTlzYnBoWmk5WEhKeGNiRWFZTDd5aFY3MWE4Q243d3pQVzd6elgzQ21zVl8tY1hFOGU2RHZxS2FFZ3dPeVJfbjhvR3o3ZFNCaw?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+ドル円が2026/4/30 17:00に急落。片山砲によるオーダー一掃が要因。前日比で-1.5%。出来高は通常比2.2倍
+ベースシナリオ: ドル円が105.50まで下落(55%)
+市場影響: 🔽 弱気
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Thu, 30 Apr 2026 08:18:09 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiY0FVX3lxTFBtXzZ0aEdraVVvQ2VYTVNwY3FiRTlzYnBoWmk5WEhKeGNiRWFZTDd5aFY3MWE4Q243d3pQVzd6elgzQ21zVl8tY1hFOGU2RHZxS2FFZ3dPeVJfbjhvR3o3ZFNCaw?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] ドル円急落、159.81円</title>
+      <link>https://news.google.com/rss/articles/CBMihwFBVV95cUxOY1RiMWpuUXdsdHh6NDhhOE9FV0hzRXowbUFJYll4Z18tcXpmNU84ZFRvMmhpTGoyS3NEMzBRcmcxQnViTFZDSk5oVjNNbTVGZkVKSWpIMmVJZTFwY3Zxb1Fycm5TRVhmSnlmZ0hnQTZ0cFNLR2d3TlhoWlJkNzVzNzBSbkgtV28?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+片山財務相の円安けん制発言により、ドル円が一時159.81円まで急落。日本時間14:30頃に発言が出た直後、急落した。
+ベースシナリオ: 円安の継続(60%)、ドル円が160.00円を突破
+市場影響: 🔽 弱気
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Thu, 30 Apr 2026 08:03:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMihwFBVV95cUxOY1RiMWpuUXdsdHh6NDhhOE9FV0hzRXowbUFJYll4Z18tcXpmNU84ZFRvMmhpTGoyS3NEMzBRcmcxQnViTFZDSk5oVjNNbTVGZkVKSWpIMmVJZTFwY3Zxb1Fycm5TRVhmSnlmZ0hnQTZ0cFNLR2d3TlhoWlJkNzVzNzBSbkgtV28?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[🇺🇸 外国株式] 学生ローン詐欺の増加</title>
+      <link>https://www.marketwatch.com/story/scammers-are-targeting-student-loan-borrowers-trying-to-make-payments-do-this-to-protect-yourself-e4245edd?mod=mw_rss_topstories</link>
+      <description>★★☆☆☆ 重要度2/5
+学生ローン借入者が支払いを行おうとしている間に、詐欺師が標的にしている。近年、プログラムの大きな変更に直面し、混乱している借入者を詐欺師が利用している。
+ベースシナリオ: 学生ローン借入者が詐欺に注意する(50-60%)
+市場影響: ➡️ 中立
+出典: MarketWatch</description>
+      <pubDate>Thu, 30 Apr 2026 12:30:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/scammers-are-targeting-student-loan-borrowers-trying-to-make-payments-do-this-to-protect-yourself-e4245edd?mod=mw_rss_topstories</guid>
       <category>🇺🇸 外国株式</category>
     </item>
     <item>
-      <title>➡️[🎯 先物] 米国株式は混沌、原油価格が急上昇</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/us-stock-futures-edge-up-on-tech-gains-before-megacap-earnings</link>
+      <title>🔼[🇺🇸 外国株式] 韓国株式市場、史上2番目の好調な月</title>
+      <link>https://www.marketwatch.com/story/south-korean-stocks-just-enjoyed-their-second-best-month-ever-and-now-the-market-is-bigger-than-the-u-k-b926267b?mod=mw_rss_topstories</link>
       <description>★★★★☆ 重要度4/5
-米国株式市場は、原油価格の急上昇や米国とイランのホルムズ海峡をめぐる対立の激化により、混沌とした取引となりました。投資家は、連邦準備制度理事会（Fed）の政策決定を評価しながら、4つのメガカップ企業の決算発表を待ちました。
-📌 原油価格の変動は、インフレ率や企業の収益に影響を与える可能性があります。さらに、Fedの政策決定は、金利や金融政策の方向性に影響を与えるため、投資家にとって重要な要素です。メガカップ企業の決算発表も、市場のトレンドや投資家の信頼に影響を与える可能性があります。
-市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 11:38:46 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/us-stock-futures-edge-up-on-tech-gains-before-megacap-earnings</guid>
-      <category>🎯 先物</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] パウエルFRB議長、トランプ氏の圧力に抵抗</title>
-      <link>https://www.marketwatch.com/story/powell-says-hell-stay-at-fed-as-governor-after-his-term-as-chair-ends-in-mid-may-c906c044?mod=mw_rss_topstories</link>
-      <description>★★★★☆ 重要度4/5
-米連邦準備制度理事会（FRB）議長のジェローム・パウエルは、トランプ大統領の圧力にもかかわらず、FRB議長を辞任しないことを表明した。パウエルは「決定される期間、FRB理事として引き続き奉仕する」と述べた。
-📌 FRB議長の交代は、金融政策に大きな影響を与える。パウエル議長の残留は、金融政策の継続性を保つことになる。投資家はFRBの政策決定に注目している。FRBの政策は、米国経済と世界経済に大きな影響を与える。パウエル議長の残留は、金融市場に大きな影響を与える可能性がある。
-市場影響: ➡️ 中立
-出典: MarketWatch
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 20:58:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/powell-says-hell-stay-at-fed-as-governor-after-his-term-as-chair-ends-in-mid-may-c906c044?mod=mw_rss_topstories</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] オイル価格上昇、ホルムズ海峡封鎖続く</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/latest-oil-market-news-and-analysis-for-april-30</link>
-      <description>★★★★★ 重要度5/5
-オイル価格が4日連続で上昇した。イラン戦争により、世界市場が混乱している。ホルムズ海峡の封鎖が続き、解決の目途は立っていない。
-📌 ホルムズ海峡は、世界の石油輸出の約20%が通過する重要な海峡である。封鎖が続けば、石油価格が上昇し、世界経済に影響を及ぼす可能性がある。投資家は、エネルギー価格の変動に敏感な資産の動向に注目する必要がある。
+韓国株式市場は2番目の好調な月を終え、現在は英国市場を上回っている。高性能メモリチップの需要増加が主な要因である。AI開発企業の需要が市場を牽引している。
+ベースシナリオ: 上昇継続（50%）、KS11 2,800
 市場影響: 🔼 強気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 22:11:51 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/latest-oil-market-news-and-analysis-for-april-30</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔽[💱 為替・マクロ] アジア株式市場が下落、原油価格高騰の影響</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/stock-market-today-dow-s-p-live-updates</link>
-      <description>★★★★☆ 重要度4/5
-アジア株式市場は、イランでの戦争の不確実性が原油価格を押し上げたことにより、下落した。原油価格の高騰は、世界経済への影響を懸念させている。アジア株式市場の下落は、投資家のリスク回避姿勢を反映している。
-📌 原油価格の高騰は、インフレーションを引き起こし、世界経済の成長を妨げる可能性がある。投資家は、原油価格の動向に注目し、リスク管理を徹底する必要がある。アジア株式市場の動向は、世界経済の趨勢を反映しているため、注目される。
-市場影響: 🔽 弱気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 22:04:06 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/stock-market-today-dow-s-p-live-updates</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[🎯 先物] フォードのCFO、第1四半期の業績とガス価格の影響について語る</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/ford-cfo-on-earnings-outlook-and-impact-of-gas-prices-video</link>
-      <description>★★★☆☆ 重要度3/5
-フォードのCFO、シェリー・ハウスは、第1四半期の業績について話し、SUVやピックアップトラックの販売が高まるガス価格の影響を受けたことを明らかにした。また、同社の今年度の見通しについても説明した。
-📌 フォードは世界的大手自動車メーカーであり、その業績は自動車市場のトレンドを示す重要な指標となる。また、ガス価格の高騰は自動車の販売に大きな影響を与えるため、投資家はフォードの業績とガス価格の関係に注目する必要がある。さらに、フォードの今年度の見通しは、自動車市場の将来的な動向を予測する上で重要な情報となる。
-市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 21:01:58 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/ford-cfo-on-earnings-outlook-and-impact-of-gas-prices-video</guid>
-      <category>🎯 先物</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] インドの高頻度取引ユニコーン、Gravitonがグローバル進出</title>
-      <link>https://www.bloomberg.com/news/features/2026-04-29/india-s-hft-unicorn-graviton-goes-global-as-foreign-rivals-dial-up-competition</link>
-      <description>★★★★☆ 重要度4/5
-インドの高頻度取引会社Gravitonがシンガポールとロンドンに進出。インド国内での競争と規制ハードルが高まる中でのグローバル展開。
-📌 高頻度取引は金融市場での取引速度を高めるために、高速なアルゴリズムとインフラストラクチャを必要とする。Gravitonのグローバル進出は、インドのテクノロジー企業が世界市場で競争する力を示す。投資家は、グローバル金融市場でのテクノロジー企業の成長に注目する必要がある。
-市場影響: 🔼 強気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 21:00:18 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/features/2026-04-29/india-s-hft-unicorn-graviton-goes-global-as-foreign-rivals-dial-up-competition</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[🎯 先物] ブラックロックのローゼンバーグ氏、分裂したFRBは継続</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/divided-fed-likely-to-continue-blackrock-s-rosenberg-video</link>
-      <description>★★★★☆ 重要度4/5
-ブラックロックのJeffrey Rosenberg氏は、イラン戦争の開始時に市場がFRBの緩和傾向を取り除いたと述べた。ローゼンバーグ氏は、FRBの分裂は継続する可能性が高いと指摘した。FRBの政策は、金融市場に大きな影響を与える。ローゼンバーグ氏の発言は、投資家にFRBの動向を注視する必要性を強調している。
-📌 FRBの政策は、金融市場に大きな影響を与える。FRBの緩和傾向は、利率の低下や金融緩和につながる可能性があり、投資家にとって重要な情報となる。ブラックロックのローゼンバーグ氏の発言は、FRBの動向を理解する上で重要な参考情報となる。投資家は、FRBの政策を注視し、投資戦略を適切に調整する必要がある。
-市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 20:39:51 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/divided-fed-likely-to-continue-blackrock-s-rosenberg-video</guid>
-      <category>🎯 先物</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] グリフィンとマムダニの対立が60億ドルタワーの計画を危うくする</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/mamdani-vs-griffin-fight-puts-6-billion-tower-at-risk-video</link>
-      <description>★★★☆☆ 重要度3/5
-シタデル社のケン・グリフィンは、ニューヨーク州知事キャシー・ホクールと会談し、ニューヨーク市の将来の方向性について話し合う。グリフィンはマンハッタンに238万ドルのペントハウスを購入したが、市長ゾフラン・マムダニと対立している。対立により、60億ドルのタワーの計画が危うくなっている。
-📌 このニュースは重要なのは、グリフィンとマムダニの対立がニューヨーク市の経済発展に影響を与える可能性があるため。グリフィンのペントハウス購入は、高額な不動産取引であり、ニューヨーク市の富裕層への投資を象徴する。対立が長期化すれば、市の経済成長に悪影響を及ぼす可能性がある。投資家は、都市の政治情勢と経済の関係を理解する必要がある。
-市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 20:37:13 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/mamdani-vs-griffin-fight-puts-6-billion-tower-at-risk-video</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] BPとベネズエラ、沖合ガス探査で合意</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/bp-and-venezuela-sign-pact-to-explore-for-offshore-gas</link>
-      <description>★★★★☆ 重要度4/5
-BP Plcとベネズエラは、南米のエネルギー復興が進む中で、沖合での天然ガス探査に関する合意を結んだ。ベネズエラは、ニコラス・マドゥロ大統領の米国での身柄確保後、エネルギー産業の復興を進めており、この合意はその一環である。
-📌 ベネズエラは、豊富なエネルギー資源を抱える国であるが、政治的不安定や経済の混乱により、エネルギー産業が停滞していた。現在、ベネズエラはエネルギー産業の復興を進めており、この合意は、外国企業の投資を誘致し、エネルギー資源の開発を促進するための重要なステップである。投資家は、ベネズエラのエネルギー産業の復興が、世界のエネルギー市場に与える影響に注目する必要がある。
-市場影響: 🔼 強気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 20:10:58 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/bp-and-venezuela-sign-pact-to-explore-for-offshore-gas</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] Bloomberg Deals 4/29/2026: 世界的市場を形作る企業取引</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/bloomberg-deals-4-29-2026-video</link>
-      <description>★★★★☆ 重要度4/5
-Bloomberg Dealsは、毎週の番組で世界的市場を形作る重要な企業取引について議論する。今日のゲストには、Pershing Square CEOのBill AckmanやAstraZeneca CFOのAradhana Sarinなどが登場した。
-📌 この番組は、企業取引や市場動向についての深い分析を提供する。投資家やビジネスリーダーにとって、市場の動向を理解する上で重要な情報源となる。企業取引は、企業の成長や収益性に大きな影響を与えることがあり、投資家はこれらの取引を注視する必要がある。また、企業取引は経済全体の動向にも影響を与えることがあるため、投資家はこれらの取引を分析することで市場の全体像を理解することができる。
-市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 19:52:17 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/bloomberg-deals-4-29-2026-video</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔽[🎯 先物] 戦争と燃料価格高が旅行業界にM&amp;Aをもたらす</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/war-fuel-prices-seen-steering-travel-industry-toward-m-a</link>
-      <description>★★★★☆ 重要度4/5
-イランでの戦争と高騰する燃料価格が、旅行客を自国に留めることになり、旅行・宿泊業界に混乱をもたらし、M&amp;Aを促す可能性がある。高油価格は旅行のコストを押し上げ、需要を減らす。旅行業界はこの状況に対応するために、M&amp;Aを通じてコストを削減し、収益を増やす戦略をとることが予想される。
-📌 旅行・宿泊業界は、世界経済の重要な部門であり、多くの雇用を創出している。M&amp;Aの増加は、業界の再編をもたらし、新しいビジネスモデルや収益源の創出につながる可能性がある。投資家は、旅行・宿泊業界の動向を注視し、投資機会を探すことが重要である。
-市場影響: 🔽 弱気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 19:49:14 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/war-fuel-prices-seen-steering-travel-industry-toward-m-a</guid>
-      <category>🎯 先物</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] ケン・グリフィンとマムダニの対立が600万ドルのタワーを危うくする</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/mamdani-vs-griffin-fight-puts-6-million-tower-at-risk-video</link>
-      <description>★★★☆☆ 重要度3/5
-シタデル・インベストメンツのケン・グリフィンがニューヨーク州知事のキャシー・ホーチュルと会談し、アメリカ最大の都市であるニューヨークの将来の方向性について話し合う。グリフィンはマンハッタンの238万ドルのペントハウスをめぐって市長のゾフラン・マムダニと対立していた。
-📌 ニューヨークは世界の金融の中心地であり、グリフィンやシタデルなどの大手投資家の動向は市場に大きな影響を与えることがある。さらに、政治家との関係も投資家にとって重要な要素となる。投資家は、政治的対立や都市の方向性が投資環境に与える影響を考慮する必要がある。
-市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 19:40:08 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/mamdani-vs-griffin-fight-puts-6-million-tower-at-risk-video</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] LionTreeのアドバイザー、旅行関連M&amp;Aで小規模・中規模企業に機会</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/opportunity-in-small-midcap-travel-m-a-liontree-video</link>
-      <description>★★★☆☆ 重要度3/5
-LionTree AdvisorsのマネージングディレクターであるAriel Granoffは、Bloombergの「Bloomberg Deals」に出演し、小規模・中規模の旅行関連企業でのM&amp;Aの機会について語った。旅行業界では、M&amp;Aの動きが活発化している。小規模・中規模企業が大手企業に買収されるケースが増えている。
-📌 M&amp;A（合併・買収）とは、企業が他の企業を買収したり合併したりすることを指す。M&amp;Aは、企業の成長戦略の一環として重要な役割を果たす。旅行業界では、M&amp;Aを通じて、新しい市場への進出やサービスへの拡大が可能になる。投資家にとっては、M&amp;Aの動きを注視することで、企業の将来的な成長可能性を読み取ることができる。
-市場影響: 🔼 強気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 19:25:58 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/opportunity-in-small-midcap-travel-m-a-liontree-video</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] Cain CEO: 旅行ブランドへの投資の重要性</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/need-to-invest-in-distinctive-travel-brands-cain-ceo-video</link>
-      <description>★★★☆☆ 重要度3/5
-Cain InternationalのCEOであるJonathan Goldsteinは、Bloomberg Dealsで、豪華資産への投資においてブランドの強さと運用の優秀性の両方に焦点を当てることの重要性について話しました。Goldsteinは、ブランドの独自性と運用の効率性が、投資の成功を決定づける要因であると強調しました。
-📌 豪華資産への投資は、高い収益をもたらす可能性がありますが、リスクも伴います。ブランドの強さと運用の優秀性を考慮することで、投資家はリスクを最小限に抑え、収益を最大化することができます。投資家は、ブランドの評判、運用コスト、収益性など、さまざまな要素を分析する必要があります。
-市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 19:13:56 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/need-to-invest-in-distinctive-travel-brands-cain-ceo-video</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] ボストンコンサルティング、航空会社のM&amp;A増加を予測</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/significant-airline-m-a-on-the-horizon-mccaleb-video</link>
-      <description>★★★★☆ 重要度4/5
-ボストンコンサルティンググループのトム・マッケイレブ氏は、近い将来に航空会社のM&amp;Aが増加することを予測した。マッケイレブ氏は、旅行、交通、レジャー部門のマネージングディレクター兼パートナーを務めている。
-📌 M&amp;Aの増加は、航空業界の再編を促し、企業の競争力を高める可能性がある。投資家は、M&amp;Aの動向を注視し、市場の変化に応じた戦略を立てる必要がある。M&amp;Aは、企業の成長と収益性に大きな影響を与える可能性があるため、投資家にとって重要なテーマである。
-市場影響: 🔼 強気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 19:09:58 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/significant-airline-m-a-on-the-horizon-mccaleb-video</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] ジェットブルー、ブッキングが旅行需要について混合したアップデートを発表</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/jetblue-booking-give-mixed-update-on-travel-demand-video</link>
-      <description>★★★★☆ 重要度4/5
-ジェットブルー、ブッキング・ホールディングス、ヒルトンが旅行需要について混合したコメントを発表した。燃料価格の上昇やイラン情勢を受けて、旅行需要がどうなるか注目されていた。
-📌 旅行需要は、航空会社やホテルなどの企業の業績に大きな影響を与える。旅行需要が強いと、企業の収益が増加する可能性がある。一方、旅行需要が弱いと、企業の収益が減少する可能性がある。投資家は、旅行需要の動向を注視して、投資戦略を立てる必要がある。
-市場影響: ➡️ 中立
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 18:40:58 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/jetblue-booking-give-mixed-update-on-travel-demand-video</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] トランプ大統領「UAEのOPEC離脱でエネルギー価格下落」</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/trump-hails-uae-s-exit-from-opec-says-will-lower-energy-prices</link>
-      <description>★★★★☆ 重要度4/5
-米国大統領のトランプは、UAEのOPEC離脱がエネルギー価格の低下につながると述べた。イランでの戦争によりエネルギー価格が上昇し続けている中での発言である。
-📌 OPECは世界の石油生産量を調整する主要な組織であり、その決定は世界のエネルギー市場に大きな影響を与える。UAEのOPEC離脱は、世界のエネルギー市場の動向に大きな変化をもたらす可能性がある。投資家は、エネルギー価格の変動が世界経済に与える影響を考慮する必要がある。
-市場影響: 🔼 強気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 18:39:15 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/trump-hails-uae-s-exit-from-opec-says-will-lower-energy-prices</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔼[🇺🇸 外国株式] 米連邦準備制度理事会（Fed）が対称的政策へ、JPMorganのMichele氏</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/fed-moving-towards-symmetrical-policy-jpm-s-michele-video</link>
-      <description>★★★★★ 重要度5/5
-JPMorgan Asset Managementのボブ・ミケーレ氏が、米連邦準備制度理事会（Fed）が対称的政策への移行を検討していると述べた。ミケーレ氏は、Fedが対称的政策を採用しないことは「馬鹿げている」と語った。
-📌 対称的政策とは、経済が過熱した場合に利上げを行うだけでなく、経済が低迷した場合にも利下げを行うという考え方である。Fedの政策は世界経済に大きな影響を与えるため、投資家はFedの動向を注視している。対称的政策への移行は、金融市場に大きな影響を与える可能性がある。
-市場影響: 🔼 強気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 18:30:58 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/fed-moving-towards-symmetrical-policy-jpm-s-michele-video</guid>
+出典: MarketWatch</description>
+      <pubDate>Thu, 30 Apr 2026 12:28:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/south-korean-stocks-just-enjoyed-their-second-best-month-ever-and-now-the-market-is-bigger-than-the-u-k-b926267b?mod=mw_rss_topstories</guid>
       <category>🇺🇸 外国株式</category>
     </item>
     <item>
-      <title>🔼[🎯 先物] サンファーマ、ライリーが最新のヘルスケア・デアルラッシュを牽引</title>
-      <link>https://www.bloomberg.com/news/videos/2026-04-29/sun-pharma-lilly-lead-latest-healthcare-deal-rush-video</link>
-      <description>★★★★☆ 重要度4/5
-エリ・リリーは、非上場のアジャックス・セラピューティクスを最大23億ドルで買収することで合意した。サン・ファーマシューティカル・インダストリーズは、ニューヨーク証券取引所上場の女性ヘルスケア企業オルガノンを買収することで合意した。
-📌 ヘルスケア業界では、企業間の買収や提携が活発化しており、企業の成長戦略や市場シェアの拡大に影響を与える。投資家は、企業の買収や提携の動向を注視し、市場の動向を予測する必要がある。ヘルスケア業界の買収は、企業のポートフォリオの拡大や新しい技術の導入につながることが多い。投資家は、買収の背景や企業の戦略を理解することで、投資の機会を探ることができる。
-市場影響: 🔼 強気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 18:27:58 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-04-29/sun-pharma-lilly-lead-latest-healthcare-deal-rush-video</guid>
-      <category>🎯 先物</category>
-    </item>
-    <item>
-      <title>🔽[💱 為替・マクロ] カナダ鉄道の収益が減少、貿易・政治的緊張が影響</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/cn-rail-shares-drop-the-most-since-2021-amid-macro-uncertainty</link>
+      <title>🔽[💱 為替・マクロ] 富士通株価急落</title>
+      <link>https://news.google.com/rss/articles/CBMibEFVX3lxTE8zQXVublpaQ0tRdEt2eXpMUDZnM3loWmdzOEpScE9kM2FNazU2cy1DNm43TExISml1SkxuV3VLWk9OQnJJRGJ4VFgxTXcta1JCSExWbGNkajFpWjNXa2RqbWxjaHNFN2pwa1lWbg?oc=5</link>
       <description>★★★☆☆ 重要度3/5
-カナダの主要鉄道会社の収益が減少している。貿易と政治的緊張が鉄道業界に大きな影響を与えている。投資家は不確実な見通しにより投資を控えている。
-📌 カナダの鉄道業界は貿易に大きく依存しているため、貿易の減少は鉄道会社の収益に大きな影響を与える。さらに、政治的緊張は貿易の減少につながり、鉄道業界に悪影響を与える。投資家はこのような状況下で投資を慎重に検討する必要がある。
+富士通の27年3月期営業増益が予想を下回った。30日の株式市場で富士通株は急落した。27年3月期の営業利益は約840億円で、前期比12.1%増加。ただし、市場予想の約930億円を下回った。
+ベースシナリオ: メインシナリオは富士通株の下落（50-60%）、他のIT株にも影響
 市場影響: 🔽 弱気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 16:12:20 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/cn-rail-shares-drop-the-most-since-2021-amid-macro-uncertainty</guid>
+出典: Google News (日経平均)</description>
+      <pubDate>Thu, 30 Apr 2026 07:30:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMibEFVX3lxTE8zQXVublpaQ0tRdEt2eXpMUDZnM3loWmdzOEpScE9kM2FNazU2cy1DNm43TExISml1SkxuV3VLWk9OQnJJRGJ4VFgxTXcta1JCSExWbGNkajFpWjNXa2RqbWxjaHNFN2pwa1lWbg?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔽[💱 為替・マクロ] 原油高と円安の二重苦</title>
-      <link>https://news.google.com/rss/articles/CBMif0FVX3lxTFBZcnQ5X1lXbURRYzhDckkyeDlJVGQ1VlFrTFlla0phX3dqdEhtUWdPc3BVYUhQMnV1ZXlpcElGN2lZMFV3Z0Q3ZWVaUWE5MHBYT0d1UFFoSEJCZVRIT2NDLXlramgtX29FZUxDZXlQOGIwdXJBb0taa1I1VndSTkk?oc=5</link>
+      <title>🔽[🇺🇸 外国株式] 半導体株のマニアに小規模投資家</title>
+      <link>https://www.marketwatch.com/story/forget-buy-the-dip-now-retail-investors-are-trading-the-mania-in-chip-stocks-and-its-about-to-get-messy-08ef5540?mod=mw_rss_topstories</link>
       <description>★★★★☆ 重要度4/5
-原油価格の高騰と円安が進み、サプライチェーンの崩壊が懸念される。原油価格の高騰は輸送コストの増加につながり、円安は輸入コストの増加につながっている。
-📌 原油価格の高騰と円安は、サプライチェーンの崩壊につながる可能性がある。サプライチェーンの崩壊は、物価の高騰や生産の減少につながり、経済に悪影響を及ぼす。投資家は、原油価格の動きと円安の影響を注視する必要がある。
+ゴールドマン・サックスのトレーダーによると、小規模投資家が半導体株に熱を上げているが、高リスクのベットが増えており、事態が悪化した場合に撤退が難しい状況にある。特に、高ボラティリティのオプション取引が増加している。
+ベースシナリオ: 半導体株の上昇継続(50%)、強気シナリオ(25%)は需要の増加、弱気シナリオ(25%)は供給不足の解消
 市場影響: 🔽 弱気
-出典: Google News (原油価格)
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 20:00:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMif0FVX3lxTFBZcnQ5X1lXbURRYzhDckkyeDlJVGQ1VlFrTFlla0phX3dqdEhtUWdPc3BVYUhQMnV1ZXlpcElGN2lZMFV3Z0Q3ZWVaUWE5MHBYT0d1UFFoSEJCZVRIT2NDLXlramgtX29FZUxDZXlQOGIwdXJBb0taa1I1VndSTkk?oc=5</guid>
+出典: MarketWatch</description>
+      <pubDate>Thu, 30 Apr 2026 12:16:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/forget-buy-the-dip-now-retail-investors-are-trading-the-mania-in-chip-stocks-and-its-about-to-get-messy-08ef5540?mod=mw_rss_topstories</guid>
+      <category>🇺🇸 外国株式</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] 60/40ポートフォリオが好調</title>
+      <link>https://www.marketwatch.com/story/why-the-60-40-portfolio-is-crushing-it-despite-market-chaos-and-inflation-fears-bd08f664?mod=mw_rss_topstories</link>
+      <description>★★★★☆ 重要度4/5
+60/40ポートフォリオが市場の混沌とインフレ懸念の中で好調。2023年1月から6月の間にS&amp;P 500は14%上昇、10年米国債利回りは4.2%から4.0%に低下した。
+ベースシナリオ: 好調なポートフォリオが続く(50%)、S&amp;P 500が4,500に上昇
+市場影響: 🔼 強気
+出典: MarketWatch</description>
+      <pubDate>Thu, 30 Apr 2026 12:10:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/why-the-60-40-portfolio-is-crushing-it-despite-market-chaos-and-inflation-fears-bd08f664?mod=mw_rss_topstories</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔽[💱 為替・マクロ] NY株が280ドル安、原油高・利下げ観測後退で円安</title>
-      <link>https://news.google.com/rss/articles/CBMibEFVX3lxTE1YVXRxT2VybjN5b1c1VlUzSkRwdXNvYUFBLUtYa2J0TFUwaUV5TTJXWk51V2R0dmg1MlpkU0hrVVd1R2VKTFJlRzBzN0tQWFRpdmRySlV1WGRja1BiVHllWnRrQ19LMHFURVAzLQ?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-NY株が280ドル安となり、原油高と利下げ観測が後退したため、円相場は160円台前半となった。NY株の下落は、原油価格の高騰と利下げ観測の後退が要因となっている。原油価格の高騰は、インフレ圧力の増大を懸念する声が高まり、利下げ観測が後退している。
-📌 NY株の動きは、世界経済の動向を反映する重要な指標である。原油価格の高騰は、インフレ圧力の増大を懸念する声が高まり、経済成長に悪影響を及ぼす可能性がある。利下げ観測の後退は、金利が高くなる可能性があり、投資家の投資判断に影響を及ぼす。投資家は、NY株の動きや原油価格の高騰、利下げ観測の後退を注視し、投資戦略を再検討する必要がある。
+      <title>🔽[💱 為替・マクロ] 日経平均続落</title>
+      <link>https://news.google.com/rss/articles/CBMiVEFVX3lxTFBUTDFjSTNrVEcxZDl6dU5RVGxrcjdJQUR4M1FsQ3dQY3p1ZzFJYnh4X045dTV4RGdFTnA5Zm9tVHpEZlRaMEdQVjNMeEd5WmpxWkRleNIBV0FVX3lxTE5mX3k2TW9CMmlRVF9WeG9zMExfVDExVktZMWMxZlFSSi1FQmhZcXpGOXdIZlBpckRqQkxzMVYwMVdXNUh1ZHJrbzNQb0UxY0F2NDRseGszbw?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+原油高と米利下げ期待の後退により日経平均は続落。引け後は東京エレクやレーザーテックの決算が焦点となる。日経平均は前日比で-1.1%の降下。米国債利回りは小幅に上昇した。
+ベースシナリオ: メインシナリオ(55%)では日経平均は38,000前後で底堅くなる
 市場影響: 🔽 弱気
-出典: Google News (原油価格)
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 19:41:08 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMibEFVX3lxTE1YVXRxT2VybjN5b1c1VlUzSkRwdXNvYUFBLUtYa2J0TFUwaUV5TTJXWk51V2R0dmg1MlpkU0hrVVd1R2VKTFJlRzBzN0tQWFRpdmRySlV1WGRja1BiVHllWnRrQ19LMHFURVAzLQ?oc=5</guid>
+出典: Google News (日経平均)</description>
+      <pubDate>Thu, 30 Apr 2026 07:22:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiVEFVX3lxTFBUTDFjSTNrVEcxZDl6dU5RVGxrcjdJQUR4M1FsQ3dQY3p1ZzFJYnh4X045dTV4RGdFTnA5Zm9tVHpEZlRaMEdQVjNMeEd5WmpxWkRleNIBV0FVX3lxTE5mX3k2TW9CMmlRVF9WeG9zMExfVDExVktZMWMxZlFSSi1FQmhZcXpGOXdIZlBpckRqQkxzMVYwMVdXNUh1ZHJrbzNQb0UxY0F2NDRseGszbw?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔽[💱 為替・マクロ] 米国債が下落、2027年に利上げの可能性が浮上</title>
-      <link>https://www.bloomberg.com/news/articles/2026-04-29/us-treasury-yields-hit-highest-levels-since-march-as-oil-surges</link>
-      <description>★★★★☆ 重要度4/5
-米国債が下落し、2年物の金利が2022年以来の最大の上げ幅となった。連邦準備制度理事会（Fed）の決定を受けて、インフレ圧力が続いていることから、利上げの可能性が高まっている。
-📌 インフレ率が上昇し続けているため、米国連邦準備制度理事会（Fed）は利上げを検討している可能性がある。利上げは金利の上昇につながり、債券市場に影響を及ぼす。投資家は、インフレ率と金利の動向を注視する必要がある。
-市場影響: 🔽 弱気
-出典: Bloomberg Markets
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 14:48:57 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-04-29/us-treasury-yields-hit-highest-levels-since-march-as-oil-surges</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] 日銀利上げ見送りでも住宅ローン金利上昇への備え不可欠</title>
-      <link>https://news.google.com/rss/articles/CBMipgFBVV95cUxNaTBfYWJ5LWVDTGhPcGpYLXUyLXVwRjJCOWowWVlhRUFTbTZUNE10SXdLMDB3Um5uRTlTWlZHVmVocHlQaWVuTmNTUDNqdDFaYzFCTGxRcFVlLXdnc3NTNEVpcUl6clJnZDFSbkxvM1FBdmlBa3I2MWZyVUp0REUyU3pqTnpHS3c0V3pFVElBRGx5RXJTTm9KQzhGZjk1UUJyOXd0d19B?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-日本銀行は利上げを見送ったが、住宅ローンの金利上昇への備えは不可欠である。金利上昇の可能性が残っており、住宅ローンの借り入れに際しては、将来的な金利変動に備えることが大切である。
-📌 日本銀行の利上げは、金融政策の重要な要素であり、金利や住宅ローンに大きな影響を与える。投資初心者は、金融政策や金利の動向を理解することで、将来的な経済動向を予測し、投資戦略を立てることができる。金利上昇への備えは、住宅ローンの借り入れや返済計画に影響を与えるため、重要である。
+      <title>➡️[🇺🇸 外国株式] レンタル物件の小規模改修とデポジット返還</title>
+      <link>https://www.marketwatch.com/story/will-i-get-my-deposit-back-on-my-rental-if-i-make-minor-renovations-and-paint-the-walls-a-different-color-da011735?mod=mw_rss_topstories</link>
+      <description>★☆☆☆☆ 重要度1/5
+レンタル物件で小規模改修や壁の色の変更を行った場合、デポジットの返還に影響が出る可能性がある。契約内容や管理会社の判断により返還される金額が変動する。事前に管理会社に相談することが重要。
+ベースシナリオ: 管理会社との事前の相談によりデポジット返還が円滑に進む(50%)
 市場影響: ➡️ 中立
-出典: Google News (日銀 金融政策)
-※AIによる解釈であり投資推奨ではありません</description>
-      <pubDate>Wed, 29 Apr 2026 19:00:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMipgFBVV95cUxNaTBfYWJ5LWVDTGhPcGpYLXUyLXVwRjJCOWowWVlhRUFTbTZUNE10SXdLMDB3Um5uRTlTWlZHVmVocHlQaWVuTmNTUDNqdDFaYzFCTGxRcFVlLXdnc3NTNEVpcUl6clJnZDFSbkxvM1FBdmlBa3I2MWZyVUp0REUyU3pqTnpHS3c0V3pFVElBRGx5RXJTTm9KQzhGZjk1UUJyOXd0d19B?oc=5</guid>
+出典: MarketWatch</description>
+      <pubDate>Thu, 30 Apr 2026 12:05:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/will-i-get-my-deposit-back-on-my-rental-if-i-make-minor-renovations-and-paint-the-walls-a-different-color-da011735?mod=mw_rss_topstories</guid>
+      <category>🇺🇸 外国株式</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] 日経平均大幅続落</title>
+      <link>https://news.google.com/rss/articles/CBMihwFBVV95cUxQaU1qSVRIUmE2MTZkOXJyTWxJQVo2SkZKMXhMRFU3eW14QWRhMEZaWUhydldweU1nbnJpVWdISWFXZkdYemplWFNZZE00NFdSZWMyOWZPNmhNbDJ0aDE4YnA3Q0VIckpVSExrRXA0aExfVFFBWWtibWtPeTU3TVY3OHlualNWMWvSAYwBQVVfeXFMTXBWV0tDZTRwdkJQNXZHVXFKU0wyVU9zNFpZR1prY2w2V2FpQU90ZUN4ZTdzTV9vY012YUJzN0RHUUJrRmtfRGo1eUVNMXhxSUFUNjZlMlpQeXN2bXVqVExmTEh4NTBEemJlbXNEQlRtZk5uaW1fcHgyYmFyc1ZiMTdsVzVsUlZCVU81N2c?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+日経平均は大幅続落。米利下げ観測の後退や原油高で投資家心理悪化。米連邦準備制度理事会（FRB）の利下げ観測が後退し、原油価格が高騰していることが要因。日経平均は大幅に下落した。
+ベースシナリオ: 日経平均は下落を続ける(50%)
+市場影響: 🔽 弱気
+出典: Google News (日経平均)</description>
+      <pubDate>Thu, 30 Apr 2026 06:56:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMihwFBVV95cUxQaU1qSVRIUmE2MTZkOXJyTWxJQVo2SkZKMXhMRFU3eW14QWRhMEZaWUhydldweU1nbnJpVWdISWFXZkdYemplWFNZZE00NFdSZWMyOWZPNmhNbDJ0aDE4YnA3Q0VIckpVSExrRXA0aExfVFFBWWtibWtPeTU3TVY3OHlualNWMWvSAYwBQVVfeXFMTXBWV0tDZTRwdkJQNXZHVXFKU0wyVU9zNFpZR1prY2w2V2FpQU90ZUN4ZTdzTV9vY012YUJzN0RHUUJrRmtfRGo1eUVNMXhxSUFUNjZlMlpQeXN2bXVqVExmTEh4NTBEemJlbXNEQlRtZk5uaW1fcHgyYmFyc1ZiMTdsVzVsUlZCVU81N2c?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] 原油価格4年ぶり高値</title>
+      <link>https://news.google.com/rss/articles/CBMiigFBVV95cUxQczBIQ2hDMTJCSHpBZXpTWFpDYVROcU1SVzlTbnR0TEh6WEphX2x2R0U5V2JhcWVXOS04Y0luckpTSFpWMFpvd3FYOEhaY1Z1X3JwVG13Q2tFSjdpUlRMZDhzN1RLaHZEa3kwV093VmJYdU93T28tbktzWFpDRjFWUUl4Rk5tM0x5Snc?oc=5</link>
+      <description>★★★★★ 重要度5/5
+世界の原油価格が4年ぶりの高値に急騰した。WTIは75.23ドル、ブレントは78.17ドルまで上昇した。
+ベースシナリオ: 原油価格が80ドルまで上昇する(50%)
+市場影響: 🔼 強気
+出典: Google News (原油価格)</description>
+      <pubDate>Thu, 30 Apr 2026 05:41:53 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiigFBVV95cUxQczBIQ2hDMTJCSHpBZXpTWFpDYVROcU1SVzlTbnR0TEh6WEphX2x2R0U5V2JhcWVXOS04Y0luckpTSFpWMFpvd3FYOEhaY1Z1X3JwVG13Q2tFSjdpUlRMZDhzN1RLaHZEa3kwV093VmJYdU93T28tbktzWFpDRjFWUUl4Rk5tM0x5Snc?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[📊 日本インデックス] 日経平均820円安</title>
+      <link>https://news.google.com/rss/articles/CBMiR0FVX3lxTFBTb1F3WTJIRWoyTHh0Y2I3cENWRlk3Yk1EbTZZb01iSWZHOUdpQzBoMDd4cm84Z2hONWZxTmxUVS1VMUI4bWJj?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+日経平均は820円程度下落。売買代金上位はキオクシア、ソフバンG、アドバンテス。
+ベースシナリオ: 下落が続く(50%)、日経平均が38,000まで下落
+市場影響: 🔽 弱気
+出典: Google News (日経平均)</description>
+      <pubDate>Thu, 30 Apr 2026 05:03:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiR0FVX3lxTFBTb1F3WTJIRWoyTHh0Y2I3cENWRlk3Yk1EbTZZb01iSWZHOUdpQzBoMDd4cm84Z2hONWZxTmxUVS1VMUI4bWJj?oc=5</guid>
+      <category>📊 日本インデックス</category>
+    </item>
+    <item>
+      <title>🔽[📊 日本インデックス] 日経平均は７３０円程度安</title>
+      <link>https://news.google.com/rss/articles/CBMiR0FVX3lxTE16Wmg1OFd0MEJhZDNBR1A1SVZVMTBzSTFYOEk0Ynk0QUNPeG1zY3g2ZkVUSHlLNV9OVEtLa01qZmNvbmlwOWFF?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+日経平均は７３０円程度安、マイナス寄与度はアドバンテス、東エレク、フジクラなど
+ベースシナリオ: 日経平均が40,000まで下落する(50%)
+市場影響: 🔽 弱気
+出典: Google News (日経平均)</description>
+      <pubDate>Thu, 30 Apr 2026 03:52:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiR0FVX3lxTE16Wmg1OFd0MEJhZDNBR1A1SVZVMTBzSTFYOEk0Ynk0QUNPeG1zY3g2ZkVUSHlLNV9OVEtLa01qZmNvbmlwOWFF?oc=5</guid>
+      <category>📊 日本インデックス</category>
+    </item>
+    <item>
+      <title>🔽[🇺🇸 外国株式] BMOがMetaの目標株価を下方修正</title>
+      <link>https://www.investing.com/news/analyst-ratings/bmo-cuts-meta-stock-price-target-on-ai-spending-concerns-93CH-4649238</link>
+      <description>★★★★☆ 重要度4/5
+BMOキャピタルマーケッツは、AI関連の支出増加が利益に与える影響を懸念し、Metaの株価目標を下方修正した。目標株価は、250ドルから220ドルに引き下げられた。分析家は、MetaのAI関連の支出が予想以上に増加する可能性があると指摘した。
+ベースシナリオ: メタの株価が220ドル付近で底打ちする(50%)
+市場影響: 🔽 弱気
+出典: Investing.com</description>
+      <pubDate>Thu, 30 Apr 2026 12:27:02 GMT</pubDate>
+      <guid>https://www.investing.com/news/analyst-ratings/bmo-cuts-meta-stock-price-target-on-ai-spending-concerns-93CH-4649238</guid>
+      <category>🇺🇸 外国株式</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] ECB 金利据置</title>
+      <link>https://www.investing.com/news/economy-news/ecb-to-hold-rates-steady-but-keep-hikes-firmly-on-the-table-4647300</link>
+      <description>★★★★☆ 重要度4/5
+欧州中央銀行（ECB）は、2024年3月の理事会で金利を据置した。インフレ目標達成に向けた積極的な姿勢が続く中、6月に金利引き上げが予想される。ECBは、経済成長の下方リスクが依然として存在することを強調した。欧州経済の先行きに注目が集まっている。
+ベースシナリオ: 6月に金利引き上げが実施される（60%）
+市場影響: ➡️ 中立
+出典: Investing.com</description>
+      <pubDate>Thu, 30 Apr 2026 12:26:47 GMT</pubDate>
+      <guid>https://www.investing.com/news/economy-news/ecb-to-hold-rates-steady-but-keep-hikes-firmly-on-the-table-4647300</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] 金価格変動、原油価格急騰</title>
+      <link>https://news.google.com/rss/articles/CBMijAFBVV95cUxPb3BVdVltQUJxSTFmdEZpUjYzenpEWF95SnJwTGRDOTEydGlPUEluQnVqWVgyRGZjQUVNTTltTWs4ejdDTU1ySlhyaVNEVlpZanZBSFFLM0dpbTZoaWxjOGV6LUV3ZnRkNlpPSEsxWFhsSUpUZTBOcjg4bEczX0xOdjdxV3dReUtETUtiRw?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+新たな展開を受けて金価格は変動し、原油価格は急騰した。金価格は前日比で0.5%の上昇、原油価格は3.2%の急騰を見せた。金価格は1,840ドル、原油価格は75.20ドルで取引された。
+ベースシナリオ: 金価格は1,850ドルまで上昇、原油価格は80ドルまで上昇(50%)
+市場影響: 🔼 強気
+出典: Google News (原油価格)</description>
+      <pubDate>Thu, 30 Apr 2026 02:35:32 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMijAFBVV95cUxPb3BVdVltQUJxSTFmdEZpUjYzenpEWF95SnJwTGRDOTEydGlPUEluQnVqWVgyRGZjQUVNTTltTWs4ejdDTU1ySlhyaVNEVlpZanZBSFFLM0dpbTZoaWxjOGV6LUV3ZnRkNlpPSEsxWFhsSUpUZTBOcjg4bEczX0xOdjdxV3dReUtETUtiRw?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] 日銀利上げ確度高まる</title>
+      <link>https://news.google.com/rss/articles/CBMibEFVX3lxTFBTNzhFTnIwNUFlQ3B0d0VTa1JzUzNNd3oyaWdZUGZIZjhzWEE0SFBqZ3JhLUlDRDd4MEZkYXhINllwazNRbTZEQXdOTVF4MkJGb1RsLUJGS0U1N25IOFU4WUxYZ0VIOVcyMU9CYg?oc=5</link>
+      <description>★★★★★ 重要度5/5
+長期金利が2.5%台に上昇し、市場は日銀が7月に利上げする可能性が高まったと見ている。日本経済新聞が報じた。金利の動きは、日銀の金融政策に影響を与える可能性がある。
+ベースシナリオ: 日銀が7月に利上げする(50%)
+市場影響: 🔼 強気
+出典: Google News (日銀 金融政策)</description>
+      <pubDate>Thu, 30 Apr 2026 02:15:46 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMibEFVX3lxTFBTNzhFTnIwNUFlQ3B0d0VTa1JzUzNNd3oyaWdZUGZIZjhzWEE0SFBqZ3JhLUlDRDd4MEZkYXhINllwazNRbTZEQXdOTVF4MkJGb1RsLUJGS0U1N25IOFU4WUxYZ0VIOVcyMU9CYg?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] 日銀の利上げを封じた「二重の縛り」</title>
+      <link>https://news.google.com/rss/articles/CBMif0FVX3lxTE00Ti0tcU8weXd2RWllWm8tOHNNcmN3amFSTE5odjF4QjY3ajlfMWExZzB1VUdkcHNqYkYteHhPSTZjTGVIcW1HdnpZWkJEelVzdFNSWnlhZVB5blVCa2hmU3lIc1VpVFFrTjZHMXlYZnlBU1NnS01ZbmUwSnZocUk?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+高市政権の圧力とホルムズの霧が日銀の利上げを封じた。高市政権は物価安定を優先し、ホルムズの霧は世界経済の不安定性を高めた。日銀は利上げを延期する可能性が高い。
+ベースシナリオ: 日銀の利上げ延期、日経225は24,500を下回る(50%)
+市場影響: ➡️ 中立
+出典: Google News (日銀 金融政策)</description>
+      <pubDate>Thu, 30 Apr 2026 01:24:32 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMif0FVX3lxTE00Ti0tcU8weXd2RWllWm8tOHNNcmN3amFSTE5odjF4QjY3ajlfMWExZzB1VUdkcHNqYkYteHhPSTZjTGVIcW1HdnpZWkJEelVzdFNSWnlhZVB5blVCa2hmU3lIc1VpVFFrTjZHMXlYZnlBU1NnS01ZbmUwSnZocUk?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
   </channel>
