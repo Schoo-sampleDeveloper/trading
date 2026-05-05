@@ -710,6 +710,139 @@
     }
     .gloss-tooltip-term { font-weight: 700; color: var(--accent); margin-bottom: 2px; }
 
+    /* ── Market Hero Section ── */
+    .market-hero {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px 22px; margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .market-hero-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px; gap: 10px; flex-wrap: wrap;
+    }
+    .market-hero-title {
+      font-size: 0.9rem; font-weight: 700; color: var(--text2);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .market-hero-updated {
+      font-size: 0.75rem; color: var(--text3);
+    }
+    .market-price-row {
+      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .market-current {
+      font-size: 2.6rem; font-weight: 800; line-height: 1.1;
+      font-variant-numeric: tabular-nums; letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .market-change {
+      font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .market-change.up { color: #22c55e; }
+    .market-change.down { color: #ef4444; }
+    .market-change.flat { color: var(--text2); }
+    .market-sub-row {
+      display: flex; flex-wrap: wrap; gap: 6px 20px;
+      font-size: 0.8rem; color: var(--text2); margin-bottom: 14px;
+    }
+    .market-sub-item { white-space: nowrap; }
+    .market-sub-label { color: var(--text3); }
+
+    /* Period tabs */
+    .chart-period-tabs {
+      display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap;
+    }
+    .chart-period-btn {
+      padding: 4px 12px; border-radius: 10px; font-size: 0.78rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 30px;
+      transition: all .15s;
+    }
+    .chart-period-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* Chart container */
+    .chart-container {
+      width: 100%; height: 320px; border-radius: 8px; overflow: hidden;
+    }
+    @media (max-width: 480px) {
+      .chart-container { height: 220px; }
+      .market-current { font-size: 2rem; }
+    }
+    @media (min-width: 700px) {
+      .chart-container { height: 380px; }
+    }
+
+    /* 52-week range */
+    .market-range-row {
+      display: flex; flex-wrap: wrap; gap: 6px 20px;
+      font-size: 0.79rem; color: var(--text2); margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .market-range-item { white-space: nowrap; }
+    .market-range-label { color: var(--text3); }
+    .market-range-val { font-variant-numeric: tabular-nums; font-weight: 600; }
+    .market-range-val.up { color: #22c55e; }
+    .market-range-val.down { color: #ef4444; }
+
+    /* ── Market History Section ── */
+    .market-history {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 12px;
+    }
+    .market-history-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
+    }
+    .market-history-title {
+      font-size: 0.95rem; font-weight: 700; color: var(--text);
+    }
+    .history-period-tabs {
+      display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap;
+    }
+    .history-period-btn {
+      padding: 4px 10px; border-radius: 10px; font-size: 0.76rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 28px;
+      transition: all .15s;
+    }
+    .history-period-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .history-csv-btn {
+      padding: 5px 12px; border-radius: 10px; font-size: 0.76rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 28px;
+      transition: all .15s; text-decoration: none; display: inline-flex;
+      align-items: center; gap: 4px;
+    }
+    .history-csv-btn:hover { background: var(--bg4); color: var(--text); text-decoration: none; }
+    .history-table-wrap {
+      overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .history-table {
+      width: 100%; border-collapse: collapse; font-size: 0.82rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .history-table th {
+      background: var(--bg3); color: var(--text2); font-weight: 600;
+      padding: 8px 12px; text-align: right; white-space: nowrap;
+      border-bottom: 1px solid var(--border);
+    }
+    .history-table th:first-child { text-align: left; }
+    .history-table td {
+      padding: 7px 12px; text-align: right; border-bottom: 1px solid var(--border);
+      white-space: nowrap; color: var(--text);
+    }
+    .history-table td:first-child { text-align: left; color: var(--text2); }
+    .history-table tr:last-child td { border-bottom: none; }
+    .history-table tr:hover td { background: var(--card-hover); }
+    .history-table td.up { color: #22c55e; }
+    .history-table td.down { color: #ef4444; }
+    @media (max-width: 540px) {
+      .history-table .col-volume { display: none; }
+    }
+
     /* ── PAT Modal ── */
     .modal-overlay {
       display: none; position: fixed; inset: 0;
@@ -751,6 +884,68 @@
         <button class="btn btn-bookmark" id="bookmark-tab-btn" onclick="toggleBookmarkPanel()">🔖 ブックマーク <span id="bookmark-count"></span></button>
       </div>
     </header>
+
+    <!-- Market Hero (日経平均チャート) -->
+    {% if market_data.nikkei %}
+    {% set nk = market_data.nikkei %}
+    {% set nk_up = nk.change is not none and nk.change > 0 %}
+    {% set nk_down = nk.change is not none and nk.change < 0 %}
+    <div class="market-hero" id="market-nikkei">
+      <div class="market-hero-header">
+        <div class="market-hero-title">📊 {{ nk.name }}</div>
+        {% if nk.updated_at %}
+        <div class="market-hero-updated">最終更新 {{ nk.updated_at[:16] | replace('T', ' ') }} JST</div>
+        {% endif %}
+      </div>
+
+      <div class="market-price-row">
+        <div class="market-current" id="nk-current">
+          {% if nk.current %}{{ "{:,.2f}".format(nk.current) }}{% else %}—{% endif %}
+        </div>
+        <div class="market-change {% if nk_up %}up{% elif nk_down %}down{% else %}flat{% endif %}">
+          {% if nk_up %}▲{% elif nk_down %}▼{% else %}—{% endif %}
+          {% if nk.change is not none %}{{ "{:,.2f}".format(nk.change | abs) }}{% endif %}
+          {% if nk.change_percent is not none %}({{ "{:+.2f}".format(nk.change_percent) }}%){% endif %}
+        </div>
+      </div>
+
+      <div class="market-sub-row">
+        {% if nk.previous_close %}<span class="market-sub-item"><span class="market-sub-label">前日終値 </span>{{ "{:,.2f}".format(nk.previous_close) }}</span>{% endif %}
+        {% if nk.open %}<span class="market-sub-item"><span class="market-sub-label">始値 </span>{{ "{:,.2f}".format(nk.open) }}</span>{% endif %}
+        {% if nk.day_high %}<span class="market-sub-item"><span class="market-sub-label">高値 </span>{{ "{:,.2f}".format(nk.day_high) }}</span>{% endif %}
+        {% if nk.day_low %}<span class="market-sub-item"><span class="market-sub-label">安値 </span>{{ "{:,.2f}".format(nk.day_low) }}</span>{% endif %}
+      </div>
+
+      <!-- Period tabs -->
+      <div class="chart-period-tabs">
+        <button class="chart-period-btn" data-days="30" onclick="setChartPeriod(this, 30)">1M</button>
+        <button class="chart-period-btn" data-days="90" onclick="setChartPeriod(this, 90)">3M</button>
+        <button class="chart-period-btn" data-days="180" onclick="setChartPeriod(this, 180)">6M</button>
+        <button class="chart-period-btn active" data-days="365" onclick="setChartPeriod(this, 365)">1Y</button>
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-container" id="nikkei-chart"></div>
+
+      <!-- 52-week range -->
+      <div class="market-range-row">
+        {% if nk.year_high %}
+        <span class="market-range-item">
+          <span class="market-range-label">年初来高値 </span>
+          <span class="market-range-val up">{{ "{:,.2f}".format(nk.year_high) }}</span>
+          {% if nk.year_high_date %}<span style="color:var(--text3)"> ({{ nk.year_high_date }})</span>{% endif %}
+        </span>
+        {% endif %}
+        {% if nk.year_low %}
+        <span class="market-range-item">
+          <span class="market-range-label">年初来安値 </span>
+          <span class="market-range-val down">{{ "{:,.2f}".format(nk.year_low) }}</span>
+          {% if nk.year_low_date %}<span style="color:var(--text3)"> ({{ nk.year_low_date }})</span>{% endif %}
+        </span>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
 
     <!-- Market Summary -->
     {% if daily_theme %}
@@ -873,6 +1068,36 @@
       </div>
     </section>
 
+    <!-- Market History Table -->
+    {% if market_data.nikkei and market_data.nikkei.ohlc %}
+    <section class="market-history" id="market-history-nikkei">
+      <div class="market-history-header">
+        <div class="market-history-title">📋 日経平均の記録</div>
+        <button class="history-csv-btn" onclick="downloadHistoryCsv()">📥 CSV</button>
+      </div>
+      <div class="history-period-tabs">
+        <button class="history-period-btn active" data-hdays="30" onclick="setHistoryPeriod(this, 30)">直近30日</button>
+        <button class="history-period-btn" data-hdays="90" onclick="setHistoryPeriod(this, 90)">直近90日</button>
+        <button class="history-period-btn" data-hdays="365" onclick="setHistoryPeriod(this, 365)">直近1年</button>
+        <button class="history-period-btn" data-hdays="0" onclick="setHistoryPeriod(this, 0)">全期間</button>
+      </div>
+      <div class="history-table-wrap">
+        <table class="history-table" id="history-table">
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>終値</th>
+              <th>前日比</th>
+              <th>変化率</th>
+              <th class="col-volume">出来高</th>
+            </tr>
+          </thead>
+          <tbody id="history-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+    {% endif %}
+
     <!-- Footer -->
     <footer>
       <div class="disclaimer">
@@ -913,6 +1138,231 @@
     <div id="gloss-tooltip-term" class="gloss-tooltip-term"></div>
     <div id="gloss-tooltip-def"></div>
   </div>
+
+  <!-- Lightweight Charts (TradingView, Apache 2.0) -->
+  <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+
+  <!-- Market data embedded JSON -->
+  <script type="application/json" id="market-data-json">{{ market_data_json | safe }}</script>
+
+  <script>
+    // ── Market Chart & History ──
+    (function() {
+      const raw = document.getElementById('market-data-json');
+      if (!raw) return;
+      let MARKET;
+      try { MARKET = JSON.parse(raw.textContent); } catch(e) { return; }
+      const nk = MARKET.nikkei;
+      if (!nk || !nk.ohlc || !nk.ohlc.length) return;
+
+      // ── Helpers ──
+      function fmtNum(v, decimals=2) {
+        if (v == null) return '—';
+        return Number(v).toLocaleString('ja-JP', {minimumFractionDigits: decimals, maximumFractionDigits: decimals});
+      }
+      function fmtVol(v) {
+        if (v == null || v === 0) return '—';
+        const n = Number(v);
+        if (n >= 1e8) return (n / 1e8).toFixed(1) + '億';
+        if (n >= 1e4) return (n / 1e4).toFixed(0) + '万';
+        return n.toLocaleString('ja-JP');
+      }
+      function cutoffDate(days) {
+        if (!days) return null;
+        const d = new Date();
+        d.setDate(d.getDate() - days);
+        return d.toISOString().slice(0, 10);
+      }
+
+      // ── Chart ──
+      const isDark = () =>
+        (document.body.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
+
+      function chartColors() {
+        return isDark()
+          ? { bg: 'transparent', text: '#8b949e', grid: '#30363d', border: '#30363d', up: '#22c55e', down: '#ef4444' }
+          : { bg: '#ffffff', text: '#656d76', grid: '#e5e7eb', border: '#d0d7de', up: '#16a34a', down: '#dc2626' };
+      }
+
+      let _chart = null, _candleSeries = null, _volSeries = null;
+      let _ma5Series = null, _ma25Series = null, _ma75Series = null;
+      let _currentDays = 365;
+
+      function initChart() {
+        const container = document.getElementById('nikkei-chart');
+        if (!container || typeof LightweightCharts === 'undefined') return;
+
+        const c = chartColors();
+        _chart = LightweightCharts.createChart(container, {
+          layout: { background: { type: 'solid', color: c.bg }, textColor: c.text },
+          grid: { vertLines: { color: c.grid }, horzLines: { color: c.grid } },
+          crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+          rightPriceScale: { borderColor: c.border },
+          timeScale: { borderColor: c.border, timeVisible: true },
+          handleScroll: true,
+          handleScale: true,
+        });
+
+        // Volume pane (bottom sub-chart)
+        _volSeries = _chart.addHistogramSeries({
+          color: 'rgba(100,149,237,0.4)',
+          priceFormat: { type: 'volume' },
+          priceScaleId: 'volume',
+          scaleMargins: { top: 0.8, bottom: 0 },
+        });
+
+        // Candles
+        _candleSeries = _chart.addCandlestickSeries({
+          upColor: c.up, downColor: c.down,
+          borderUpColor: c.up, borderDownColor: c.down,
+          wickUpColor: c.up, wickDownColor: c.down,
+          priceScaleId: 'right',
+          scaleMargins: { top: 0.05, bottom: 0.25 },
+        });
+
+        // MA lines
+        _ma5Series  = _chart.addLineSeries({ color: '#f59e0b', lineWidth: 1, title: 'MA5',  priceScaleId: 'right', crosshairMarkerVisible: false, lastValueVisible: false });
+        _ma25Series = _chart.addLineSeries({ color: '#3b82f6', lineWidth: 1, title: 'MA25', priceScaleId: 'right', crosshairMarkerVisible: false, lastValueVisible: false });
+        _ma75Series = _chart.addLineSeries({ color: '#a855f7', lineWidth: 1, title: 'MA75', priceScaleId: 'right', crosshairMarkerVisible: false, lastValueVisible: false });
+
+        renderChartData(_currentDays);
+
+        // Resize
+        const ro = new ResizeObserver(() => {
+          if (_chart) _chart.applyOptions({ width: container.clientWidth });
+        });
+        ro.observe(container);
+      }
+
+      function renderChartData(days) {
+        if (!_chart) return;
+        const cutoff = cutoffDate(days);
+        const filtered = cutoff ? nk.ohlc.filter(r => r.date >= cutoff) : nk.ohlc;
+
+        const candles = filtered.map(r => ({
+          time: r.date,
+          open: r.open, high: r.high, low: r.low, close: r.close,
+        }));
+        const vols = filtered.map(r => ({
+          time: r.date,
+          value: r.volume || 0,
+          color: (r.close >= r.open) ? 'rgba(34,197,94,0.4)' : 'rgba(239,68,68,0.4)',
+        }));
+
+        // MA lines (align indices to filtered ohlc)
+        function buildMa(maArr, field) {
+          const out = [];
+          nk.ohlc.forEach((r, i) => {
+            if (cutoff && r.date < cutoff) return;
+            const v = maArr[i];
+            if (v != null) out.push({ time: r.date, value: v });
+          });
+          return out;
+        }
+
+        _candleSeries.setData(candles);
+        _volSeries.setData(vols);
+        _ma5Series.setData(buildMa(nk.ma5 || [], 'ma5'));
+        _ma25Series.setData(buildMa(nk.ma25 || [], 'ma25'));
+        _ma75Series.setData(buildMa(nk.ma75 || [], 'ma75'));
+
+        if (filtered.length > 0) {
+          _chart.timeScale().fitContent();
+        }
+      }
+
+      window.setChartPeriod = function(btn, days) {
+        document.querySelectorAll('.chart-period-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        _currentDays = days;
+        renderChartData(days);
+      };
+
+      // Re-apply chart colors on theme toggle
+      const _origToggle = window.toggleTheme;
+      window.toggleTheme = function() {
+        _origToggle && _origToggle();
+        if (_chart) {
+          const c = chartColors();
+          _chart.applyOptions({
+            layout: { background: { type: 'solid', color: c.bg }, textColor: c.text },
+            grid: { vertLines: { color: c.grid }, horzLines: { color: c.grid } },
+          });
+        }
+      };
+
+      // ── History table ──
+      let _historyDays = 30;
+
+      function renderHistory(days) {
+        const tbody = document.getElementById('history-tbody');
+        if (!tbody) return;
+        const cutoff = cutoffDate(days);
+        // reversed (newest first)
+        const rows = [...nk.ohlc].reverse().filter(r => !cutoff || r.date >= cutoff);
+
+        // Pre-compute previous close map for change calculation
+        const dateIndex = {};
+        nk.ohlc.forEach((r, i) => { dateIndex[r.date] = i; });
+
+        tbody.innerHTML = rows.map(r => {
+          const idx = dateIndex[r.date];
+          const prev = idx > 0 ? nk.ohlc[idx - 1].close : null;
+          const chg = (r.close != null && prev != null) ? r.close - prev : null;
+          const chgPct = (chg != null && prev) ? chg / prev * 100 : null;
+          const cls = chg == null ? '' : chg > 0 ? 'up' : chg < 0 ? 'down' : '';
+          const arrow = chg == null ? '—' : chg > 0 ? '▲' : chg < 0 ? '▼' : '—';
+          const dDisplay = r.date.replace(/-/g, '/');
+          return `<tr>
+            <td>${dDisplay}</td>
+            <td>${fmtNum(r.close)}</td>
+            <td class="${cls}">${chg != null ? arrow + fmtNum(Math.abs(chg)) : '—'}</td>
+            <td class="${cls}">${chgPct != null ? (chgPct >= 0 ? '+' : '') + chgPct.toFixed(2) + '%' : '—'}</td>
+            <td class="col-volume">${fmtVol(r.volume)}</td>
+          </tr>`;
+        }).join('');
+      }
+
+      window.setHistoryPeriod = function(btn, days) {
+        document.querySelectorAll('.history-period-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        _historyDays = days;
+        renderHistory(days);
+      };
+
+      window.downloadHistoryCsv = function() {
+        const cutoff = cutoffDate(_historyDays);
+        const rows = [...nk.ohlc].reverse().filter(r => !cutoff || r.date >= cutoff);
+        const dateIndex = {};
+        nk.ohlc.forEach((r, i) => { dateIndex[r.date] = i; });
+
+        const header = 'date,open,high,low,close,volume,change,change_percent\n';
+        const body = rows.map(r => {
+          const idx = dateIndex[r.date];
+          const prev = idx > 0 ? nk.ohlc[idx - 1].close : null;
+          const chg = (r.close != null && prev != null) ? (r.close - prev).toFixed(2) : '';
+          const chgPct = (chg !== '' && prev) ? ((r.close - prev) / prev * 100).toFixed(4) : '';
+          return [r.date, r.open??'', r.high??'', r.low??'', r.close??'', r.volume??'', chg, chgPct].join(',');
+        }).join('\n');
+        const blob = new Blob([header + body], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `nikkei_history.csv`; a.click();
+        URL.revokeObjectURL(url);
+      };
+
+      // Init on load
+      document.addEventListener('DOMContentLoaded', function() {
+        initChart();
+        renderHistory(30);
+      });
+      // Also try immediately in case DOMContentLoaded already fired
+      if (document.readyState !== 'loading') {
+        initChart();
+        renderHistory(30);
+      }
+    })();
+  </script>
 
   <script>
     // ── Glossary data (embedded) ──

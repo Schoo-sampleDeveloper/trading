@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 from email.utils import formatdate
 from pathlib import Path
+from typing import Optional
 
 import httpx
 from jinja2 import Environment, FileSystemLoader
@@ -442,7 +443,7 @@ def _build_preferences_history(base_url: str) -> None:
     print("  生成: docs/preferences-history.html")
 
 
-def build_html(articles: list, date_str: str, daily_theme: str = "") -> None:
+def build_html(articles: list, date_str: str, daily_theme: str = "", market_data: Optional[dict] = None) -> None:
     """index.html と archive/{date}.html を生成。"""
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
@@ -467,6 +468,9 @@ def build_html(articles: list, date_str: str, daily_theme: str = "") -> None:
     glossary = _load_glossary()
     glossary_terms = {term: data.get("definition_short", "") for term, data in glossary.items()}
 
+    # マーケットデータをJSON文字列化(テンプレートにJS埋め込み)
+    market_data_json = json.dumps(market_data or {}, ensure_ascii=False)
+
     ctx = {
         "date_str": date_str,
         "generated_at": _jst_now().strftime("%Y/%m/%d %H:%M JST"),
@@ -479,6 +483,8 @@ def build_html(articles: list, date_str: str, daily_theme: str = "") -> None:
         "base_url": BASE_URL,
         "total_count": len(articles),
         "glossary_terms_json": json.dumps(glossary_terms, ensure_ascii=False),
+        "market_data": market_data or {},
+        "market_data_json": market_data_json,
     }
 
     (DOCS_DIR / "index.html").write_text(tmpl.render(**ctx), encoding="utf-8")
@@ -556,11 +562,11 @@ def build_rss(articles: list, date_str: str) -> None:
     print(f"  生成: docs/feed.xml ({len(articles)} 件)")
 
 
-def build(articles: list, daily_theme: str = "") -> None:
+def build(articles: list, daily_theme: str = "", market_data: Optional[dict] = None) -> None:
     date_str = _jst_now().strftime("%Y-%m-%d")
     print("=== サイト生成開始 ===")
 
-    build_html(articles, date_str, daily_theme=daily_theme)
+    build_html(articles, date_str, daily_theme=daily_theme, market_data=market_data)
     build_rss(articles, date_str)
     build_glossary_html(BASE_URL)
     _build_preferences_history(BASE_URL)

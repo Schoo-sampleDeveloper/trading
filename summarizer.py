@@ -8,6 +8,7 @@ import json
 import os
 import time
 from pathlib import Path
+from typing import Optional
 from groq import Groq
 from dotenv import load_dotenv
 
@@ -302,7 +303,7 @@ JSONではなく、日本語の平文テキストで出力してください。
         return ""
 
 
-def _generate_term_definition(client: Groq, term: str) -> dict | None:
+def _generate_term_definition(client: Groq, term: str) -> Optional[dict]:
     """用語の定義をLLMで生成して返す。失敗時はNone。"""
     prompt = f"""以下の金融用語について、日本の個人投資家(投資歴1〜5年の中級者)向けに定義を提供してください。
 用語: {term}
