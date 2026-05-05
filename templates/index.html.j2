@@ -843,6 +843,215 @@
       .history-table .col-volume { display: none; }
     }
 
+    /* ── Market Hero Two-Column Layout ── */
+    .market-hero-body {
+      display: grid;
+      grid-template-columns: 1fr 310px;
+      gap: 20px;
+      align-items: start;
+      margin-top: 4px;
+    }
+    .market-hero-left { min-width: 0; }
+    .market-hero-right { min-width: 0; }
+    @media (max-width: 900px) {
+      .market-hero-body { grid-template-columns: 1fr; gap: 14px; }
+    }
+    @media (max-width: 480px) {
+      .chart-container { height: 220px !important; }
+      .market-hero { padding: 14px 14px; }
+    }
+
+    /* ── Insight Panel (AI洞察) ── */
+    .insight-panel {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+    }
+    .insight-header {
+      display: flex; align-items: center; gap: 7px;
+      margin-bottom: 12px; padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .insight-icon { font-size: 0.95rem; flex-shrink: 0; }
+    .insight-title {
+      font-size: 0.8rem; font-weight: 700; color: var(--text2); flex: 1;
+      letter-spacing: .2px;
+    }
+    .sentiment-badge {
+      font-size: 0.65rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px; white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .sentiment-badge.sentiment-強気 {
+      background: rgba(34,197,94,.14); color: #22c55e;
+      border: 1px solid rgba(34,197,94,.35);
+    }
+    .sentiment-badge.sentiment-弱気 {
+      background: rgba(239,68,68,.14); color: #ef4444;
+      border: 1px solid rgba(239,68,68,.35);
+    }
+    .sentiment-badge.sentiment-中立 {
+      background: rgba(139,148,158,.12); color: var(--text2);
+      border: 1px solid var(--border);
+    }
+    .insight-driver {
+      display: flex; align-items: flex-start; gap: 7px;
+      margin-bottom: 10px;
+    }
+    .insight-driver-label {
+      font-size: 0.62rem; font-weight: 700;
+      background: var(--bg4); border: 1px solid var(--border);
+      border-radius: 5px; padding: 2px 6px; color: var(--text3);
+      white-space: nowrap; flex-shrink: 0; margin-top: 1px;
+    }
+    .insight-driver-text {
+      font-size: 0.84rem; font-weight: 700; color: var(--text); line-height: 1.4;
+    }
+    .insight-body {
+      font-size: 0.78rem; color: var(--text); line-height: 1.75;
+      margin-bottom: 14px; max-height: 148px; overflow-y: auto;
+      scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+    }
+    .insight-body::-webkit-scrollbar { width: 3px; }
+    .insight-body::-webkit-scrollbar-thumb {
+      background: var(--border); border-radius: 2px;
+    }
+    .impact-map-title {
+      font-size: 0.62rem; font-weight: 700; color: var(--text3);
+      letter-spacing: .6px; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .impact-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 5px;
+    }
+    .impact-bar-track {
+      flex: 1; height: 4px; background: var(--bg4);
+      border-radius: 2px; overflow: hidden; min-width: 30px;
+    }
+    .impact-bar-fill { height: 100%; border-radius: 2px; }
+    .impact-row.positive .impact-bar-fill { background: #22c55e; }
+    .impact-row.negative .impact-bar-fill { background: #ef4444; }
+    .impact-row.neutral .impact-bar-fill { background: var(--text3); }
+    .impact-label {
+      font-size: 0.7rem; color: var(--text2);
+      min-width: 90px; text-align: right; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .impact-sign { font-weight: 800; margin-left: 3px; }
+    .impact-row.positive .impact-sign { color: #22c55e; }
+    .impact-row.negative .impact-sign { color: #ef4444; }
+    .impact-row.neutral .impact-sign { color: var(--text3); }
+    .insight-related {
+      margin-top: 12px; padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .insight-related-label {
+      font-size: 0.62rem; font-weight: 700; color: var(--text3);
+      letter-spacing: .4px; text-transform: uppercase; margin-bottom: 5px;
+    }
+    .insight-related-link {
+      display: block; font-size: 0.72rem; color: var(--accent);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-top: 3px; line-height: 1.4;
+    }
+    .insight-related-link:hover { text-decoration: underline; }
+    .insight-empty {
+      text-align: center; color: var(--text2); font-size: 0.78rem;
+      padding: 20px 0; line-height: 1.6;
+    }
+
+    /* ── News Timeline ── */
+    .news-timeline-section {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 12px;
+    }
+    .timeline-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+    }
+    .timeline-title {
+      font-size: 0.95rem; font-weight: 700; color: var(--text);
+    }
+    .timeline-filters { display: flex; gap: 4px; flex-wrap: wrap; }
+    .tl-filter-btn {
+      padding: 4px 10px; border-radius: 10px; font-size: 0.74rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 28px;
+      transition: all .15s;
+    }
+    .tl-filter-btn:hover { background: var(--bg4); color: var(--text); }
+    .tl-filter-btn.active {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+    /* Each timeline day */
+    .timeline-entry { margin-bottom: 3px; }
+    .timeline-day-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border-radius: 8px;
+      background: var(--bg3); cursor: pointer;
+      transition: background .12s; user-select: none;
+    }
+    .timeline-day-header:hover { background: var(--bg4); }
+    .tl-bar {
+      width: 3px; min-height: 26px; border-radius: 2px; flex-shrink: 0;
+    }
+    .tl-bar.up { background: #22c55e; }
+    .tl-bar.down { background: #ef4444; }
+    .tl-bar.flat { background: var(--text3); }
+    .tl-date {
+      font-size: 0.8rem; font-weight: 700; color: var(--text);
+      min-width: 82px; font-variant-numeric: tabular-nums;
+    }
+    .tl-chg {
+      font-size: 0.8rem; font-weight: 700;
+      font-variant-numeric: tabular-nums; min-width: 72px;
+    }
+    .tl-chg.up { color: #22c55e; }
+    .tl-chg.down { color: #ef4444; }
+    .tl-chg.flat { color: var(--text3); }
+    .tl-driver {
+      font-size: 0.76rem; color: var(--text2); flex: 1;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .tl-toggle {
+      color: var(--text3); font-size: 0.68rem; flex-shrink: 0;
+      transition: transform .2s; display: inline-block;
+    }
+    .timeline-entry.open .tl-toggle { transform: rotate(90deg); }
+    .tl-news-list {
+      display: none; padding: 5px 0 8px 15px;
+      border-left: 2px solid var(--bg4); margin-left: 14px;
+    }
+    .timeline-entry.open .tl-news-list { display: block; }
+    .tl-news-item {
+      display: flex; align-items: flex-start; gap: 7px;
+      padding: 5px 8px; margin-bottom: 2px; border-radius: 6px;
+      font-size: 0.77rem; transition: background .1s;
+    }
+    .tl-news-item:hover { background: var(--bg3); }
+    .tl-news-badge {
+      font-size: 0.6rem; font-weight: 700; padding: 2px 5px;
+      border-radius: 5px; white-space: nowrap; flex-shrink: 0; margin-top: 1px;
+    }
+    .tl-news-badge.bullish {
+      background: rgba(34,197,94,.13); color: #22c55e;
+    }
+    .tl-news-badge.bearish {
+      background: rgba(239,68,68,.13); color: #ef4444;
+    }
+    .tl-news-badge.neutral {
+      background: rgba(139,148,158,.12); color: var(--text2);
+    }
+    .tl-news-hl { color: var(--text); flex: 1; line-height: 1.4; }
+    .tl-news-hl a { color: var(--text); }
+    .tl-news-hl a:hover { color: var(--accent); text-decoration: underline; }
+    .tl-empty {
+      text-align: center; color: var(--text2); padding: 20px;
+      font-size: 0.88rem;
+    }
+    @media (max-width: 540px) {
+      .tl-driver { display: none; }
+      .tl-date { min-width: 70px; }
+    }
+
     /* ── PAT Modal ── */
     .modal-overlay {
       display: none; position: fixed; inset: 0;
@@ -916,36 +1125,124 @@
         {% if nk.day_low %}<span class="market-sub-item"><span class="market-sub-label">安値 </span>{{ "{:,.2f}".format(nk.day_low) }}</span>{% endif %}
       </div>
 
-      <!-- Period tabs -->
-      <div class="chart-period-tabs">
-        <button class="chart-period-btn" data-days="30" onclick="setChartPeriod(this, 30)">1M</button>
-        <button class="chart-period-btn" data-days="90" onclick="setChartPeriod(this, 90)">3M</button>
-        <button class="chart-period-btn" data-days="180" onclick="setChartPeriod(this, 180)">6M</button>
-        <button class="chart-period-btn active" data-days="365" onclick="setChartPeriod(this, 365)">1Y</button>
-      </div>
+      <!-- Two-column body: Left=Chart / Right=AI Insight -->
+      <div class="market-hero-body">
 
-      <!-- Chart -->
-      <div class="chart-container" id="nikkei-chart"></div>
+        <!-- Left: Period tabs + Chart + 52-week range -->
+        <div class="market-hero-left">
+          <div class="chart-period-tabs">
+            <button class="chart-period-btn" data-days="30" onclick="setChartPeriod(this, 30)">1M</button>
+            <button class="chart-period-btn" data-days="90" onclick="setChartPeriod(this, 90)">3M</button>
+            <button class="chart-period-btn" data-days="180" onclick="setChartPeriod(this, 180)">6M</button>
+            <button class="chart-period-btn active" data-days="365" onclick="setChartPeriod(this, 365)">1Y</button>
+          </div>
 
-      <!-- 52-week range -->
-      <div class="market-range-row">
-        {% if nk.year_high %}
-        <span class="market-range-item">
-          <span class="market-range-label">年初来高値 </span>
-          <span class="market-range-val up">{{ "{:,.2f}".format(nk.year_high) }}</span>
-          {% if nk.year_high_date %}<span style="color:var(--text3)"> ({{ nk.year_high_date }})</span>{% endif %}
-        </span>
-        {% endif %}
-        {% if nk.year_low %}
-        <span class="market-range-item">
-          <span class="market-range-label">年初来安値 </span>
-          <span class="market-range-val down">{{ "{:,.2f}".format(nk.year_low) }}</span>
-          {% if nk.year_low_date %}<span style="color:var(--text3)"> ({{ nk.year_low_date }})</span>{% endif %}
-        </span>
-        {% endif %}
-      </div>
+          <div class="chart-container" id="nikkei-chart"></div>
+
+          <div class="market-range-row">
+            {% if nk.year_high %}
+            <span class="market-range-item">
+              <span class="market-range-label">年初来高値 </span>
+              <span class="market-range-val up">{{ "{:,.2f}".format(nk.year_high) }}</span>
+              {% if nk.year_high_date %}<span style="color:var(--text3)"> ({{ nk.year_high_date }})</span>{% endif %}
+            </span>
+            {% endif %}
+            {% if nk.year_low %}
+            <span class="market-range-item">
+              <span class="market-range-label">年初来安値 </span>
+              <span class="market-range-val down">{{ "{:,.2f}".format(nk.year_low) }}</span>
+              {% if nk.year_low_date %}<span style="color:var(--text3)"> ({{ nk.year_low_date }})</span>{% endif %}
+            </span>
+            {% endif %}
+          </div>
+        </div><!-- /market-hero-left -->
+
+        <!-- Right: AI Insight Panel -->
+        <div class="market-hero-right">
+          <div class="insight-panel">
+            {% if insight and insight.primary_driver %}
+            <div class="insight-header">
+              <span class="insight-icon">🧠</span>
+              <span class="insight-title">今日の動きの背景</span>
+              {% if insight.sentiment %}
+              <span class="sentiment-badge sentiment-{{ insight.sentiment }}">{{ insight.sentiment }}</span>
+              {% endif %}
+            </div>
+
+            <div class="insight-driver">
+              <span class="insight-driver-label">主因</span>
+              <span class="insight-driver-text">{{ insight.primary_driver }}</span>
+            </div>
+
+            {% if insight.insight %}
+            <div class="insight-body">{{ insight.insight }}</div>
+            {% endif %}
+
+            {% if insight.key_factors %}
+            <div class="impact-map-title">影響度マップ</div>
+            {% for kf in insight.key_factors %}
+            {% set w_pct = ((kf.weight | default(0.5)) * 100) | int %}
+            {% set dir_cls = 'positive' if kf.impact == '+' else ('negative' if kf.impact == '-' else 'neutral') %}
+            <div class="impact-row {{ dir_cls }}">
+              <div class="impact-bar-track">
+                <div class="impact-bar-fill" style="width:{{ w_pct }}%"></div>
+              </div>
+              <span class="impact-label">
+                {{ kf.factor | default('') }}<span class="impact-sign">{{ kf.impact | default('0') }}</span>
+              </span>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% if insight.related_news_indices is defined and insight.related_news_indices %}
+            <div class="insight-related">
+              <div class="insight-related-label">関連ニュース</div>
+              {# top_news は featured articles から近似して表示 #}
+              {% set featured_top = featured[:10] %}
+              {% for idx in insight.related_news_indices[:3] %}
+              {% if idx < featured_top | length %}
+              {% set art = featured_top[idx] %}
+              <a class="insight-related-link"
+                 href="{{ art.link | default('#') }}" target="_blank" rel="noopener">
+                {{ art.impact_emoji | default('➡️') }} {{ art.headline | default(art.title) | truncate(42, true, '…') }}
+              </a>
+              {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            {% else %}
+            <div class="insight-empty">
+              🧠 今日の動きの背景<br>
+              <span style="font-size:0.72rem;margin-top:6px;display:block;color:var(--text3)">
+                AI洞察は毎日の実行時に生成されます
+              </span>
+            </div>
+            {% endif %}
+          </div><!-- /insight-panel -->
+        </div><!-- /market-hero-right -->
+
+      </div><!-- /market-hero-body -->
     </div>
     {% endif %}
+
+    <!-- News Timeline (過去30日) -->
+    <div class="news-timeline-section" id="news-timeline-section">
+      <div class="timeline-header">
+        <div class="timeline-title">📌 過去30日のニュースタイムライン</div>
+        <div class="timeline-filters">
+          <button class="tl-filter-btn active" data-filter="all" onclick="setTlFilter(this)">全て</button>
+          <button class="tl-filter-btn" data-filter="強気" onclick="setTlFilter(this)">強気</button>
+          <button class="tl-filter-btn" data-filter="弱気" onclick="setTlFilter(this)">弱気</button>
+          <button class="tl-filter-btn" data-filter="中立" onclick="setTlFilter(this)">中立</button>
+        </div>
+      </div>
+      <div id="timeline-body">
+        <div class="tl-empty" style="color:var(--text2);font-size:.82rem;padding:16px 0">
+          データを読み込み中...
+        </div>
+      </div>
+    </div>
 
     <!-- Market Summary -->
     {% if daily_theme %}
@@ -1145,6 +1442,12 @@
   <!-- Market data embedded JSON -->
   <script type="application/json" id="market-data-json">{{ market_data_json | safe }}</script>
 
+  <!-- News markers for chart -->
+  <script type="application/json" id="news-markers-json">{{ news_markers_json | safe }}</script>
+
+  <!-- News timeline data -->
+  <script type="application/json" id="news-timeline-json">{{ news_timeline_json | safe }}</script>
+
   <script>
     // ── Market Chart & History ──
     (function() {
@@ -1188,6 +1491,14 @@
       let _ma5Series = null, _ma25Series = null, _ma75Series = null;
       let _currentDays = 365;
 
+      // ── News markers (loaded from embedded JSON) ──
+      let _newsMarkers = [];
+      (function() {
+        const el = document.getElementById('news-markers-json');
+        if (!el) return;
+        try { _newsMarkers = JSON.parse(el.textContent) || []; } catch(e) {}
+      })();
+
       function initChart() {
         const container = document.getElementById('nikkei-chart');
         if (!container || typeof LightweightCharts === 'undefined') return;
@@ -1227,6 +1538,20 @@
 
         renderChartData(_currentDays);
 
+        // Chart click → scroll to timeline day
+        _chart.subscribeClick(function(param) {
+          if (!param.time) return;
+          const entry = document.querySelector(
+            `.timeline-entry[data-date="${param.time}"]`
+          );
+          if (entry) {
+            entry.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (!entry.classList.contains('open')) {
+              entry.classList.add('open');
+            }
+          }
+        });
+
         // Resize
         const ro = new ResizeObserver(() => {
           if (_chart) _chart.applyOptions({ width: container.clientWidth });
@@ -1265,6 +1590,27 @@
         _ma5Series.setData(buildMa(nk.ma5 || [], 'ma5'));
         _ma25Series.setData(buildMa(nk.ma25 || [], 'ma25'));
         _ma75Series.setData(buildMa(nk.ma75 || [], 'ma75'));
+
+        // ── News markers ──
+        if (_newsMarkers.length && _candleSeries) {
+          const cutoffStr = cutoff || '1900-01-01';
+          const markers = _newsMarkers
+            .filter(m => m.date >= cutoffStr)
+            .sort((a, b) => a.date < b.date ? -1 : 1)
+            .map(m => {
+              const isBull = m.impact === '強気';
+              const isBear = m.impact === '弱気';
+              return {
+                time: m.date,
+                position: isBull ? 'belowBar' : 'aboveBar',
+                color: isBull ? '#22c55e' : isBear ? '#ef4444' : '#8b949e',
+                shape: isBull ? 'arrowUp' : isBear ? 'arrowDown' : 'circle',
+                text: (m.headline || '').slice(0, 13),
+                size: m.importance >= 5 ? 2 : 1,
+              };
+            });
+          try { _candleSeries.setMarkers(markers); } catch(e) {}
+        }
 
         if (filtered.length > 0) {
           _chart.timeScale().fitContent();
@@ -1818,6 +2164,108 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/trading/sw.js').catch(() => {});
     }
+  </script>
+
+  <script>
+    // ── News Timeline ──
+    (function() {
+      const tlEl = document.getElementById('news-timeline-json');
+      if (!tlEl) return;
+      let TIMELINE;
+      try { TIMELINE = JSON.parse(tlEl.textContent); } catch(e) { return; }
+
+      const body = document.getElementById('timeline-body');
+      if (!body) return;
+
+      let _tlFilter = 'all';
+
+      function _escHtml(s) {
+        return String(s)
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      function _dow(dateStr) {
+        if (!dateStr) return '';
+        const d = new Date(dateStr + 'T12:00:00+09:00');
+        return ['日','月','火','水','木','金','土'][d.getDay()] || '';
+      }
+
+      function renderTimeline() {
+        if (!TIMELINE || !TIMELINE.length) {
+          body.innerHTML = '<div class="tl-empty">ニュースアーカイブはまだありません。毎日の実行で蓄積されます。</div>';
+          return;
+        }
+
+        const filtered = _tlFilter === 'all'
+          ? TIMELINE
+          : TIMELINE.filter(d =>
+              d.sentiment === _tlFilter ||
+              (d.news || []).some(n => n.impact === _tlFilter)
+            );
+
+        if (!filtered.length) {
+          body.innerHTML = '<div class="tl-empty">該当する日付がありません。</div>';
+          return;
+        }
+
+        body.innerHTML = filtered.map(d => {
+          const chgPct = d.change_percent;
+          const dir = chgPct == null ? 'flat' : chgPct > 0 ? 'up' : chgPct < 0 ? 'down' : 'flat';
+          const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '—';
+          const chgStr = chgPct != null
+            ? arrow + (chgPct >= 0 ? '+' : '') + chgPct.toFixed(2) + '%'
+            : '—';
+          const dow = _dow(d.date);
+          const dateLabel = d.date ? d.date.replace(/-/g, '/') + ` (${dow})` : '—';
+
+          const newsHtml = (d.news || []).map(n => {
+            const impCls = n.impact === '強気' ? 'bullish'
+                         : n.impact === '弱気' ? 'bearish' : 'neutral';
+            const hl = _escHtml(n.headline || '');
+            const linked = n.link
+              ? `<a href="${_escHtml(n.link)}" target="_blank" rel="noopener">${hl}</a>`
+              : hl;
+            return `<div class="tl-news-item">
+              <span class="tl-news-badge ${impCls}">${_escHtml(n.impact)}</span>
+              <span class="tl-news-hl">${linked}</span>
+            </div>`;
+          }).join('');
+
+          const hasNews = (d.news || []).length > 0;
+          const driver = d.primary_driver ? _escHtml(d.primary_driver) : '';
+
+          return `<div class="timeline-entry" data-date="${_escHtml(d.date || '')}" data-sentiment="${_escHtml(d.sentiment || '')}">
+            <div class="timeline-day-header" onclick="
+              var e=this.closest('.timeline-entry');
+              e.classList.toggle('open');
+            ">
+              <div class="tl-bar ${dir}"></div>
+              <div class="tl-date">${_escHtml(dateLabel)}</div>
+              <div class="tl-chg ${dir}">${chgStr}</div>
+              <div class="tl-driver">${driver}</div>
+              ${hasNews ? '<span class="tl-toggle">▶</span>' : ''}
+            </div>
+            ${hasNews ? `<div class="tl-news-list">${newsHtml}</div>` : ''}
+          </div>`;
+        }).join('');
+      }
+
+      window.setTlFilter = function(btn) {
+        _tlFilter = btn.dataset.filter;
+        document.querySelectorAll('.tl-filter-btn').forEach(b =>
+          b.classList.toggle('active', b.dataset.filter === _tlFilter)
+        );
+        renderTimeline();
+      };
+
+      // Init
+      if (document.readyState !== 'loading') {
+        renderTimeline();
+      } else {
+        document.addEventListener('DOMContentLoaded', renderTimeline);
+      }
+    })();
   </script>
 </body>
 </html>

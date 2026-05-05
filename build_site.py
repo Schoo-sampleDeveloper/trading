@@ -23,6 +23,10 @@ ARCHIVE_DIR = DOCS_DIR / "archive"
 DATA_DIR = Path(__file__).parent / "data"
 TEMPLATES_DIR = Path(__file__).parent / "templates"
 
+# ── 永続化アーカイブパス ──
+NEWS_ARCHIVE = DATA_DIR / "news_archive.jsonl"
+INSIGHTS_ARCHIVE = DATA_DIR / "insights_archive.jsonl"
+
 JST = timezone(timedelta(hours=9))
 BASE_URL = os.environ.get("SITE_BASE_URL", "https://example.github.io/trading").rstrip("/")
 
@@ -50,6 +54,213 @@ def _load_glossary() -> dict:
             except Exception:
                 pass
     return {}
+
+
+def _append_jsonl(path: Path, item: dict, dedup_keys: tuple) -> None:
+    """JSONLines ファイルに item を追記する。dedup_keys が一致する行は上書き。"""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    existing: list[dict] = []
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                existing.append(json.loads(line))
+            except Exception:
+                pass
+
+    # 重複チェック
+    key_vals = tuple(item.get(k) for k in dedup_keys)
+    updated = False
+    for i, row in enumerate(existing):
+        if tuple(row.get(k) for k in dedup_keys) == key_vals:
+            existing[i] = item
+            updated = True
+            break
+    if not updated:
+        existing.append(item)
+
+    path.write_text(
+        "\n".join(json.dumps(r, ensure_ascii=False) for r in existing) + "\n",
+        encoding="utf-8",
+    )
+
+
+def append_to_news_archive(articles: list, date_str: str) -> None:
+    """★4以上の記事を news_archive.jsonl に追記（重複は上書き）。過去2年分を保持。"""
+    cutoff = (_jst_now() - timedelta(days=365 * 2)).strftime("%Y-%m-%d")
+
+    for art in articles:
+        if art.get("importance", 0) < 4:
+            continue
+        headline = art.get("headline", art.get("title", ""))
+        if not headline:
+            continue
+
+        # datetime フィールド: publishedがdatetimeオブジェクトの場合はISO文字列に変換
+        pub = art.get("published")
+        if hasattr(pub, "isoformat"):
+            pub_str = pub.isoformat()
+        else:
+            pub_str = str(pub) if pub else ""
+
+        item = {
+            "date": date_str,
+            "datetime": pub_str,
+            "headline": headline,
+            "category": art.get("category", ""),
+            "importance": art.get("importance", 4),
+            "impact": art.get("impact", "中立"),
+            "summary": art.get("summary", ""),
+            "source": art.get("source", ""),
+            "link": art.get("link", ""),
+            "tags": art.get("terms_used", [])[:5] if isinstance(art.get("terms_used"), list) else [],
+        }
+        _append_jsonl(NEWS_ARCHIVE, item, ("date", "headline"))
+
+    # 2年超を削除
+    if NEWS_ARCHIVE.exists():
+        lines = []
+        for line in NEWS_ARCHIVE.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                row = json.loads(line)
+                if row.get("date", "") >= cutoff:
+                    lines.append(line)
+            except Exception:
+                pass
+        NEWS_ARCHIVE.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    print(f"  アーカイブ更新: news_archive.jsonl")
+
+
+def append_to_insights_archive(insight: dict, nikkei_data: dict, date_str: str) -> None:
+    """AI洞察を insights_archive.jsonl に追記（同日は上書き）。"""
+    if not insight:
+        return
+
+    item = {
+        "date": date_str,
+        "close": nikkei_data.get("current"),
+        "change": nikkei_data.get("change"),
+        "change_percent": nikkei_data.get("change_percent"),
+        "primary_driver": insight.get("primary_driver", ""),
+        "insight": insight.get("insight", ""),
+        "sentiment": insight.get("sentiment", "中立"),
+        "key_factors": insight.get("key_factors", []),
+        "related_news_indices": insight.get("related_news_indices", []),
+    }
+    _append_jsonl(INSIGHTS_ARCHIVE, item, ("date",))
+    print(f"  アーカイブ更新: insights_archive.jsonl")
+
+
+def _load_news_archive(days: int = 365) -> list[dict]:
+    """news_archive.jsonl から過去 days 日分を読み込む。"""
+    if not NEWS_ARCHIVE.exists():
+        return []
+    cutoff = (_jst_now() - timedelta(days=days)).strftime("%Y-%m-%d")
+    result = []
+    for line in NEWS_ARCHIVE.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            row = json.loads(line)
+            if row.get("date", "") >= cutoff:
+                result.append(row)
+        except Exception:
+            pass
+    return result
+
+
+def _load_insights_archive(days: int = 60) -> list[dict]:
+    """insights_archive.jsonl から過去 days 日分を読み込む。"""
+    if not INSIGHTS_ARCHIVE.exists():
+        return []
+    cutoff = (_jst_now() - timedelta(days=days)).strftime("%Y-%m-%d")
+    result = []
+    for line in INSIGHTS_ARCHIVE.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            row = json.loads(line)
+            if row.get("date", "") >= cutoff:
+                result.append(row)
+        except Exception:
+            pass
+    return result
+
+
+def _build_news_timeline(nikkei_ohlc: list, days: int = 30) -> list[dict]:
+    """
+    過去 days 日分のニュースタイムラインを構築する。
+    OHLCデータ + news_archive + insights_archive を結合。
+    """
+    cutoff = (_jst_now() - timedelta(days=days)).strftime("%Y-%m-%d")
+
+    news_archive = _load_news_archive(days=days)
+    insights_archive = _load_insights_archive(days=days)
+
+    # 日付をキーにしたマップを作成
+    news_by_date: dict[str, list] = {}
+    for item in news_archive:
+        d = item.get("date", "")
+        if d >= cutoff:
+            news_by_date.setdefault(d, []).append(item)
+
+    insights_by_date: dict[str, dict] = {}
+    for item in insights_archive:
+        d = item.get("date", "")
+        if d >= cutoff:
+            insights_by_date[d] = item
+
+    # OHLCを日付昇順で処理し、前日終値から変化率を計算
+    timeline = []
+    prev_close = None
+    for row in nikkei_ohlc:
+        d = row.get("date", "")
+        close = row.get("close")
+
+        if d < cutoff:
+            prev_close = close
+            continue
+
+        chg = (close - prev_close) if (close and prev_close) else None
+        chg_pct = (chg / prev_close * 100) if (chg is not None and prev_close) else None
+
+        insight_row = insights_by_date.get(d, {})
+        news_items = news_by_date.get(d, [])
+
+        # 重要度で降順ソート、上位5件
+        news_items_sorted = sorted(
+            news_items, key=lambda n: n.get("importance", 0), reverse=True
+        )[:5]
+
+        timeline.append({
+            "date": d,
+            "close": close,
+            "change": round(chg, 2) if chg is not None else None,
+            "change_percent": round(chg_pct, 2) if chg_pct is not None else None,
+            "primary_driver": insight_row.get("primary_driver", ""),
+            "sentiment": insight_row.get("sentiment", ""),
+            "news": [
+                {
+                    "headline": n.get("headline", ""),
+                    "impact": n.get("impact", "中立"),
+                    "importance": n.get("importance", 3),
+                    "link": n.get("link", ""),
+                }
+                for n in news_items_sorted
+            ],
+        })
+        prev_close = close
+
+    # 新しい日付が先頭
+    return list(reversed(timeline))
 
 
 def build_glossary_html(base_url: str) -> None:
@@ -443,7 +654,13 @@ def _build_preferences_history(base_url: str) -> None:
     print("  生成: docs/preferences-history.html")
 
 
-def build_html(articles: list, date_str: str, daily_theme: str = "", market_data: Optional[dict] = None) -> None:
+def build_html(
+    articles: list,
+    date_str: str,
+    daily_theme: str = "",
+    market_data: Optional[dict] = None,
+    insight: Optional[dict] = None,
+) -> None:
     """index.html と archive/{date}.html を生成。"""
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
@@ -471,6 +688,23 @@ def build_html(articles: list, date_str: str, daily_theme: str = "", market_data
     # マーケットデータをJSON文字列化(テンプレートにJS埋め込み)
     market_data_json = json.dumps(market_data or {}, ensure_ascii=False)
 
+    # ── ニュースマーカー (チャート用、過去1年の★4以上) ──
+    nk_ohlc = (market_data or {}).get("nikkei", {}).get("ohlc", [])
+    ohlc_dates = {r["date"] for r in nk_ohlc}
+    news_markers = []
+    for item in _load_news_archive(days=365):
+        if item.get("date") in ohlc_dates:
+            news_markers.append({
+                "date": item.get("date", ""),
+                "headline": item.get("headline", ""),
+                "impact": item.get("impact", "中立"),
+                "importance": item.get("importance", 4),
+                "link": item.get("link", ""),
+            })
+
+    # ── ニュースタイムライン (過去30日) ──
+    news_timeline = _build_news_timeline(nk_ohlc, days=30) if nk_ohlc else []
+
     ctx = {
         "date_str": date_str,
         "generated_at": _jst_now().strftime("%Y/%m/%d %H:%M JST"),
@@ -485,6 +719,9 @@ def build_html(articles: list, date_str: str, daily_theme: str = "", market_data
         "glossary_terms_json": json.dumps(glossary_terms, ensure_ascii=False),
         "market_data": market_data or {},
         "market_data_json": market_data_json,
+        "insight": insight or {},
+        "news_markers_json": json.dumps(news_markers, ensure_ascii=False),
+        "news_timeline_json": json.dumps(news_timeline, ensure_ascii=False),
     }
 
     (DOCS_DIR / "index.html").write_text(tmpl.render(**ctx), encoding="utf-8")
@@ -562,11 +799,22 @@ def build_rss(articles: list, date_str: str) -> None:
     print(f"  生成: docs/feed.xml ({len(articles)} 件)")
 
 
-def build(articles: list, daily_theme: str = "", market_data: Optional[dict] = None) -> None:
+def build(
+    articles: list,
+    daily_theme: str = "",
+    market_data: Optional[dict] = None,
+    insight: Optional[dict] = None,
+) -> None:
     date_str = _jst_now().strftime("%Y-%m-%d")
     print("=== サイト生成開始 ===")
 
-    build_html(articles, date_str, daily_theme=daily_theme, market_data=market_data)
+    build_html(
+        articles,
+        date_str,
+        daily_theme=daily_theme,
+        market_data=market_data,
+        insight=insight,
+    )
     build_rss(articles, date_str)
     build_glossary_html(BASE_URL)
     _build_preferences_history(BASE_URL)
