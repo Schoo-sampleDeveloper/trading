@@ -14,6 +14,88 @@ from pathlib import Path
 from typing import Optional
 from urllib.parse import urlencode
 
+DATA_DIR = Path(__file__).parent / "data"
+_STRUCTURAL_RULES: Optional[list] = None
+
+
+def _load_structural_rules() -> list:
+    """data/structural_importance.json からルールを読み込む（初回のみ）。"""
+    global _STRUCTURAL_RULES
+    if _STRUCTURAL_RULES is not None:
+        return _STRUCTURAL_RULES
+    path = DATA_DIR / "structural_importance.json"
+    if path.exists():
+        try:
+            _STRUCTURAL_RULES = json.loads(path.read_text(encoding="utf-8")).get("rules", [])
+        except Exception:
+            _STRUCTURAL_RULES = []
+    else:
+        _STRUCTURAL_RULES = []
+    return _STRUCTURAL_RULES
+
+
+def calculate_structural_score(article: dict) -> dict:
+    """
+    data/structural_importance.json のルールに基づいて構造的重要度を計算。
+
+    Returns:
+        {
+            "score": int (1-10),
+            "matched_rules": [{"id": ..., "name": ..., "rationale": ...}, ...],
+            "rationale": str,
+        }
+    """
+    rules = _load_structural_rules()
+    text = (article.get("title", "") + " " + article.get("summary", ""))
+
+    matched: list[dict] = []
+    for rule in rules:
+        patterns   = rule.get("patterns", [])
+        exclusions = rule.get("exclusions", [])
+
+        # patterns のいずれかにマッチするか
+        pattern_hit = any(
+            re.search(p, text, re.IGNORECASE) for p in patterns
+        )
+        if not pattern_hit:
+            continue
+
+        # exclusions のいずれかにもマッチする場合は除外チェック
+        exclusion_hit = any(
+            re.search(e, text, re.IGNORECASE) for e in exclusions if e
+        )
+
+        raw_score = rule.get("score", 3)
+        if exclusion_hit:
+            raw_score = int(raw_score * 0.8)  # 2割減
+
+        matched.append({
+            "id":        rule["id"],
+            "name":      rule["name"],
+            "score":     raw_score,
+            "rationale": rule.get("rationale", ""),
+        })
+
+    if not matched:
+        return {
+            "score":         3,
+            "matched_rules": [],
+            "rationale":     "一般ニュース（構造的分類なし）",
+        }
+
+    # 複数該当時は最高スコア採用
+    best = max(matched, key=lambda x: x["score"])
+    rationale = best["rationale"]
+    if len(matched) > 1:
+        names = "・".join(m["name"] for m in matched)
+        rationale = f"{names} に該当 / {rationale}"
+
+    return {
+        "score":         best["score"],
+        "matched_rules": matched,
+        "rationale":     rationale,
+    }
+
 import feedparser
 import httpx
 from dotenv import load_dotenv

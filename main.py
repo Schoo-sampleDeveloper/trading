@@ -27,6 +27,19 @@ def main():
     # 2. 要約 (戻り値: articles, daily_theme)
     summarized, daily_theme = summarize(articles)
 
+    # 3層重要度スコアリング (失敗しても継続)
+    try:
+        from importance_scorer import enrich_articles_with_importance
+        print("\n--- 重要度スコアリング (3層統合) ---")
+        summarized = enrich_articles_with_importance(
+            summarized,
+            fetch_market=True,
+            max_articles=25,
+        )
+        print(f"  スコアリング完了: {len(summarized)} 件")
+    except Exception as e:
+        print(f"  [WARN] 重要度スコアリングエラー: {e} → スキップします。")
+
     # 重要度★4以上の記事を抽出(洞察生成・アーカイブ用)
     top_news = [a for a in summarized if a.get("importance", 0) >= 4][:10]
 

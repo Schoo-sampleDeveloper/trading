@@ -22,7 +22,7 @@ DATA_DIR = Path(__file__).parent / "data"
 RATE_LIMIT_DELAY = 1.2
 RETRY_DELAYS = [2, 5, 15]  # 指数バックオフ(秒)
 
-SYSTEM_PROMPT = """あなたは個人投資家向けに市況解説を書く経験豊富なアナリストです。
+SYSTEM_PROMPT = """あなたは機関投資家向けのニュースアナリスト兼、個人投資家向け市況解説者です。
 読み手は投資歴1〜5年の中級者で、基本的な金融知識はあります。
 
 書き方の原則:
@@ -91,7 +91,14 @@ SYSTEM_PROMPT = """あなたは個人投資家向けに市況解説を書く経�
 
   "historical_context": "過去の類似局面と、その後の市場の動き(情報がなければ空文字)",
 
-  "terms_used": ["この記事で登場した専門用語のリスト(例: VIX、イールドカーブ)"]
+  "terms_used": ["この記事で登場した専門用語のリスト(例: VIX、イールドカーブ)"],
+
+  "ai_importance": {
+    "score": 1から10の数値(市場インパクト評価: システミックリスク=10、一般ニュース=1-3),
+    "rationale": "なぜこのスコアか150字以内で。数値・固有名詞を含め具体的に",
+    "key_signal": "このニュースから読み取れる最重要シグナルを1文で",
+    "uncertainty": "low | medium | high  (判断の確信度)"
+  }
 }"""
 
 # 短縮版フォールバック (Groq失敗時)
@@ -221,6 +228,15 @@ def _normalize(data: dict, title: str, summary: str) -> dict:
     if not isinstance(terms_used, list):
         terms_used = []
 
+    # ai_importance (新フィールド)
+    ai_imp_raw = data.get("ai_importance") or {}
+    ai_importance = {
+        "score":      max(1, min(10, int(ai_imp_raw.get("score", 5) or 5))),
+        "rationale":  str(ai_imp_raw.get("rationale") or ""),
+        "key_signal": str(ai_imp_raw.get("key_signal") or ""),
+        "uncertainty": ai_imp_raw.get("uncertainty", "medium") or "medium",
+    }
+
     return {
         "headline": data.get("headline", title[:40]),
         "importance": max(1, min(5, int(data.get("importance", 3)))),
@@ -238,6 +254,7 @@ def _normalize(data: dict, title: str, summary: str) -> dict:
         "watch_points": watch_points,
         "historical_context": (data.get("historical_context") or ""),
         "terms_used": terms_used,
+        "ai_importance": ai_importance,
     }
 
 
@@ -263,6 +280,12 @@ def _fallback(title: str, summary: str) -> dict:
         "watch_points": [],
         "historical_context": "",
         "terms_used": [],
+        "ai_importance": {
+            "score": 3,
+            "rationale": "",
+            "key_signal": "",
+            "uncertainty": "high",
+        },
     }
 
 

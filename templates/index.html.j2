@@ -56,7 +56,67 @@
           <span class="tag imp-{{ imp }}"><span class="stars">{{ stars_full }}{{ stars_empty }}</span></span>
           <span class="tag tag-cat">{{ category_labels.get(art.category, art.category) }}</span>
           <span class="tag impact-{{ art.impact | default('中立') }}">{{ art.impact_emoji | default('➡️') }} {{ art.impact_label | default(art.impact) | default('中立') }}</span>
+          {% if art.importance_detail is defined and art.importance_detail %}
+          <button class="why-btn" onclick="toggleBreakdown('bd-{{ uid }}')" aria-expanded="false" aria-controls="bd-{{ uid }}">
+            なぜ★{{ art.importance_detail.stars | default(imp) }}? ▼
+          </button>
+          {% endif %}
         </div>
+        {# ── 重要度内訳パネル ── #}
+        {% if art.importance_detail is defined and art.importance_detail %}
+        {% set bd = art.importance_detail.breakdown | default({}) %}
+        {% set mkt = bd.market_reaction | default({}) %}
+        {% set str_imp = bd.structural | default({}) %}
+        {% set ai_imp = bd.ai | default({}) %}
+        <div class="importance-breakdown" id="bd-{{ uid }}" hidden>
+          <div class="bd-transparency">{{ art.importance_detail.transparency_text | default('') }}</div>
+          <div class="bd-rows">
+            {# 市場反応 #}
+            <div class="bd-row">
+              <span class="bd-label">市場反応</span>
+              <div class="bd-bar-wrap">
+                <div class="bd-bar" style="width: {{ [(mkt.reaction_score | default(0)) * 10, 100] | min }}%"></div>
+              </div>
+              <span class="bd-value">
+                {% if mkt.data_quality | default('unavailable') != 'unavailable' %}
+                  {{ mkt.indicator_name | default('') }}: {{ '%+.2f' | format(mkt.change_pct | default(0) | float) }}%
+                  {% if mkt.note %}<span class="bd-note">{{ mkt.note }}</span>{% endif %}
+                {% else %}
+                  データなし
+                {% endif %}
+              </span>
+            </div>
+            {# 構造的重要度 #}
+            <div class="bd-row">
+              <span class="bd-label">構造的重要度</span>
+              <div class="bd-bar-wrap">
+                <div class="bd-bar" style="width: {{ [(str_imp.score | default(3)) * 10, 100] | min }}%"></div>
+              </div>
+              <span class="bd-value">
+                {% if str_imp.matched_rules | default([]) | length > 0 %}
+                  {{ str_imp.matched_rules[0].name }}
+                {% else %}
+                  一般ニュース
+                {% endif %}
+              </span>
+            </div>
+            {# AI判断 #}
+            <div class="bd-row">
+              <span class="bd-label">AI判断</span>
+              <div class="bd-bar-wrap">
+                <div class="bd-bar" style="width: {{ [(ai_imp.score | default(5)) * 10, 100] | min }}%"></div>
+              </div>
+              <span class="bd-value">
+                {{ ai_imp.score | default(5) }}/10
+                {% if ai_imp.rationale %}&mdash; {{ ai_imp.rationale[:60] }}{% if ai_imp.rationale | length > 60 %}…{% endif %}{% endif %}
+              </span>
+            </div>
+          </div>
+          <div class="bd-final">
+            総合スコア: <strong>{{ art.importance_detail.final_score | default('') }}</strong> / 10
+          </div>
+        </div>
+        {% endif %}
       </div>
       <button class="bookmark-btn" data-link="{{ art.link | default('') }}" onclick="toggleBookmark(this)" title="後で読む" aria-label="ブックマーク">☆</button>
     </div>
@@ -441,6 +501,60 @@
     .tag.imp-5 { background: rgba(248,81,73,.12); color: var(--red); border-color: var(--red); }
     .tag.imp-4 { background: rgba(210,153,34,.12); color: var(--yellow); border-color: var(--yellow); }
     .stars { color: var(--yellow); font-size: 0.78rem; letter-spacing: 1px; }
+
+    /* ── 重要度内訳 (why-btn + breakdown panel) ── */
+    .why-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--text2); font-size: 0.68rem; font-weight: 600;
+      padding: 2px 7px; border-radius: 10px; cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .why-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .why-btn[aria-expanded="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .importance-breakdown {
+      margin: 4px 16px 10px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+    }
+    .bd-transparency {
+      color: var(--text2); font-size: 0.74rem;
+      margin-bottom: 8px; line-height: 1.5;
+    }
+    .bd-rows { display: flex; flex-direction: column; gap: 6px; }
+    .bd-row {
+      display: flex; align-items: center; gap: 8px;
+      min-height: 22px;
+    }
+    .bd-label {
+      flex-shrink: 0; width: 82px;
+      color: var(--text3); font-size: 0.72rem;
+    }
+    .bd-bar-wrap {
+      flex: 0 0 80px; height: 6px;
+      background: var(--bg4, #30363d); border-radius: 3px; overflow: hidden;
+    }
+    .bd-bar {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--green) 100%);
+      transition: width .4s ease;
+    }
+    .bd-value {
+      flex: 1; color: var(--text2); font-size: 0.73rem; line-height: 1.4;
+    }
+    .bd-note {
+      font-size: 0.68rem; color: var(--yellow);
+      margin-left: 4px; opacity: .8;
+    }
+    .bd-final {
+      margin-top: 8px; padding-top: 6px;
+      border-top: 1px solid var(--border);
+      color: var(--text3); font-size: 0.73rem; text-align: right;
+    }
+    .bd-final strong { color: var(--accent); }
 
     /* Bookmark button */
     .bookmark-btn {
@@ -2007,6 +2121,25 @@
     // ── Card expand ──
     function toggleCard(el) {
       el.closest('.card').classList.toggle('open');
+    }
+
+    // ── 重要度内訳パネル ──
+    function toggleBreakdown(id) {
+      const panel = document.getElementById(id);
+      if (!panel) return;
+      const isHidden = panel.hidden;
+      panel.hidden = !isHidden;
+      // ボタンの aria-expanded を更新
+      const card = panel.closest('.card');
+      if (card) {
+        const btn = card.querySelector('.why-btn');
+        if (btn) {
+          btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+          btn.textContent = isHidden
+            ? btn.textContent.replace('▼', '▲')
+            : btn.textContent.replace('▲', '▼');
+        }
+      }
     }
 
     // ── Category section collapse ──

@@ -1,0 +1,100 @@
+{
+  "rules": [
+    {
+      "id": "fomc_decision",
+      "name": "FOMC政策金利決定",
+      "patterns": ["FOMC", "FRB.*金利", "連邦公開市場委員会", "Powell.*decision", "Fed.*rate.*decision", "federal funds rate"],
+      "exclusions": ["議事要旨", "minutes", "前回", "過去"],
+      "score": 9,
+      "rationale": "中央銀行の政策決定は全資産価格に直接影響"
+    },
+    {
+      "id": "boj_decision",
+      "name": "日銀政策決定会合",
+      "patterns": ["日銀.*金融政策", "BOJ.*decision", "黒田.*会見", "植田.*会見", "日本銀行.*金利決定", "BOJ.*rate"],
+      "exclusions": ["議事要旨", "過去"],
+      "score": 9,
+      "rationale": "日本市場の金利・為替に直接影響"
+    },
+    {
+      "id": "cpi_release",
+      "name": "CPI(消費者物価指数)発表",
+      "patterns": ["CPI", "消費者物価", "inflation report", "consumer price index"],
+      "exclusions": [],
+      "score": 8,
+      "rationale": "金融政策の方向性を決定づけるマクロ指標"
+    },
+    {
+      "id": "employment_data",
+      "name": "雇用統計",
+      "patterns": ["雇用統計", "non-farm payrolls", "nonfarm payrolls", "失業率.*発表", "jobs report", "payrolls"],
+      "exclusions": [],
+      "score": 8,
+      "rationale": "景気判断と金融政策に直結"
+    },
+    {
+      "id": "gdp_release",
+      "name": "GDP発表",
+      "patterns": ["GDP.*発表", "GDP.*速報", "gross domestic product.*release", "経済成長率.*発表"],
+      "exclusions": ["予想", "見通し", "forecast"],
+      "score": 7,
+      "rationale": "景気サイクルの把握に直結するマクロ指標"
+    },
+    {
+      "id": "earnings_megacap",
+      "name": "メガキャップ決算",
+      "patterns": ["Apple.*earnings", "Apple.*決算", "Microsoft.*earnings", "Microsoft.*決算", "Google.*earnings", "Alphabet.*earnings", "Amazon.*earnings", "Amazon.*決算", "Tesla.*earnings", "Tesla.*決算", "Nvidia.*earnings", "Nvidia.*決算", "Meta.*earnings", "Meta.*決算", "トヨタ.*決算", "ソニー.*決算"],
+      "exclusions": ["予想", "アナリスト", "見通し"],
+      "score": 7,
+      "rationale": "指数全体に影響する大型銘柄決算"
+    },
+    {
+      "id": "geopolitical_crisis",
+      "name": "地政学リスク",
+      "patterns": ["戦争", "war.*broke", "侵攻", "invasion", "テロ.*attack", "terror.*attack", "制裁.*発動", "sanctions.*imposed", "軍事.*攻撃", "military.*strike"],
+      "exclusions": ["可能性", "懸念", "may", "could", "リスク"],
+      "score": 8,
+      "rationale": "リスクオフ相場のトリガー"
+    },
+    {
+      "id": "systemic_risk",
+      "name": "金融システムリスク",
+      "patterns": ["破綻", "bankruptcy", "Lehman", "金融危機", "銀行.*流動性", "credit crunch", "bank.*run", "取り付け騒ぎ", "システミック"],
+      "exclusions": [],
+      "score": 10,
+      "rationale": "システミックリスクは全市場を揺るがす"
+    },
+    {
+      "id": "central_bank_speech",
+      "name": "中央銀行要人発言",
+      "patterns": ["Powell.*speech", "Powell.*発言", "植田.*発言", "植田.*講演", "Lagarde.*remarks", "Lagarde.*speech", "Fed.*chair.*said", "日銀総裁.*発言"],
+      "exclusions": ["前回", "過去", "引用"],
+      "score": 6,
+      "rationale": "政策方針示唆として注目"
+    },
+    {
+      "id": "trade_policy",
+      "name": "貿易・関税政策",
+      "patterns": ["関税.*発動", "tariff.*imposed", "tariff.*hike", "通商交渉", "trade.*deal", "trade.*war", "WTO.*裁定"],
+      "exclusions": ["可能性", "検討"],
+      "score": 7,
+      "rationale": "企業収益・為替・物価に広範な影響"
+    },
+    {
+      "id": "market_circuit_breaker",
+      "name": "サーキットブレーカー・売買停止",
+      "patterns": ["サーキットブレーカー", "circuit breaker", "売買停止", "trading.*halt", "取引停止"],
+      "exclusions": [],
+      "score": 9,
+      "rationale": "市場全体が機能停止する極端な状況"
+    },
+    {
+      "id": "rate_surprise",
+      "name": "金利サプライズ",
+      "patterns": ["サプライズ.*利上げ", "サプライズ.*利下げ", "unexpected.*rate", "surprise.*hike", "surprise.*cut", "緊急利下げ", "緊急利上げ"],
+      "exclusions": [],
+      "score": 9,
+      "rationale": "市場予想外の金利変更は資産価格を急変させる"
+    }
+  ]
+}
