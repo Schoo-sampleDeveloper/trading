@@ -2911,5 +2911,445 @@
       "クラウドコンピューティング",
       "マシンラーニング"
     ]
+  },
+  "AI関連企業": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "FRB、利下げ観測、米雇用統計": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "KOSPI、S&amp;P500、外国人投資家比率": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "NEXT FUNDS": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "Nvidia": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "SharkNinja": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "イランエネルギー価格上昇": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "エネルギー価格の高騰": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "エネルギー株": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "グローバル展開": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "コーニング": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "データセンター": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ドルポンドの円安": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "バリュー・ミール、レストラン業界": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ビットコインボラティリティ先物取引": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ビットコイン価格の急変動リスク": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "マネタリーベース": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "メディア業界": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ライセンス契約": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "リスク": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ルピー": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "予約": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "介入観測": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "低雇用市場": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "供給量": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "依存者": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "価格制限": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "先物市場": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "光学部品": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "円ドル": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "円相対値、輸出業界への影響": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "利子率": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "半導体製造装置": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "原油価格の変動": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "参入": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "和平合意": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "国内インフレ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "就職先の特定の分野の特徴": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "差益": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "市場の分析": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "市場の流れ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "急成長中": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "暗号資産ヘッジ需要": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "株価": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "株価高騰": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "為替介入の可能性": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "生命保険": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "競争激化": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "米ADP雇用統計、四半期入札結果": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "米ハイテク株": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "米・イラン和平交渉": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "経済指標": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "著作権": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "配達事業": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "金利織り込み度": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
   }
 }
