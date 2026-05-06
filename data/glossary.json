@@ -3351,5 +3351,429 @@
     "definition_full": "",
     "example": "",
     "related": []
+  },
+  "ADR": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "AGI CPU": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "AIクローン": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "BTCのボラティリティ指数": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "EVP": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "NIL機会": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "S&amp;P500指数": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "SNS": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "risk management": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "survival spending": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "wealth building": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "カナダ円": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "スポーツサポーター": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ゼロクーポン": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ゼンケルバーグ氏": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "トランチ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ナスダック指数": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "バランス": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ビビッドシーツ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "フィスコ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ベイヨンド・ミート": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ホルムズ危機、原油価格、ガソリン価格、補助金": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ポンド円": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "マージン圧迫": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "メガバンク": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "メタ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ライブネーション": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "リスク回避意識": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "リチウム価格": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "リチウム生産": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "円ドル相場": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "円建てCME先物": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "利益マージン": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "原油価格、インフレリスク、和解期待": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "収益性": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "和平交渉": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "営業利益率": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "変換可能株式券": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "女子スポーツ投資": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "市場の動向": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "急騰": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "日経平均先物、米ハイテク株、高値、投資家の買い進み": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "業績予想": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "決算発表": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "為替介入の影響": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "石油輸出量": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "社内株式": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "米国市場の弱さ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "経営陣の動向": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "肥料需要、供給チェーン混乱、価格上昇": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "豪ドル円": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "金価格": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "需要": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
   }
 }

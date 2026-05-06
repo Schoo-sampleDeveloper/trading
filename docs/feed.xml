@@ -5,99 +5,237 @@
     <link>https://schoo-sampledeveloper.github.io/trading/index.html</link>
     <description>毎朝6:30 JST 更新。個人投資家向けの市況分析・シナリオ・投資視点。</description>
     <language>ja</language>
-    <lastBuildDate>Wed, 06 May 2026 14:56:37 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 06 May 2026 22:24:09 GMT</lastBuildDate>
     <atom:link href="https://schoo-sampledeveloper.github.io/trading/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>🔽[💱 為替・マクロ] ポーランド中央銀行、利率維持　イランエネルギーショックが国内インフレを刺激</title>
-      <link>https://www.bloomberg.com/news/articles/2026-05-06/poland-holds-rates-as-iran-energy-shock-stokes-inflation</link>
-      <description>★★★☆☆ 重要度3/5
-・ポーランド中央銀行、利率維持　2か月連続
-・イランエネルギーショックが国内インフレを刺激
-・国内インフレが長期にわたって低迷していたが、再び上昇
-ベースシナリオ: イランのエネルギー価格上昇が続き、国内インフレが上昇する
+      <title>🔽[📈 外国インデックス] S&amp;P 500の記録高利益は二重の刃</title>
+      <link>https://www.marketwatch.com/story/s-p-500-record-profits-are-a-double-edged-sword-and-it-could-slash-your-returns-9f61bcd3?mod=mw_rss_topstories</link>
+      <description>★★★★☆ 重要度4/5
+・S&amp;P 500の利益マージンは歴史平均の2倍
+・米大手株が過度に高値に値打ち
+・利益が過度に高まると、収益性が低下する可能性
+ベースシナリオ: 利益マージンが過度に高まると収益性が低下する可能性がある。
 市場影響: 🔽 弱気
+出典: MarketWatch</description>
+      <pubDate>Wed, 06 May 2026 20:08:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/s-p-500-record-profits-are-a-double-edged-sword-and-it-could-slash-your-returns-9f61bcd3?mod=mw_rss_topstories</guid>
+      <category>📈 外国インデックス</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] アルベマール株が上昇、リチウム生産で予想を上回る業績</title>
+      <link>https://www.bloomberg.com/news/articles/2026-05-06/albemarle-shares-jump-as-lithium-recovery-delivers-earnings-beat</link>
+      <description>★★★☆☆ 重要度3/5
+・アルベマール社のリチウム生産で業績が予想を上回った
+・価格と出荷量の増加により売上と利益が向上
+ベースシナリオ: リチウム価格と需要の増加が続き、業績が好調に推移する
+市場影響: 🔼 強気
 出典: Bloomberg Markets</description>
-      <pubDate>Wed, 06 May 2026 12:56:53 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-05-06/poland-holds-rates-as-iran-energy-shock-stokes-inflation</guid>
+      <pubDate>Wed, 06 May 2026 21:13:52 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-05-06/albemarle-shares-jump-as-lithium-recovery-delivers-earnings-beat</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] Wall StreetがデータセンターIPOを準備中</title>
-      <link>https://www.bloomberg.com/news/articles/2026-05-06/wall-street-readies-data-center-ipos-as-ai-linked-debuts-surge</link>
+      <title>➡️[💱 為替・マクロ] 女子スポーツ投資は「低評価資産」、オリンピック金メダリストのブリーズ・ジョンソン氏</title>
+      <link>https://www.bloomberg.com/news/videos/2026-05-06/women-s-sports-an-undervalued-asset-says-breezy-johnson-video</link>
       <description>★★★☆☆ 重要度3/5
-・データセンター企業のIPOが次々と発表される
-・AI関連企業のIPOへの投資がすでに増加中
-・Wall StreetがデータセンターIPOで数十億ドルを調達
-ベースシナリオ: データセンター企業のIPOが予定通り実施される
+・オリンピック金メダリストのブリーズ・ジョンソン氏が、女子スポーツ投資は「低評価資産」であると述べた
+・NIL機会の拡大やSNSの影響でスポーツサポーターは「変化する風景」
+・女子スポーツ投資は「高収益性」があるとジョンソン氏が強調
+ベースシナリオ: メインシナリオでは、女子スポーツ投資の評価が高まって収益性が向上する
 市場影響: ➡️ 中立
 出典: Bloomberg Markets</description>
-      <pubDate>Wed, 06 May 2026 12:33:24 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-05-06/wall-street-readies-data-center-ipos-as-ai-linked-debuts-surge</guid>
+      <pubDate>Wed, 06 May 2026 20:20:47 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/videos/2026-05-06/women-s-sports-an-undervalued-asset-says-breezy-johnson-video</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔼[🇺🇸 外国株式] Uberの株価が11か月で最高の日を記録</title>
-      <link>https://www.marketwatch.com/story/ubers-stock-surges-as-deliveries-business-shows-surprising-strength-50be87e5?mod=mw_rss_topstories</link>
+      <title>➡️[💱 為替・マクロ] LegalZoom Q1 2026 スライド: 利益が13%増加するも、マージン圧迫</title>
+      <link>https://www.investing.com/news/company-news/legalzoom-q1-2026-slides-revenue-surges-13-amid-margin-pressure-93CH-4665833</link>
       <description>★★★☆☆ 重要度3/5
-・Uberの株価が11か月で最高の日を記録
-・配達事業が強みを発揮
-・予約が急増
-ベースシナリオ: 配達事業が好調なまま続く
+・LegalZoomのQ1 2026の売上高が13%増加したが、マージンが圧迫された
+・売上高は$1.23億に達し、予想を上回った
+・しかし、営業利益率は6.2%から5.8%に下がった
+ベースシナリオ: 売上高の増加が続き、マージンが維持される
+市場影響: ➡️ 中立
+出典: Investing.com</description>
+      <pubDate>Wed, 06 May 2026 22:05:07 GMT</pubDate>
+      <guid>https://www.investing.com/news/company-news/legalzoom-q1-2026-slides-revenue-surges-13-amid-margin-pressure-93CH-4665833</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] 肥料メーカー、戦争による供給障害で売上20%増</title>
+      <link>https://www.bloomberg.com/news/articles/2026-05-06/fertilizer-makers-see-earnings-windfall-as-war-disrupts-supplies</link>
+      <description>★★★☆☆ 重要度3/5
+・CFインダストリーズとナチュリエン、最新四半期売上20%増
+・イラン戦争による供給チェーン混乱の影響が表れる
+・肥料需要が増加する中、供給不足が価格上昇につながる
+ベースシナリオ: メインシナリオでは、肥料需要が増加し続け、供給不足が価格上昇につながる。
 市場影響: 🔼 強気
+出典: Bloomberg Markets</description>
+      <pubDate>Wed, 06 May 2026 21:54:16 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-05-06/fertilizer-makers-see-earnings-windfall-as-war-disrupts-supplies</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] メイダグループ、2.2億ドル相当の変換可能株式券売却</title>
+      <link>https://www.bloomberg.com/news/articles/2026-05-06/china-s-midea-group-raises-2-2-billion-in-convertible-bond-sale</link>
+      <description>★★★☆☆ 重要度3/5
+・メイダグループが2.2億ドル相当の変換可能株式券を売却
+・変換可能株式券はゼロクーポンで、2種類のトランチで売却
+・売却総額は元の予定より2.2億ドル増加
+ベースシナリオ: メイダグループの資金調達が円滑に進む
+市場影響: ➡️ 中立
+出典: Bloomberg Markets</description>
+      <pubDate>Wed, 06 May 2026 21:42:33 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-05-06/china-s-midea-group-raises-2-2-billion-in-convertible-bond-sale</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] 円急騰 20分で2円以上</title>
+      <link>https://news.google.com/rss/articles/CBMiUEFVX3lxTFBMQXJTT1RUMjctcXRBaUpIUkRKMnVHY2JXU3JtVlZKLWx5VlJPeXp3WE1ma1plV2gwSkd6ck9LM2p2WjFZRHU5T2V0RTJkZGcx?oc=5</link>
+      <description>★★★★★ 重要度5/5
+・円ドル相場が急騰し、20分で2円以上上昇
+・市場の動向により円が安値から回復
+・円相場の変動が市場の注目を集めている
+ベースシナリオ: 円ドル相場が安値から回復し、市場の注目を集める。
+市場影響: 🔼 強気
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Wed, 06 May 2026 21:28:43 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiUEFVX3lxTFBMQXJTT1RUMjctcXRBaUpIUkRKMnVHY2JXU3JtVlZKLWx5VlJPeXp3WE1ma1plV2gwSkd6ck9LM2p2WjFZRHU5T2V0RTJkZGcx?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] 円急騰155円台前半　介入観測</title>
+      <link>https://news.google.com/rss/articles/CBMid0FVX3lxTFBIcHNGOGxfenFFWktlNkthcE9KUFctMGUwdHl6V2RGVGtKMnVJQzNCNjBDWWlVN2J1Nk5SeDZpNmF4T1VMcFhSNjFxbm1OZDRaSkhpSTFKYjVuMUx0QkVNbllpVUstSDNKbzEyU0E2bXRNVjNXSnlZ?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・アジア時間、円急騰155円台前半に
+・介入視覚化
+・円安の理由は不明
+ベースシナリオ: 円は今のまま安いままになる可能性が高い。
+市場影響: 🔼 強気
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Wed, 06 May 2026 20:01:43 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMid0FVX3lxTFBIcHNGOGxfenFFWktlNkthcE9KUFctMGUwdHl6V2RGVGtKMnVJQzNCNjBDWWlVN2J1Nk5SeDZpNmF4T1VMcFhSNjFxbm1OZDRaSkhpSTFKYjVuMUx0QkVNbllpVUstSDNKbzEyU0E2bXRNVjNXSnlZ?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] 金・銀大幅上昇　米・イラン和解期待でインフレリスク軽減</title>
+      <link>https://www.bloomberg.com/news/articles/2026-05-05/gold-steady-as-fragile-ceasefire-holds-in-gulf-after-flareup</link>
+      <description>★★★☆☆ 重要度3/5
+・米・イラン和解期待で原油価格下落
+・インフレリスク軽減により金・銀大幅上昇
+・約1か月で最大値を更新
+ベースシナリオ: 和解期待が継続し、インフレリスクが軽減する。
+市場影響: 🔽 弱気
+出典: Bloomberg Markets</description>
+      <pubDate>Tue, 05 May 2026 22:42:58 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-05-05/gold-steady-as-fragile-ceasefire-holds-in-gulf-after-flareup</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[🇺🇸 外国株式] ベイヨンド・ミート、業績予想下回り株価低下</title>
+      <link>https://www.marketwatch.com/story/restaurants-really-dont-want-to-sell-fake-meat-and-beyond-meat-is-suffering-030b5592?mod=mw_rss_topstories</link>
+      <description>★★★☆☆ 重要度3/5
+・ベイヨンド・ミートが業績予想を下回った
+・株価が低下し、業績予想の下回り続く可能性
+ベースシナリオ: メインシナリオでは、業績予想の下回りが続き、株価が低下する
+市場影響: 🔽 弱気
 出典: MarketWatch</description>
-      <pubDate>Wed, 06 May 2026 14:03:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/ubers-stock-surges-as-deliveries-business-shows-surprising-strength-50be87e5?mod=mw_rss_topstories</guid>
+      <pubDate>Wed, 06 May 2026 21:47:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/restaurants-really-dont-want-to-sell-fake-meat-and-beyond-meat-is-suffering-030b5592?mod=mw_rss_topstories</guid>
       <category>🇺🇸 外国株式</category>
     </item>
     <item>
-      <title>🔼[💱 為替・マクロ] 円相場急騰　ドルに対して10円台に</title>
-      <link>https://news.google.com/rss/articles/CBMiigFBVV95cUxPNUk4Um5sc1RPMDRfeXZWLXB1LUdRTFZmU25OUDhVamE4RThtXzBnUllYTXljRmJkMzduTXQwTFZpMmZmQ2F2bkltN3RXOHR2cktfczFESkl6VXg0dDlNWkpnTktVdVhVTzVydGJ2bnJTTkM0MUh4Sk1uZV9mZUFoMVNoOVhyaUwxeHfSAY8BQVVfeXFMTXJ2TDd4ZHhWdTJPcFhhZjh5WHlOLXNtNmpkenpnM2RwLWhxdWpfaW9KUTMyaHBxNjJCOE1aWkkxYjIzX3laVjd2R0lRMmU5dHNDYktjTjdDenh6TVBPRWNhV205OVlqeFZRTDRSal96Q0JIeG1aOUxyeDdZZmI5SGU1U0JONWlnOUtWMl8wbUk?oc=5</link>
+      <title>🔽[🇺🇸 外国株式] ゼンケルバーグ氏のAIクローンはメタ株主にとって大きな警鐘</title>
+      <link>https://www.marketwatch.com/story/zuckerbergs-multi-mark-ai-clone-is-a-huge-red-flag-for-meta-shareholders-53e58b30?mod=mw_rss_topstories</link>
       <description>★★★★★ 重要度5/5
-・円相場がドルに対して急騰し、10円台に達した
-・為替介入の可能性が指摘される
-・円の急騰は輸出業界に影響を与える可能性がある
-ベースシナリオ: 円相場が10円台を維持し、為替介入の可能性が低くなる
-市場影響: 🔼 強気
-出典: Google News (ドル円 為替)</description>
-      <pubDate>Wed, 06 May 2026 05:32:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiigFBVV95cUxPNUk4Um5sc1RPMDRfeXZWLXB1LUdRTFZmU25OUDhVamE4RThtXzBnUllYTXljRmJkMzduTXQwTFZpMmZmQ2F2bkltN3RXOHR2cktfczFESkl6VXg0dDlNWkpnTktVdVhVTzVydGJ2bnJTTkM0MUh4Sk1uZV9mZUFoMVNoOVhyaUwxeHfSAY8BQVVfeXFMTXJ2TDd4ZHhWdTJPcFhhZjh5WHlOLXNtNmpkenpnM2RwLWhxdWpfaW9KUTMyaHBxNjJCOE1aWkkxYjIzX3laVjd2R0lRMmU5dHNDYktjTjdDenh6TVBPRWNhV205OVlqeFZRTDRSal96Q0JIeG1aOUxyeDdZZmI5SGU1U0JONWlnOUtWMl8wbUk?oc=5</guid>
+・ゼンケルバーグ氏がAIクローンを開発し、メタの実質的なリーダーシップを取る
+・AIクローンの導入は、責任を逃れるための高科技な退却
+・メタ株主はAIクローンの導入に懸念を表す
+ベースシナリオ: メタ株価は下落し、AIクローンの導入によるリスクが高まる
+市場影響: 🔽 弱気
+出典: MarketWatch</description>
+      <pubDate>Wed, 06 May 2026 21:24:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/zuckerbergs-multi-mark-ai-clone-is-a-huge-red-flag-for-meta-shareholders-53e58b30?mod=mw_rss_topstories</guid>
+      <category>🇺🇸 外国株式</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] 原油価格の急激な変動</title>
+      <link>https://news.google.com/rss/articles/CBMijgJBVV95cUxNd1pQMWJ6M1dPNzY2VVdjb2FTNzliODhDcHNfeTZ3clNWYXZfb2R1T0UwcmJQTWEzVktIYWEwcmNoU3dmLTRsU2pTTnV6Q1ZFRFZXeElwVjhmQnVXbW5QSHpSeHFxcy1wMXNnZlF3OVB6WWk3WVdzNTExSHR6eVNtVUM1WjJTalJoblJMRXdNNko1TF9UaTI3MUl4NU5CdkZ4NG5mYzRMSVM4R1FoeU9zU3FsbS1ueWF1RTNQWno4aVdRS2s3QjRFajVjdHJMSWVVNWxTcnZtWjBHU3F0LXlXbTlmY2RlYWw0UzBhM09peDgtOG9CUkU5Z3NieV9qekM4VWhubUdDZUhvUTZGM3c?oc=5</link>
+      <description>★★★★★ 重要度5/5
+・原油価格は88ドルまで下落したが、イランのホルムズ海峡支配権主張で急騰
+・ホルムズ海峡は世界の約20%の石油輸出量が通過する重要な海峡
+・原油価格の変動は株価やドル円の動向に影響
+ベースシナリオ: 原油価格は70ドルから100ドルで動く可能性が高い。
+市場影響: 🔽 弱気
+出典: Google News (原油価格)</description>
+      <pubDate>Wed, 06 May 2026 15:37:15 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMijgJBVV95cUxNd1pQMWJ6M1dPNzY2VVdjb2FTNzliODhDcHNfeTZ3clNWYXZfb2R1T0UwcmJQTWEzVktIYWEwcmNoU3dmLTRsU2pTTnV6Q1ZFRFZXeElwVjhmQnVXbW5QSHpSeHFxcy1wMXNnZlF3OVB6WWk3WVdzNTExSHR6eVNtVUM1WjJTalJoblJMRXdNNko1TF9UaTI3MUl4NU5CdkZ4NG5mYzRMSVM4R1FoeU9zU3FsbS1ueWF1RTNQWno4aVdRS2s3QjRFajVjdHJMSWVVNWxTcnZtWjBHU3F0LXlXbTlmY2RlYWw0UzBhM09peDgtOG9CUkU5Z3NieV9qekM4VWhubUdDZUhvUTZGM3c?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] ターゲットの新しい社員服装規定は解決策ではない</title>
-      <link>https://www.bloomberg.com/news/videos/2026-05-06/opinion-target-s-dress-code-isn-t-the-answer-video</link>
+      <title>🔽[🇺🇸 外国株式] 米国市場の弱さで、コンサートが世界展開</title>
+      <link>https://www.marketwatch.com/story/concerts-are-increasingly-going-global-as-cracks-emerge-in-the-u-s-market-175996e9?mod=mw_rss_topstories</link>
       <description>★★★☆☆ 重要度3/5
-・ターゲットが新しい社員服装規定を導入したが、会社の根本的な問題には対処していない
-・Bloomberg Opinionのベス・コウィットは、服装規定が会社の問題を解決するには不十分だと説明している
-・コウィットは、服装規定が会社の内部問題や経営戦略の問題には対処していないと主張している
+・ライブネーションが国際ファン数が米国観客数を上回るようになった
+・ビビッドシーツがラスベガス市場にプレッシャーがあると指摘
+ベースシナリオ: 米国市場の弱さが世界展開に影響を与え続ける
+市場影響: 🔽 弱気
+出典: MarketWatch</description>
+      <pubDate>Wed, 06 May 2026 20:18:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/concerts-are-increasingly-going-global-as-cracks-emerge-in-the-u-s-market-175996e9?mod=mw_rss_topstories</guid>
+      <category>🇺🇸 外国株式</category>
+    </item>
+    <item>
+      <title>➡️[🇺🇸 外国株式] 5つの方法で財務危機から脱却</title>
+      <link>https://www.marketwatch.com/story/stuck-in-survival-spending-5-ways-to-build-wealth-even-when-the-odds-seem-stacked-against-you-83cf0ca3?mod=mw_rss_topstories</link>
+      <description>★★★☆☆ 重要度3/5
+・財務危機から脱却するには、問題を解決し、資産を集中し、リスクを管理する必要がある
+・5つの方法で財務危機から脱却する
+・財務危機から脱却するための重要なポイント
+ベースシナリオ: 財務危機から脱却するためのメインシナリオは、問題を解決し、資産を集中し、リスクを管理することである。
 市場影響: ➡️ 中立
-出典: Bloomberg Markets</description>
-      <pubDate>Wed, 06 May 2026 14:32:41 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-05-06/opinion-target-s-dress-code-isn-t-the-answer-video</guid>
+出典: MarketWatch</description>
+      <pubDate>Wed, 06 May 2026 20:10:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/stuck-in-survival-spending-5-ways-to-build-wealth-even-when-the-odds-seem-stacked-against-you-83cf0ca3?mod=mw_rss_topstories</guid>
+      <category>🇺🇸 外国株式</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] ホルムズ危機が問う日本のガソリン補助政策</title>
+      <link>https://news.google.com/rss/articles/CBMif0FVX3lxTE5SN3FGakJoa29rcmoybXNLNzhBekxDNFZST2RMSzZXTnYwUG90S3E1TVFBSFNnVjRnNk1SdENJWC1pQVYyaWdmbnNpSm9jc0cxNXpRNUNKUUY2LU9DcTRvajMwQ0dYVmJuaFZSMm5nVzJlTm5nYjNwNDJYX3lZLVk?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+・ホルムズ危機により原油価格大幅上昇
+・日本のガソリン補助政策の妥当性が疑問視される
+・政府が補助金の見直しを検討
+ベースシナリオ: 政府が補助金の見直しを検討する
+市場影響: ➡️ 中立
+出典: Google News (原油価格)</description>
+      <pubDate>Wed, 06 May 2026 15:01:39 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMif0FVX3lxTE5SN3FGakJoa29rcmoybXNLNzhBekxDNFZST2RMSzZXTnYwUG90S3E1TVFBSFNnVjRnNk1SdENJWC1pQVYyaWdmbnNpSm9jc0cxNXpRNUNKUUY2LU9DcTRvajMwQ0dYVmJuaFZSMm5nVzJlTm5nYjNwNDJYX3lZLVk?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] SharkNinja CEO: 消費者が圧迫されても事業は拡大</title>
-      <link>https://www.bloomberg.com/news/videos/2026-05-06/sharkninja-ceo-consumers-are-under-pressure-video</link>
+      <title>➡️[💱 為替・マクロ] 金価格100ドル超上昇、原油価格急落</title>
+      <link>https://news.google.com/rss/articles/CBMic0FVX3lxTE5OYWRqSkFPemx3Z28zUWNXMzJicDBnOXc1c3oybklreDBrNi1xbXYzZU1lZkFTYnFKSC03RVVfQ05HaUs4WTdMOXlHOGFaUDYwQUV6Z1g1Mmw1T1FvVnhxa3NKanUtZVBBNk1iTG9lRTRuNXM?oc=5</link>
       <description>★★★☆☆ 重要度3/5
-・SharkNinja CEO Mark BarrocasがBloomberg Open Interestに登場
-・圧力のある消費者にもかかわらず事業が拡大する戦略について
-・バーチャル製品の成長、グローバル展開、AIネイティブへの推進
-ベースシナリオ: メインシナリオは、SharkNinjaがAIを活用した製品の開発を進め、グローバル展開を推進し、事業が拡大する。
+・金価格は100ドル以上上昇した
+・原油価格は急落した
+・市場の動きは不明瞭
+ベースシナリオ: 市場の動きが不明瞭なまま、価格の変動が大きくなる可能性がある
 市場影響: ➡️ 中立
-出典: Bloomberg Markets</description>
-      <pubDate>Wed, 06 May 2026 14:08:39 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-05-06/sharkninja-ceo-consumers-are-under-pressure-video</guid>
+出典: Google News (原油価格)</description>
+      <pubDate>Wed, 06 May 2026 14:46:07 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMic0FVX3lxTE5OYWRqSkFPemx3Z28zUWNXMzJicDBnOXc1c3oybklreDBrNi1xbXYzZU1lZkFTYnFKSC03RVVfQ05HaUs4WTdMOXlHOGFaUDYwQUV6Z1g1Mmw1T1FvVnhxa3NKanUtZVBBNk1iTG9lRTRuNXM?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
       <title>🔼[💱 為替・マクロ] 日経平均先物急騰　米ハイテク株高波及</title>
       <link>https://news.google.com/rss/articles/CBMibEFVX3lxTE9tc0psRlNqeWNjUUZZeHI4dmJLZ2JsQWVCb0RPUWVtUWQ0cDFUbEdZVEFGZ1R5TGlWZVBkTUJLSkNoaHhsaGY2V3JpemQtbmwyYzZ3WmQ3QmZBeHdhV1gwVEhzVzQ5NW1fY1RkZw?oc=5</link>
-      <description>★★★☆☆ 重要度3/5
+      <description>★★★★☆ 重要度4/5
 ・日経平均先物が一時6万2000円台に急騰
-・米ハイテク株の高値が日本株に波及
-・先物市場で買い進めが続く
-ベースシナリオ: 先物市場で買い進めが続き、値上がりが止まらない
+・米ハイテク株の高値が日本株市場に波及
+・投資家の買い進みが先物市場で一時的に高値を記録
+ベースシナリオ: メインシナリオでは、日経平均先物が一時6万2000円台に達し、投資家の買い進みが続く可能性が高い。
 市場影響: 🔼 強気
 出典: Google News (日経平均)</description>
       <pubDate>Wed, 06 May 2026 14:31:47 GMT</pubDate>
@@ -105,68 +243,41 @@
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔽[💱 為替・マクロ] 為替介入実施の見方も、円が再び急騰</title>
-      <link>https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9LaHRsb0tjeUhFVXEtbDlhLUVzeWU1aGZzb0pmaEwxRHZ5U29peGVwRFB2N1dmR0NiaEdWUG4yNENTV0MzWE5lR2dvSGdGRjBsOGJjeVo0SzhESG40eTJGNmdsU2ZZNmc?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・為替介入実施の見方も、円が再び急騰
-・1ドル=155円台前半に急落
-・為替介入の可能性も高まる
-ベースシナリオ: 為替介入の可能性が高まると、円が急騰する可能性が高い。
-市場影響: 🔽 弱気
-出典: Google News (ドル円 為替)</description>
-      <pubDate>Wed, 06 May 2026 13:58:09 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9LaHRsb0tjeUhFVXEtbDlhLUVzeWU1aGZzb0pmaEwxRHZ5U29peGVwRFB2N1dmR0NiaEdWUG4yNENTV0MzWE5lR2dvSGdGRjBsOGJjeVo0SzhESG40eTJGNmdsU2ZZNmc?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔽[🇺🇸 外国株式] Nvidia株価下落、AI領域で大手テック企業が参入</title>
-      <link>https://www.bloomberg.com/news/articles/2026-05-06/nvidia-is-facing-more-competition-and-it-s-spooking-investors</link>
-      <description>★★★★☆ 重要度4/5
-・Nvidia株価が下落、AI関連企業が参入
-・AI関連企業が参入により競争が激化
-・投資家がNvidia株を売却
-ベースシナリオ: メインシナリオでは、AI関連企業の参入により競争が激化し、Nvidia株価が下落する。
-市場影響: 🔽 弱気
-出典: Bloomberg Markets</description>
-      <pubDate>Wed, 06 May 2026 08:32:33 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-05-06/nvidia-is-facing-more-competition-and-it-s-spooking-investors</guid>
-      <category>🇺🇸 外国株式</category>
-    </item>
-    <item>
-      <title>🔽[💱 為替・マクロ] ドル円急落、介入観測が広がる</title>
-      <link>https://news.google.com/rss/articles/CBMiSEFVX3lxTE5PS2dHc0NkbllMUGdmQWFCRlByTUc2OVAxZlBud2R6M0p1WkFQQUx0TXUxTEluekFsOTFVRnpqLXZwNDY1QnlEOA?oc=5</link>
-      <description>★★★★★ 重要度5/5
-・ドル円は再び急落、介入観測が広がる
-・和平合意への期待でドル安の動きが続く
-・NY為替序盤、ドル円は110円台まで下落
-ベースシナリオ: 和平合意への期待でドル安の動きが続く
-市場影響: 🔽 弱気
-出典: Google News (ドル円 為替)</description>
-      <pubDate>Wed, 06 May 2026 13:19:22 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiSEFVX3lxTE5PS2dHc0NkbllMUGdmQWFCRlByTUc2OVAxZlBud2R6M0p1WkFQQUx0TXUxTEluekFsOTFVRnpqLXZwNDY1QnlEOA?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] ドル・円156.16円、米ADP、四半期入札結果受け</title>
-      <link>https://news.google.com/rss/articles/CBMiUkFVX3lxTE9WbW5pbzFGVjVtQ1paeGhSMGJYdDU0dEpRVjlIOGtiRzVqU1hNRVB2Zk52dlVpSGtkUzJab0czMUc5bnRZb0FYbXB1YjUwdlE5S1E?oc=5</link>
+      <title>🔽[💱 為替・マクロ] Armの株価がAGI CPU供給量の懸念に逆転</title>
+      <link>https://www.investing.com/news/earnings/arm-stock-soars-after-hours-on-quarterly-results-guidance-beat-4665179</link>
       <description>★★★☆☆ 重要度3/5
-・ドル・円は156.16円に軟落。米ADP雇用統計と四半期入札結果が発表された
-・米ADP雇用統計は市場予想を下回り、四半期入札結果も市場予想を下回った
-ベースシナリオ: 市場はドル・円の軟落を継続し、156.00円を下回る可能性が高い。
-市場影響: ➡️ 中立
-出典: Google News (ドル円 為替)</description>
-      <pubDate>Wed, 06 May 2026 12:40:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiUkFVX3lxTE9WbW5pbzFGVjVtQ1paeGhSMGJYdDU0dEpRVjlIOGtiRzVqU1hNRVB2Zk52dlVpSGtkUzJab0czMUc5bnRZb0FYbXB1YjUwdlE5S1E?oc=5</guid>
+・Armの株価がAGI CPU供給量の懸念により下落
+・AGI CPUの供給量が不足する可能性
+・Armの株価がAGI CPU供給量の懸念に逆転
+ベースシナリオ: AGI CPUの供給量が不足する可能性があるため、株価が下落する可能性が高い。
+市場影響: 🔽 弱気
+出典: Investing.com</description>
+      <pubDate>Wed, 06 May 2026 22:10:59 GMT</pubDate>
+      <guid>https://www.investing.com/news/earnings/arm-stock-soars-after-hours-on-quarterly-results-guidance-beat-4665179</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔽[💱 為替・マクロ] 米国とイランの和平合意報道で原油価格急落</title>
+      <title>➡️[💱 為替・マクロ] Paysign EVP Joan Hermanが社内株式$46,737を売却</title>
+      <link>https://www.investing.com/news/insider-trading-news/paysign-evp-joan-herman-sells-46737-in-company-stock-93CH-4665840</link>
+      <description>★★☆☆☆ 重要度2/5
+・PaysignのEVPであるJoan Hermanが$46,737の社内株式を売却した
+・売却された株式の割合は不明
+・Paysignは決算発表や経営陣の動向に注目
+ベースシナリオ: メインシナリオは、Paysignの株価が$10.50をサポートし、決算発表や経営陣の動向に注目される。
+市場影響: ➡️ 中立
+出典: Investing.com</description>
+      <pubDate>Wed, 06 May 2026 22:07:04 GMT</pubDate>
+      <guid>https://www.investing.com/news/insider-trading-news/paysign-evp-joan-herman-sells-46737-in-company-stock-93CH-4665840</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] 原油価格急落、米国とイランの和平合意報道</title>
       <link>https://news.google.com/rss/articles/CBMilwFBVV95cUxOcnhuSzNHeWJHQVhCMGVoRkpTVkVWSThKSWczdEJhVU9FZTJtQ0Z0T1lIQy1EZ0dUQ3h6MEtGamtVZDB0dDZQa0JZN0VfNHJvQm9NU2ZOeDA3al85alJ1MFZLN25ZOEphOGcwV3Nfd2NOTFg4eHBncVdBYXhQSmJQR2tIZWdCRlYtUF9EZEJUaVkxczByVVlr?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・原油価格が3.5%下落
-・米国とイランの和平合意が近づいているとの報道
-・原油供給が増加する可能性
-ベースシナリオ: 原油価格は50ドル以下に下落し、供給量の増加につながる可能性が高まる。
+      <description>★★★★★ 重要度5/5
+・原油価格が急落した
+・米国とイランの和平合意に近づいているとの報道
+・原油供給の増加が予想される
+ベースシナリオ: 原油価格が60ドル台に下落し、供給量の増加が予想される
 市場影響: 🔽 弱気
 出典: Google News (原油価格)</description>
       <pubDate>Wed, 06 May 2026 12:00:50 GMT</pubDate>
@@ -174,41 +285,41 @@
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔽[🇺🇸 外国株式] 株と国債の差益が縮小、市場の警戒</title>
-      <link>https://www.marketwatch.com/story/stocks-are-losing-their-edge-over-bonds-in-an-ominous-sign-for-the-market-481f801d?mod=mw_rss_topstories</link>
-      <description>★★★★☆ 重要度4/5
-・株と国債の差益が縮小、投資家の警戒
-・株価が高騰中の投資家の過度の自信
-・株価が高騰中の投資家の過度の自信
-ベースシナリオ: 差益の縮小が続き、投資家の警戒が高まる。
-市場影響: 🔽 弱気
-出典: MarketWatch</description>
-      <pubDate>Wed, 06 May 2026 14:38:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/stocks-are-losing-their-edge-over-bonds-in-an-ominous-sign-for-the-market-481f801d?mod=mw_rss_topstories</guid>
-      <category>🇺🇸 外国株式</category>
+      <title>➡️[💱 為替・マクロ] 円急騰 為替介入か 連休明け ドル円の行方は？</title>
+      <link>https://news.google.com/rss/articles/CBMiakFVX3lxTE5yRG04UHg5ak5CNk94NExnRE5meDc1dTRDeEE1dHljazFlaWQxc3BHM3JHR2p0Zk9nX2lkbVZocGgwZ0c2NUszVEVVZ0hKVTJEbjFNeHJ2SjltS3Roam9XWVJ3QnpKY1UzRGc?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・円急騰の理由は為替介入の可能性も指摘
+・連休明けにドル円の行方が注目される
+・為替市場の動向がドル円の価格に影響
+ベースシナリオ: 為替市場の動向がドル円の価格に影響する可能性がある。
+市場影響: ➡️ 中立
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Wed, 06 May 2026 12:00:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiakFVX3lxTE5yRG04UHg5ak5CNk94NExnRE5meDc1dTRDeEE1dHljazFlaWQxc3BHM3JHR2p0Zk9nX2lkbVZocGgwZ0c2NUszVEVVZ0hKVTJEbjFNeHJ2SjltS3Roam9XWVJ3QnpKY1UzRGc?oc=5</guid>
+      <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔼[🇺🇸 外国株式] Nvidiaとコーニングの新提携、AIの最も熱いトレンドを裏付ける</title>
-      <link>https://www.marketwatch.com/story/nvidias-new-deal-with-corning-validates-one-of-the-hottest-ai-trends-out-there-caddebe8?mod=mw_rss_topstories</link>
-      <description>★★★★☆ 重要度4/5
-・Nvidiaが光学部品の供給不足を回避するためにコーニングと提携
-・AI用光学部品の需要が増大する中、Nvidiaは主要企業と提携を重ねる
-・光学部品の供給不足がAIの進展に影響する可能性
-ベースシナリオ: Nvidiaとコーニングの提携により光学部品の供給が確保される。AIの進展が加速する。
+      <title>🔼[💱 為替・マクロ] 為替介入実施の見方も、円が再び急騰</title>
+      <link>https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9LaHRsb0tjeUhFVXEtbDlhLUVzeWU1aGZzb0pmaEwxRHZ5U29peGVwRFB2N1dmR0NiaEdWUG4yNENTV0MzWE5lR2dvSGdGRjBsOGJjeVo0SzhESG40eTJGNmdsU2ZZNmc?oc=5</link>
+      <description>★★★★★ 重要度5/5
+・為替介入実施の見通しが明らかになったことで円が急騰
+・一時1ドル=155円台前半に達した
+・為替介入の影響が市場に広がる可能性
+ベースシナリオ: 為替介入の影響が市場に広がり、円が安定する。
 市場影響: 🔼 強気
-出典: MarketWatch</description>
-      <pubDate>Wed, 06 May 2026 14:26:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/nvidias-new-deal-with-corning-validates-one-of-the-hottest-ai-trends-out-there-caddebe8?mod=mw_rss_topstories</guid>
-      <category>🇺🇸 外国株式</category>
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Wed, 06 May 2026 11:31:18 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9LaHRsb0tjeUhFVXEtbDlhLUVzeWU1aGZzb0pmaEwxRHZ5U29peGVwRFB2N1dmR0NiaEdWUG4yNENTV0MzWE5lR2dvSGdGRjBsOGJjeVo0SzhESG40eTJGNmdsU2ZZNmc?oc=5</guid>
+      <category>💱 為替・マクロ</category>
     </item>
     <item>
       <title>🔽[💱 為替・マクロ] ルピー上昇、米・イラン和平交渉報道で原油価格急落</title>
       <link>https://news.google.com/rss/articles/CBMibkFVX3lxTFAtUGhpTU5FOERuSWthbE9xZzIzVWp0eXZVOHEwOFlWN24yUXJwdWdsLVlSZWZpNnZ0QmVQVm5VaG1sLXdmcWxYR1c1R0JGbmtHUHRoWVBlTVp3LVNIVnNIaTUwYnlzQ3lzZkx0T1p3?oc=5</link>
       <description>★★★★☆ 重要度4/5
-・原油価格が米ドルで約8.5%下落
-・ルピーが米ドルに対して約1.2%上昇
-・米・イラン和平交渉の報道が原油価格下落の要因
-ベースシナリオ: 原油価格が下落し続き、50ドル/バレルを下回る可能性がある。
+・原油価格が米ドルで1.8ドル、約10.5%下落
+・ルピーが米ドルに対して0.5%上昇
+・米・イラン和平交渉の報道が原油価格下落の主因
+ベースシナリオ: 原油価格は下落が続き、40ドル以下に下がる
 市場影響: 🔽 弱気
 出典: Google News (原油価格)</description>
       <pubDate>Wed, 06 May 2026 09:33:00 GMT</pubDate>
@@ -216,213 +327,102 @@
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] 新卒就職難の低雇用市場でも、最速成長の就職先</title>
-      <link>https://www.marketwatch.com/story/these-are-the-fastest-growing-jobs-for-new-college-graduates-even-in-this-low-hire-market-974bf612?mod=mw_rss_topstories</link>
-      <description>★★☆☆☆ 重要度2/5
-・新卒就職難の低雇用市場でも、特定の分野の就職先が急成長中
-・新卒が就職難を乗り越えるための準備方法
-・就職先の特定の分野の特徴
-ベースシナリオ: メインシナリオの説明
-市場影響: ➡️ 中立
-出典: MarketWatch</description>
-      <pubDate>Wed, 06 May 2026 14:16:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/these-are-the-fastest-growing-jobs-for-new-college-graduates-even-in-this-low-hire-market-974bf612?mod=mw_rss_topstories</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[🇺🇸 外国株式] 10年期限の生命保険の更新</title>
-      <link>https://www.marketwatch.com/story/i-am-56-single-and-renewing-my-400-000-term-life-policy-the-agent-says-i-cant-name-my-brother-as-beneficiary-why-not-1770bf58?mod=mw_rss_topstories</link>
+      <title>➡️[📈 外国インデックス] ナスダック総合指数が1.2%高まる</title>
+      <link>https://news.google.com/rss/articles/CBMiU0FVX3lxTE9jWHl5QS1xWVVoVkRPVE12M1Y3cE8zYlJpaG5RenlCQVV3ZXdGc1hJcnY1aXhBdE55UVRRYlYzRGM3NlV6cGpXUHlJdmlJdWhtTlpr?oc=5</link>
       <description>★★★☆☆ 重要度3/5
-・10年期限の生命保険を更新する際、依存者がいない場合の必要性を考慮する
-・保険会社は依存者の存在を確認する
-・依存者がいない場合、生命保険の必要性を再評価する必要がある
-ベースシナリオ: 保険会社は依存者の存在を確認し、必要性を再評価する
+・ナスダック総合指数が前日の比率で1.2%高まった
+・通常比で1.5倍の出来高
+・指数の推移は安値を回復
+ベースシナリオ: 指数の推移が安値を回復し、市場の動向が注目される
 市場影響: ➡️ 中立
-出典: MarketWatch</description>
-      <pubDate>Wed, 06 May 2026 14:15:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/i-am-56-single-and-renewing-my-400-000-term-life-policy-the-agent-says-i-cant-name-my-brother-as-beneficiary-why-not-1770bf58?mod=mw_rss_topstories</guid>
-      <category>🇺🇸 外国株式</category>
-    </item>
-    <item>
-      <title>🔽[💱 為替・マクロ] 韓国副首相「中東戦争終了まで石油価格制限維持」</title>
-      <link>https://news.google.com/rss/articles/CBMiUkFVX3lxTE55cmVkTzJoVlMxcTZ5YWp5YnB1NVIwdldMU1N1SlZnQlVhYjlJNkZ5SXNHUGtNTWlRT0FXcW5HeXFGY2xNWVVLbmtIdXVOUjZ0Zmc?oc=5</link>
-      <description>★★★★★ 重要度5/5
-・韓国副首相兼財政経済部長官が、中東戦争終了まで石油価格制限を維持すると発表
-・国際原油価格の急騰により物価上昇圧力が大きくなり、民生への影響を懸念
-・価格制限維持により、インフレ率の予想が下方修正される可能性
-ベースシナリオ: 価格制限維持により、インフレ率の予想が下方修正される可能性が高い。
-市場影響: 🔽 弱気
-出典: Google News (原油価格)</description>
-      <pubDate>Wed, 06 May 2026 08:35:47 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiUkFVX3lxTE55cmVkTzJoVlMxcTZ5YWp5YnB1NVIwdldMU1N1SlZnQlVhYjlJNkZ5SXNHUGtNTWlRT0FXcW5HeXFGY2xNWVVLbmtIdXVOUjZ0Zmc?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔽[💱 為替・マクロ] 世界の原油価格が反転し急落</title>
-      <link>https://news.google.com/rss/articles/CBMijwFBVV95cUxPLVhSU0NSYnMwOUdGSHVFbjE4eXA5dnVYT25hYVE0NEtxMjd4MmVyRmZKWjR6akZNT25veXRDRlh2RFNKWi1qTGFiUVpDYlNlVVNwZ0JiN2RxNHJRQjZUX01TQ2VhZzQ2bUdhOVMyUXBuUTRRaEREbmlPcGd0RlNYQUQ2ajhWTTVKX2hRaGs2cw?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・世界の原油価格が6日、過去最大の下落を記録
-・米国西部ティア1原油価格が下落
-・原油価格の下落が燃料価格に影響
-ベースシナリオ: 原油価格が下落し続ける可能性が高い
-市場影響: 🔽 弱気
-出典: Google News (原油価格)</description>
-      <pubDate>Wed, 06 May 2026 07:51:32 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMijwFBVV95cUxPLVhSU0NSYnMwOUdGSHVFbjE4eXA5dnVYT25hYVE0NEtxMjd4MmVyRmZKWjR6akZNT25veXRDRlh2RFNKWi1qTGFiUVpDYlNlVVNwZ0JiN2RxNHJRQjZUX01TQ2VhZzQ2bUdhOVMyUXBuUTRRaEREbmlPcGd0RlNYQUQ2ajhWTTVKX2hRaGs2cw?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] 円急騰 20分で2円以上</title>
-      <link>https://news.google.com/rss/articles/CBMiUEFVX3lxTFBMQXJTT1RUMjctcXRBaUpIUkRKMnVHY2JXU3JtVlZKLWx5VlJPeXp3WE1ma1plV2gwSkd6ck9LM2p2WjFZRHU5T2V0RTJkZGcx?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・円相場が急騰し、20分ほどで2円以上上昇
-・円相場の変動は、市場の流れや経済指標の影響などによる
-・円相場の変動は、投資家の動向や市場の流れに大きく影響
-ベースシナリオ: 円相場は上昇し続け、110円台を超える可能性があります。
-市場影響: 🔼 強気
-出典: Google News (ドル円 為替)</description>
-      <pubDate>Wed, 06 May 2026 06:13:34 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiUEFVX3lxTFBMQXJTT1RUMjctcXRBaUpIUkRKMnVHY2JXU3JtVlZKLWx5VlJPeXp3WE1ma1plV2gwSkd6ck9LM2p2WjFZRHU5T2V0RTJkZGcx?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] ゼー・エンターテインメントがリライアンス・ディズニーの音楽著作権侵害を訴える</title>
-      <link>https://www.investing.com/news/stock-market-news/exclusiveindias-zee-sues-reliancedisney-over-alleged-music-copyright-breach-4663962</link>
-      <description>★★★☆☆ 重要度3/5
-・インドのメディア企業ゼー・エンターテインメントが、リライアンス・ディズニーとの間で音楽著作権侵害の訴訟を起こした
-・訴訟は、ディズニーの音楽ライセンス契約が不当であるとしている
-・この訴訟は、インドのメディア業界における著作権問題の深刻さを示している
-ベースシナリオ: メインシナリオは、訴訟の影響がインドのメディア業界に及ぶが、市場への影響は限定的である。
-市場影響: ➡️ 中立
-出典: Investing.com</description>
-      <pubDate>Wed, 06 May 2026 14:37:28 GMT</pubDate>
-      <guid>https://www.investing.com/news/stock-market-news/exclusiveindias-zee-sues-reliancedisney-over-alleged-music-copyright-breach-4663962</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] レストランブランド、四半期予想を上回り</title>
-      <link>https://www.investing.com/news/stock-market-news/burger-kingparent-restaurant-brands-beats-quarterly-samestore-sales-estimates-4662433</link>
-      <description>★★★☆☆ 重要度3/5
-・レストランブランドは、バーガーキングの親会社。四半期決算で予想を上回った。
-・バリュー・ミールの高需求が主な要因
-・米国とカナダの売上高が増加
-ベースシナリオ: バリュー・ミールの高需求が継続し、レストラン業界の売上高が伸び続ける。
-市場影響: ➡️ 中立
-出典: Investing.com</description>
-      <pubDate>Wed, 06 May 2026 14:37:10 GMT</pubDate>
-      <guid>https://www.investing.com/news/stock-market-news/burger-kingparent-restaurant-brands-beats-quarterly-samestore-sales-estimates-4662433</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔽[💱 為替・マクロ] 原油価格急落</title>
-      <link>https://news.google.com/rss/articles/CBMiYEFVX3lxTE1qeWRFbXF2NENTanBfWExqbVA0SlM1cnc5c2xQVjhxeFpDYUxGQ2tMcUVNZngtd29nNlRzbG12aVlOOEtfZXl4ZURRNkF0aW5QY0JuUVh3amkySzJoVHFycw?oc=5</link>
-      <description>★★☆☆☆ 重要度2/5
-・原油価格が連日下落
-・市場の懸念が高まる
-・エネルギー株の値動きに影響
-ベースシナリオ: 原油価格が下落を続ける
-市場影響: 🔽 弱気
-出典: Google News (原油価格)</description>
-      <pubDate>Wed, 06 May 2026 04:14:35 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiYEFVX3lxTE1qeWRFbXF2NENTanBfWExqbVA0SlM1cnc5c2xQVjhxeFpDYUxGQ2tMcUVNZngtd29nNlRzbG12aVlOOEtfZXl4ZURRNkF0aW5QY0JuUVh3amkySzJoVHFycw?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[📈 外国インデックス] NEXT FUNDS S&amp;P500 半導体・半導体製造装置35% 株価 1.2% 上昇</title>
-      <link>https://news.google.com/rss/articles/CBMiUkFVX3lxTE1fd0J0MHladHBKQ2VUazR0SkxrcjVOLUJXdHEwbUNUamNuOC1SLW5RWk42eloyU2FHZ0FSQk9ST3o2VWw4UFh3alNBaDVrMUhRNFE?oc=5</link>
-      <description>★★★☆☆ 重要度3/5
-・NEXT FUNDS S&amp;P500 半導体・半導体製造装置35% 株価 1.2% 上昇
-・半導体関連株価が上昇
-・S&amp;P500 指数は 0.6% 上昇
-ベースシナリオ: 半導体関連株価が上昇し続け、株価も上昇する
-市場影響: ➡️ 中立
-出典: Google News (S&amp;P500)</description>
-      <pubDate>Wed, 06 May 2026 12:27:34 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiUkFVX3lxTE1fd0J0MHladHBKQ2VUazR0SkxrcjVOLUJXdHEwbUNUamNuOC1SLW5RWk42eloyU2FHZ0FSQk9ST3o2VWw4UFh3alNBaDVrMUhRNFE?oc=5</guid>
+出典: Google News (米国株 ナスダック)</description>
+      <pubDate>Wed, 06 May 2026 21:53:26 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiU0FVX3lxTE9jWHl5QS1xWVVoVkRPVE12M1Y3cE8zYlJpaG5RenlCQVV3ZXdGc1hJcnY1aXhBdE55UVRRYlYzRGM3NlV6cGpXUHlJdmlJdWhtTlpr?oc=5</guid>
       <category>📈 外国インデックス</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] 明日の経済スケジュール</title>
-      <link>https://news.google.com/rss/articles/CBMiYkFVX3lxTE05dXNqUUVoQk1JUG91VGtVeTdCNjlUdjhXU1V1UjFnb2dIRGQtS19JRDdCR2RQb3MwOVJ0YU5TTUV1c2dfam82UWZvcGdhY2FtVnlTUE9wVjhORHFXYjktTHpn?oc=5</link>
-      <description>★★★☆☆ 重要度3/5
-・明日はマネタリーベースの発表
-・金融政策の方向性が明らかになる
-・市場の期待値と実際の結果の差が大きく影響する
-ベースシナリオ: 市場の期待値と実際の結果の差が大きく影響する
-市場影響: ➡️ 中立
-出典: Google News (日経平均)</description>
-      <pubDate>Wed, 06 May 2026 11:05:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiYkFVX3lxTE05dXNqUUVoQk1JUG91VGtVeTdCNjlUdjhXU1V1UjFnb2dIRGQtS19JRDdCR2RQb3MwOVJ0YU5TTUV1c2dfam82UWZvcGdhY2FtVnlTUE9wVjhORHFXYjktTHpn?oc=5</guid>
-      <category>💱 為替・マクロ</category>
+      <title>🔼[📈 外国インデックス] NYダウ 600ドル余上昇 ナスダック・S＆P500指数は最高値更新</title>
+      <link>https://news.google.com/rss/articles/CBMiX0FVX3lxTE9XOXNrdF9takFrRWdoSUUxcmFOMk54cHZRMjlGNnFmeHNWMFUtU3ZwTHU5S2lvelZ1M1lhclhZbU9Wbk54MWF5M3YyNTBFYVJyZUFyMUp2WmFSODlOMTFr?oc=5</link>
+      <description>★★★★★ 重要度5/5
+・ダウ平均が600ドル以上上昇、ナスダック指数とS&amp;amp;P500指数が最高値を更新
+・米国株式市場が大幅上昇
+・長期金利の下落が株式市場の向上に貢献
+ベースシナリオ: 長期金利の下落が継続し、株式市場が上昇する。
+市場影響: 🔼 強気
+出典: Google News (S&amp;P500)</description>
+      <pubDate>Wed, 06 May 2026 21:43:19 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiX0FVX3lxTE9XOXNrdF9takFrRWdoSUUxcmFOMk54cHZRMjlGNnFmeHNWMFUtU3ZwTHU5S2lvelZ1M1lhclhZbU9Wbk54MWF5M3YyNTBFYVJyZUFyMUp2WmFSODlOMTFr?oc=5</guid>
+      <category>📈 外国インデックス</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] 米FRBは米雇用統計を慎重に待つ</title>
-      <link>https://news.google.com/rss/articles/CBMigAFBVV95cUxPY2RLaFlGWVo4R2c3NUhoS1NERHFPalRnaVNSWHQyV2FvcjctTk9EV1U3dkNzUzV5NEhoYnVKVXkzaThvX1hpUkcwUm5qZzFlMEpTbE9jcnFtb0pDdjhZaHRSa19sLXR5QkRPUVJCSkZPbEhHUzhTUnlrTHhTdE81SA?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・米FRBは米雇用統計を慎重に待つ
-・米雇用統計が利下げ観測復活の試金石となる
-・FRBは慎重な姿勢を維持する
-ベースシナリオ: FRBは慎重な姿勢を維持し、市場の期待を抑える
-市場影響: ➡️ 中立
-出典: Google News (FOMC 金利)</description>
-      <pubDate>Tue, 05 May 2026 17:19:56 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMigAFBVV95cUxPY2RLaFlGWVo4R2c3NUhoS1NERHFPalRnaVNSWHQyV2FvcjctTk9EV1U3dkNzUzV5NEhoYnVKVXkzaThvX1hpUkcwUm5qZzFlMEpTbE9jcnFtb0pDdjhZaHRSa19sLXR5QkRPUVJCSkZPbEhHUzhTUnlrTHhTdE81SA?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[🎯 先物] CMEがビットコインボラティリティ先物取引を開始へ</title>
-      <link>https://news.google.com/rss/articles/CBMif0FVX3lxTE9qa1NXV3hHRW9iellIMHdsU2NQcUdyMVhvMXg3LU1Ra0c5SHhCeDBiNUpwaThTY2FmS05Lc0lBZno1Q1YtN05mcmVla0hKMXRJS1U3X2Vzd1h2OUk2NGZNUEpibnpFVHZXVnBVOXVDTXR4dkpiU2o5a0w0em8zUVE?oc=5</link>
+      <title>➡️[🎯 先物] CMEグループ、BTCボラティリティ先物6月1日ローンチ</title>
+      <link>https://news.google.com/rss/articles/CBMif0FVX3lxTE1NSGdnODB6VEZ5TERHTC1pZFhiM3ZLUW9JelNDejNDLVdrMlBNQW5wNWVBN2J1cWxLdERPbzBYTWZxTUlzQVF3RGpMSldYanJaX21sM1BzMEhsZUI5X19HUjRXOVI4ZmRUWHo5UVhYT3RMLXBCOVdwOFhYTjBaRTg?oc=5</link>
       <description>★★★☆☆ 重要度3/5
-・CMEがビットコインボラティリティ先物取引を開始
-・暗号資産ヘッジ需要の高まりを受け
-・ビットコイン価格の想定外の急変動リスクをハッズする
-ベースシナリオ: メインシナリオは、ビットコイン価格の安定が続き、ヘッジ需要が減少する。
+・CMEグループが6月1日にBTCボラティリティ先物をローンチ、価格ではなく変動率を取引対象
+・先物は、BTCのボラティリティを表す指標であるVIXに似た指数を基に構築される
+・この先物は、BTCのボラティリティを予測し、リスク管理に役立つものと期待される
+ベースシナリオ: BTCのボラティリティ指数は、20台から30台まで上昇する。
 市場影響: ➡️ 中立
 出典: Google News (先物 CME)</description>
-      <pubDate>Wed, 06 May 2026 06:55:32 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMif0FVX3lxTE9qa1NXV3hHRW9iellIMHdsU2NQcUdyMVhvMXg3LU1Ra0c5SHhCeDBiNUpwaThTY2FmS05Lc0lBZno1Q1YtN05mcmVla0hKMXRJS1U3X2Vzd1h2OUk2NGZNUEpibnpFVHZXVnBVOXVDTXR4dkpiU2o5a0w0em8zUVE?oc=5</guid>
+      <pubDate>Wed, 06 May 2026 21:40:12 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMif0FVX3lxTE1NSGdnODB6VEZ5TERHTC1pZFhiM3ZLUW9JelNDejNDLVdrMlBNQW5wNWVBN2J1cWxLdERPbzBYTWZxTUlzQVF3RGpMSldYanJaX21sM1BzMEhsZUI5X19HUjRXOVI4ZmRUWHo5UVhYT3RMLXBCOVdwOFhYTjBaRTg?oc=5</guid>
       <category>🎯 先物</category>
     </item>
     <item>
-      <title>🔼[📈 外国インデックス] KOSPI7000台突破 S&amp;amp;P500上回る 外国人買いで二極化進む</title>
-      <link>https://news.google.com/rss/articles/CBMigAFBVV95cUxOemVzN2R3MUV1aVo0TlVIM0tUQzlKN0ZwMnpoMDJKT1o2elZkR0xGM29vdUptMklLeTFaQWNTV3BreXBITk5sbzJmWDNpMGFJcU9MUGV4NlhzdlpZV3BuWEJWSGVkLWdaVW9tRGlGTzlDcDhYUXZqWUppYjVVdjl2VdIBlAFBVV95cUxOaThRSV96dXA4S3ExXzBlTkNyajhYZFUyREI5QXpmaklERUxwT2x1SGhDdmxPMFE5aU9UYVg3Tjl3T0w1NnpjR2lVX1F4ajB0MzdzS3NZQ0FwZnI5ckYyZFd6MXJBUEV4UmVyWHhrRFFRM3ZKSlY2N0MtQllXYUx1VlZwX3MzQ21GamtPbDlwVjd1MENV?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・KOSPIが7000台を突破、S&amp;amp;P500を上回る
-・外国人投資家が買い進み、市場が二極化
-・KOSPIの外国人投資家比率が10%を超える
-ベースシナリオ: 外国人投資家の買い進みが続き、KOSPIが上昇する
-市場影響: 🔼 強気
-出典: Google News (S&amp;P500)</description>
-      <pubDate>Wed, 06 May 2026 06:39:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMigAFBVV95cUxOemVzN2R3MUV1aVo0TlVIM0tUQzlKN0ZwMnpoMDJKT1o2elZkR0xGM29vdUptMklLeTFaQWNTV3BreXBITk5sbzJmWDNpMGFJcU9MUGV4NlhzdlpZV3BuWEJWSGVkLWdaVW9tRGlGTzlDcDhYUXZqWUppYjVVdjl2VdIBlAFBVV95cUxOaThRSV96dXA4S3ExXzBlTkNyajhYZFUyREI5QXpmaklERUxwT2x1SGhDdmxPMFE5aU9UYVg3Tjl3T0w1NnpjR2lVX1F4ajB0MzdzS3NZQ0FwZnI5ckYyZFd6MXJBUEV4UmVyWHhrRFFRM3ZKSlY2N0MtQllXYUx1VlZwX3MzQ21GamtPbDlwVjd1MENV?oc=5</guid>
-      <category>📈 外国インデックス</category>
+      <title>➡️[💱 為替・マクロ] 6日の為替市場の四本値</title>
+      <link>https://news.google.com/rss/articles/CBMiSEFVX3lxTE1uSFF0ck9Zc2JYLTZBR2NHZjNZU1hRV2dGZjhmaWxmUnNhSC02cVY3ZW5DUFl2d3JIUzhDVWtNY0h5YnFwTkxZRA?oc=5</link>
+      <description>★★☆☆☆ 重要度2/5
+・ポンド円は6日、前日比0.3%高値更新
+・豪ドル円は6日、前日比0.5%高値更新
+・カナダ円は6日、前日比0.2%高値更新
+ベースシナリオ: 為替市場は今後も経済指標や政策決定に応じて動く
+市場影響: ➡️ 中立
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Wed, 06 May 2026 21:22:22 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiSEFVX3lxTE1uSFF0ck9Zc2JYLTZBR2NHZjNZU1hRV2dGZjhmaWxmUnNhSC02cVY3ZW5DUFl2d3JIUzhDVWtNY0h5YnFwTkxZRA?oc=5</guid>
+      <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔼[💱 為替・マクロ] 円高2カ月半ぶり155円台に 市場で追加介入の思惑</title>
-      <link>https://news.google.com/rss/articles/CBMibEFVX3lxTE1wTUxOaV9jUnFyVlJlUkFZbGplZjdzUlJqN2J1eFUzSkdHcmFJc1ZPWGl6bHh2SkVvMExoUm8wM1pWa0daVjJfWFBrV1lCMmNFNTU2MU96Z0pRVGhGZ2VNbllORmhVN1VrbFdJWg?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・円は2カ月半ぶりの高値に達し、一時155円台に達した
-・市場では追加介入の思惑が高まっている
-・円高は輸出業界への影響を懸念している
-ベースシナリオ: 円相対値が安定し、市場では追加介入の思惑が高まる
+      <title>➡️[🎯 先物] 円建てCME先物 2690円高の62110円で推移</title>
+      <link>https://news.google.com/rss/articles/CBMihwFBVV95cUxPQ1V1MWV1TGJnRV9hNVpBYTlTYl9rZjN1MzJQbk11M2VNSURFUEx4UWN2d0VSaUQ2WUIyeXNsOUZxOC1MU3dhanBST1g5SHFUSlNnMWo1RmN4X2tqZXVNYkFHU19yOTVxQ0RDQTNGbzlJX0NEaFgtMTlCU0t2bFMxNVhWbUxpVG8?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・円建てCME先物 6日比2690円高の62110円で推移
+・先物OP市場ウォッチでは、フィスコが分析を発表
+・円建てCME先物の動向に注目
+ベースシナリオ: 円建てCME先物は、上昇中の為替レートの影響を受け、推移を続ける可能性が高い。
+市場影響: ➡️ 中立
+出典: Google News (先物 CME)</description>
+      <pubDate>Wed, 06 May 2026 21:21:21 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMihwFBVV95cUxPQ1V1MWV1TGJnRV9hNVpBYTlTYl9rZjN1MzJQbk11M2VNSURFUEx4UWN2d0VSaUQ2WUIyeXNsOUZxOC1MU3dhanBST1g5SHFUSlNnMWo1RmN4X2tqZXVNYkFHU19yOTVxQ0RDQTNGbzlJX0NEaFgtMTlCU0t2bFMxNVhWbUxpVG8?oc=5</guid>
+      <category>🎯 先物</category>
+    </item>
+    <item>
+      <title>🔼[💱 為替・マクロ] 日本株ADR6日、全面高 メガバンクや野村の上げ目立つ</title>
+      <link>https://news.google.com/rss/articles/CBMiqAFBVV95cUxNU3BvYVNQOS1BLVRQQ21saWR1cURRejAzVk5SVmZxUFd1ZVNaVkFRTVJTcHhDb0Q2Y29wNGtKbzI0VVhaMEgxNEV6WDQ4bnF3Qm40cncyWUpQekw2X01nUUN2Ym1teTNJYkFQSWdJWEQycmJva29OcXkyQktTSmZucVRWdWNZclRPRWJ4d0E5Umd3WEstOHlmZXgzOHNKLTJLWUtIdHJJZE4?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・日本株ADRが6日、全面高となり、メガバンクや野村ホールディングスが上昇率が高い
+・メガバンクの上昇率は4.5%、野村ホールディングスの上昇率は4.2%となり、市場の注目を集めた
+・市場の懸念が軽減されたため、投資家がリスクをとる気分になったとみられる
+ベースシナリオ: メインシナリオでは、市場のトレンドが強気で、投資家がリスクをとる気分になる。
 市場影響: 🔼 強気
 出典: Google News (日経平均)</description>
-      <pubDate>Wed, 06 May 2026 04:49:58 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMibEFVX3lxTE1wTUxOaV9jUnFyVlJlUkFZbGplZjdzUlJqN2J1eFUzSkdHcmFJc1ZPWGl6bHh2SkVvMExoUm8wM1pWa0daVjJfWFBrV1lCMmNFNTU2MU96Z0pRVGhGZ2VNbllORmhVN1VrbFdJWg?oc=5</guid>
+      <pubDate>Wed, 06 May 2026 21:20:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiqAFBVV95cUxNU3BvYVNQOS1BLVRQQ21saWR1cURRejAzVk5SVmZxUFd1ZVNaVkFRTVJTcHhDb0Q2Y29wNGtKbzI0VVhaMEgxNEV6WDQ4bnF3Qm40cncyWUpQekw2X01nUUN2Ym1teTNJYkFQSWdJWEQycmJva29OcXkyQktTSmZucVRWdWNZclRPRWJ4d0E5Umd3WEstOHlmZXgzOHNKLTJLWUtIdHJJZE4?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] FF金利織り込み度6月7月分日本時間6日現在</title>
-      <link>https://news.google.com/rss/articles/CBMihwFBVV95cUxQLUZQRzhzbmw3YzF0VWZ4TlhvU3dfVlRkdEtJZzdoY1FkY1pmbGNpQ1dhV3dTZ0pwM0hIYXpvZV96NDlURl91a3l6SE1PQ0tILUNLRlU1clk2WjlwTlBWUHQ1d1lacTE0U0J3WWc4X1BmSU9jajJZeldudmV0Z0k1WkFoZlk3Qkk?oc=5</link>
-      <description>★★★☆☆ 重要度3/5
-・6月分のFF金利織り込み度は-0.1%、7月分は-0.2%に低下
-・金利織り込み度は、長期金利の変動を短期金利に反映する指標
-ベースシナリオ: 金利政策の方向性は不明
+      <title>➡️[📈 外国インデックス] NEXT FUNDS NASDAQ-100(H無)連動型上場投信 1545の株価</title>
+      <link>https://news.google.com/rss/articles/CBMiUkFVX3lxTE5kUjZVZ3hSa0RoWDdoQV9UQUNGNEJLbUtIU29iUnNYSGVDSFVvTnZMblAzVy1OLTRzOUNMOUduYWVHUmNXVDMtWFUwS3ZGSGp1Z2c?oc=5</link>
+      <description>★★☆☆☆ 重要度2/5
+・NEXT FUNDS NASDAQ-100(H無)連動型上場投信 1545の株価が発表
+・株価の変動を簡単に確認できる
+・Yahoo!ファイナンスで株価情報を確認
+ベースシナリオ: 現在の株価が維持される
 市場影響: ➡️ 中立
-出典: Google News (FOMC 金利)</description>
-      <pubDate>Wed, 06 May 2026 04:24:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMihwFBVV95cUxQLUZQRzhzbmw3YzF0VWZ4TlhvU3dfVlRkdEtJZzdoY1FkY1pmbGNpQ1dhV3dTZ0pwM0hIYXpvZV96NDlURl91a3l6SE1PQ0tILUNLRlU1clk2WjlwTlBWUHQ1d1lacTE0U0J3WWc4X1BmSU9jajJZeldudmV0Z0k1WkFoZlk3Qkk?oc=5</guid>
-      <category>💱 為替・マクロ</category>
+出典: Google News (米国株 ナスダック)</description>
+      <pubDate>Wed, 06 May 2026 20:25:17 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiUkFVX3lxTE5kUjZVZ3hSa0RoWDdoQV9UQUNGNEJLbUtIU29iUnNYSGVDSFVvTnZMblAzVy1OLTRzOUNMOUduYWVHUmNXVDMtWFUwS3ZGSGp1Z2c?oc=5</guid>
+      <category>📈 外国インデックス</category>
     </item>
   </channel>
 </rss>
