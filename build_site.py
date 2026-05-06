@@ -799,11 +799,39 @@ def build_rss(articles: list, date_str: str) -> None:
     print(f"  生成: docs/feed.xml ({len(articles)} 件)")
 
 
+def build_analysis_page(long_term: Optional[dict] = None, scenarios: Optional[dict] = None) -> None:
+    """docs/analysis.html を生成する（長期パフォーマンス分析ページ）。"""
+    DOCS_DIR.mkdir(parents=True, exist_ok=True)
+
+    env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=True)
+    env.filters['tojson'] = lambda v: json.dumps(v, ensure_ascii=False)
+
+    try:
+        tmpl = env.get_template("analysis.html.j2")
+    except Exception as e:
+        print(f"  [WARN] analysis.html.j2 テンプレート読み込み失敗: {e}")
+        return
+
+    long_term_json = json.dumps(long_term or {}, ensure_ascii=False)
+    scenarios_json = json.dumps(scenarios or {"scenarios": []}, ensure_ascii=False)
+
+    ctx = {
+        "base_url": BASE_URL,
+        "generated_at": _jst_now().strftime("%Y/%m/%d %H:%M JST"),
+        "long_term_json": long_term_json,
+        "scenarios_json": scenarios_json,
+    }
+    (DOCS_DIR / "analysis.html").write_text(tmpl.render(**ctx), encoding="utf-8")
+    print("  生成: docs/analysis.html")
+
+
 def build(
     articles: list,
     daily_theme: str = "",
     market_data: Optional[dict] = None,
     insight: Optional[dict] = None,
+    long_term: Optional[dict] = None,
+    scenarios: Optional[dict] = None,
 ) -> None:
     date_str = _jst_now().strftime("%Y-%m-%d")
     print("=== サイト生成開始 ===")
@@ -818,6 +846,7 @@ def build(
     build_rss(articles, date_str)
     build_glossary_html(BASE_URL)
     _build_preferences_history(BASE_URL)
+    build_analysis_page(long_term=long_term, scenarios=scenarios)
     _copy_static()
     print("サイト生成完了\n")
 

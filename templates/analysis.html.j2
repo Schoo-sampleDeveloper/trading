@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>長期パフォーマンス分析 | マーケットニュース</title>
+  <style>
+    :root {
+      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --bg4: #2d333b;
+      --border: #30363d; --text: #e6edf3; --text2: #8b949e; --text3: #6e7681;
+      --accent: #58a6ff; --green: #22c55e; --red: #ef4444; --yellow: #d29922;
+      --green-dim: rgba(34,197,94,0.15); --red-dim: rgba(239,68,68,0.15);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f8fa; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e8ecf0;
+        --border: #d0d7de; --text: #1f2328; --text2: #656d76; --text3: #8c959f;
+        --accent: #0969da; --green: #1a7f37; --red: #cf222e; --yellow: #9a6700;
+        --green-dim: rgba(26,127,55,0.1); --red-dim: rgba(207,34,46,0.1);
+      }
+    }
+    body[data-theme="light"] {
+      --bg: #f6f8fa; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e8ecf0;
+      --border: #d0d7de; --text: #1f2328; --text2: #656d76; --text3: #8c959f;
+      --accent: #0969da; --green: #1a7f37; --red: #cf222e; --yellow: #9a6700;
+      --green-dim: rgba(26,127,55,0.1); --red-dim: rgba(207,34,46,0.1);
+    }
+    body[data-theme="dark"] {
+      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --bg4: #2d333b;
+      --border: #30363d; --text: #e6edf3; --text2: #8b949e; --text3: #6e7681;
+      --accent: #58a6ff; --green: #22c55e; --red: #ef4444; --yellow: #d29922;
+      --green-dim: rgba(34,197,94,0.15); --red-dim: rgba(239,68,68,0.15);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      font-size: 15px; line-height: 1.7;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 16px 20px; }
+
+    /* ── Header ── */
+    header {
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      padding: 14px 20px; position: sticky; top: 0; z-index: 100;
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .header-title { font-size: 1.15rem; font-weight: 700; color: var(--accent); }
+    .header-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border);
+      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      background: var(--bg3); color: var(--text2); transition: all 0.15s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .btn-icon { background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 4px 8px; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 32px; }
+    .section-title {
+      font-size: 1rem; font-weight: 700; color: var(--text);
+      margin-bottom: 14px; padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-sub { font-size: 0.8rem; color: var(--text2); font-weight: 400; }
+
+    /* ── Index tabs ── */
+    .idx-tabs {
+      display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .idx-tab {
+      padding: 8px 20px; border-radius: 8px; border: 1px solid var(--border);
+      font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      background: var(--bg3); color: var(--text2); transition: all 0.15s;
+    }
+    .idx-tab.active {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+
+    /* ── Stats cards ── */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 16px; text-align: center;
+    }
+    .stat-value {
+      font-size: 2.6rem; font-weight: 800; font-variant-numeric: tabular-nums;
+      line-height: 1.1; margin-bottom: 4px;
+    }
+    .stat-value.positive { color: var(--green); }
+    .stat-value.negative { color: var(--red); }
+    .stat-value.neutral { color: var(--text); }
+    .stat-label { font-size: 0.75rem; color: var(--text2); letter-spacing: 0.03em; }
+    .stat-sub { font-size: 0.7rem; color: var(--text3); margin-top: 2px; }
+
+    /* ── Chart containers ── */
+    .chart-wrap {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin-bottom: 16px;
+    }
+    .chart-title {
+      font-size: 0.9rem; font-weight: 700; color: var(--text);
+      margin-bottom: 12px;
+    }
+    canvas { max-width: 100%; }
+
+    /* ── Scenario cards ── */
+    .scenario-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+    .scenario-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .scenario-card:hover { border-color: var(--accent); }
+    .scenario-card-header { padding: 16px; }
+    .scenario-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .scenario-period { font-size: 0.75rem; color: var(--text2); margin-bottom: 10px; }
+    .scenario-changes {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .sc-chg {
+      display: flex; flex-direction: column; align-items: center;
+      background: var(--bg3); border-radius: 8px; padding: 8px 12px; min-width: 80px;
+    }
+    .sc-chg-label { font-size: 0.68rem; color: var(--text2); margin-bottom: 2px; }
+    .sc-chg-val {
+      font-size: 1.3rem; font-weight: 800; font-variant-numeric: tabular-nums;
+    }
+    .sc-chg-val.negative { color: var(--red); }
+    .sc-chg-val.positive { color: var(--green); }
+    .scenario-detail { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
+    .scenario-card.open .scenario-detail { display: block; }
+    .scenario-card.open .sc-expand-icon { transform: rotate(180deg); }
+    .sc-expand { display: flex; justify-content: center; padding: 8px; color: var(--text3); font-size: 0.8rem; }
+    .sc-expand-icon { display: inline-block; transition: transform 0.2s; }
+    .sc-detail-row { margin-top: 10px; }
+    .sc-detail-label { font-size: 0.72rem; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
+    .sc-detail-text { font-size: 0.85rem; color: var(--text); line-height: 1.6; }
+    .sc-recovery {
+      display: flex; gap: 12px; margin-top: 10px;
+    }
+    .sc-rec-item {
+      background: var(--bg3); border-radius: 8px; padding: 8px 12px;
+      font-size: 0.8rem; flex: 1; text-align: center;
+    }
+    .sc-rec-num { font-size: 1.2rem; font-weight: 700; color: var(--accent); display: block; }
+    .lessons-box {
+      background: var(--bg3); border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; padding: 10px 14px; margin-top: 12px;
+      font-size: 0.83rem; color: var(--text); line-height: 1.6;
+    }
+
+    /* ── Simulator ── */
+    .sim-grid { display: grid; grid-template-columns: 340px 1fr; gap: 20px; align-items: start; }
+    .sim-form {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px;
+    }
+    .sim-label { font-size: 0.8rem; font-weight: 700; color: var(--text2); margin-bottom: 6px; display: block; }
+    .sim-input {
+      width: 100%; padding: 9px 12px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg3);
+      color: var(--text); font-size: 0.92rem; font-family: inherit;
+      margin-bottom: 14px;
+    }
+    .sim-input:focus { outline: none; border-color: var(--accent); }
+    .sim-select { appearance: none; }
+    .sim-btn {
+      width: 100%; padding: 10px; border-radius: 8px; border: none;
+      background: var(--accent); color: #fff; font-size: 0.92rem;
+      font-weight: 700; cursor: pointer; margin-top: 4px; transition: opacity 0.15s;
+    }
+    .sim-btn:hover { opacity: 0.85; }
+    .sim-result-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+      margin-bottom: 16px;
+    }
+    .sim-rc {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px; text-align: center;
+    }
+    .sim-rc-val { font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .sim-rc-val.positive { color: var(--green); }
+    .sim-rc-val.negative { color: var(--red); }
+    .sim-rc-label { font-size: 0.72rem; color: var(--text2); margin-top: 2px; }
+    .sim-disclaimer {
+      font-size: 0.75rem; color: var(--text3); text-align: center; margin-top: 10px; line-height: 1.5;
+    }
+    .sim-chart-area {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px;
+    }
+    #sim-results { display: none; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 24px 20px;
+      text-align: center; color: var(--text2); font-size: 0.8rem; line-height: 1.8;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .sim-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-value { font-size: 2rem; }
+      .scenario-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="header-title">📊 長期パフォーマンス分析</div>
+      <nav class="header-nav">
+        <a class="btn" href="{{ base_url }}/index.html">← トップ</a>
+        <a class="btn" href="{{ base_url }}/glossary.html">📚 用語集</a>
+        <button class="btn-icon" id="theme-toggle" onclick="toggleTheme()" title="テーマ切替">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- 最終更新 -->
+    <p style="font-size:0.78rem;color:var(--text3);margin:12px 0 20px">
+      最終更新: {{ generated_at }} &nbsp;|&nbsp;
+      データソース: Yahoo Finance (yfinance)。過去実績は将来を保証しません。
+    </p>
+
+    <!-- 指数選択タブ -->
+    <div class="idx-tabs" id="idx-tabs">
+      <button class="idx-tab active" data-idx="n225" onclick="switchIdx(this,'n225')">📊 日経平均</button>
+      <button class="idx-tab" data-idx="sp500" onclick="switchIdx(this,'sp500')">🇺🇸 S&amp;P 500</button>
+      <button class="idx-tab" data-idx="compare" onclick="switchIdx(this,'compare')">⚖️ 比較</button>
+    </div>
+
+    <!-- ── 統計カード ── -->
+    <div class="section" id="stats-section">
+      <div class="section-title">📈 基本統計 <span class="section-sub" id="stats-symbol-label">日経平均 (過去30年)</span></div>
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value neutral" id="sc-avg-return">—</div>
+          <div class="stat-label">年率平均リターン</div>
+          <div class="stat-sub" id="sc-med-return">中央値 —</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value neutral" id="sc-vol">—</div>
+          <div class="stat-label">年率ボラティリティ</div>
+          <div class="stat-sub">標準偏差（年次）</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value neutral" id="sc-sharpe">—</div>
+          <div class="stat-label">シャープレシオ</div>
+          <div class="stat-sub">リスクフリー1%想定</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value neutral" id="sc-maxdd">—</div>
+          <div class="stat-label">最大ドローダウン</div>
+          <div class="stat-sub" id="sc-pos-years">プラス年 —</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 年次リターン棒グラフ ── -->
+    <div class="section">
+      <div class="section-title">📊 年次リターン <span class="section-sub">過去30年</span></div>
+      <div class="chart-wrap">
+        <canvas id="yearly-chart" height="260"></canvas>
+      </div>
+    </div>
+
+    <!-- ── 保有期間別リターン分布 ── -->
+    <div class="section">
+      <div class="section-title">🎲 保有期間別リターン分布 <span class="section-sub">過去データに基づく実績ベース</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="chart-wrap">
+          <div class="chart-title">10年保有時の年率リターン分布</div>
+          <canvas id="roll10-chart" height="200"></canvas>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-title">20年保有時の年率リターン分布</div>
+          <canvas id="roll20-chart" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 最大ドローダウンチャート ── -->
+    <div class="section">
+      <div class="section-title">📉 最大ドローダウン推移 <span class="section-sub">アンダーウォーター曲線</span></div>
+      <div class="chart-wrap">
+        <canvas id="dd-chart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- ── シナリオ別過去事例 ── -->
+    <div class="section">
+      <div class="section-title">📖 シナリオ別過去事例</div>
+      <div class="scenario-grid" id="scenario-grid"></div>
+    </div>
+
+    <!-- ── 積立シミュレーター ── -->
+    <div class="section">
+      <div class="section-title">💰 積立シミュレーター <span class="section-sub">ドルコスト平均法</span></div>
+      <div class="sim-grid">
+        <!-- フォーム -->
+        <div class="sim-form">
+          <label class="sim-label" for="sim-monthly">月額投資額（万円）</label>
+          <input type="number" id="sim-monthly" class="sim-input" value="3" min="1" max="100" step="1">
+
+          <label class="sim-label" for="sim-start">開始年</label>
+          <input type="number" id="sim-start" class="sim-input" value="2000" min="1995" max="2020" step="1">
+
+          <label class="sim-label" for="sim-years-span">積立期間（年）</label>
+          <input type="number" id="sim-years-span" class="sim-input" value="20" min="1" max="30" step="1">
+
+          <label class="sim-label" for="sim-index">対象指数</label>
+          <select id="sim-index" class="sim-input sim-select">
+            <option value="n225">日経平均</option>
+            <option value="sp500">S&amp;P 500</option>
+            <option value="both50">両方 50:50</option>
+          </select>
+
+          <button class="sim-btn" onclick="runSimulator()">▶ シミュレーション実行</button>
+        </div>
+
+        <!-- 結果 -->
+        <div class="sim-chart-area">
+          <div id="sim-placeholder" style="color:var(--text2);font-size:0.88rem;padding:40px 0;text-align:center">
+            条件を入力して「実行」ボタンを押してください。
+          </div>
+          <div id="sim-results">
+            <div class="sim-result-cards" id="sim-result-cards"></div>
+            <canvas id="sim-chart" height="220"></canvas>
+            <p class="sim-disclaimer">
+              ※ 過去のパフォーマンスは将来の結果を保証しません。<br>
+              このシミュレーションは過去の月次データを使用した参考値です。手数料・税金は考慮していません。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+
+  <footer>
+    <strong>免責事項</strong><br>
+    本ページの情報はAIによる自動生成および過去データの集計であり、投資推奨ではありません。<br>
+    <strong>過去のパフォーマンスは将来の結果を保証しません。</strong>投資判断はご自身の責任で行ってください。<br>
+    <a href="{{ base_url }}/index.html">← マーケットニューストップへ</a>
+  </footer>
+
+  <!-- Embedded data -->
+  <script type="application/json" id="long-term-json">{{ long_term_json | safe }}</script>
+  <script type="application/json" id="scenarios-json">{{ scenarios_json | safe }}</script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <script>
+    // ── Theme ──
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const btn = document.getElementById('theme-toggle');
+      if (saved) {
+        document.body.setAttribute('data-theme', saved);
+        if (btn) btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+      } else {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (btn) btn.textContent = isDark ? '☀️' : '🌙';
+      }
+    })();
+    function toggleTheme() {
+      const cur = document.body.getAttribute('data-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', next);
+      document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', next);
+    }
+
+    // ── Data load ──
+    let LONG_TERM = {}, SCENARIOS = [];
+    try {
+      LONG_TERM = JSON.parse(document.getElementById('long-term-json').textContent) || {};
+      SCENARIOS = (JSON.parse(document.getElementById('scenarios-json').textContent) || {}).scenarios || [];
+    } catch(e) { console.error('data parse error', e); }
+
+    const isDark = () =>
+      (document.body.getAttribute('data-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
+
+    function cssVar(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    // ── Chart instances ──
+    let yearlyChart = null, roll10Chart = null, roll20Chart = null, ddChart = null, simChart = null;
+
+    function destroyCharts() {
+      [yearlyChart, roll10Chart, roll20Chart, ddChart].forEach(c => { if (c) c.destroy(); });
+      yearlyChart = roll10Chart = roll20Chart = ddChart = null;
+    }
+
+    // ── Index switching ──
+    let currentIdx = 'n225';
+    window.switchIdx = function(btn, idx) {
+      document.querySelectorAll('.idx-tab').forEach(b => b.classList.toggle('active', b.dataset.idx === idx));
+      currentIdx = idx;
+      renderAll(idx);
+    };
+
+    function getIdxData(idx) {
+      if (idx === 'n225') return LONG_TERM.n225 || null;
+      if (idx === 'sp500') return LONG_TERM.sp500 || null;
+      return null; // 'compare' handled separately
+    }
+
+    function getIdxLabel(idx) {
+      if (idx === 'n225') return '日経平均';
+      if (idx === 'sp500') return 'S&P 500';
+      return '比較';
+    }
+
+    // ── Stats update ──
+    function updateStats(data) {
+      const s = data && data.stats ? data.stats : {};
+      function fmtStat(v, suffix='%') {
+        if (v == null) return '—';
+        const sign = v > 0 ? '+' : '';
+        return sign + Number(v).toFixed(1) + suffix;
+      }
+      function colorClass(v, invert=false) {
+        if (v == null) return 'neutral';
+        if (invert) return v > 0 ? 'negative' : 'positive';
+        return v > 0 ? 'positive' : v < 0 ? 'negative' : 'neutral';
+      }
+      const avgReturn = s.annual_return_avg;
+      const vol = s.volatility;
+      const sharpe = s.sharpe_ratio;
+      const maxdd = s.max_drawdown_all_time;
+      const posYears = s.positive_years_pct;
+      const medReturn = s.annual_return_median;
+
+      document.getElementById('sc-avg-return').textContent = fmtStat(avgReturn);
+      document.getElementById('sc-avg-return').className = 'stat-value ' + colorClass(avgReturn);
+      document.getElementById('sc-med-return').textContent = '中央値 ' + fmtStat(medReturn);
+
+      document.getElementById('sc-vol').textContent = (vol != null ? Number(vol).toFixed(1) + '%' : '—');
+      document.getElementById('sc-vol').className = 'stat-value neutral';
+
+      document.getElementById('sc-sharpe').textContent = (sharpe != null ? Number(sharpe).toFixed(2) : '—');
+      document.getElementById('sc-sharpe').className = 'stat-value ' + (sharpe != null ? (sharpe > 0 ? 'positive' : 'negative') : 'neutral');
+
+      document.getElementById('sc-maxdd').textContent = (maxdd != null ? Number(maxdd).toFixed(1) + '%' : '—');
+      document.getElementById('sc-maxdd').className = 'stat-value negative';
+      document.getElementById('sc-pos-years').textContent = 'プラス年 ' + (posYears != null ? posYears.toFixed(0) + '%' : '—');
+    }
+
+    // ── Yearly bar chart ──
+    function renderYearlyChart(data, compareData) {
+      if (yearlyChart) { yearlyChart.destroy(); yearlyChart = null; }
+      const ctx = document.getElementById('yearly-chart').getContext('2d');
+      let labels, datasetArr;
+
+      if (compareData && data) {
+        const allYears = [...new Set([...data.yearly.map(y => y.year), ...compareData.yearly.map(y => y.year)])].sort();
+        const mapN225 = Object.fromEntries(data.yearly.map(y => [y.year, y.return_pct]));
+        const mapSP   = Object.fromEntries(compareData.yearly.map(y => [y.year, y.return_pct]));
+        labels = allYears;
+        datasetArr = [
+          {
+            label: '日経平均',
+            data: allYears.map(y => mapN225[y] ?? null),
+            backgroundColor: allYears.map(y => (mapN225[y] ?? 0) >= 0 ? 'rgba(34,197,94,0.7)' : 'rgba(239,68,68,0.7)'),
+            borderRadius: 3,
+          },
+          {
+            label: 'S&P 500',
+            data: allYears.map(y => mapSP[y] ?? null),
+            backgroundColor: allYears.map(y => (mapSP[y] ?? 0) >= 0 ? 'rgba(88,166,255,0.7)' : 'rgba(239,68,68,0.4)'),
+            borderRadius: 3,
+          },
+        ];
+      } else if (data && data.yearly) {
+        labels = data.yearly.map(y => y.year);
+        const returns = data.yearly.map(y => y.return_pct);
+        datasetArr = [{
+          label: getIdxLabel(currentIdx) + ' 年次リターン(%)',
+          data: returns,
+          backgroundColor: returns.map(v => (v ?? 0) >= 0 ? 'rgba(34,197,94,0.75)' : 'rgba(239,68,68,0.75)'),
+          borderRadius: 3,
+        }];
+      } else return;
+
+      const textColor = isDark() ? '#8b949e' : '#656d76';
+      yearlyChart = new Chart(ctx, {
+        type: 'bar',
+        data: { labels, datasets: datasetArr },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: compareData != null, labels: { color: textColor } },
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  const v = ctx.parsed.y;
+                  return v != null ? `${ctx.dataset.label}: ${v >= 0 ? '+' : ''}${v.toFixed(1)}%` : '—';
+                }
+              }
+            }
+          },
+          scales: {
+            x: { ticks: { color: textColor, maxRotation: 45, font: { size: 10 } }, grid: { color: 'transparent' } },
+            y: {
+              ticks: { color: textColor, callback: v => v + '%' },
+              grid: { color: isDark() ? '#21262d' : '#e5e7eb' },
+              border: { dash: [2, 4] },
+            }
+          }
+        }
+      });
+    }
+
+    // ── Rolling return histogram ──
+    function renderRollingChart(canvasId, values, label) {
+      const oldChart = canvasId === 'roll10-chart' ? roll10Chart : roll20Chart;
+      if (oldChart) oldChart.destroy();
+
+      if (!values || values.length === 0) return;
+      const ctx = document.getElementById(canvasId).getContext('2d');
+
+      // ヒストグラム作成（2%区切り）
+      const min = Math.floor(Math.min(...values) / 2) * 2;
+      const max = Math.ceil(Math.max(...values) / 2) * 2;
+      const bins = [];
+      for (let b = min; b < max; b += 2) {
+        bins.push({ min: b, max: b + 2, count: 0 });
+      }
+      values.forEach(v => {
+        const idx = Math.floor((v - min) / 2);
+        if (idx >= 0 && idx < bins.length) bins[idx].count++;
+      });
+
+      const textColor = isDark() ? '#8b949e' : '#656d76';
+      const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: bins.map(b => `${b.min}%`),
+          datasets: [{
+            label,
+            data: bins.map(b => b.count),
+            backgroundColor: bins.map(b => b.min >= 0 ? 'rgba(34,197,94,0.75)' : 'rgba(239,68,68,0.75)'),
+            borderRadius: 2,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: ctx => `${ctx[0].label}〜${Number(ctx[0].label.replace('%','')) + 2}%`,
+                label: ctx => `${ctx.parsed.y}件 / 全${values.length}件`
+              }
+            }
+          },
+          scales: {
+            x: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: 'transparent' } },
+            y: { ticks: { color: textColor }, grid: { color: isDark() ? '#21262d' : '#e5e7eb' } }
+          }
+        }
+      });
+
+      if (canvasId === 'roll10-chart') roll10Chart = chart;
+      else roll20Chart = chart;
+    }
+
+    // ── Drawdown chart ──
+    function renderDdChart(data, compareData) {
+      if (ddChart) { ddChart.destroy(); ddChart = null; }
+      const ctx = document.getElementById('dd-chart').getContext('2d');
+      const textColor = isDark() ? '#8b949e' : '#656d76';
+
+      let datasets;
+      let labels;
+
+      if (compareData && data) {
+        const allDates = [...new Set([...data.drawdown_curve.map(d => d.date), ...compareData.drawdown_curve.map(d => d.date)])].sort();
+        const mapN = Object.fromEntries(data.drawdown_curve.map(d => [d.date, d.drawdown]));
+        const mapS = Object.fromEntries(compareData.drawdown_curve.map(d => [d.date, d.drawdown]));
+        labels = allDates;
+        datasets = [
+          {
+            label: '日経平均 DD',
+            data: allDates.map(d => mapN[d] ?? null),
+            borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.1)',
+            fill: true, pointRadius: 0, tension: 0.2, borderWidth: 1.5,
+          },
+          {
+            label: 'S&P 500 DD',
+            data: allDates.map(d => mapS[d] ?? null),
+            borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,0.1)',
+            fill: true, pointRadius: 0, tension: 0.2, borderWidth: 1.5,
+          }
+        ];
+      } else if (data) {
+        labels = data.drawdown_curve.map(d => d.date);
+        datasets = [{
+          label: 'ドローダウン(%)',
+          data: data.drawdown_curve.map(d => d.drawdown),
+          borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.15)',
+          fill: true, pointRadius: 0, tension: 0.2, borderWidth: 1.5,
+        }];
+      } else return;
+
+      ddChart = new Chart(ctx, {
+        type: 'line',
+        data: { labels, datasets },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: compareData != null, labels: { color: textColor } },
+            tooltip: { callbacks: { label: ctx => `DD: ${ctx.parsed.y.toFixed(1)}%` } }
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: textColor, font: { size: 9 }, maxTicksLimit: 12,
+                callback: (val, i) => labels[i] && labels[i].endsWith('-01') ? labels[i].slice(0,4) : ''
+              },
+              grid: { color: 'transparent' }
+            },
+            y: {
+              ticks: { color: textColor, callback: v => v + '%' },
+              grid: { color: isDark() ? '#21262d' : '#e5e7eb' },
+            }
+          }
+        }
+      });
+    }
+
+    // ── Render all charts for selected index ──
+    function renderAll(idx) {
+      destroyCharts();
+      const labelMap = { n225: '日経平均', sp500: 'S&P 500', compare: '日経 vs S&P 500' };
+      document.getElementById('stats-symbol-label').textContent = labelMap[idx] + ' (過去30年)';
+
+      if (idx === 'compare') {
+        const n225 = LONG_TERM.n225;
+        const sp500 = LONG_TERM.sp500;
+        // Stats: show n225 by default in compare mode
+        updateStats(n225);
+        renderYearlyChart(n225, sp500);
+        // Rolling: show n225
+        if (n225) {
+          renderRollingChart('roll10-chart', n225.rolling_returns && n225.rolling_returns['10y'], '日経 10年保有 年率リターン件数');
+          renderRollingChart('roll20-chart', n225.rolling_returns && n225.rolling_returns['20y'], '日経 20年保有 年率リターン件数');
+        }
+        renderDdChart(n225, sp500);
+      } else {
+        const data = getIdxData(idx);
+        if (!data) {
+          document.getElementById('stats-grid').innerHTML = '<p style="color:var(--text2)">データがありません。</p>';
+          return;
+        }
+        updateStats(data);
+        renderYearlyChart(data, null);
+        const rr = data.rolling_returns || {};
+        renderRollingChart('roll10-chart', rr['10y'] || [], '10年保有 年率リターン件数');
+        renderRollingChart('roll20-chart', rr['20y'] || [], '20年保有 年率リターン件数');
+        renderDdChart(data, null);
+      }
+    }
+
+    // ── Scenarios ──
+    function renderScenarios() {
+      const grid = document.getElementById('scenario-grid');
+      if (!SCENARIOS.length) {
+        grid.innerHTML = '<p style="color:var(--text2)">シナリオデータがありません。</p>';
+        return;
+      }
+      grid.innerHTML = SCENARIOS.map(sc => {
+        const n225Cls = (sc.n225_change_pct || 0) >= 0 ? 'positive' : 'negative';
+        const sp500Cls = (sc.sp500_change_pct || 0) >= 0 ? 'positive' : 'negative';
+        const n225Sign = (sc.n225_change_pct || 0) >= 0 ? '+' : '';
+        const sp500Sign = (sc.sp500_change_pct || 0) >= 0 ? '+' : '';
+        const recN225 = sc.recovery_months && sc.recovery_months.n225;
+        const recSP   = sc.recovery_months && sc.recovery_months.sp500;
+        return `
+        <div class="scenario-card" id="sc-${sc.id}">
+          <div class="scenario-card-header">
+            <div class="scenario-name">${sc.name}</div>
+            <div class="scenario-period">${sc.period} (${sc.duration_days}日間)</div>
+            <div class="scenario-changes">
+              ${sc.n225_change_pct != null ? `
+              <div class="sc-chg">
+                <div class="sc-chg-label">日経平均</div>
+                <div class="sc-chg-val ${n225Cls}">${n225Sign}${sc.n225_change_pct}%</div>
+              </div>` : ''}
+              ${sc.sp500_change_pct != null ? `
+              <div class="sc-chg">
+                <div class="sc-chg-label">S&amp;P 500</div>
+                <div class="sc-chg-val ${sp500Cls}">${sp500Sign}${sc.sp500_change_pct}%</div>
+              </div>` : ''}
+            </div>
+          </div>
+          <div class="sc-expand" onclick="toggleScenario('${sc.id}')">
+            <span class="sc-expand-icon">▼</span>
+            <span style="margin-left:4px">詳細を見る</span>
+          </div>
+          <div class="scenario-detail">
+            <div class="sc-detail-row">
+              <div class="sc-detail-label">概要</div>
+              <div class="sc-detail-text">${sc.description || ''}</div>
+            </div>
+            <div class="sc-detail-row">
+              <div class="sc-detail-label">トリガー</div>
+              <div class="sc-detail-text">${sc.trigger || ''}</div>
+            </div>
+            ${(recN225 || recSP) ? `
+            <div class="sc-detail-row">
+              <div class="sc-detail-label">回復期間（高値更新まで）</div>
+              <div class="sc-recovery">
+                ${recN225 ? `<div class="sc-rec-item"><span class="sc-rec-num">${recN225}ヶ月</span>日経平均</div>` : ''}
+                ${recSP ? `<div class="sc-rec-item"><span class="sc-rec-num">${recSP}ヶ月</span>S&amp;P 500</div>` : ''}
+              </div>
+            </div>` : ''}
+            <div class="lessons-box">
+              💡 <strong>教訓</strong><br>${sc.lessons || ''}
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    window.toggleScenario = function(id) {
+      const card = document.getElementById('sc-' + id);
+      if (!card) return;
+      card.classList.toggle('open');
+    };
+
+    // ── Accumulation Simulator ──
+    window.runSimulator = function() {
+      const monthlyMan = parseFloat(document.getElementById('sim-monthly').value) || 3;
+      const startYear  = parseInt(document.getElementById('sim-start').value) || 2000;
+      const yearsSpan  = parseInt(document.getElementById('sim-years-span').value) || 20;
+      const idxKey     = document.getElementById('sim-index').value;
+
+      const monthlyAmount = monthlyMan * 10000; // 円換算
+
+      // データ取得
+      function getMonthlyPrices(key) {
+        const d = LONG_TERM[key];
+        if (!d || !d.monthly) return {};
+        const map = {};
+        d.monthly.forEach(m => { map[m.date] = m.close; });
+        return map;
+      }
+
+      const pricesN = getMonthlyPrices('n225');
+      const pricesSP = getMonthlyPrices('sp500');
+
+      // 期間を構築
+      const endYear = startYear + yearsSpan - 1;
+      const months = [];
+      for (let y = startYear; y <= endYear; y++) {
+        for (let m = 1; m <= 12; m++) {
+          months.push(`${y}-${String(m).padStart(2,'0')}`);
+        }
+      }
+
+      // ドルコスト平均法シミュレーション
+      function simulate(priceMap, allocRatio) {
+        let units = 0;
+        const result = [];
+        let totalInvested = 0;
+        let minValue = Infinity;
+        let maxDrawdownPct = 0;
+
+        months.forEach(date => {
+          const price = priceMap[date];
+          if (price == null) return;
+          const amount = monthlyAmount * allocRatio;
+          units += amount / price;
+          totalInvested += amount;
+          const value = units * price;
+          if (value < minValue && totalInvested > 0) {
+            const dd = (value - totalInvested) / totalInvested * 100;
+            if (dd < maxDrawdownPct) maxDrawdownPct = dd;
+          }
+          result.push({ date, value: Math.round(value), invested: Math.round(totalInvested) });
+        });
+        return result;
+      }
+
+      let simData = [];
+      let totalInvested = 0;
+
+      if (idxKey === 'both50') {
+        const rN = simulate(pricesN, 0.5);
+        const rS = simulate(pricesSP, 0.5);
+        // マージ（共通日付）
+        const mapN = Object.fromEntries(rN.map(r => [r.date, r]));
+        const mapS = Object.fromEntries(rS.map(r => [r.date, r]));
+        const allDates = [...new Set([...rN.map(r => r.date), ...rS.map(r => r.date)])].sort();
+        allDates.forEach(date => {
+          const n = mapN[date]; const s = mapS[date];
+          const val = (n ? n.value : 0) + (s ? s.value : 0);
+          const inv = (n ? n.invested : 0) + (s ? s.invested : 0);
+          if (val > 0) simData.push({ date, value: val, invested: inv });
+        });
+      } else {
+        const pKey = idxKey === 'n225' ? 'n225' : 'sp500';
+        simData = simulate(pricesN && idxKey === 'n225' ? pricesN : pricesSP, 1.0);
+      }
+
+      if (simData.length === 0) {
+        alert('指定した期間のデータがありません。開始年を変更してください。');
+        return;
+      }
+
+      const lastRow = simData[simData.length - 1];
+      const finalValue = lastRow.value;
+      const totalInv = lastRow.invested;
+      const profit = finalValue - totalInv;
+      const profitPct = totalInv > 0 ? (profit / totalInv * 100) : 0;
+
+      // 結果カード
+      const rcDiv = document.getElementById('sim-result-cards');
+      function fmtJPY(v) {
+        if (v >= 1e8) return (v / 1e8).toFixed(1) + '億円';
+        return (v / 1e4).toFixed(0) + '万円';
+      }
+      rcDiv.innerHTML = `
+        <div class="sim-rc">
+          <div class="sim-rc-val neutral">${fmtJPY(totalInv)}</div>
+          <div class="sim-rc-label">投資元本合計</div>
+        </div>
+        <div class="sim-rc">
+          <div class="sim-rc-val ${finalValue >= totalInv ? 'positive' : 'negative'}">${fmtJPY(finalValue)}</div>
+          <div class="sim-rc-label">最終評価額</div>
+        </div>
+        <div class="sim-rc">
+          <div class="sim-rc-val ${profitPct >= 0 ? 'positive' : 'negative'}">${profitPct >= 0 ? '+' : ''}${profitPct.toFixed(1)}%</div>
+          <div class="sim-rc-label">トータルリターン</div>
+        </div>
+      `;
+
+      // チャート
+      if (simChart) { simChart.destroy(); simChart = null; }
+      const ctx = document.getElementById('sim-chart').getContext('2d');
+      const textColor = isDark() ? '#8b949e' : '#656d76';
+      const labels = simData.map(r => r.date);
+      simChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: '評価額',
+              data: simData.map(r => r.value),
+              borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.1)',
+              fill: false, pointRadius: 0, tension: 0.2, borderWidth: 2,
+            },
+            {
+              label: '投資元本',
+              data: simData.map(r => r.invested),
+              borderColor: '#58a6ff', backgroundColor: 'transparent',
+              fill: false, pointRadius: 0, tension: 0, borderWidth: 1.5,
+              borderDash: [4, 4],
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor } },
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  const v = ctx.parsed.y;
+                  return `${ctx.dataset.label}: ${v >= 1e8 ? (v/1e8).toFixed(2)+'億' : (v/1e4).toFixed(0)+'万'}円`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: textColor, maxTicksLimit: 10, font: { size: 9 },
+                callback: (val, i) => labels[i] && labels[i].endsWith('-01') ? labels[i].slice(0,4) : ''
+              },
+              grid: { color: 'transparent' }
+            },
+            y: {
+              ticks: {
+                color: textColor,
+                callback: v => v >= 1e8 ? (v/1e8).toFixed(0)+'億' : (v/1e4).toFixed(0)+'万'
+              },
+              grid: { color: isDark() ? '#21262d' : '#e5e7eb' }
+            }
+          }
+        }
+      });
+
+      document.getElementById('sim-placeholder').style.display = 'none';
+      document.getElementById('sim-results').style.display = 'block';
+    };
+
+    // ── Init ──
+    document.addEventListener('DOMContentLoaded', function() {
+      renderScenarios();
+      renderAll('n225');
+    });
+    if (document.readyState !== 'loading') {
+      renderScenarios();
+      renderAll('n225');
+    }
+  </script>
+</body>
+</html>

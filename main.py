@@ -3,6 +3,7 @@ main.py
 collect → summarize → build_site の一括実行エントリポイント。
 """
 
+import json
 import logging
 import sys
 from collector import collect
@@ -45,6 +46,16 @@ def main():
                 print(f"  日経平均: {nikkei.get('current')}")
         else:
             print("  [WARN] 日経平均データの取得に失敗しました。マーケットセクションをスキップします。")
+        # S&P 500
+        sp500 = fetch_index_data("^GSPC", period="1y")
+        if sp500:
+            market_data["sp500"] = sp500
+            if sp500.get('change_percent') is not None:
+                print(f"  S&P 500:  {sp500.get('current')} ({sp500.get('change_percent'):+.2f}%)")
+            else:
+                print(f"  S&P 500:  {sp500.get('current')}")
+        else:
+            print("  [WARN] S&P 500データの取得に失敗しました。スキップします。")
     except Exception as e:
         print(f"  [WARN] マーケットデータ取得エラー: {e} → マーケットセクションをスキップします。")
 
@@ -81,8 +92,35 @@ def main():
     except Exception as e:
         print(f"  [WARN] アーカイブ更新エラー: {e}")
 
-    # 5. サイト生成
-    build(summarized, daily_theme=daily_theme, market_data=market_data, insight=insight)
+    # 5. 長期データ取得 (失敗しても継続)
+    long_term: dict = {}
+    try:
+        from long_term_data import fetch_long_term_data
+        print("\n--- 長期データ取得 ---")
+        long_term["n225"] = fetch_long_term_data("^N225", years=30)
+        long_term["sp500"] = fetch_long_term_data("^GSPC", years=30)
+    except Exception as e:
+        print(f"  [WARN] 長期データ取得エラー: {e} → 分析ページをスキップします。")
+
+    # 5b. シナリオデータ読み込み
+    scenarios: dict = {"scenarios": []}
+    try:
+        from pathlib import Path
+        scenarios_path = Path(__file__).parent / "data" / "historical_scenarios.json"
+        if scenarios_path.exists():
+            scenarios = json.loads(scenarios_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"  [WARN] シナリオデータ読み込みエラー: {e}")
+
+    # 6. サイト生成
+    build(
+        summarized,
+        daily_theme=daily_theme,
+        market_data=market_data,
+        insight=insight,
+        long_term=long_term,
+        scenarios=scenarios,
+    )
 
     print("=" * 50)
     print("  完了! docs/ を GitHub Pages で公開してください。")

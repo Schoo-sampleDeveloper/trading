@@ -750,6 +750,19 @@
     .market-sub-item { white-space: nowrap; }
     .market-sub-label { color: var(--text3); }
 
+    /* Index selector tabs */
+    .index-selector {
+      display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .idx-sel-btn {
+      padding: 7px 18px; border-radius: 8px; border: 1px solid var(--border);
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      background: var(--bg3); color: var(--text2); transition: all 0.15s;
+    }
+    .idx-sel-btn.active {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+
     /* Period tabs */
     .chart-period-tabs {
       display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap;
@@ -1089,10 +1102,23 @@
       <div class="header-actions">
         <a class="btn btn-primary" href="{{ base_url }}/feed.xml">📡 RSS</a>
         <a class="btn btn-secondary" href="{{ base_url }}/glossary.html">📚 用語集</a>
+        <a class="btn btn-secondary" href="{{ base_url }}/analysis.html">📊 長期分析</a>
         <a class="btn btn-secondary" href="{{ base_url }}/preferences-history.html">🕓 設定履歴</a>
         <button class="btn btn-bookmark" id="bookmark-tab-btn" onclick="toggleBookmarkPanel()">🔖 ブックマーク <span id="bookmark-count"></span></button>
       </div>
     </header>
+
+    <!-- Index selector (日経 / S&P500) -->
+    {% if market_data.nikkei or market_data.sp500 %}
+    <div class="index-selector" id="index-selector">
+      {% if market_data.nikkei %}
+      <button class="idx-sel-btn active" data-idx="nikkei" onclick="switchHeroIndex(this,'nikkei')">📊 日経平均</button>
+      {% endif %}
+      {% if market_data.sp500 %}
+      <button class="idx-sel-btn{% if not market_data.nikkei %} active{% endif %}" data-idx="sp500" onclick="switchHeroIndex(this,'sp500')">🇺🇸 S&amp;P 500</button>
+      {% endif %}
+    </div>
+    {% endif %}
 
     <!-- Market Hero (日経平均チャート) -->
     {% if market_data.nikkei %}
@@ -1131,10 +1157,10 @@
         <!-- Left: Period tabs + Chart + 52-week range -->
         <div class="market-hero-left">
           <div class="chart-period-tabs">
-            <button class="chart-period-btn" data-days="30" onclick="setChartPeriod(this, 30)">1M</button>
+            <button class="chart-period-btn active" data-days="30" onclick="setChartPeriod(this, 30)">1M</button>
             <button class="chart-period-btn" data-days="90" onclick="setChartPeriod(this, 90)">3M</button>
             <button class="chart-period-btn" data-days="180" onclick="setChartPeriod(this, 180)">6M</button>
-            <button class="chart-period-btn active" data-days="365" onclick="setChartPeriod(this, 365)">1Y</button>
+            <button class="chart-period-btn" data-days="365" onclick="setChartPeriod(this, 365)">1Y</button>
           </div>
 
           <div class="chart-container" id="nikkei-chart"></div>
@@ -1222,6 +1248,77 @@
           </div><!-- /insight-panel -->
         </div><!-- /market-hero-right -->
 
+      </div><!-- /market-hero-body -->
+    </div>
+    {% endif %}
+
+    <!-- Market Hero (S&P 500チャート) -->
+    {% if market_data.sp500 %}
+    {% set sp = market_data.sp500 %}
+    {% set sp_up = sp.change is not none and sp.change > 0 %}
+    {% set sp_down = sp.change is not none and sp.change < 0 %}
+    <div class="market-hero" id="market-sp500" style="display:none">
+      <div class="market-hero-header">
+        <div class="market-hero-title">🇺🇸 {{ sp.name }}</div>
+        {% if sp.updated_at %}
+        <div class="market-hero-updated">最終更新 {{ sp.updated_at[:16] | replace('T', ' ') }} JST</div>
+        {% endif %}
+      </div>
+
+      <div class="market-price-row">
+        <div class="market-current">
+          {% if sp.current %}{{ "{:,.2f}".format(sp.current) }}{% else %}—{% endif %}
+        </div>
+        <div class="market-change {% if sp_up %}up{% elif sp_down %}down{% else %}flat{% endif %}">
+          {% if sp_up %}▲{% elif sp_down %}▼{% else %}—{% endif %}
+          {% if sp.change is not none %}{{ "{:,.2f}".format(sp.change | abs) }}{% endif %}
+          {% if sp.change_percent is not none %}({{ "{:+.2f}".format(sp.change_percent) }}%){% endif %}
+        </div>
+      </div>
+
+      <div class="market-sub-row">
+        {% if sp.previous_close %}<span class="market-sub-item"><span class="market-sub-label">前日終値 </span>{{ "{:,.2f}".format(sp.previous_close) }}</span>{% endif %}
+        {% if sp.open %}<span class="market-sub-item"><span class="market-sub-label">始値 </span>{{ "{:,.2f}".format(sp.open) }}</span>{% endif %}
+        {% if sp.day_high %}<span class="market-sub-item"><span class="market-sub-label">高値 </span>{{ "{:,.2f}".format(sp.day_high) }}</span>{% endif %}
+        {% if sp.day_low %}<span class="market-sub-item"><span class="market-sub-label">安値 </span>{{ "{:,.2f}".format(sp.day_low) }}</span>{% endif %}
+      </div>
+
+      <div class="market-hero-body">
+        <div class="market-hero-left">
+          <div class="chart-period-tabs" id="sp500-period-tabs">
+            <button class="chart-period-btn active" data-days="30" onclick="setSP500Period(this,30)">1M</button>
+            <button class="chart-period-btn" data-days="90" onclick="setSP500Period(this,90)">3M</button>
+            <button class="chart-period-btn" data-days="180" onclick="setSP500Period(this,180)">6M</button>
+            <button class="chart-period-btn" data-days="365" onclick="setSP500Period(this,365)">1Y</button>
+          </div>
+          <div class="chart-container" id="sp500-chart"></div>
+          <div class="market-range-row">
+            {% if sp.year_high %}
+            <span class="market-range-item">
+              <span class="market-range-label">年初来高値 </span>
+              <span class="market-range-val up">{{ "{:,.2f}".format(sp.year_high) }}</span>
+              {% if sp.year_high_date %}<span style="color:var(--text3)"> ({{ sp.year_high_date }})</span>{% endif %}
+            </span>
+            {% endif %}
+            {% if sp.year_low %}
+            <span class="market-range-item">
+              <span class="market-range-label">年初来安値 </span>
+              <span class="market-range-val down">{{ "{:,.2f}".format(sp.year_low) }}</span>
+              {% if sp.year_low_date %}<span style="color:var(--text3)"> ({{ sp.year_low_date }})</span>{% endif %}
+            </span>
+            {% endif %}
+          </div>
+        </div><!-- /market-hero-left -->
+        <div class="market-hero-right">
+          <div class="insight-panel">
+            <div class="insight-empty" style="font-size:0.85rem;color:var(--text2);padding:20px 0">
+              🌐 S&amp;P 500<br>
+              <span style="font-size:0.72rem;margin-top:6px;display:block;color:var(--text3)">
+                米国株式市場の代表指数。500社の大型株で構成。
+              </span>
+            </div>
+          </div>
+        </div>
       </div><!-- /market-hero-body -->
     </div>
     {% endif %}
@@ -1407,6 +1504,7 @@
       <p style="margin-top:6px">
         <a href="{{ base_url }}/feed.xml">📡 feed.xml</a> &nbsp;|&nbsp;
         <a href="{{ base_url }}/glossary.html">📚 用語集</a> &nbsp;|&nbsp;
+        <a href="{{ base_url }}/analysis.html">📊 長期分析</a> &nbsp;|&nbsp;
         <a href="{{ base_url }}/preferences-history.html">🕓 設定履歴</a>
       </p>
     </footer>
@@ -1489,7 +1587,7 @@
 
       let _chart = null, _candleSeries = null, _volSeries = null;
       let _ma5Series = null, _ma25Series = null, _ma75Series = null;
-      let _currentDays = 365;
+      let _currentDays = 30;
 
       // ── News markers (loaded from embedded JSON) ──
       let _newsMarkers = [];
@@ -1708,6 +1806,108 @@
         renderHistory(30);
       }
     })();
+  </script>
+
+  <!-- S&P500 Chart -->
+  <script>
+    (function() {
+      const raw = document.getElementById('market-data-json');
+      if (!raw) return;
+      let MARKET;
+      try { MARKET = JSON.parse(raw.textContent); } catch(e) { return; }
+      const sp = MARKET.sp500;
+      if (!sp || !sp.ohlc || !sp.ohlc.length) return;
+
+      function cutoffDate(days) {
+        if (!days) return null;
+        const d = new Date();
+        d.setDate(d.getDate() - days);
+        return d.toISOString().slice(0, 10);
+      }
+      const isDark = () =>
+        (document.body.getAttribute('data-theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
+      function spColors() {
+        return isDark()
+          ? { bg: 'transparent', text: '#8b949e', grid: '#30363d', border: '#30363d', up: '#22c55e', down: '#ef4444' }
+          : { bg: '#ffffff', text: '#656d76', grid: '#e5e7eb', border: '#d0d7de', up: '#16a34a', down: '#dc2626' };
+      }
+
+      let _spChart = null, _spCandle = null, _spVol = null;
+      let _spDays = 30;
+
+      function initSP500Chart() {
+        const container = document.getElementById('sp500-chart');
+        if (!container || typeof LightweightCharts === 'undefined') return;
+        const c = spColors();
+        _spChart = LightweightCharts.createChart(container, {
+          layout: { background: { type: 'solid', color: c.bg }, textColor: c.text },
+          grid: { vertLines: { color: c.grid }, horzLines: { color: c.grid } },
+          crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+          rightPriceScale: { borderColor: c.border },
+          timeScale: { borderColor: c.border, timeVisible: true },
+          handleScroll: true, handleScale: true,
+        });
+        _spVol = _spChart.addHistogramSeries({
+          color: 'rgba(100,149,237,0.4)', priceFormat: { type: 'volume' },
+          priceScaleId: 'volume', scaleMargins: { top: 0.8, bottom: 0 },
+        });
+        _spCandle = _spChart.addCandlestickSeries({
+          upColor: c.up, downColor: c.down,
+          borderUpColor: c.up, borderDownColor: c.down,
+          wickUpColor: c.up, wickDownColor: c.down,
+          priceScaleId: 'right', scaleMargins: { top: 0.05, bottom: 0.25 },
+        });
+        renderSP500Data(_spDays);
+        const ro = new ResizeObserver(() => {
+          if (_spChart) _spChart.applyOptions({ width: container.clientWidth });
+        });
+        ro.observe(container);
+      }
+
+      function renderSP500Data(days) {
+        if (!_spChart) return;
+        const cutoff = cutoffDate(days);
+        const filtered = cutoff ? sp.ohlc.filter(r => r.date >= cutoff) : sp.ohlc;
+        _spCandle.setData(filtered.map(r => ({
+          time: r.date, open: r.open, high: r.high, low: r.low, close: r.close,
+        })));
+        _spVol.setData(filtered.map(r => ({
+          time: r.date, value: r.volume || 0,
+          color: (r.close >= r.open) ? 'rgba(34,197,94,0.4)' : 'rgba(239,68,68,0.4)',
+        })));
+        if (filtered.length > 0) _spChart.timeScale().fitContent();
+      }
+
+      window.setSP500Period = function(btn, days) {
+        document.querySelectorAll('#sp500-period-tabs .chart-period-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        _spDays = days;
+        renderSP500Data(days);
+      };
+
+      // Initialize when S&P500 hero becomes visible
+      window._initSP500Chart = initSP500Chart;
+    })();
+  </script>
+
+  <!-- Index hero switcher -->
+  <script>
+    window.switchHeroIndex = function(btn, idx) {
+      document.querySelectorAll('.idx-sel-btn').forEach(b => b.classList.toggle('active', b.dataset.idx === idx));
+      const nikkeiEl = document.getElementById('market-nikkei');
+      const sp500El  = document.getElementById('market-sp500');
+      if (idx === 'nikkei') {
+        if (nikkeiEl) nikkeiEl.style.display = '';
+        if (sp500El)  sp500El.style.display  = 'none';
+      } else {
+        if (nikkeiEl) nikkeiEl.style.display = 'none';
+        if (sp500El) {
+          sp500El.style.display = '';
+          if (window._initSP500Chart) { window._initSP500Chart(); window._initSP500Chart = null; }
+        }
+      }
+    };
   </script>
 
   <script>
