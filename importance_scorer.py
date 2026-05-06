@@ -54,12 +54,15 @@ def _build_transparency_text(
         parts.append("一般ニュース")
 
     # AI評価パート
-    ai_score    = ai.get("score", 0)
-    ai_signal   = ai.get("key_signal", "")
-    ai_part = f"AI評価{ai_score}/10"
-    if ai_signal:
-        short_signal = ai_signal[:30] + ("…" if len(ai_signal) > 30 else "")
-        ai_part += f"「{short_signal}」"
+    ai_score  = ai.get("score")
+    ai_signal = ai.get("key_signal", "")
+    if ai_score is None or not ai.get("available", True):
+        ai_part = "AI評価未実施"
+    else:
+        ai_part = f"AI評価{ai_score}/10"
+        if ai_signal:
+            short_signal = ai_signal[:30] + ("…" if len(ai_signal) > 30 else "")
+            ai_part += f"「{short_signal}」"
     parts.append(ai_part)
 
     return f"★{stars}の根拠: " + " / ".join(parts)
@@ -114,20 +117,37 @@ def calculate_final_importance(
 
     # ── AI判断 ──────────────────────────────────
     if ai_importance is None:
-        ai_importance = article.get("ai_importance") or {
-            "score":      5,
-            "rationale":  "",
+        ai_importance = article.get("ai_importance") or {}
+
+    ai_score_raw = ai_importance.get("score")
+    ai_available = ai_score_raw is not None
+
+    if not ai_available:
+        # AI評価失敗(429等) → ai_importanceを未実施扱いに
+        ai_importance = {
+            "score":      None,
+            "rationale":  "AI評価未実施",
             "key_signal": "",
-            "uncertainty": "medium",
+            "uncertainty": "high",
+            "available":   False,
         }
-    ai_score = float(ai_importance.get("score", 5))
 
     # ── 重み付け統合 ─────────────────────────────
-    if data_quality == "unavailable":
+    if not ai_available:
+        # AI評価なし
+        if data_quality == "unavailable":
+            # 構造のみで判定
+            final_score = structural_score
+        else:
+            # 市場 60% + 構造 40%
+            final_score = reaction_score * 0.6 + structural_score * 0.4
+    elif data_quality == "unavailable":
         # 市場データなし → 構造 60% + AI 40%
+        ai_score = float(ai_score_raw)
         final_score = structural_score * 0.6 + ai_score * 0.4
     elif data_quality == "limited":
         # 精度が低い市場データ → 構造 40% + 市場 30% + AI 30%
+        ai_score = float(ai_score_raw)
         final_score = (
             reaction_score  * 0.30 +
             structural_score * 0.40 +
@@ -135,6 +155,7 @@ def calculate_final_importance(
         )
     else:
         # 良質な市場データあり → 市場 50% + 構造 30% + AI 20%
+        ai_score = float(ai_score_raw)
         final_score = (
             reaction_score  * 0.50 +
             structural_score * 0.30 +

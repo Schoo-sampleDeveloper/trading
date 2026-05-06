@@ -14,13 +14,22 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MODEL = "llama-3.3-70b-versatile"
+MODEL = "llama-3.1-8b-instant"
 TOP_FEATURED = 7
 DATA_DIR = Path(__file__).parent / "data"
 
 # レート制限対策: 記事間の待機秒数
 RATE_LIMIT_DELAY = 1.2
 RETRY_DELAYS = [2, 5, 15]  # 指数バックオフ(秒)
+
+# グローバルAPIカウンター (main.py から参照)
+_api_call_count = 0
+_total_tokens = 0
+
+
+def get_api_stats() -> dict:
+    """API使用統計を返す。"""
+    return {"call_count": _api_call_count, "total_tokens": _total_tokens}
 
 SYSTEM_PROMPT = """あなたは機関投資家向けのニュースアナリスト兼、個人投資家向け市況解説者です。
 読み手は投資歴1〜5年の中級者で、基本的な金融知識はあります。
@@ -145,6 +154,7 @@ IMPACT_LABEL = {
 
 def _call_groq(client: Groq, title: str, summary: str) -> dict:
     """Groq APIを呼び出してJSONを返す。失敗時は指数バックオフでリトライ。"""
+    global _api_call_count, _total_tokens
     user_msg = f"タイトル: {title}\n内容: {summary}"
 
     for attempt, system in enumerate([SYSTEM_PROMPT, SYSTEM_PROMPT, SHORT_SYSTEM_PROMPT]):
@@ -164,6 +174,9 @@ def _call_groq(client: Groq, title: str, summary: str) -> dict:
                 max_tokens=2000,
                 response_format={"type": "json_object"},
             )
+            _api_call_count += 1
+            if hasattr(resp, "usage") and resp.usage:
+                _total_tokens += resp.usage.total_tokens or 0
             data = json.loads(resp.choices[0].message.content)
             return _normalize(data, title, summary)
         except Exception as e:
@@ -311,6 +324,7 @@ JSONではなく、日本語の平文テキストで出力してください。
 意識すべき3点を箇条書き(・)で簡潔に記述してください(各15字程度)。"""
 
     try:
+        global _api_call_count, _total_tokens
         resp = client.chat.completions.create(
             model=MODEL,
             messages=[
@@ -320,6 +334,9 @@ JSONではなく、日本語の平文テキストで出力してください。
             temperature=0.4,
             max_tokens=512,
         )
+        _api_call_count += 1
+        if hasattr(resp, "usage") and resp.usage:
+            _total_tokens += resp.usage.total_tokens or 0
         return resp.choices[0].message.content.strip()
     except Exception as e:
         print(f"  [WARN] マーケット要約生成失敗: {e}")
@@ -403,16 +420,19 @@ def update_glossary(client: Groq, articles: list[dict]) -> None:
             if isinstance(term, str) and term.strip():
                 all_terms.add(term.strip())
 
-    # 未登録の用語を定義生成
+    # 未登録の用語は空定義で追加（LLM呼び出しなし、トークン節約）
     new_terms_added = 0
     for term in sorted(all_terms):
         if term not in merged:
-            print(f"  [GLOSSARY] 新規用語を定義生成中: {term}")
-            definition = _generate_term_definition(client, term)
-            if definition:
-                merged[term] = definition
-                new_terms_added += 1
-                time.sleep(0.5)  # レート制限対策
+            merged[term] = {
+                "category": "その他",
+                "reading": "",
+                "definition_short": "",
+                "definition_full": "",
+                "example": "",
+                "related": [],
+            }
+            new_terms_added += 1
 
     # 保存
     dynamic_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8")

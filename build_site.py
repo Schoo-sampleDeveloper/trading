@@ -673,9 +673,21 @@ def build_html(
 
     featured = [a for a in articles if a.get("featured")]
     from collector import CATEGORY_LABELS
+    _PLAIN_CATEGORY_LABELS = {
+        "jp_stock": "日本株",
+        "jp_index": "日本指数",
+        "foreign_stock": "外国株",
+        "foreign_index": "外国指数",
+        "futures": "先物",
+        "fx_macro": "為替・マクロ",
+    }
     categories_order = list(CATEGORY_LABELS.keys())
     categories: dict = {cat: [] for cat in categories_order}
     for art in articles:
+        # category_label (絵文字なしの短縮ラベル) を付与
+        art["category_label"] = _PLAIN_CATEGORY_LABELS.get(
+            art.get("category", "fx_macro"), art.get("category", "")
+        )
         cat = art.get("category", "fx_macro")
         if cat not in categories:
             cat = "fx_macro"

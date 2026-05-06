@@ -135,6 +135,21 @@ def main():
         scenarios=scenarios,
     )
 
+    # API使用統計
+    try:
+        from summarizer import get_api_stats
+        stats = get_api_stats()
+        call_count = stats["call_count"]
+        total_tokens = stats["total_tokens"]
+        daily_limit = 500_000
+        usage_pct = total_tokens / daily_limit * 100 if daily_limit > 0 else 0
+        print(f"\n--- API使用統計 ---")
+        print(f"  Groq API 呼び出し: {call_count}回 (実測 {total_tokens:,} トークン)")
+        print(f"  日次上限: {daily_limit:,} (llama-3.1-8b-instant)")
+        print(f"  使用率: {usage_pct:.1f}%")
+    except Exception as e:
+        print(f"  [WARN] API統計取得失敗: {e}")
+
     print("=" * 50)
     print("  完了! docs/ を GitHub Pages で公開してください。")
     print("=" * 50)

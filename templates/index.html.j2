@@ -1,12 +1,11 @@
 {# ─────────────────────────────────────────
-   Macro: render one article card (intermediate investor layout)
-   Always visible: headline + tags + points + key_data + expand bar
+   Macro: render one article card (Bloomberg/Koyfin-style v2)
+   Always visible: imp-indicator + category chip + impact chip + title + data-grid + points
+   Breakdown panel: importance reasoning (animated bars)
    Expandable: summary + background + market_view + scenarios + investment_angle + watch_points + historical_context
 ───────────────────────────────────────── #}
 {% macro render_card(art, uid, is_featured=false) %}
 {% set imp = art.importance | default(3) | int %}
-{% set stars_full = '★' * imp %}
-{% set stars_empty = '☆' * (5 - imp) %}
 {% set sc = art.scenarios | default({}) %}
 {% set mv = art.market_view | default({}) %}
 {% set ia = art.investment_angle | default({}) %}
@@ -35,129 +34,160 @@
 {% set has_sc = sc_base_text or sc_bull_text or sc_bear_text %}
 {% set has_mv = mv.price_levels or mv.trend or mv.drivers %}
 {% set has_ia = ia.long_term or ia.swing_trade or ia.risk_factors %}
-{# 旧フィールドへの後方互換 #}
 {% set historical_text = art.historical_context | default(art.historical_analog | default('')) %}
 {% set has_expandable = art.summary or art.background or has_mv or has_sc or has_ia or art.watch_points or historical_text %}
-<div class="card{% if is_featured %} featured{% endif %}"
-     data-importance="{{ imp }}"
-     data-category="{{ art.category }}"
-     data-link="{{ art.link | default('') }}"
-     id="card-{{ uid }}">
+{# impact → CSS クラスと表示ラベルのマッピング #}
+{% set impact_class = 'bullish' if art.impact in ('強気', 'bullish') else 'bearish' if art.impact in ('弱気', 'bearish') else 'neutral' %}
+{% set impact_label = '▲ 強気' if impact_class == 'bullish' else '▼ 弱気' if impact_class == 'bearish' else '— 中立' %}
+{# 重要度スコア内訳 #}
+{% if art.importance_detail is defined and art.importance_detail %}
+{% set bd = art.importance_detail.breakdown | default({}) %}
+{% set mkt = bd.market_reaction | default({}) %}
+{% set str_imp = bd.structural | default({}) %}
+{% set ai_imp = bd.ai | default({}) %}
+{% set mkt_bar = [(mkt.reaction_score | default(0)) * 10, 100] | min | int %}
+{% set str_bar = [(str_imp.score | default(3)) * 10, 100] | min | int %}
+{% set ai_bar  = [(ai_imp.score  | default(5)) * 10, 100] | min | int %}
+{% endif %}
+<article class="card-v2{% if is_featured %} featured{% endif %}"
+         data-importance="{{ imp }}"
+         data-category="{{ art.category }}"
+         data-impact="{{ impact_class }}"
+         data-link="{{ art.link | default('') }}"
+         id="card-{{ uid }}">
 
-  {# ── Always-visible content ── #}
-  <div class="card-always">
-
-    {# Header: impact emoji + headline + tags + bookmark #}
-    <div class="card-header-row">
-      <span class="impact-emoji">{{ art.impact_emoji | default('➡️') }}</span>
-      <div class="card-header-body">
-        <div class="headline">{{ art.headline | default(art.title) }}</div>
-        <div class="tags">
-          <span class="tag imp-{{ imp }}"><span class="stars">{{ stars_full }}{{ stars_empty }}</span></span>
-          <span class="tag tag-cat">{{ category_labels.get(art.category, art.category) }}</span>
-          <span class="tag impact-{{ art.impact | default('中立') }}">{{ art.impact_emoji | default('➡️') }} {{ art.impact_label | default(art.impact) | default('中立') }}</span>
-          {% if art.importance_detail is defined and art.importance_detail %}
-          <button class="why-btn" onclick="toggleBreakdown('bd-{{ uid }}')" aria-expanded="false" aria-controls="bd-{{ uid }}">
-            なぜ★{{ art.importance_detail.stars | default(imp) }}? ▼
-          </button>
-          {% endif %}
-        </div>
-        {# ── 重要度内訳パネル ── #}
-        {% if art.importance_detail is defined and art.importance_detail %}
-        {% set bd = art.importance_detail.breakdown | default({}) %}
-        {% set mkt = bd.market_reaction | default({}) %}
-        {% set str_imp = bd.structural | default({}) %}
-        {% set ai_imp = bd.ai | default({}) %}
-        <div class="importance-breakdown" id="bd-{{ uid }}" hidden>
-          <div class="bd-transparency">{{ art.importance_detail.transparency_text | default('') }}</div>
-          <div class="bd-rows">
-            {# 市場反応 #}
-            <div class="bd-row">
-              <span class="bd-label">市場反応</span>
-              <div class="bd-bar-wrap">
-                <div class="bd-bar" style="width: {{ [(mkt.reaction_score | default(0)) * 10, 100] | min }}%"></div>
-              </div>
-              <span class="bd-value">
-                {% if mkt.data_quality | default('unavailable') != 'unavailable' %}
-                  {{ mkt.indicator_name | default('') }}: {{ '%+.2f' | format(mkt.change_pct | default(0) | float) }}%
-                  {% if mkt.note %}<span class="bd-note">{{ mkt.note }}</span>{% endif %}
-                {% else %}
-                  データなし
-                {% endif %}
-              </span>
-            </div>
-            {# 構造的重要度 #}
-            <div class="bd-row">
-              <span class="bd-label">構造的重要度</span>
-              <div class="bd-bar-wrap">
-                <div class="bd-bar" style="width: {{ [(str_imp.score | default(3)) * 10, 100] | min }}%"></div>
-              </div>
-              <span class="bd-value">
-                {% if str_imp.matched_rules | default([]) | length > 0 %}
-                  {{ str_imp.matched_rules[0].name }}
-                {% else %}
-                  一般ニュース
-                {% endif %}
-              </span>
-            </div>
-            {# AI判断 #}
-            <div class="bd-row">
-              <span class="bd-label">AI判断</span>
-              <div class="bd-bar-wrap">
-                <div class="bd-bar" style="width: {{ [(ai_imp.score | default(5)) * 10, 100] | min }}%"></div>
-              </div>
-              <span class="bd-value">
-                {{ ai_imp.score | default(5) }}/10
-                {% if ai_imp.rationale %}&mdash; {{ ai_imp.rationale[:60] }}{% if ai_imp.rationale | length > 60 %}…{% endif %}{% endif %}
-              </span>
-            </div>
-          </div>
-          <div class="bd-final">
-            総合スコア: <strong>{{ art.importance_detail.final_score | default('') }}</strong> / 10
-          </div>
-        </div>
-        {% endif %}
-      </div>
-      <button class="bookmark-btn" data-link="{{ art.link | default('') }}" onclick="toggleBookmark(this)" title="後で読む" aria-label="ブックマーク">☆</button>
+  <!-- ヘッダー: 重要度・カテゴリ・影響 -->
+  <header class="card-v2__header">
+    <div class="card-v2__meta">
+      <span class="imp-indicator imp-indicator--{{ imp }}"
+            role="button"
+            aria-label="重要度{{ imp }}の根拠を表示"
+            onclick="toggleBreakdown('{{ uid }}')">
+        <span class="imp-indicator__bars">
+          {% for i in range(5) %}
+          <span class="imp-indicator__bar {% if i < imp %}is-active{% endif %}"></span>
+          {% endfor %}
+        </span>
+        <span class="imp-indicator__score">{% if art.importance_detail is defined and art.importance_detail %}{{ art.importance_detail.final_score }}{% else %}{{ imp * 2 }}.0{% endif %}</span>
+      </span>
+      <span class="cat-chip">{{ art.category_label | default(category_labels.get(art.category, art.category)) }}</span>
+      <span class="impact-chip impact-chip--{{ impact_class }}">{{ impact_label }}</span>
     </div>
+    <button class="bookmark-btn" data-link="{{ art.link | default('') }}" onclick="toggleBookmark(this)" aria-label="ブックマーク">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 2v12l5-3 5 3V2H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </header>
 
-    {# 3-point summary bullets #}
+  <!-- メイン: タイトル + データグリッド + ポイント -->
+  <div class="card-v2__main">
+    <h3 class="card-v2__title">{{ art.headline | default(art.title) }}</h3>
+
+    {% if art.key_data %}
+    <div class="data-grid">
+      {% for kd in art.key_data[:3] %}
+      {% set val_str = kd.value | string | trim %}
+      <div class="data-cell">
+        <div class="data-cell__label">{{ kd.label }}</div>
+        <div class="data-cell__value{% if val_str[:1] == '+' %} is-positive{% elif val_str[:1] == '-' %} is-negative{% endif %}">{{ kd.value }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
     {% if art.points %}
     <ul class="points-list">
-      {% for pt in art.points %}
-      <li>{{ pt }}</li>
+      {% for p in art.points[:3] %}
+      <li class="points-list__item">{{ p }}</li>
       {% endfor %}
     </ul>
     {% elif art.summary %}
-    <div class="card-summary-text">{{ art.summary }}</div>
+    <ul class="points-list">
+      <li class="points-list__item">{{ art.summary }}</li>
+    </ul>
     {% endif %}
-
-    {# Key data badges #}
-    {% if art.key_data %}
-    <div class="key-data-row">
-      {% for kd in art.key_data %}
-      <span class="kd-badge">
-        <span class="kd-label">{{ kd.label }}</span>
-        <span class="kd-value">{{ kd.value }}</span>
-      </span>
-      {% endfor %}
-    </div>
-    {% endif %}
-
-  </div>{# /card-always #}
-
-  {# ── Expand bar ── #}
-  {% if has_expandable %}
-  <div class="expand-bar" onclick="toggleCard(this)">
-    <span class="expand-icon">▶</span>
-    <span class="expand-label">詳しく見る</span>
-    <span class="expand-label-open">閉じる</span>
   </div>
 
-  {# ── Expandable detail ── #}
-  <div class="card-detail">
+  <!-- 内訳パネル: 重要度の根拠 (デフォルト非表示) -->
+  {% if art.importance_detail is defined and art.importance_detail %}
+  <div class="breakdown-v2" id="breakdown-{{ uid }}" hidden>
+    {% if art.importance_detail.transparency_text %}
+    <div class="breakdown-v2__summary">{{ art.importance_detail.transparency_text }}</div>
+    {% endif %}
+    <div class="breakdown-v2__rows">
+      <div class="bd-row">
+        <div class="bd-row__head">
+          <span class="bd-row__label">市場反応</span>
+          <span class="bd-row__weight">50%</span>
+        </div>
+        <div class="bd-row__bar-wrap">
+          <div class="bd-row__bar" data-target="{{ mkt_bar }}" style="--bar-color: var(--action);"></div>
+        </div>
+        <div class="bd-row__detail">
+          {% if mkt.data_quality | default('unavailable') == 'unavailable' %}
+          <span class="bd-row__na">データなし</span>
+          {% else %}
+          {{ mkt.indicator_name | default('') }}{% if mkt.change_pct is defined %}
+          <span class="{% if mkt.change_pct > 0 %}is-positive{% elif mkt.change_pct < 0 %}is-negative{% endif %}">
+            {{ '%+.2f' | format(mkt.change_pct | float) }}%</span>{% endif %}
+          {% endif %}
+        </div>
+      </div>
+      <div class="bd-row">
+        <div class="bd-row__head">
+          <span class="bd-row__label">構造的重要度</span>
+          <span class="bd-row__weight">30%</span>
+        </div>
+        <div class="bd-row__bar-wrap">
+          <div class="bd-row__bar" data-target="{{ str_bar }}" style="--bar-color: var(--importance-3);"></div>
+        </div>
+        <div class="bd-row__detail">
+          {% if str_imp.matched_rules | default([]) | length > 0 %}
+          {{ str_imp.matched_rules[0].name }}
+          {% else %}
+          <span class="bd-row__na">一般ニュース</span>
+          {% endif %}
+        </div>
+      </div>
+      <div class="bd-row">
+        <div class="bd-row__head">
+          <span class="bd-row__label">AI判断</span>
+          <span class="bd-row__weight">20%</span>
+        </div>
+        <div class="bd-row__bar-wrap">
+          <div class="bd-row__bar" data-target="{{ ai_bar }}" style="--bar-color: var(--importance-4);"></div>
+        </div>
+        <div class="bd-row__detail">
+          <span class="bd-row__rationale">{{ ai_imp.rationale | default('') }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="bd-final">
+      総合スコア: <strong>{{ art.importance_detail.final_score }}</strong> / 10
+    </div>
+  </div>
+  {% endif %}
 
-    {# Summary #}
+  <!-- フッター: 詳細展開ボタン + ソース -->
+  <footer class="card-v2__footer">
+    {% if has_expandable %}
+    <button class="card-v2__expand" onclick="toggleCard(this)" aria-expanded="false">
+      <span class="card-v2__expand-text">詳細を見る</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" class="card-v2__expand-icon">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    {% else %}
+    <span></span>
+    {% endif %}
+    <span class="card-v2__source">{{ art.source }}</span>
+  </footer>
+
+  <!-- 詳細セクション (デフォルト非表示) -->
+  {% if has_expandable %}
+  <div class="card-v2__details" id="details-{{ uid }}" hidden>
+
     {% if art.summary %}
     <div class="detail-section">
       <div class="detail-label">📝 要約</div>
@@ -165,7 +195,6 @@
     </div>
     {% endif %}
 
-    {# Background #}
     {% if art.background %}
     <div class="detail-section">
       <div class="detail-label">💡 背景</div>
@@ -173,7 +202,6 @@
     </div>
     {% endif %}
 
-    {# Market view #}
     {% if has_mv %}
     <div class="detail-section">
       <div class="detail-label">📈 マーケットの見方</div>
@@ -200,7 +228,6 @@
     </div>
     {% endif %}
 
-    {# Scenarios with probability bars #}
     {% if has_sc %}
     <div class="detail-section">
       <div class="detail-label">🎬 シナリオ</div>
@@ -239,7 +266,6 @@
     </div>
     {% endif %}
 
-    {# Investment angle tabs #}
     {% if has_ia %}
     <div class="detail-section">
       <div class="detail-label">🎯 投資視点</div>
@@ -274,7 +300,6 @@
     </div>
     {% endif %}
 
-    {# Watch points #}
     {% if art.watch_points %}
     <div class="detail-section">
       <div class="detail-label">📌 注目ポイント</div>
@@ -286,7 +311,6 @@
     </div>
     {% endif %}
 
-    {# Historical context #}
     {% if historical_text %}
     <div class="detail-section">
       <div class="detail-label">📚 過去の類似局面</div>
@@ -294,22 +318,15 @@
     </div>
     {% endif %}
 
-    {# Footer #}
     <div class="card-footer">
       <span>{{ art.source }} &nbsp;|&nbsp; {{ art.published.strftime('%m/%d %H:%M UTC') }}</span>
       {% if art.link %}<a href="{{ art.link }}" target="_blank" rel="noopener">元記事 →</a>{% endif %}
     </div>
 
-  </div>{# /card-detail #}
-  {% else %}
-  {# No expandable content: show only source footer #}
-  <div class="card-footer-simple">
-    <span>{{ art.source }} &nbsp;|&nbsp; {{ art.published.strftime('%m/%d %H:%M UTC') }}</span>
-    {% if art.link %}<a href="{{ art.link }}" target="_blank" rel="noopener">元記事 →</a>{% endif %}
   </div>
   {% endif %}
 
-</div>
+</article>
 {% endmacro %}
 
 <!DOCTYPE html>
@@ -331,6 +348,29 @@
       --accent: #58a6ff; --green: #3fb950; --red: #f85149;
       --yellow: #d29922; --purple: #bc8cff; --tag-bg: #1f2937;
       --card-hover: #1c2230; --font-size: 16px;
+
+      /* ── Bloomberg/Koyfin デザインシステム (card-v2) ── */
+      --bg-page: #0a0e14;
+      --bg-card: #11161d;
+      --bg-card-hover: #161c25;
+      --bg-elevated: #1a2029;
+      --border-subtle: #1f2630;
+      --border-default: #2a3340;
+      --text-primary: #e8edf2;
+      --text-secondary: #8b95a3;
+      --text-tertiary: #545d6b;
+      --bullish: #00c853;
+      --bullish-bg: #00c8531a;
+      --bearish: #ff3b30;
+      --bearish-bg: #ff3b301a;
+      --neutral: #8b95a3;
+      --neutral-bg: #8b95a31a;
+      --action: #2196f3;
+      --importance-5: #ff6b35;
+      --importance-4: #ffa726;
+      --importance-3: #ffd54f;
+      --importance-2: #90caf9;
+      --importance-1: #546e7a;
     }
     @media (prefers-color-scheme: light) {
       :root {
@@ -339,6 +379,15 @@
         --accent: #0969da; --green: #1a7f37; --red: #cf222e;
         --yellow: #9a6700; --purple: #8250df; --tag-bg: #ddf4ff;
         --card-hover: #f0f6ff;
+        --bg-page: #fafbfc;
+        --bg-card: #ffffff;
+        --bg-card-hover: #f5f7fa;
+        --bg-elevated: #f0f3f7;
+        --border-subtle: #e4e8ed;
+        --border-default: #d0d7de;
+        --text-primary: #0f1419;
+        --text-secondary: #57606a;
+        --text-tertiary: #8b95a3;
       }
     }
     /* Manual theme overrides */
@@ -347,12 +396,18 @@
       --border: #30363d; --text: #e6edf3; --text2: #8b949e; --text3: #656d76;
       --accent: #58a6ff; --green: #3fb950; --red: #f85149;
       --yellow: #d29922; --purple: #bc8cff; --tag-bg: #1f2937; --card-hover: #1c2230;
+      --bg-page: #0a0e14; --bg-card: #11161d; --bg-card-hover: #161c25;
+      --bg-elevated: #1a2029; --border-subtle: #1f2630; --border-default: #2a3340;
+      --text-primary: #e8edf2; --text-secondary: #8b95a3; --text-tertiary: #545d6b;
     }
     [data-theme="light"] {
       --bg: #f6f8fa; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e8ecf0;
       --border: #d0d7de; --text: #1f2328; --text2: #656d76; --text3: #8c959f;
       --accent: #0969da; --green: #1a7f37; --red: #cf222e;
       --yellow: #9a6700; --purple: #8250df; --tag-bg: #ddf4ff; --card-hover: #f0f6ff;
+      --bg-page: #fafbfc; --bg-card: #ffffff; --bg-card-hover: #f5f7fa;
+      --bg-elevated: #f0f3f7; --border-subtle: #e4e8ed; --border-default: #d0d7de;
+      --text-primary: #0f1419; --text-secondary: #57606a; --text-tertiary: #8b95a3;
     }
     /* Font size classes */
     .font-s { --font-size: 14px; }
@@ -702,6 +757,313 @@
       display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 4px;
     }
+
+    /* ══════════════════════════════════════
+       card-v2 デザインシステム (Bloomberg級)
+    ══════════════════════════════════════ */
+
+    /* ── カード本体 ── */
+    .card-v2 {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+                  background 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-v2:hover {
+      border-color: var(--border-default);
+      background: var(--bg-card-hover);
+    }
+    .card-v2[data-importance="5"] { border-left: 3px solid var(--importance-5); }
+    .card-v2[data-importance="4"] { border-left: 3px solid var(--importance-4); }
+    .card-v2.hidden-by-filter, .card-v2.hidden-by-cat { display: none; }
+
+    /* ── ヘッダー ── */
+    .card-v2__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      gap: 12px;
+    }
+    .card-v2__meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    /* ── 重要度インジケータ (バー5本+スコア) ── */
+    .imp-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      flex-shrink: 0;
+    }
+    .imp-indicator:hover {
+      background: var(--border-subtle);
+      border-color: var(--border-default);
+    }
+    .imp-indicator__bars {
+      display: inline-flex;
+      gap: 2px;
+    }
+    .imp-indicator__bar {
+      width: 3px;
+      height: 12px;
+      background: var(--border-default);
+      border-radius: 1px;
+      transition: background 200ms;
+    }
+    .imp-indicator--5 .imp-indicator__bar.is-active { background: var(--importance-5); }
+    .imp-indicator--4 .imp-indicator__bar.is-active { background: var(--importance-4); }
+    .imp-indicator--3 .imp-indicator__bar.is-active { background: var(--importance-3); }
+    .imp-indicator--2 .imp-indicator__bar.is-active { background: var(--importance-2); }
+    .imp-indicator--1 .imp-indicator__bar.is-active { background: var(--importance-1); }
+    .imp-indicator__score {
+      font-family: "SF Mono", "JetBrains Mono", "IBM Plex Mono", monospace;
+      font-feature-settings: "tnum";
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: -0.02em;
+    }
+
+    /* ── カテゴリ・影響チップ ── */
+    .cat-chip, .impact-chip {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .cat-chip {
+      background: var(--neutral-bg);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+    .impact-chip--bullish { background: var(--bullish-bg); color: var(--bullish); }
+    .impact-chip--bearish { background: var(--bearish-bg); color: var(--bearish); }
+    .impact-chip--neutral { background: var(--neutral-bg); color: var(--neutral); }
+
+    /* ── ブックマークボタン (SVG版) ── */
+    .card-v2__header .bookmark-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      transition: color 200ms;
+      flex-shrink: 0;
+      font-size: inherit;
+    }
+    .card-v2__header .bookmark-btn:hover { color: var(--action); transform: none; }
+    .card-v2__header .bookmark-btn.bookmarked,
+    .card-v2__header .bookmark-btn.is-active { color: var(--action); }
+    .card-v2__header .bookmark-btn.bookmarked svg path,
+    .card-v2__header .bookmark-btn.is-active svg path { fill: currentColor; }
+
+    /* ── メインコンテンツ ── */
+    .card-v2__main { padding: 16px; }
+    .card-v2__title {
+      font-family: "Inter", "SF Pro Text", -apple-system, "Hiragino Sans", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text-primary);
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
+    }
+    @media (min-width: 768px) { .card-v2__title { font-size: 16px; } }
+
+    /* ── データグリッド (Bloomberg風) ── */
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .data-cell {
+      background: var(--bg-card);
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .data-cell__label {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+    .data-cell__value {
+      font-family: "SF Mono", "JetBrains Mono", "IBM Plex Mono", monospace;
+      font-feature-settings: "tnum";
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .data-cell__value.is-positive { color: var(--bullish); }
+    .data-cell__value.is-negative { color: var(--bearish); }
+    @media (max-width: 480px) {
+      .data-grid { grid-template-columns: repeat(2, 1fr); }
+      .data-grid .data-cell:nth-child(3) { grid-column: span 2; }
+      .data-cell__value { font-size: 14px; }
+    }
+    @media (min-width: 768px) { .data-cell__value { font-size: 16px; } }
+
+    /* ── ポイントリスト (card-v2) ── */
+    .card-v2__main .points-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .points-list__item {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      padding-left: 16px;
+      position: relative;
+    }
+    .points-list__item::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 8px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--action);
+    }
+
+    /* ── 内訳パネル ── */
+    .breakdown-v2 {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border-subtle);
+      padding: 16px;
+      animation: breakdown-in 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes breakdown-in {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .breakdown-v2__summary {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-primary);
+      padding: 12px;
+      background: var(--bg-card);
+      border-radius: 4px;
+      border-left: 2px solid var(--action);
+      margin-bottom: 16px;
+    }
+    .breakdown-v2__rows { display: flex; flex-direction: column; gap: 16px; }
+    .bd-row { display: grid; grid-template-columns: 1fr; gap: 6px; }
+    .bd-row__head { display: flex; justify-content: space-between; align-items: center; }
+    .bd-row__label {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+    .bd-row__weight {
+      font-family: "SF Mono", monospace;
+      font-feature-settings: "tnum";
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+    .bd-row__bar-wrap {
+      height: 4px;
+      background: var(--border-subtle);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .bd-row__bar {
+      height: 100%;
+      width: 0;
+      background: var(--bar-color, var(--action));
+      border-radius: 2px;
+      transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .bd-row__detail { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .bd-row__rationale {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .bd-row__na { color: var(--text-tertiary); font-style: italic; }
+    .bd-final {
+      margin-top: 12px; padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-tertiary); font-size: 11px; text-align: right;
+    }
+    .bd-final strong { color: var(--action); font-family: "SF Mono", monospace; }
+    .is-positive { color: var(--bullish) !important; font-weight: 500; }
+    .is-negative { color: var(--bearish) !important; font-weight: 500; }
+
+    /* ── フッター ── */
+    .card-v2__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }
+    .card-v2__expand {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: none;
+      color: var(--action);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 4px 0;
+      transition: opacity 200ms;
+    }
+    .card-v2__expand:hover { opacity: 0.7; }
+    .card-v2__expand-icon {
+      transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-v2__expand[aria-expanded="true"] .card-v2__expand-icon {
+      transform: rotate(180deg);
+    }
+    .card-v2__source { font-size: 11px; color: var(--text-tertiary); }
+
+    /* ── 詳細セクション ── */
+    .card-v2__details {
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      animation: breakdown-in 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ══════════════════════════════════════ */
 
     /* ── Category sections ── */
     .cat-section { margin-bottom: 18px; }
@@ -2072,7 +2434,7 @@
       localStorage.setItem(FILTER_KEY, mode);
       document.getElementById('filter-all').classList.toggle('active', mode === 'all');
       document.getElementById('filter-4up').classList.toggle('active', mode === '4up');
-      document.querySelectorAll('.card').forEach(card => {
+      document.querySelectorAll('.card, .card-v2').forEach(card => {
         if (mode === '4up') {
           card.classList.toggle('hidden-by-filter', parseInt(card.dataset.importance || '3') < 4);
         } else {
@@ -2080,7 +2442,7 @@
         }
       });
       document.querySelectorAll('.cat-section').forEach(sec => {
-        const vis = sec.querySelectorAll('.card:not(.hidden-by-filter):not(.hidden-by-cat)').length > 0;
+        const vis = sec.querySelectorAll('.card:not(.hidden-by-filter):not(.hidden-by-cat), .card-v2:not(.hidden-by-filter):not(.hidden-by-cat)').length > 0;
         sec.classList.toggle('all-hidden', !vis);
       });
     }
@@ -2099,7 +2461,7 @@
         featuredSec.style.display = '';
         document.querySelectorAll('.cat-section').forEach(s => {
           s.style.display = '';
-          s.querySelectorAll('.card').forEach(c => c.classList.remove('hidden-by-cat'));
+          s.querySelectorAll('.card, .card-v2').forEach(c => c.classList.remove('hidden-by-cat'));
         });
       } else {
         featuredSec.style.display = 'none';
@@ -2118,27 +2480,41 @@
       }
     })();
 
-    // ── Card expand ──
+    // ── Card expand (card-v2 対応) ──
     function toggleCard(el) {
+      const cardV2 = el.closest('.card-v2');
+      if (cardV2) {
+        const isOpen = el.getAttribute('aria-expanded') === 'true';
+        el.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+        const details = cardV2.querySelector('.card-v2__details');
+        if (details) {
+          if (isOpen) details.setAttribute('hidden', '');
+          else details.removeAttribute('hidden');
+        }
+        const text = el.querySelector('.card-v2__expand-text');
+        if (text) text.textContent = isOpen ? '詳細を見る' : '閉じる';
+        return;
+      }
+      // 旧 .card のフォールバック
       el.closest('.card').classList.toggle('open');
     }
 
-    // ── 重要度内訳パネル ──
-    function toggleBreakdown(id) {
-      const panel = document.getElementById(id);
+    // ── 重要度内訳パネル (card-v2 対応) ──
+    function toggleBreakdown(uid) {
+      const panel = document.getElementById('breakdown-' + uid);
       if (!panel) return;
-      const isHidden = panel.hidden;
-      panel.hidden = !isHidden;
-      // ボタンの aria-expanded を更新
-      const card = panel.closest('.card');
-      if (card) {
-        const btn = card.querySelector('.why-btn');
-        if (btn) {
-          btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
-          btn.textContent = isHidden
-            ? btn.textContent.replace('▼', '▲')
-            : btn.textContent.replace('▲', '▼');
-        }
+      const isOpen = !panel.hasAttribute('hidden');
+      if (isOpen) {
+        panel.setAttribute('hidden', '');
+      } else {
+        panel.removeAttribute('hidden');
+        // バーグラフを 0% → 目標値 にアニメーション
+        requestAnimationFrame(() => {
+          panel.querySelectorAll('.bd-row__bar').forEach(bar => {
+            const target = bar.dataset.target;
+            if (target) bar.style.width = target + '%';
+          });
+        });
       }
     }
 
@@ -2171,15 +2547,16 @@
       if (!link) return;
       const bm = _getBookmarks();
       const idx = bm.indexOf(link);
+      const hasSvg = !!btn.querySelector('svg');
       if (idx >= 0) {
         bm.splice(idx, 1);
-        btn.classList.remove('bookmarked');
-        btn.textContent = '☆';
+        btn.classList.remove('bookmarked', 'is-active');
+        if (!hasSvg) btn.textContent = '☆';
         btn.title = '後で読む';
       } else {
         bm.push(link);
-        btn.classList.add('bookmarked');
-        btn.textContent = '★';
+        btn.classList.add('bookmarked', 'is-active');
+        if (!hasSvg) btn.textContent = '★';
         btn.title = 'ブックマーク済み';
       }
       _saveBookmarks(bm);
@@ -2196,12 +2573,15 @@
         countEl.textContent = '';
         tabBtn.classList.remove('has-bookmarks');
       }
-      // Update bookmark states on cards
+      // Update bookmark states on all cards (text ★/☆ and SVG versions)
       document.querySelectorAll('.bookmark-btn').forEach(btn => {
         const link = btn.dataset.link;
         const isBookmarked = bm.includes(link);
         btn.classList.toggle('bookmarked', isBookmarked);
-        btn.textContent = isBookmarked ? '★' : '☆';
+        btn.classList.toggle('is-active', isBookmarked);
+        if (!btn.querySelector('svg')) {
+          btn.textContent = isBookmarked ? '★' : '☆';
+        }
         btn.title = isBookmarked ? 'ブックマーク済み' : '後で読む';
       });
     }
@@ -2222,23 +2602,22 @@
       // Collect bookmarked cards from page
       let html = '';
       bm.forEach(link => {
-        const card = document.querySelector(`.card[data-link="${CSS.escape(link)}"]`);
+        const esc = CSS.escape(link);
+        const card = document.querySelector(`.card[data-link="${esc}"], .card-v2[data-link="${esc}"]`);
         if (card) {
-          const headline = card.querySelector('.headline')?.textContent || link;
-          const emoji = card.querySelector('.impact-emoji')?.textContent || '';
-          html += `<div class="card bm-card" style="margin-bottom:8px">
-            <div class="card-always" style="padding:10px 14px">
-              <div style="display:flex;gap:8px;align-items:center">
-                <span>${emoji}</span>
-                <a href="${_esc(link)}" target="_blank" rel="noopener" style="font-weight:700;font-size:.9rem;flex:1">${_escHtml(headline)}</a>
-                <button class="bookmark-btn bookmarked" data-link="${_esc(link)}" onclick="toggleBookmark(this);_renderBookmarkList()" title="削除">★</button>
-              </div>
+          const headline = (card.querySelector('.card-v2__title') || card.querySelector('.headline'))?.textContent || link;
+          html += `<div class="card-v2 bm-card" style="margin-bottom:8px">
+            <div style="padding:12px 16px;display:flex;gap:8px;align-items:center">
+              <a href="${_esc(link)}" target="_blank" rel="noopener" style="font-weight:600;font-size:0.9rem;flex:1;color:var(--text-primary)">${_escHtml(headline.trim())}</a>
+              <button class="bookmark-btn bookmarked is-active" data-link="${_esc(link)}" onclick="toggleBookmark(this);_renderBookmarkList()" title="削除" style="color:var(--action);background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2v12l5-3 5 3V2H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </button>
             </div>
           </div>`;
         } else {
-          html += `<div class="card bm-card" style="margin-bottom:8px">
-            <div class="card-always" style="padding:10px 14px">
-              <a href="${_esc(link)}" target="_blank" rel="noopener" style="font-size:.9rem">${_escHtml(link)}</a>
+          html += `<div class="card-v2 bm-card" style="margin-bottom:8px">
+            <div style="padding:12px 16px">
+              <a href="${_esc(link)}" target="_blank" rel="noopener" style="font-size:0.9rem;color:var(--action)">${_escHtml(link)}</a>
             </div>
           </div>`;
         }

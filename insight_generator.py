@@ -144,7 +144,7 @@ def generate_daily_insight(
         client = Groq(api_key=api_key)
 
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="llama-3.1-8b-instant",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.3,
             max_tokens=800,

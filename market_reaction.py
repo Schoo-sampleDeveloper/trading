@@ -174,7 +174,7 @@ def _fetch_price_window(symbol: str, center_utc: datetime, window_minutes: int =
         period_days = min(age_days + 5, 729)
 
     start = center_utc - timedelta(minutes=window_minutes)
-    end   = center_utc + timedelta(minutes=window_minutes)
+    end   = min(center_utc + timedelta(minutes=window_minutes), now)
 
     ticker = yf.Ticker(symbol)
 
@@ -271,6 +271,15 @@ def fetch_market_reaction(
         pub_dt = pub_dt.astimezone(timezone.utc)
     except Exception as e:
         return {**unavailable, "note": f"日時パースエラー: {e}"}
+
+    # 未来時刻チェック: 公開時刻が現在より先の場合はデータ取得不可
+    now_check = datetime.now(timezone.utc)
+    if pub_dt > now_check:
+        return {
+            **unavailable,
+            "data_quality": "unavailable",
+            "note": "公開時刻が未来のためデータ取得不可",
+        }
 
     # キャッシュキー
     cache_key_src = article_url if article_url else f"{article_published_at}_{category}"
