@@ -89,7 +89,7 @@
   <div class="container">
     <header>
       <h1>📚 金融用語集</h1>
-      <p class="header-sub">投資歴1〜5年の中級者向け。よく使われる金融用語を解説します。(461語収録)</p>
+      <p class="header-sub">投資歴1〜5年の中級者向け。よく使われる金融用語を解説します。(513語収録)</p>
       <input type="search" id="search-box" class="search-box" placeholder="用語を検索... (例: VIX、移動平均)" oninput="filterTerms()">
       <div class="cat-tabs" id="cat-tabs">
         <button class="cat-tab active" data-cat="all" onclick="setCat(this)">📋 すべて</button>
@@ -105,7 +105,7 @@
 
     <div class="kana-index"><button class="kana-btn" data-kana="あ" onclick="filterKana(this)">あ</button><button class="kana-btn" data-kana="い" onclick="filterKana(this)">い</button><button class="kana-btn" data-kana="う" onclick="filterKana(this)">う</button><button class="kana-btn" data-kana="え" onclick="filterKana(this)">え</button><button class="kana-btn" data-kana="お" onclick="filterKana(this)">お</button><button class="kana-btn" data-kana="か" onclick="filterKana(this)">か</button><button class="kana-btn" data-kana="き" onclick="filterKana(this)">き</button><button class="kana-btn" data-kana="く" onclick="filterKana(this)">く</button><button class="kana-btn" data-kana="け" onclick="filterKana(this)">け</button><button class="kana-btn" data-kana="こ" onclick="filterKana(this)">こ</button><button class="kana-btn" data-kana="さ" onclick="filterKana(this)">さ</button><button class="kana-btn" data-kana="し" onclick="filterKana(this)">し</button><button class="kana-btn" data-kana="す" onclick="filterKana(this)">す</button><button class="kana-btn" data-kana="せ" onclick="filterKana(this)">せ</button><button class="kana-btn" data-kana="そ" onclick="filterKana(this)">そ</button><button class="kana-btn" data-kana="た" onclick="filterKana(this)">た</button><button class="kana-btn" data-kana="ち" onclick="filterKana(this)">ち</button><button class="kana-btn" data-kana="つ" onclick="filterKana(this)">つ</button><button class="kana-btn" data-kana="て" onclick="filterKana(this)">て</button><button class="kana-btn" data-kana="と" onclick="filterKana(this)">と</button><button class="kana-btn" data-kana="な" onclick="filterKana(this)">な</button><button class="kana-btn" data-kana="に" onclick="filterKana(this)">に</button><button class="kana-btn" data-kana="ぬ" onclick="filterKana(this)">ぬ</button><button class="kana-btn" data-kana="ね" onclick="filterKana(this)">ね</button><button class="kana-btn" data-kana="の" onclick="filterKana(this)">の</button><button class="kana-btn" data-kana="は" onclick="filterKana(this)">は</button><button class="kana-btn" data-kana="ひ" onclick="filterKana(this)">ひ</button><button class="kana-btn" data-kana="ふ" onclick="filterKana(this)">ふ</button><button class="kana-btn" data-kana="へ" onclick="filterKana(this)">へ</button><button class="kana-btn" data-kana="ほ" onclick="filterKana(this)">ほ</button><button class="kana-btn" data-kana="ま" onclick="filterKana(this)">ま</button><button class="kana-btn" data-kana="み" onclick="filterKana(this)">み</button><button class="kana-btn" data-kana="む" onclick="filterKana(this)">む</button><button class="kana-btn" data-kana="め" onclick="filterKana(this)">め</button><button class="kana-btn" data-kana="も" onclick="filterKana(this)">も</button><button class="kana-btn" data-kana="や" onclick="filterKana(this)">や</button><button class="kana-btn" data-kana="ゆ" onclick="filterKana(this)">ゆ</button><button class="kana-btn" data-kana="よ" onclick="filterKana(this)">よ</button><button class="kana-btn" data-kana="ら" onclick="filterKana(this)">ら</button><button class="kana-btn" data-kana="り" onclick="filterKana(this)">り</button><button class="kana-btn" data-kana="る" onclick="filterKana(this)">る</button><button class="kana-btn" data-kana="れ" onclick="filterKana(this)">れ</button><button class="kana-btn" data-kana="ろ" onclick="filterKana(this)">ろ</button><button class="kana-btn" data-kana="わ" onclick="filterKana(this)">わ</button><button class="kana-btn" data-kana="を" onclick="filterKana(this)">を</button><button class="kana-btn" data-kana="ん" onclick="filterKana(this)">ん</button><button class="kana-btn" data-kana="A" onclick="filterKana(this)">A-Z</button><button class="kana-btn active" data-kana="all" onclick="filterKana(this)">全て</button></div>
 
-    <div class="stats" id="stats">461語を表示中</div>
+    <div class="stats" id="stats">513語を表示中</div>
 
     <div class="cards-grid" id="cards-grid">
       
@@ -469,6 +469,18 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">Form 144は、アメリカ証券取引委員会（SEC）が定める、上場会社の役員や大株主が株式を売却する際に提出する届け出書です。この書類では、売却する株式の数、売却の方法などが記載されます。役員や大株主は、インサイダー取引を防ぐために、株式の売却を事前にSECに届け出る必要があります。</div><div class="gloss-example"><span class="ex-label">例:</span> CEOが自社株を売却する際に提出</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'インサイダー取引')">インサイダー取引</a> <a href="#" class="related-link" onclick="filterTerm(event,'SEC')">SEC</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="GDLファンド" data-reading="" data-first="G">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">GDLファンド</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="マクロ" data-term="GDP" data-reading="じーでぃーぴー" data-first="じ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -757,6 +769,18 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">S&P500は、米国に上場する500銘柄の株価を基に算出される株価指数。世界の株式市場の動向を表す指標として広く利用されている。</div><div class="gloss-example"><span class="ex-label">例:</span> 米国経済の動向を把握するためにS&P500を注目する</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'ダウ・ジョーンズ工業株価平均')">ダウ・ジョーンズ工業株価平均</a> <a href="#" class="related-link" onclick="filterTerm(event,'ナスダック')">ナスダック</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="S&amp;P500" data-reading="" data-first="S">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">S&amp;P500</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="その他" data-term="S&amp;P500指数" data-reading="" data-first="S">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -817,6 +841,18 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">Take-Over Bidの略。不特定多数の株主に対して、市場外で一定期間・一定価格・一定数量の株式買い付けを公告する手続き。M&Aや非公開化の手段として使われ、通常は市場価格にプレミアムを付けた買付価格が提示される。</div><div class="gloss-example"><span class="ex-label">例:</span> 買収企業がTOBを発表し、対象企業の株価が30%急騰した。</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'増資')">増資</a> <a href="#" class="related-link" onclick="filterTerm(event,'自社株買い')">自社株買い</a> <a href="#" class="related-link" onclick="filterTerm(event,'PBR')">PBR</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="TOP10、S&amp;P500、NASDAQ-100" data-reading="" data-first="T">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">TOP10、S&amp;P500、NASDAQ-100</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="グローバル" data-term="US株" data-reading="ユーエスかぶ" data-first="ユ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -852,6 +888,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">WTI原油価格は、米国オクラホマ州カッシングで生産される原油の価格を指します。世界の原油価格の指標として利用されており、経済や金融市場に大きな影響を与える重要な指標です。</div><div class="gloss-example"><span class="ex-label">例:</span> WTI原油価格の変動は、ガソリン価格に影響を与える</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'ブレント原油価格')">ブレント原油価格</a> <a href="#" class="related-link" onclick="filterTerm(event,'原油先物')">原油先物</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="WTI原油価格連動型上場投信" data-reading="" data-first="W">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">WTI原油価格連動型上場投信</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="グローバル" data-term="WTI原油先物" data-reading="ダブリューティーアイげんせんさく" data-first="ダ">
       <div class="gloss-card-header">
@@ -1021,6 +1069,18 @@
       
       
     </div>
+    <div class="gloss-card" data-category="その他" data-term="イラン情勢" data-reading="" data-first="イ">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">イラン情勢</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="制度" data-term="インサイダー" data-reading="インサイダ-" data-first="イ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -1164,6 +1224,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">エヌビディアは、アメリカの半導体メーカーで、グラフィックプロセッサや人工知能関連の製品を開発しています。ゲーミングやデータセンター向けの高性能プロセッサで知られています。</div><div class="gloss-example"><span class="ex-label">例:</span> エヌビディアの株価は、新製品の発表で上昇した</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'グラフィックプロセッサ')">グラフィックプロセッサ</a> <a href="#" class="related-link" onclick="filterTerm(event,'人工知能')">人工知能</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="エネルギー供給の懸念" data-reading="" data-first="エ">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">エネルギー供給の懸念</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="その他" data-term="エネルギー価格の高騰" data-reading="" data-first="エ">
       <div class="gloss-card-header">
@@ -1657,6 +1729,18 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">テクニカル分析は、過去の株価や取引量のデータを基に、将来の市場動向を予測する手法。チャートパターンや指標を用いて、買い卖りタイミングを判断する。</div><div class="gloss-example"><span class="ex-label">例:</span> テクニカル分析で売りシグナルが出たので、売却する</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'チャート分析')">チャート分析</a> <a href="#" class="related-link" onclick="filterTerm(event,'指標')">指標</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="テクノロジー企業" data-reading="" data-first="テ">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">テクノロジー企業</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="個別銘柄" data-term="テクノロジー関連銘柄" data-reading="テクノロジー関連かめい" data-first="テ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -1837,6 +1921,18 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">ドルインデックスは、米ドルを基軸として主要な外貨との為替レートを組み合わせた指標で、米国の経済力や為替市場の動向を示す。主要な通貨6種（ユーロ、イェン、英ポンド、カナダドル、スイスフラン、スウェーデンクローナ）との為替レートで構成される。</div><div class="gloss-example"><span class="ex-label">例:</span> ドルインデックスが上昇すると、ドルが強化される</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'為替レート')">為替レート</a> <a href="#" class="related-link" onclick="filterTerm(event,'米国経済')">米国経済</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="ドルバンド、金利の引き締まり" data-reading="" data-first="ド">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">ドルバンド、金利の引き締まり</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="その他" data-term="ドルポンドの円安" data-reading="" data-first="ド">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -1860,6 +1956,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">1ドルが何円かを示す為替レート。日本株市場と密接に連動しており、円安はドル建て収益が多い輸出企業の業績向上をもたらす。FRBと日銀の金融政策の差が変動の主要因。</div><div class="gloss-example"><span class="ex-label">例:</span> ドル円が150円を突破し、輸出株が軒並み上昇した。</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'円高')">円高</a> <a href="#" class="related-link" onclick="filterTerm(event,'円安')">円安</a> <a href="#" class="related-link" onclick="filterTerm(event,'政策金利')">政策金利</a> <a href="#" class="related-link" onclick="filterTerm(event,'FF金利')">FF金利</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="ドル円、ユーロドル、ユーロ円" data-reading="" data-first="ド">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">ドル円、ユーロドル、ユーロ円</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="マクロ" data-term="ドル円相場" data-reading="ドルエンそうば" data-first="ド">
       <div class="gloss-card-header">
@@ -1968,6 +2076,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">ハンタウイルスは、ハンタウイルス属に属するウイルスの一種で、主にネズミなどの小型哺乳類が宿主となり、人に感染すると重篤な肺出血熱や腎症候群を引き起こすことがある。金融市場への直接的な影響は少ないが、感染拡大による社会的・経済的影響については注目されることがある。</div><div class="gloss-example"><span class="ex-label">例:</span> ハンタウイルスの感染拡大が経済に与える影響</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'感染症')">感染症</a> <a href="#" class="related-link" onclick="filterTerm(event,'公衆衛生')">公衆衛生</a> <a href="#" class="related-link" onclick="filterTerm(event,'経済への影響')">経済への影響</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="バクー原油 futures" data-reading="" data-first="バ">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">バクー原油 futures</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="その他" data-term="バランス" data-reading="" data-first="バ">
       <div class="gloss-card-header">
@@ -2365,6 +2485,18 @@
       
       
     </div>
+    <div class="gloss-card" data-category="その他" data-term="メリオ・ガベリ氏" data-reading="" data-first="メ">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">メリオ・ガベリ氏</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="その他" data-term="モメンタム" data-reading="" data-first="モ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -2521,6 +2653,18 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">リスク管理とは、投資における潜在的な損失や損害を最小限に抑えるための戦略や手法のこと。投資の目標やリスク許容度に応じて、資産の分散やヘッジなどを行う。</div><div class="gloss-example"><span class="ex-label">例:</span> 投資家はリスク管理のために、株式と債券のポートフォリオを分散する</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'ポートフォリオ')">ポートフォリオ</a> <a href="#" class="related-link" onclick="filterTerm(event,'ヘッジ')">ヘッジ</a> <a href="#" class="related-link" onclick="filterTerm(event,'分散投資')">分散投資</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="リスク要因" data-reading="" data-first="リ">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">リスク要因</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="マクロ" data-term="リゾートマージン" data-reading="リゾートマージン" data-first="リ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -2581,6 +2725,18 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">過去に何度も株価が跳ね返された価格帯を結んだ水平ラインまたはゾーン。売り圧力が集中しやすく、価格が上昇してきた際に上値抵抗として機能する。ブレイクすると大きな上昇につながりやすい。</div><div class="gloss-example"><span class="ex-label">例:</span> 3000円のレジスタンスラインを突破し、追加買いを入れた。</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'サポートライン')">サポートライン</a> <a href="#" class="related-link" onclick="filterTerm(event,'出来高')">出来高</a> <a href="#" class="related-link" onclick="filterTerm(event,'ボラティリティ')">ボラティリティ</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="ロケットラボ" data-reading="" data-first="ロ">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">ロケットラボ</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="テクニカル" data-term="ロング偏重" data-reading="ロングヘンコウ" data-first="ロ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -2593,6 +2749,30 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">ロング偏重は、テクニカル分析における指標の一つで、買い信号が売り信号よりも優位性を持っていることを示す。ロングとは買い、ヘンコウとは偏りや傾向を意味し、市場の買い気配が強いことを示唆する。</div><div class="gloss-example"><span class="ex-label">例:</span> ロング偏重が見られたため、投資家は買い信号を強く受け取った</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'ショート偏重')">ショート偏重</a> <a href="#" class="related-link" onclick="filterTerm(event,'買い信号')">買い信号</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="ワースト10" data-reading="" data-first="ワ">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">ワースト10</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="上げ幅" data-reading="" data-first="上">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">上げ幅</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="テクニカル" data-term="上値めど" data-reading="ジョウネンメド" data-first="ジ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -2604,6 +2784,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">テクニカル分析で、株価が上昇する際に目標とする価格レベル。チャートパターンや指標から決定される。投資家が売却するタイミングを決める際に使用する。</div><div class="gloss-example"><span class="ex-label">例:</span> 上値めどを2500円と設定して売却する</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'下値めど')">下値めど</a> <a href="#" class="related-link" onclick="filterTerm(event,'テクニカル分析')">テクニカル分析</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="上値目標" data-reading="" data-first="上">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">上値目標</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="制度" data-term="上場投信" data-reading="じょうじょうとうしん" data-first="じ">
       <div class="gloss-card-header">
@@ -2628,6 +2820,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">上昇トレンドとは、株価や為替などの市場価格が長期的に上昇している方向を指します。テクニカル分析で使用され、トレンドラインを描くことで上昇トレンドを視覚的に確認できます。</div><div class="gloss-example"><span class="ex-label">例:</span> 株価が上昇トレンドに乗っている</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'下降トレンド')">下降トレンド</a> <a href="#" class="related-link" onclick="filterTerm(event,'トレンドライン')">トレンドライン</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="上昇率トップ10" data-reading="" data-first="上">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">上昇率トップ10</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="制度" data-term="不動産担保証券" data-reading="ふどうさんたんぽしょうけん" data-first="ふ">
       <div class="gloss-card-header">
@@ -2713,6 +2917,18 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">中東地域の政治的・経済的な状況を指す。石油価格や国際関係に影響を与えることがある。</div><div class="gloss-example"><span class="ex-label">例:</span> 中東情勢の不安定化により石油価格が上昇した</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'原油価格')">原油価格</a> <a href="#" class="related-link" onclick="filterTerm(event,'地政学')">地政学</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="中東情勢の緊張" data-reading="" data-first="中">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">中東情勢の緊張</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="マクロ" data-term="中立派" data-reading="チュウリツハ" data-first="チ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -2767,6 +2983,18 @@
           <span class="gloss-cat-badge">📚 その他</span>
         </div>
         <div class="gloss-term-name">予約</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="事業拡大" data-reading="" data-first="事">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">事業拡大</div>
         
         <div class="gloss-short"></div>
       </div>
@@ -2869,6 +3097,18 @@
       
       
     </div>
+    <div class="gloss-card" data-category="その他" data-term="価格上昇への調整" data-reading="" data-first="価">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">価格上昇への調整</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="その他" data-term="価格制限" data-reading="" data-first="価">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -2952,6 +3192,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">停戦協定とは、戦争当事国間で戦闘行為を停止することを約束する協定です。国際法上の合意であり、紛争の解決や平和の回復を目的としています。停戦協定は、戦争の終結を意味するものではなく、交渉や和平協定への道を開くための暫定的な合意と見なされます。</div><div class="gloss-example"><span class="ex-label">例:</span> 国連の仲介により停戦協定が結ばれました</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'和平協定')">和平協定</a> <a href="#" class="related-link" onclick="filterTerm(event,'休戦協定')">休戦協定</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="債務整理" data-reading="" data-first="債">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">債務整理</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="その他" data-term="兆し" data-reading="" data-first="兆">
       <div class="gloss-card-header">
@@ -3067,6 +3319,18 @@
           <span class="gloss-cat-badge">📚 その他</span>
         </div>
         <div class="gloss-term-name">円安抑制のバトン</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="円安抑制効果" data-reading="" data-first="円">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">円安抑制効果</div>
         
         <div class="gloss-short"></div>
       </div>
@@ -3277,6 +3541,18 @@
       
       
     </div>
+    <div class="gloss-card" data-category="その他" data-term="化学系トラブル産業" data-reading="" data-first="化">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">化学系トラブル産業</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="マクロ" data-term="医療費" data-reading="いりょうひ" data-first="い">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -3349,6 +3625,18 @@
       
       
     </div>
+    <div class="gloss-card" data-category="その他" data-term="原価上昇" data-reading="" data-first="原">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">原価上昇</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="マクロ" data-term="原油価格" data-reading="げんゆ" data-first="げ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -3367,6 +3655,18 @@
           <span class="gloss-cat-badge">📚 その他</span>
         </div>
         <div class="gloss-term-name">原油価格、インフレリスク、和解期待</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="原油価格、エネルギー市場、平和的な解決" data-reading="" data-first="原">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">原油価格、エネルギー市場、平和的な解決</div>
         
         <div class="gloss-short"></div>
       </div>
@@ -3444,6 +3744,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">収益シェアリングとは、投資による収益を投資家と事業者が分配する制度です。投資家は投資額に応じて収益を受け取り、事業者は事業運営の成果を投資家と共有します。</div><div class="gloss-example"><span class="ex-label">例:</span> 不動産投資の収益シェアリング</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'リターン')">リターン</a> <a href="#" class="related-link" onclick="filterTerm(event,'分配金')">分配金</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="収益増加率" data-reading="" data-first="収">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">収益増加率</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="その他" data-term="収益性" data-reading="" data-first="収">
       <div class="gloss-card-header">
@@ -3637,12 +3949,36 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">企業が新たに株式を発行して資金調達すること。公募増資・第三者割当増資などの種類がある。既存株主の持ち株比率が低下（希薄化）するため、発表後に株価が下落しやすい。資金使途の確認が重要。</div><div class="gloss-example"><span class="ex-label">例:</span> 公募増資の発表で1株利益の希薄化が懸念され、株価が急落した。</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'EPS')">EPS</a> <a href="#" class="related-link" onclick="filterTerm(event,'PER')">PER</a> <a href="#" class="related-link" onclick="filterTerm(event,'自社株買い')">自社株買い</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="声明文" data-reading="" data-first="声">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">声明文</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="その他" data-term="売上" data-reading="" data-first="売">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
           <span class="gloss-cat-badge">📚 その他</span>
         </div>
         <div class="gloss-term-name">売上</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="売上予想" data-reading="" data-first="売">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">売上予想</div>
         
         <div class="gloss-short"></div>
       </div>
@@ -3727,6 +4063,30 @@
           <span class="gloss-cat-badge">📚 その他</span>
         </div>
         <div class="gloss-term-name">女子スポーツ投資</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="好決算" data-reading="" data-first="好">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">好決算</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="安定" data-reading="" data-first="安">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">安定</div>
         
         <div class="gloss-short"></div>
       </div>
@@ -3823,6 +4183,18 @@
           <span class="gloss-cat-badge">📚 その他</span>
         </div>
         <div class="gloss-term-name">市場の分析</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="市場の動き" data-reading="" data-first="市">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">市場の動き</div>
         
         <div class="gloss-short"></div>
       </div>
@@ -3985,6 +4357,30 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">投資信託の商品とは、投資信託会社が発行する投資商品のことで、投資家の資金を集めて、株式、債券、不動産などに投資するものです。投資家は、投資信託の商品を購入することで、専門家による運用を受けることができます。</div><div class="gloss-example"><span class="ex-label">例:</span> 投資信託の商品を購入して、株式市場に投資する</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'投資信託')">投資信託</a> <a href="#" class="related-link" onclick="filterTerm(event,'資産運用')">資産運用</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="投資家の動き" data-reading="" data-first="投">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">投資家の動き</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="指標" data-reading="" data-first="指">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">指標</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="制度" data-term="政府" data-reading="セイフ" data-first="セ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -4045,12 +4441,48 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">2024年1月から始まった新しいNISA制度。成長投資枠（年240万円）とつみたて投資枠（年120万円）で構成され、合計1800万円の生涯非課税枠が設定された。旧NISAと異なり恒久化・無期限となった。</div><div class="gloss-example"><span class="ex-label">例:</span> 新NISAのつみたて枠でインデックスファンドを毎月10万円積み立てた。</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'ETF')">ETF</a> <a href="#" class="related-link" onclick="filterTerm(event,'インデックスファンド')">インデックスファンド</a> <a href="#" class="related-link" onclick="filterTerm(event,'IPO')">IPO</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="新規契約" data-reading="" data-first="新">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">新規契約</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="その他" data-term="施設の運用停止" data-reading="" data-first="施">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
           <span class="gloss-cat-badge">📚 その他</span>
         </div>
         <div class="gloss-term-name">施設の運用停止</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="旅行業界の不況" data-reading="" data-first="旅">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">旅行業界の不況</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="日経225先物" data-reading="" data-first="日">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">日経225先物</div>
         
         <div class="gloss-short"></div>
       </div>
@@ -4153,6 +4585,18 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">日本銀行（Bank of Japan）。日本の中央銀行で、物価の安定と金融システムの安定を目的とする。長年ゼロ金利・マイナス金利政策を維持してきたが、2024年に利上げへ転換。円相場への影響が大きい。</div><div class="gloss-example"><span class="ex-label">例:</span> 日銀が予想外の利上げを実施し、円高・日本株安が進んだ。</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'マイナス金利')">マイナス金利</a> <a href="#" class="related-link" onclick="filterTerm(event,'ゼロ金利政策')">ゼロ金利政策</a> <a href="#" class="related-link" onclick="filterTerm(event,'円高')">円高</a> <a href="#" class="related-link" onclick="filterTerm(event,'量的緩和')">量的緩和</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="日銀金融政策決定会合" data-reading="" data-first="日">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">日銀金融政策決定会合</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="個別銘柄" data-term="時価総額" data-reading="じかそうげんがく" data-first="じ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -4189,6 +4633,18 @@
       
       
     </div>
+    <div class="gloss-card" data-category="その他" data-term="景気後退" data-reading="" data-first="景">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">景気後退</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="その他" data-term="暗号資産ヘッジ需要" data-reading="" data-first="暗">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -4207,6 +4663,18 @@
           <span class="gloss-cat-badge">📚 その他</span>
         </div>
         <div class="gloss-term-name">暴落</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="最高値" data-reading="" data-first="最">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">最高値</div>
         
         <div class="gloss-short"></div>
       </div>
@@ -4285,6 +4753,18 @@
       
       
     </div>
+    <div class="gloss-card" data-category="その他" data-term="株価下落" data-reading="" data-first="株">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">株価下落</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="個別銘柄" data-term="株価変動" data-reading="かぶかがくへんどう" data-first="か">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -4356,6 +4836,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">会社の事業活動による収益や利益の状況を指します。売上高、営業利益、純利益などの指標で表されます。</div><div class="gloss-example"><span class="ex-label">例:</span> 会社の業績が好調なので株価が上昇した</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'株価')">株価</a> <a href="#" class="related-link" onclick="filterTerm(event,'財務諸表')">財務諸表</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="業績の予想と実績の差" data-reading="" data-first="業">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">業績の予想と実績の差</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="その他" data-term="業績予想" data-reading="" data-first="業">
       <div class="gloss-card-header">
@@ -4464,6 +4956,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">油井閉鎖とは、石油やガスの生産を停止することを指します。天然資源の枯渇や経済的な理由などにより、油井の操業が終了することを意味します。投資家は、油井閉鎖が石油価格やエネルギー関連銘柄に与える影響に注目する必要があります。</div><div class="gloss-example"><span class="ex-label">例:</span> 石油価格は油井閉鎖の影響で上昇した</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'原油価格')">原油価格</a> <a href="#" class="related-link" onclick="filterTerm(event,'エネルギー株')">エネルギー株</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="注文倍率" data-reading="" data-first="注">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">注文倍率</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="その他" data-term="消費者" data-reading="" data-first="消">
       <div class="gloss-card-header">
@@ -4584,6 +5088,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">石油、ガス、石炭などのエネルギー資源の価格を指す。インフレーションや経済成長に影響を与える重要な指標である。</div><div class="gloss-example"><span class="ex-label">例:</span> 燃料価格の上昇は物価上昇につながる</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'インフレーション')">インフレーション</a> <a href="#" class="related-link" onclick="filterTerm(event,'原油価格')">原油価格</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="物価上昇" data-reading="" data-first="物">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">物価上昇</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="その他" data-term="物価上昇リスク" data-reading="" data-first="物">
       <div class="gloss-card-header">
@@ -5077,6 +5593,18 @@
       
       
     </div>
+    <div class="gloss-card" data-category="その他" data-term="経済活動" data-reading="" data-first="経">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">経済活動</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="その他" data-term="経験豊富な従業員" data-reading="" data-first="経">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -5197,6 +5725,30 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">計算や予測において、間違いが生じる可能性や余地があることを指します。投資においては、予測や分析において誤算の余地を考慮することが重要です。</div><div class="gloss-example"><span class="ex-label">例:</span> 投資家は予測に誤算の余地を考慮した</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'リスクマネジメント')">リスクマネジメント</a> <a href="#" class="related-link" onclick="filterTerm(event,'予測')">予測</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="警戒感" data-reading="" data-first="警">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">警戒感</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="議事要旨" data-reading="" data-first="議">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">議事要旨</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="その他" data-term="豪ドル円" data-reading="" data-first="豪">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -5316,6 +5868,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">通常は長期金利>短期金利だが、それが逆転した状態。歴史的に景気後退の先行指標とされており、米国では2年債利回りが10年債利回りを超えると特に注目される。</div><div class="gloss-example"><span class="ex-label">例:</span> 2年債と10年債が逆イールドとなり、リセッション懸念が台頭した。</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'イールドカーブ')">イールドカーブ</a> <a href="#" class="related-link" onclick="filterTerm(event,'長期金利')">長期金利</a> <a href="#" class="related-link" onclick="filterTerm(event,'短期金利')">短期金利</a> <a href="#" class="related-link" onclick="filterTerm(event,'リスクオフ')">リスクオフ</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="過熱感" data-reading="" data-first="過">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">過熱感</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="その他" data-term="過熱感、警戒感" data-reading="" data-first="過">
       <div class="gloss-card-header">
@@ -5461,6 +6025,18 @@
       
       
     </div>
+    <div class="gloss-card" data-category="その他" data-term="金利引き下げ" data-reading="" data-first="金">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">金利引き下げ</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="マクロ" data-term="金利決定会合" data-reading="キンリケツダイカイゴウ" data-first="キ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -5509,6 +6085,18 @@
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">金融管理局は、金融機関や金融商品の規制、監督を行う政府機関です。日本では、金融庁がこの役割を担っています。金融の安定と消費者保護を目的としています。</div><div class="gloss-example"><span class="ex-label">例:</span> 金融管理局は銀行の経営を監視しています</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'金融庁')">金融庁</a> <a href="#" class="related-link" onclick="filterTerm(event,'規制')">規制</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
     </div>
+    <div class="gloss-card" data-category="その他" data-term="銘柄" data-reading="" data-first="銘">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">銘柄</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
     <div class="gloss-card" data-category="制度" data-term="長期ケア保険" data-reading="チョウキケアホケン" data-first="チ">
       <div class="gloss-card-header">
         <div class="gloss-card-top">
@@ -5520,6 +6108,18 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">長期ケア保険は、認定された要介護状態の高齢者に対して、介護サービスや施設の費用を補償する日本の公的保険制度です。加入者は、一定の年金や保険料を支払うことで、介護の際に必要な費用の一部を補償を受けることができます。</div><div class="gloss-example"><span class="ex-label">例:</span> 介護が必要になったときに、長期ケア保険で費用を補償</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'介護保険')">介護保険</a> <a href="#" class="related-link" onclick="filterTerm(event,'年金制度')">年金制度</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="長期投資戦略" data-reading="" data-first="長">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">長期投資戦略</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="マクロ" data-term="長期金利" data-reading="ちょうききんり" data-first="ち">
       <div class="gloss-card-header">
@@ -5616,6 +6216,30 @@
       </div>
       <div class="gloss-card-detail" style="display:none"><div class="gloss-full">食糧生産とは、食料を生産することであり、農業、畜産、水産業などを含みます。食糧生産は、国や地域の食料安全保障に重要な役割を果たします。</div><div class="gloss-example"><span class="ex-label">例:</span> 食糧生産の増加は、食料価格の低下につながります</div><div class="gloss-related">関連: <a href="#" class="related-link" onclick="filterTerm(event,'農業')">農業</a> <a href="#" class="related-link" onclick="filterTerm(event,'食料安全保障')">食料安全保障</a></div></div>
       <button class="gloss-expand-btn" onclick="toggleGlossCard(this)">詳しく見る ▼</button>
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="高値" data-reading="" data-first="高">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">高値</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
+    </div>
+    <div class="gloss-card" data-category="その他" data-term="高市政権" data-reading="" data-first="高">
+      <div class="gloss-card-header">
+        <div class="gloss-card-top">
+          <span class="gloss-cat-badge">📚 その他</span>
+        </div>
+        <div class="gloss-term-name">高市政権</div>
+        
+        <div class="gloss-short"></div>
+      </div>
+      
+      
     </div>
     <div class="gloss-card" data-category="個別銘柄" data-term="高評価" data-reading="コウヒョウカ" data-first="コ">
       <div class="gloss-card-header">

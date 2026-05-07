@@ -4575,5 +4575,421 @@
     "definition_full": "",
     "example": "",
     "related": []
+  },
+  "GDLファンド": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "S&amp;P500": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "TOP10、S&amp;P500、NASDAQ-100": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "WTI原油価格連動型上場投信": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "イラン情勢": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "エネルギー供給の懸念": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "テクノロジー企業": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ドルバンド、金利の引き締まり": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ドル円、ユーロドル、ユーロ円": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "バクー原油 futures": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "メリオ・ガベリ氏": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "リスク要因": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ロケットラボ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ワースト10": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "上げ幅": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "上値目標": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "上昇率トップ10": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "中東情勢の緊張": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "事業拡大": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "価格上昇への調整": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "債務整理": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "円安抑制効果": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "化学系トラブル産業": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "原価上昇": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "原油価格、エネルギー市場、平和的な解決": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "収益増加率": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "声明文": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "売上予想": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "好決算": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "安定": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "市場の動き": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "投資家の動き": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "指標": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "新規契約": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "旅行業界の不況": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "日経225先物": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "日銀金融政策決定会合": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "景気後退": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "最高値": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "株価下落": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "業績の予想と実績の差": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "注文倍率": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "物価上昇": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "経済活動": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "警戒感": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "議事要旨": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "過熱感": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "金利引き下げ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "銘柄": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "長期投資戦略": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "高値": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "高市政権": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
   }
 }
