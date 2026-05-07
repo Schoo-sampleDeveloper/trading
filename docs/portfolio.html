@@ -129,6 +129,32 @@
       gap: 6px;
     }
 
+    /* ─── モードタブ ───────────────────────────────────── */
+    .pf-mode-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 16px;
+    }
+    .pf-mode-tab {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 200ms;
+    }
+    .pf-mode-tab.active {
+      background: var(--bg-page);
+      color: var(--text-primary);
+    }
+
     /* ─── ヒーロー ─────────────────────────────────────── */
     .pf-hero {
       background: linear-gradient(180deg, var(--bg-card) 0%, transparent 100%);
@@ -362,6 +388,38 @@
       margin-top: 10px;
     }
 
+    /* ─── Recurring ヒーロー ───────────────────────────── */
+    .pf-recurring__hero {
+      background: linear-gradient(180deg, var(--bg-card) 0%, transparent 100%);
+      border-radius: var(--pf-radius-card);
+      padding: 24px 20px 20px;
+      margin-bottom: 20px;
+    }
+    .pf-recurring__values {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .pf-recurring__values > div {
+      text-align: center;
+    }
+    .pf-recurring__values span {
+      display: block;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .pf-recurring__values b {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
     /* ─── 空状態 ───────────────────────────────────────── */
     .pf-empty {
       text-align: center;
@@ -440,7 +498,7 @@
       border-radius: 2px;
       margin: 0 auto 16px;
     }
-    .pf-modal__title { font-size: 18px; font-weight: 700; margin: 0 0 18px; }
+    .pf-modal__title { font-size: 18px; font-weight: 700; margin: 0 0 14px; }
     .pf-form label {
       display: block;
       margin-bottom: 14px;
@@ -450,7 +508,9 @@
       letter-spacing: 0.08em;
       font-weight: 600;
     }
-    .pf-form input {
+    .pf-form input[type="text"],
+    .pf-form input[type="number"],
+    .pf-form input[type="month"] {
       width: 100%;
       background: var(--bg-elevated);
       border: 1px solid var(--border-default);
@@ -473,6 +533,30 @@
       gap: 10px;
       margin-top: 20px;
     }
+    /* フォームモード切替 */
+    .pf-form__mode {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding: 10px 14px;
+      background: var(--bg-elevated);
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .pf-form__mode label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 0;
+      font-size: 13px;
+      text-transform: none;
+      letter-spacing: 0;
+      cursor: pointer;
+      color: var(--text-secondary);
+    }
+    .pf-form__mode input[type="radio"] { accent-color: var(--bullish); }
     .pf-suggest {
       margin-top: -8px;
       margin-bottom: 4px;
@@ -496,6 +580,11 @@
     .pf-suggest-sym { font-weight: 700; font-family: 'JetBrains Mono', monospace; }
     .pf-suggest-name { flex: 1; color: var(--text-secondary); font-size: 12px; }
     .pf-suggest-price { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--bullish); }
+    .pf-suggest-hint {
+      font-size: 12px;
+      color: var(--accent);
+      padding: 4px 2px;
+    }
 
     /* ─── ボタン ───────────────────────────────────────── */
     .pf-btn-primary {
@@ -551,6 +640,7 @@
     @media (max-width: 380px) {
       .pf-row__main { gap: 8px; padding: 12px 12px; }
       .pf-row__grid { grid-template-columns: repeat(2, 1fr); }
+      .pf-recurring__values { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -574,6 +664,12 @@
       ⚠ データ取得失敗 — 前回値を表示中。しばらくして再試行します。
     </div>
 
+    <!-- モード切替タブ -->
+    <nav class="pf-mode-tabs" role="tablist">
+      <button class="pf-mode-tab active" data-mode="holdings" role="tab">Holdings</button>
+      <button class="pf-mode-tab" data-mode="recurring" role="tab">Recurring</button>
+    </nav>
+
     <!-- ヒーロー: 総評価額 -->
     <section class="pf-hero">
       <div class="pf-hero__label">Total Portfolio Value</div>
@@ -595,46 +691,79 @@
       <div class="pf-last-update" id="pfLastUpdate"></div>
     </section>
 
-    <!-- ドーナツチャート: 構成比 -->
-    <section class="pf-allocation">
-      <div class="pf-section-title">Allocation</div>
-      <div class="pf-donut-wrap">
-        <canvas id="pfDonut" width="200" height="200"></canvas>
-        <div class="pf-donut-center">
-          <div class="pf-donut-label">Holdings</div>
-          <div class="pf-donut-count" id="pfHoldingCount">0</div>
+    <!-- Holdings セクション -->
+    <div id="pfHoldingsSection">
+      <!-- ドーナツチャート: 構成比 -->
+      <section class="pf-allocation">
+        <div class="pf-section-title">Allocation</div>
+        <div class="pf-donut-wrap">
+          <canvas id="pfDonut" width="200" height="200"></canvas>
+          <div class="pf-donut-center">
+            <div class="pf-donut-label">Holdings</div>
+            <div class="pf-donut-count" id="pfHoldingCount">0</div>
+          </div>
         </div>
-      </div>
-      <div class="pf-allocation-toggle">
-        <button data-mode="symbol" class="active">By Symbol</button>
-        <button data-mode="sector">By Sector</button>
-      </div>
-    </section>
+        <div class="pf-allocation-toggle">
+          <button data-mode="symbol" class="active">By Symbol</button>
+          <button data-mode="sector">By Sector</button>
+        </div>
+      </section>
 
-    <!-- ホールディングス一覧 -->
-    <section class="pf-holdings">
-      <div class="pf-holdings__header">
-        <div class="pf-section-title" style="margin-bottom:0">Holdings</div>
-        <select id="pfSortSelect" class="pf-sort">
-          <option value="value">時価額順</option>
-          <option value="pnl_pct">損益率順</option>
-          <option value="alpha">A-Z</option>
-        </select>
-      </div>
-      <ul class="pf-list" id="pfList"></ul>
-      <div class="pf-empty" id="pfEmpty" hidden>
-        <div class="pf-empty__icon">📊</div>
-        <div class="pf-empty__title">保有銘柄がありません</div>
+      <!-- ホールディングス一覧 -->
+      <section class="pf-holdings">
+        <div class="pf-holdings__header">
+          <div class="pf-section-title" style="margin-bottom:0">Holdings</div>
+          <select id="pfSortSelect" class="pf-sort">
+            <option value="value">時価額順</option>
+            <option value="pnl_pct">損益率順</option>
+            <option value="alpha">A-Z</option>
+          </select>
+        </div>
+        <ul class="pf-list" id="pfList"></ul>
+        <div class="pf-empty" id="pfEmpty" hidden>
+          <div class="pf-empty__icon">📊</div>
+          <div class="pf-empty__title">保有銘柄がありません</div>
+          <div class="pf-empty__sub">
+            右下の ＋ ボタンをタップして<br>最初の銘柄を追加しましょう。<br>
+            <small>日本株: 7203 → 7203.T 自動補完 / 米国株: AAPL / ETF: VOO</small>
+          </div>
+          <div class="pf-empty__sample">
+            <button onclick="addSample('7203.T', 100, 2500)">サンプル: トヨタ (7203.T) を追加</button>
+            <button onclick="addSample('AAPL', 10, 180)">サンプル: Apple (AAPL) を追加</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Recurring セクション -->
+    <div id="pfRecurringSection" hidden>
+      <section class="pf-recurring__hero">
+        <div class="pf-hero__label">Total Invested vs Current</div>
+        <div class="pf-recurring__values">
+          <div>
+            <span>累計投入</span>
+            <b id="pfRecInvested">¥ 0</b>
+          </div>
+          <div>
+            <span>現在評価額</span>
+            <b id="pfRecCurrent">¥ 0</b>
+          </div>
+          <div>
+            <span>損益</span>
+            <b id="pfRecPnL">¥ 0 (+0.00%)</b>
+          </div>
+        </div>
+      </section>
+      <ul class="pf-list" id="pfRecList"></ul>
+      <div class="pf-empty" id="pfRecEmpty" hidden>
+        <div class="pf-empty__icon">📅</div>
+        <div class="pf-empty__title">積立がありません</div>
         <div class="pf-empty__sub">
-          右下の ＋ ボタンをタップして<br>最初の銘柄を追加しましょう。<br>
-          <small>日本株: 7203.T / 米国株: AAPL / ETF: VOO</small>
-        </div>
-        <div class="pf-empty__sample">
-          <button onclick="addSample('7203.T', 100, 2500)">サンプル: トヨタ (7203.T) を追加</button>
-          <button onclick="addSample('AAPL', 10, 180)">サンプル: Apple (AAPL) を追加</button>
+          右下の ＋ ボタンから積立を追加してください。<br>
+          <small>例: VOO を月3万円、2024-01 開始</small>
         </div>
       </div>
-    </section>
+    </div>
 
   </main>
 
@@ -652,24 +781,48 @@
       <div class="pf-modal__handle"></div>
       <h3 class="pf-modal__title">銘柄を追加</h3>
       <div class="pf-form">
+        <!-- モード切替ラジオ -->
+        <div class="pf-form__mode">
+          <label><input type="radio" name="pfFormMode" value="holdings" checked> 保有銘柄</label>
+          <label><input type="radio" name="pfFormMode" value="recurring"> 積立</label>
+        </div>
+
+        <!-- ティッカー（共通） -->
         <label>ティッカーシンボル
           <input type="text" id="pfTickerInput"
-                 placeholder="例: 7203.T, AAPL, VOO"
+                 placeholder="例: 7203 → 7203.T, AAPL, VOO"
                  autocomplete="off"
                  autocapitalize="characters"
                  spellcheck="false"/>
         </label>
         <div class="pf-suggest" id="pfSuggest"></div>
-        <label>保有数量
-          <input type="number" id="pfQtyInput"
-                 step="0.0001" min="0.0001"
-                 placeholder="100" inputmode="decimal"/>
-        </label>
-        <label>平均取得単価
-          <input type="number" id="pfAvgInput"
-                 step="0.01" min="0.01"
-                 placeholder="2500.00" inputmode="decimal"/>
-        </label>
+
+        <!-- Holdings フィールド -->
+        <div id="pfHoldingsFields">
+          <label>保有数量
+            <input type="number" id="pfQtyInput"
+                   step="0.0001" min="0.0001"
+                   placeholder="100" inputmode="decimal"/>
+          </label>
+          <label>平均取得単価
+            <input type="number" id="pfAvgInput"
+                   step="0.01" min="0.01"
+                   placeholder="2500.00" inputmode="decimal"/>
+          </label>
+        </div>
+
+        <!-- Recurring フィールド -->
+        <div id="pfRecurringFields" hidden>
+          <label>毎月積立額（円）
+            <input type="number" id="pfRecAmount"
+                   step="1000" min="1"
+                   placeholder="30000" inputmode="numeric"/>
+          </label>
+          <label>開始月
+            <input type="month" id="pfRecStart"/>
+          </label>
+        </div>
+
         <div class="pf-form__actions">
           <button class="pf-btn-secondary" data-close>キャンセル</button>
           <button class="pf-btn-primary" id="pfSaveBtn">追加</button>
@@ -717,7 +870,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 
   <!-- Portfolio JS -->
-  <script src="https://schoo-sampledeveloper.github.io/trading/static/js/portfolio.js"></script>
+  <script src="static/js/portfolio.js" defer></script>
 
   <!-- サンプルデータ追加ヘルパー -->
   <script>
@@ -737,7 +890,6 @@
       const next = cur === 'dark' ? 'light' : 'dark';
       body.dataset.theme = next;
       localStorage.setItem('theme', next);
-      document.getElementById('pfApiError'); // dummy
       const btn = document.querySelector('.pf-header__nav button');
       if (btn) btn.textContent = next === 'dark' ? '☀️' : '🌙';
     }

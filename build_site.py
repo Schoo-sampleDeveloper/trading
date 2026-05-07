@@ -28,7 +28,7 @@ NEWS_ARCHIVE = DATA_DIR / "news_archive.jsonl"
 INSIGHTS_ARCHIVE = DATA_DIR / "insights_archive.jsonl"
 
 JST = timezone(timedelta(hours=9))
-BASE_URL = os.environ.get("SITE_BASE_URL", "https://example.github.io/trading").rstrip("/")
+BASE_URL = os.environ.get("SITE_BASE_URL", "https://schoo-sampledeveloper.github.io/trading").rstrip("/")
 
 
 def _jst_now() -> datetime:

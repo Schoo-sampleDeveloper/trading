@@ -1,13 +1,16 @@
 /**
  * portfolio.js
- * ポートフォリオ管理 — LocalStorage + Yahoo Finance 非公式API
+ * ポートフォリオ管理 — LocalStorage + Yahoo Finance (Cloudflare Worker経由)
  */
 
 'use strict';
 
-// ─── ストレージ ───────────────────────────────────────────
+// ─── 定数 ─────────────────────────────────────────────────
+const WORKER_BASE = 'https://yahoo-proxy.kazuki35344.workers.dev';
 const STORAGE_KEY = 'portfolio_v1';
+const STORAGE_KEY_RECURRING = 'portfolio_recurring_v1';
 
+// ─── ストレージ ───────────────────────────────────────────
 function loadPortfolio() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
@@ -18,6 +21,18 @@ function loadPortfolio() {
 
 function savePortfolio(items) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+}
+
+function loadRecurring() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY_RECURRING) || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveRecurring(items) {
+  localStorage.setItem(STORAGE_KEY_RECURRING, JSON.stringify(items));
 }
 
 // ─── 通貨フォーマット ─────────────────────────────────────
@@ -60,71 +75,84 @@ function animateNumber(el, from, to, duration = 600, formatter) {
   requestAnimationFrame(step);
 }
 
-// ─── Yahoo Finance API（CORS プロキシ付き） ──────────────
-const PROXY_LIST = [
-  url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-];
-
+// ─── Yahoo Finance API（Cloudflare Worker経由） ──────────
 let _quoteCache = {};
 let _quoteCacheTime = 0;
 const CACHE_TTL = 25000; // 25秒
 
-async function fetchWithProxy(url) {
-  for (const makeProxy of PROXY_LIST) {
-    try {
-      const res = await fetch(makeProxy(url), { signal: AbortSignal.timeout(8000) });
-      if (res.ok) return res;
-    } catch (e) {
-      // 次のプロキシを試す
-    }
+// 1銘柄の現在値取得（v8/chart エンドポイント使用）
+async function fetchQuoteSingle(symbol) {
+  const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1d&interval=1m`;
+  const proxyUrl = `${WORKER_BASE}/?url=${encodeURIComponent(yahooUrl)}`;
+
+  try {
+    const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(10000) });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    const result = json?.chart?.result?.[0];
+    if (!result) throw new Error('No data');
+
+    const meta = result.meta;
+    const prevClose = meta.chartPreviousClose ?? meta.previousClose ?? meta.regularMarketPrice;
+    return {
+      symbol: meta.symbol,
+      price: meta.regularMarketPrice,
+      prevClose,
+      change: meta.regularMarketPrice - prevClose,
+      changePct: ((meta.regularMarketPrice / prevClose) - 1) * 100,
+      currency: meta.currency,
+      name: meta.longName || meta.shortName || meta.symbol,
+      exchange: meta.fullExchangeName,
+      marketState: meta.marketState || 'UNKNOWN',
+    };
+  } catch (e) {
+    console.warn(`fetchQuoteSingle(${symbol}) failed:`, e);
+    return null;
   }
-  throw new Error('全プロキシ失敗');
 }
 
+// 複数銘柄を並列取得
 async function fetchQuotes(symbols) {
   if (!symbols.length) return {};
   const now = Date.now();
   if (now - _quoteCacheTime < CACHE_TTL) return _quoteCache;
 
-  const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols.join(',')}&lang=ja&region=JP`;
-  try {
-    const res = await fetchWithProxy(url);
-    const json = await res.json();
-    const map = {};
-    for (const q of (json.quoteResponse?.result || [])) {
-      map[q.symbol] = {
-        price: q.regularMarketPrice,
-        prevClose: q.regularMarketPreviousClose,
-        change: q.regularMarketChange,
-        changePct: q.regularMarketChangePercent,
-        currency: q.currency || 'JPY',
-        name: q.shortName || q.longName || q.symbol,
-        sector: q.sector || 'Unknown',
-      };
+  const results = await Promise.all(symbols.map(s => fetchQuoteSingle(s)));
+  const map = {};
+  let anySuccess = false;
+  results.forEach((q, i) => {
+    if (q) {
+      map[symbols[i]] = q;
+      anySuccess = true;
     }
+  });
+
+  if (anySuccess) {
     _quoteCache = map;
     _quoteCacheTime = now;
-    return map;
-  } catch (e) {
-    console.warn('fetchQuotes 失敗:', e);
+    showApiError(false);
+  } else {
     showApiError(true);
-    return _quoteCache; // 前回値を返す
   }
+  return _quoteCache;
 }
 
 async function fetchHistory(symbol, range = '1mo', interval = '1d') {
-  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${interval}`;
+  const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${interval}`;
+  const proxyUrl = `${WORKER_BASE}/?url=${encodeURIComponent(yahooUrl)}`;
+
   try {
-    const res = await fetchWithProxy(url);
+    const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(10000) });
+    if (!res.ok) return null;
     const json = await res.json();
-    const chart = json.chart?.result?.[0];
-    if (!chart) return null;
-    const ts = chart.timestamp || [];
-    const closes = chart.indicators?.quote?.[0]?.close || [];
+    const result = json?.chart?.result?.[0];
+    if (!result) return null;
+
+    const ts = result.timestamp || [];
+    const closes = result.indicators?.quote?.[0]?.close || [];
     return ts.map((t, i) => ({ t: t * 1000, c: closes[i] })).filter(d => d.c != null);
   } catch (e) {
-    console.warn('fetchHistory 失敗:', e);
+    console.warn(`fetchHistory(${symbol}) failed:`, e);
     return null;
   }
 }
@@ -132,6 +160,35 @@ async function fetchHistory(symbol, range = '1mo', interval = '1d') {
 function showApiError(show) {
   const el = document.getElementById('pfApiError');
   if (el) el.hidden = !show;
+}
+
+// ─── ティッカー正規化・バリデーション ────────────────────
+// 4桁数字なら .T を付与
+function normalizeSymbol(input) {
+  const s = input.trim().toUpperCase();
+  if (/^\d{4}$/.test(s)) return s + '.T';
+  return s;
+}
+
+// バリデーション: 価格取得を試みる、失敗しても候補を提示
+async function validateSymbol(input) {
+  const normalized = normalizeSymbol(input);
+  const candidates = [normalized];
+
+  // 4桁数字の場合は .T だけでなく素のシンボルも試す
+  const raw = input.trim().toUpperCase();
+  if (/^\d{4}$/.test(raw) && normalized !== raw) {
+    candidates.push(raw);
+  }
+
+  for (const cand of candidates) {
+    const quote = await fetchQuoteSingle(cand);
+    if (quote && quote.price) {
+      return { ok: true, symbol: cand, quote };
+    }
+  }
+
+  return { ok: false, tried: candidates, symbol: normalized };
 }
 
 // ─── 損益計算 ─────────────────────────────────────────────
@@ -255,7 +312,6 @@ function renderSparkline(containerId, data, color = '#00c853') {
   svg.setAttribute('height', H);
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
 
-  // グラデーション fill
   const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
   const grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
   grad.id = `spark-grad-${containerId}`;
@@ -276,14 +332,12 @@ function renderSparkline(containerId, data, color = '#00c853') {
   defs.appendChild(grad);
   svg.appendChild(defs);
 
-  // fill path
   const lastX = (prices.length - 1) / (prices.length - 1) * W;
   const fillPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   fillPath.setAttribute('d', `M${pts.join('L')} L${lastX},${H} L0,${H} Z`);
   fillPath.setAttribute('fill', `url(#spark-grad-${containerId})`);
   svg.appendChild(fillPath);
 
-  // line
   const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
   polyline.setAttribute('points', pts.join(' '));
   polyline.setAttribute('fill', 'none');
@@ -301,8 +355,14 @@ let _prevTotal = 0;
 let _donutMode = 'symbol';
 let _sortMode = 'value';
 let _refreshTimer = null;
+let _currentMode = 'holdings'; // 'holdings' or 'recurring'
 
 async function render() {
+  if (_currentMode === 'recurring') {
+    await renderRecurring();
+    return;
+  }
+
   const items = loadPortfolio();
   const pfEmpty = document.getElementById('pfEmpty');
   const pfList = document.getElementById('pfList');
@@ -311,16 +371,19 @@ async function render() {
   if (!items.length) {
     if (pfEmpty) pfEmpty.hidden = false;
     if (pfList) pfList.innerHTML = '';
-    document.getElementById('pfTotalValue').textContent = '¥ 0';
-    document.getElementById('pfTotalDelta').className = 'pf-hero__delta';
-    document.querySelector('.pf-delta-amount').textContent = '+¥ 0';
-    document.querySelector('.pf-delta-pct').textContent = '(+0.00%)';
+    const tv = document.getElementById('pfTotalValue');
+    if (tv) tv.textContent = '¥ 0';
+    const td = document.getElementById('pfTotalDelta');
+    if (td) td.className = 'pf-hero__delta';
+    const da = document.querySelector('.pf-delta-amount');
+    if (da) da.textContent = '+¥ 0';
+    const dp = document.querySelector('.pf-delta-pct');
+    if (dp) dp.textContent = '(+0.00%)';
     if (pfHoldingCount) pfHoldingCount.textContent = '0';
     return;
   }
 
   if (pfEmpty) pfEmpty.hidden = true;
-  showApiError(false);
 
   const quotes = await fetchQuotes(items.map(i => i.symbol));
 
@@ -340,7 +403,6 @@ async function render() {
 
   const totalPnL = totalValue - totalCost;
   const totalPnLPct = totalCost > 0 ? (totalPnL / totalCost) * 100 : 0;
-  const dayChangePct = totalCost > 0 ? (totalDayChange / totalCost) * 100 : 0;
 
   // 総評価額（アニメーション）
   const heroVal = document.getElementById('pfTotalValue');
@@ -352,7 +414,6 @@ async function render() {
   }
   _prevTotal = totalValue;
 
-  // デルタ
   const heroD = document.getElementById('pfTotalDelta');
   const deltaAmt = document.querySelector('.pf-delta-amount');
   const deltaPct = document.querySelector('.pf-delta-pct');
@@ -368,10 +429,7 @@ async function render() {
 
   if (pfHoldingCount) pfHoldingCount.textContent = items.length;
 
-  // ─── ドーナツ ───
   renderDonut(items, quotes, _donutMode);
-
-  // ─── ホールディングスリスト ───
   renderHoldingsList(items, quotes);
 }
 
@@ -396,11 +454,10 @@ function renderHoldingsList(items, quotes) {
       const pb = calcPnL(b, qb).pnlPct;
       return pb - pa;
     }
-    // alpha
     return a.symbol.localeCompare(b.symbol);
   });
 
-  // 既存の行を保持（展開状態を維持）
+  // 既存の展開状態を保持
   const expandedSet = new Set();
   pfList.querySelectorAll('.pf-row[data-symbol]').forEach(row => {
     const exp = row.querySelector('.pf-row__expand');
@@ -495,21 +552,241 @@ function deleteHolding(symbol) {
   render();
 }
 
+function deleteRecurring(symbol) {
+  const items = loadRecurring().filter(i => i.symbol !== symbol);
+  saveRecurring(items);
+  renderRecurring();
+}
+
+// ─── 積立計算ロジック ─────────────────────────────────────
+async function computeRecurring(item) {
+  const start = new Date(item.startMonth + '-01');
+  const now = new Date();
+  const monthsElapsed =
+    (now.getFullYear() - start.getFullYear()) * 12 +
+    (now.getMonth() - start.getMonth()) + 1;
+
+  const range = monthsElapsed > 60 ? '10y' : '5y';
+  const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(item.symbol)}?range=${range}&interval=1mo`;
+  const proxyUrl = `${WORKER_BASE}/?url=${encodeURIComponent(yahooUrl)}`;
+
+  try {
+    const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(15000) });
+    if (!res.ok) return null;
+    const json = await res.json();
+    const result = json?.chart?.result?.[0];
+    if (!result) return null;
+
+    const timestamps = result.timestamp || [];
+    const opens = result.indicators?.quote?.[0]?.open || [];
+    const currentPrice = result.meta.regularMarketPrice;
+    const currency = result.meta.currency || 'USD';
+
+    let totalShares = 0;
+    let totalInvested = 0;
+
+    for (let i = 0; i < timestamps.length; i++) {
+      const date = new Date(timestamps[i] * 1000);
+      if (date < start) continue;
+      if (date > now) break;
+
+      const price = opens[i];
+      if (!price) continue;
+
+      const shares = item.monthlyAmount / price;
+      totalShares += shares;
+      totalInvested += item.monthlyAmount;
+    }
+
+    const currentValue = totalShares * currentPrice;
+    const pnl = currentValue - totalInvested;
+    const pnlPct = totalInvested > 0 ? (pnl / totalInvested) * 100 : 0;
+
+    // 年率換算 (CAGR)
+    const years = monthsElapsed / 12;
+    const cagr =
+      totalInvested > 0 && years > 0
+        ? (Math.pow(currentValue / totalInvested, 1 / years) - 1) * 100
+        : 0;
+
+    return {
+      totalShares,
+      totalInvested,
+      currentValue,
+      currentPrice,
+      pnl,
+      pnlPct,
+      monthsElapsed,
+      cagr,
+      currency,
+    };
+  } catch (e) {
+    console.warn(`computeRecurring(${item.symbol}) failed:`, e);
+    return null;
+  }
+}
+
+// ─── Recurring レンダリング ──────────────────────────────
+async function renderRecurring() {
+  const items = loadRecurring();
+  const pfRecList = document.getElementById('pfRecList');
+  const pfRecEmpty = document.getElementById('pfRecEmpty');
+
+  if (!items.length) {
+    if (pfRecEmpty) pfRecEmpty.hidden = false;
+    if (pfRecList) pfRecList.innerHTML = '';
+    const inv = document.getElementById('pfRecInvested');
+    const cur = document.getElementById('pfRecCurrent');
+    const pnl = document.getElementById('pfRecPnL');
+    if (inv) inv.textContent = '¥ 0';
+    if (cur) cur.textContent = '¥ 0';
+    if (pnl) pnl.textContent = '¥ 0 (+0.00%)';
+    return;
+  }
+
+  if (pfRecEmpty) pfRecEmpty.hidden = true;
+  if (pfRecList) pfRecList.innerHTML =
+    '<li style="padding:16px;color:var(--text-muted);text-align:center;font-size:13px;">計算中...</li>';
+
+  const results = await Promise.all(items.map(item => computeRecurring(item)));
+
+  let totalInvested = 0;
+  let totalCurrent = 0;
+  results.forEach(r => {
+    if (r) {
+      totalInvested += r.totalInvested;
+      totalCurrent += r.currentValue;
+    }
+  });
+
+  const totalPnL = totalCurrent - totalInvested;
+  const totalPnLPct = totalInvested > 0 ? (totalPnL / totalInvested) * 100 : 0;
+
+  const invEl = document.getElementById('pfRecInvested');
+  const curEl = document.getElementById('pfRecCurrent');
+  const pnlEl = document.getElementById('pfRecPnL');
+  if (invEl) invEl.textContent = fmt(totalInvested, 'JPY');
+  if (curEl) curEl.textContent = fmt(totalCurrent, 'JPY');
+  if (pnlEl) {
+    pnlEl.textContent = `${totalPnL >= 0 ? '+' : ''}${fmt(totalPnL, 'JPY')} (${fmtPct(totalPnLPct)})`;
+    pnlEl.style.color = totalPnL >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+  }
+
+  if (!pfRecList) return;
+  pfRecList.innerHTML = '';
+
+  items.forEach((item, idx) => {
+    const r = results[idx];
+    const pnlColor = r && r.pnl >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    const pnlSign = r && r.pnl >= 0 ? '+' : '';
+    const avgCost = r && r.totalShares > 0 ? r.totalInvested / r.totalShares : null;
+
+    const li = document.createElement('li');
+    li.className = 'pf-row';
+    li.style.setProperty('--i', idx);
+    li.dataset.symbol = item.symbol;
+
+    li.innerHTML = `
+      <button class="pf-row__main" type="button">
+        <div class="pf-row__left">
+          <div class="pf-row__symbol">${item.symbol}</div>
+          <div class="pf-row__name">月${fmt(item.monthlyAmount, 'JPY')} × ${r ? r.monthsElapsed : '?'}ヶ月</div>
+        </div>
+        <div class="pf-row__center">
+          <div class="pf-row__value">${r ? fmt(r.currentValue, r.currency) : '—'}</div>
+          <div class="pf-row__qty">投入: ${r ? fmt(r.totalInvested, 'JPY') : '—'}</div>
+        </div>
+        <div class="pf-row__right">
+          <div class="pf-row__pnl-pct ${r && r.pnl >= 0 ? 'up' : 'down'}">${r ? fmtPct(r.pnlPct) : '—'}</div>
+          <div class="pf-row__day-change" style="color:${pnlColor}">${r ? pnlSign + fmt(r.pnl, r.currency) : '—'}</div>
+        </div>
+      </button>
+      <div class="pf-row__expand" hidden>
+        <div class="pf-row__grid">
+          <div><span>累計投入</span><b>${r ? fmt(r.totalInvested, 'JPY') : '—'}</b></div>
+          <div><span>現在評価額</span><b>${r ? fmt(r.currentValue, r.currency) : '—'}</b></div>
+          <div><span>累計株数</span><b>${r ? fmtNum(r.totalShares, 4) : '—'}</b></div>
+          <div><span>平均取得単価</span><b>${r && avgCost ? fmt(avgCost, r.currency) : '—'}</b></div>
+          <div><span>現在価格</span><b>${r ? fmt(r.currentPrice, r.currency) : '—'}</b></div>
+          <div><span>損益</span><b style="color:${pnlColor}">${r ? pnlSign + fmt(r.pnl, r.currency) : '—'}</b></div>
+          <div><span>月数</span><b>${r ? r.monthsElapsed + 'ヶ月' : '—'}</b></div>
+          <div><span>年率換算</span><b style="color:${r && r.cagr >= 0 ? 'var(--bullish)' : 'var(--bearish)'}">${r ? fmtPct(r.cagr) : '—'}</b></div>
+          <div><span>開始月</span><b>${item.startMonth}</b></div>
+        </div>
+        <div class="pf-row__actions">
+          <button class="pf-btn-ghost pf-rec-edit" type="button">✏ 編集</button>
+          <button class="pf-btn-danger pf-rec-delete" type="button">🗑 削除</button>
+        </div>
+      </div>
+    `;
+
+    li.querySelector('.pf-row__main').addEventListener('click', () => {
+      const expand = li.querySelector('.pf-row__expand');
+      expand.hidden = !expand.hidden;
+    });
+
+    li.querySelector('.pf-rec-edit').addEventListener('click', e => {
+      e.stopPropagation();
+      openEditRecurringModal(item);
+    });
+
+    li.querySelector('.pf-rec-delete').addEventListener('click', e => {
+      e.stopPropagation();
+      deleteRecurring(item.symbol);
+    });
+
+    pfRecList.appendChild(li);
+  });
+}
+
 // ─── FAB & モーダル ──────────────────────────────────────
-function openModal(edit = null) {
+function openModal(edit = null, mode = null) {
   const modal = document.getElementById('pfModal');
   if (!modal) return;
   modal.hidden = false;
-  document.getElementById('pfTickerInput').value = edit?.symbol || '';
-  document.getElementById('pfQtyInput').value = edit?.qty || '';
-  document.getElementById('pfAvgInput').value = edit?.avgCost || '';
+
+  const formMode = mode || (edit?.monthlyAmount != null ? 'recurring' : 'holdings');
+
+  // フォームモード切替
+  document.querySelectorAll('input[name="pfFormMode"]').forEach(radio => {
+    radio.checked = radio.value === formMode;
+  });
+  toggleFormMode(formMode);
+
+  if (formMode === 'recurring') {
+    document.getElementById('pfTickerInput').value = edit?.symbol || '';
+    document.getElementById('pfRecAmount').value = edit?.monthlyAmount || '';
+    document.getElementById('pfRecStart').value = edit?.startMonth || '';
+    modal.dataset.editingRecurring = edit?.symbol || '';
+    modal.dataset.editing = '';
+  } else {
+    document.getElementById('pfTickerInput').value = edit?.symbol || '';
+    document.getElementById('pfQtyInput').value = edit?.qty || '';
+    document.getElementById('pfAvgInput').value = edit?.avgCost || '';
+    modal.dataset.editing = edit?.symbol || '';
+    modal.dataset.editingRecurring = '';
+  }
+
   document.getElementById('pfSuggest').innerHTML = '';
   document.getElementById('pfTickerInput').focus();
-  modal.dataset.editing = edit?.symbol || '';
+
+  const title = document.querySelector('.pf-modal__title');
+  if (title) title.textContent = edit ? '銘柄を編集' : '銘柄を追加';
 }
 
 function openEditModal(item) {
-  openModal(item);
+  openModal(item, 'holdings');
+}
+
+function openEditRecurringModal(item) {
+  openModal(item, 'recurring');
+}
+
+function toggleFormMode(mode) {
+  const holdingsFields = document.getElementById('pfHoldingsFields');
+  const recurringFields = document.getElementById('pfRecurringFields');
+  if (holdingsFields) holdingsFields.hidden = mode !== 'holdings';
+  if (recurringFields) recurringFields.hidden = mode !== 'recurring';
 }
 
 function closeModal() {
@@ -521,7 +798,16 @@ function closeModal() {
 }
 
 async function saveHolding() {
-  const ticker = document.getElementById('pfTickerInput').value.trim().toUpperCase();
+  const formModeEl = document.querySelector('input[name="pfFormMode"]:checked');
+  const formMode = formModeEl?.value || 'holdings';
+
+  if (formMode === 'recurring') {
+    await saveRecurringItem();
+    return;
+  }
+
+  const modal = document.getElementById('pfModal');
+  const ticker = document.getElementById('pfTickerInput').value.trim();
   const qty = parseFloat(document.getElementById('pfQtyInput').value);
   const avgCost = parseFloat(document.getElementById('pfAvgInput').value);
 
@@ -533,39 +819,44 @@ async function saveHolding() {
   saveBtn.disabled = true;
   saveBtn.textContent = '確認中…';
 
-  // 銘柄確認
-  const quotes = await fetchQuotes([ticker]);
-  const q = quotes[ticker];
-  if (!q) {
-    alert(`銘柄「${ticker}」が見つかりませんでした。\nティッカーを確認してください。`);
-    saveBtn.disabled = false;
-    saveBtn.textContent = '追加';
-    return;
+  // シンボルバリデーション
+  const validation = await validateSymbol(ticker);
+  let finalSymbol = validation.symbol;
+  let finalName = validation.quote?.name || finalSymbol;
+
+  if (!validation.ok) {
+    const proceed = confirm(
+      `「${validation.tried.join('」「')}」の価格データが取得できませんでした。それでも登録しますか？`
+    );
+    if (!proceed) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = '追加';
+      return;
+    }
+    finalName = finalSymbol;
   }
 
   const items = loadPortfolio();
-  const editingSymbol = document.getElementById('pfModal').dataset.editing;
-  const existing = items.findIndex(i => i.symbol === ticker);
+  const editingSymbol = modal.dataset.editing;
+  const existing = items.findIndex(i => i.symbol === finalSymbol);
 
   const newItem = {
-    symbol: ticker,
+    symbol: finalSymbol,
     qty,
     avgCost,
-    name: q.name || ticker,
+    name: finalName,
     addedAt: new Date().toISOString(),
   };
 
-  if (editingSymbol && editingSymbol !== ticker) {
-    // シンボル変更 → 古いのを削除
+  if (editingSymbol && editingSymbol !== finalSymbol) {
     const oldIdx = items.findIndex(i => i.symbol === editingSymbol);
     if (oldIdx >= 0) items.splice(oldIdx, 1);
   }
 
-  if (existing >= 0 && editingSymbol === ticker) {
+  if (existing >= 0 && editingSymbol === finalSymbol) {
     items[existing] = newItem;
   } else if (existing >= 0) {
-    // 同じシンボルが既にある → 確認
-    if (!confirm(`${ticker} は既に登録されています。上書きしますか？`)) {
+    if (!confirm(`${finalSymbol} は既に登録されています。上書きしますか？`)) {
       saveBtn.disabled = false;
       saveBtn.textContent = '追加';
       return;
@@ -584,29 +875,98 @@ async function saveHolding() {
   render();
 }
 
+async function saveRecurringItem() {
+  const modal = document.getElementById('pfModal');
+  const ticker = document.getElementById('pfTickerInput').value.trim();
+  const monthlyAmount = parseFloat(document.getElementById('pfRecAmount').value);
+  const startMonth = document.getElementById('pfRecStart').value;
+
+  if (!ticker) { alert('ティッカーを入力してください'); return; }
+  if (!monthlyAmount || monthlyAmount <= 0) { alert('積立金額を正しく入力してください'); return; }
+  if (!startMonth) { alert('開始月を入力してください'); return; }
+
+  const saveBtn = document.getElementById('pfSaveBtn');
+  saveBtn.disabled = true;
+  saveBtn.textContent = '確認中…';
+
+  const validation = await validateSymbol(ticker);
+  let finalSymbol = validation.symbol;
+
+  if (!validation.ok) {
+    const proceed = confirm(
+      `「${validation.tried.join('」「')}」の価格データが取得できませんでした。それでも登録しますか？`
+    );
+    if (!proceed) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = '追加';
+      return;
+    }
+  }
+
+  const items = loadRecurring();
+  const editingSymbol = modal.dataset.editingRecurring;
+  const existing = items.findIndex(i => i.symbol === finalSymbol);
+
+  const newItem = {
+    symbol: finalSymbol,
+    monthlyAmount,
+    startMonth,
+    addedAt: new Date().toISOString(),
+  };
+
+  if (editingSymbol && editingSymbol !== finalSymbol) {
+    const oldIdx = items.findIndex(i => i.symbol === editingSymbol);
+    if (oldIdx >= 0) items.splice(oldIdx, 1);
+  }
+
+  if (existing >= 0 && editingSymbol === finalSymbol) {
+    items[existing] = newItem;
+  } else if (existing >= 0) {
+    if (!confirm(`${finalSymbol} は既に登録されています。上書きしますか？`)) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = '追加';
+      return;
+    }
+    items[existing] = newItem;
+  } else {
+    items.push(newItem);
+  }
+
+  saveRecurring(items);
+  closeModal();
+  saveBtn.disabled = false;
+  saveBtn.textContent = '追加';
+  renderRecurring();
+}
+
 // ─── ティッカーサジェスト ────────────────────────────────
 let _suggestTimer = null;
 
 async function onTickerInput() {
   clearTimeout(_suggestTimer);
-  const val = document.getElementById('pfTickerInput').value.trim().toUpperCase();
+  const val = document.getElementById('pfTickerInput').value.trim();
   const suggest = document.getElementById('pfSuggest');
   if (!suggest) return;
   if (val.length < 1) { suggest.innerHTML = ''; return; }
 
+  const normalized = normalizeSymbol(val);
+  if (normalized !== val.trim().toUpperCase()) {
+    suggest.innerHTML = `<div class="pf-suggest-hint">→ ${normalized} として検索します</div>`;
+  }
+
   _suggestTimer = setTimeout(async () => {
-    const quotes = await fetchQuotes([val]);
+    const quote = await fetchQuoteSingle(normalized);
     suggest.innerHTML = '';
-    if (quotes[val]) {
-      const q = quotes[val];
+    if (quote) {
       const btn = document.createElement('button');
       btn.className = 'pf-suggest-item';
       btn.type = 'button';
-      btn.innerHTML = `<span class="pf-suggest-sym">${val}</span> <span class="pf-suggest-name">${q.name || ''}</span> <span class="pf-suggest-price">${fmt(q.price, q.currency)}</span>`;
+      btn.innerHTML = `<span class="pf-suggest-sym">${normalized}</span> <span class="pf-suggest-name">${quote.name || ''}</span> <span class="pf-suggest-price">${fmt(quote.price, quote.currency)}</span>`;
       btn.addEventListener('click', () => {
-        document.getElementById('pfTickerInput').value = val;
+        document.getElementById('pfTickerInput').value = normalized;
         suggest.innerHTML = '';
-        document.getElementById('pfQtyInput').focus();
+        const nextFocus = document.getElementById('pfQtyInput') || document.getElementById('pfRecAmount');
+        if (nextFocus) nextFocus.focus();
       });
       suggest.appendChild(btn);
     }
@@ -618,7 +978,6 @@ async function loadHeroSparkline(period) {
   const items = loadPortfolio();
   if (!items.length) return;
 
-  // 最初の銘柄のチャートを代表として表示（TODO: ポートフォリオ合算）
   const first = items[0];
   const rangeMap = {
     '1D': ['1d', '5m'],
@@ -631,8 +990,6 @@ async function loadHeroSparkline(period) {
   const [range, interval] = rangeMap[period] || ['1mo', '1d'];
   const hist = await fetchHistory(first.symbol, range, interval);
   if (hist) {
-    const quotes = await fetchQuotes(items.map(i => i.symbol));
-    const q = quotes[first.symbol] || {};
     const firstPrice = hist[0]?.c || 0;
     const lastPrice = hist[hist.length - 1]?.c || 0;
     const color = lastPrice >= firstPrice ? '#00c853' : '#ff3b30';
@@ -644,7 +1001,7 @@ async function loadHeroSparkline(period) {
 function startAutoRefresh(intervalMs = 30000) {
   if (_refreshTimer) clearInterval(_refreshTimer);
   _refreshTimer = setInterval(() => {
-    _quoteCacheTime = 0; // キャッシュ強制更新
+    _quoteCacheTime = 0;
     render();
     updateLastRefreshTime();
   }, intervalMs);
@@ -655,10 +1012,31 @@ function updateLastRefreshTime() {
   if (el) el.textContent = '最終更新: ' + new Date().toLocaleTimeString('ja-JP');
 }
 
+// ─── モード切替 ──────────────────────────────────────────
+function switchMode(mode) {
+  _currentMode = mode;
+
+  document.querySelectorAll('.pf-mode-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+
+  const holdingsSection = document.getElementById('pfHoldingsSection');
+  const recurringSection = document.getElementById('pfRecurringSection');
+  if (holdingsSection) holdingsSection.hidden = mode !== 'holdings';
+  if (recurringSection) recurringSection.hidden = mode !== 'recurring';
+
+  render();
+}
+
 // ─── 初期化 ───────────────────────────────────────────────
 function initPortfolio() {
+  // モードタブ
+  document.querySelectorAll('.pf-mode-tab').forEach(btn => {
+    btn.addEventListener('click', () => switchMode(btn.dataset.mode));
+  });
+
   // FABボタン
-  document.getElementById('pfAddBtn')?.addEventListener('click', () => openModal());
+  document.getElementById('pfAddBtn')?.addEventListener('click', () => openModal(null, _currentMode));
 
   // モーダル閉じる
   document.querySelectorAll('[data-close]').forEach(el => {
@@ -667,6 +1045,11 @@ function initPortfolio() {
 
   // 保存ボタン
   document.getElementById('pfSaveBtn')?.addEventListener('click', saveHolding);
+
+  // フォームモード切替ラジオ
+  document.querySelectorAll('input[name="pfFormMode"]').forEach(radio => {
+    radio.addEventListener('change', e => toggleFormMode(e.target.value));
+  });
 
   // Enterキーで保存
   document.getElementById('pfModal')?.addEventListener('keydown', e => {
@@ -707,6 +1090,15 @@ function initPortfolio() {
       btn.classList.add('active');
       loadHeroSparkline(btn.dataset.period);
     });
+  });
+
+  // Page Visibility API: タブ復帰時に再取得
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      _quoteCacheTime = 0;
+      render();
+      updateLastRefreshTime();
+    }
   });
 
   // 初回レンダリング
