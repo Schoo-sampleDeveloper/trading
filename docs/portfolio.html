@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+  <meta name="theme-color" content="#0a0e14">
+  <title>ポートフォリオ | マーケットニュース</title>
+  <style>
+    /* ─── Design tokens (card-v2 継承) ─────────────────── */
+    :root {
+      --bg-page:        #0a0e14;
+      --bg-card:        #11161d;
+      --bg-card-hover:  #161c25;
+      --bg-elevated:    #1a2029;
+      --border-subtle:  #1f2630;
+      --border-default: #2a3340;
+      --text-primary:   #e8edf2;
+      --text-secondary: #8b95a3;
+      --text-muted:     #545d6b;
+      --bullish:        #00c853;
+      --bullish-bg:     rgba(0,200,83,0.1);
+      --bearish:        #ff3b30;
+      --bearish-bg:     rgba(255,59,48,0.1);
+      --neutral:        #8b95a3;
+      --accent:         #2196f3;
+      /* portfolio-specific */
+      --pf-radius-card: 16px;
+      --pf-radius-row:  12px;
+      --pf-fab-shadow:  0 8px 24px rgba(0,200,83,0.35);
+      --pf-stagger:     60ms;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg-page:        #f4f6f9;
+        --bg-card:        #ffffff;
+        --bg-card-hover:  #f0f3f7;
+        --bg-elevated:    #e8ecf0;
+        --border-subtle:  #e0e5eb;
+        --border-default: #cdd3da;
+        --text-primary:   #0f1419;
+        --text-secondary: #57606a;
+        --text-muted:     #8b95a3;
+        --bullish:        #1a7f37;
+        --bearish:        #cf222e;
+        --accent:         #0969da;
+      }
+    }
+    body[data-theme="dark"] {
+      --bg-page:#0a0e14;--bg-card:#11161d;--bg-card-hover:#161c25;
+      --bg-elevated:#1a2029;--border-subtle:#1f2630;--border-default:#2a3340;
+      --text-primary:#e8edf2;--text-secondary:#8b95a3;--text-muted:#545d6b;
+      --bullish:#00c853;--bearish:#ff3b30;--accent:#2196f3;
+    }
+    body[data-theme="light"] {
+      --bg-page:#f4f6f9;--bg-card:#ffffff;--bg-card-hover:#f0f3f7;
+      --bg-elevated:#e8ecf0;--border-subtle:#e0e5eb;--border-default:#cdd3da;
+      --text-primary:#0f1419;--text-secondary:#57606a;--text-muted:#8b95a3;
+      --bullish:#1a7f37;--bearish:#cf222e;--accent:#0969da;
+    }
+
+    /* ─── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-page);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior-y: none;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    button { font-family: inherit; }
+
+    /* ─── Header ────────────────────────────────────────── */
+    .pf-header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 300;
+    }
+    .pf-header__inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .pf-header__title { font-size: 1rem; font-weight: 700; }
+    .pf-header__nav { display: flex; gap: 8px; align-items: center; }
+    .pf-header__nav a, .pf-header__nav button {
+      padding: 5px 12px;
+      border-radius: 7px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .pf-header__nav a:hover, .pf-header__nav button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ─── Page ──────────────────────────────────────────── */
+    .portfolio-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px 16px calc(96px + env(safe-area-inset-bottom));
+    }
+
+    /* ─── API エラーバナー ──────────────────────────────── */
+    .pf-api-error {
+      background: rgba(255,59,48,0.1);
+      border: 1px solid rgba(255,59,48,0.3);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12px;
+      color: var(--bearish);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ─── ヒーロー ─────────────────────────────────────── */
+    .pf-hero {
+      background: linear-gradient(180deg, var(--bg-card) 0%, transparent 100%);
+      border-radius: var(--pf-radius-card);
+      padding: 32px 20px 16px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .pf-hero__label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .pf-hero__value {
+      font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: clamp(32px, 10vw, 52px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 8px 0 6px;
+    }
+    .pf-hero__delta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .pf-hero__delta.up { color: var(--bullish); }
+    .pf-hero__delta.down { color: var(--bearish); }
+    .pf-spark { height: 56px; margin: 16px -8px 12px; overflow: hidden; }
+    .pf-spark svg { display: block; }
+    .pf-period-tabs {
+      display: flex;
+      gap: 3px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .pf-period-tabs button {
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      padding: 5px 11px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 200ms;
+      letter-spacing: 0.02em;
+    }
+    .pf-period-tabs button.active {
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+    .pf-last-update {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* ─── ドーナツ ─────────────────────────────────────── */
+    .pf-allocation { margin-top: 8px; margin-bottom: 28px; }
+    .pf-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .pf-donut-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .pf-donut-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+    }
+    .pf-donut-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .pf-donut-count {
+      font-size: 28px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1;
+      margin-top: 4px;
+    }
+    .pf-allocation-toggle {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 14px;
+    }
+    .pf-allocation-toggle button {
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-default);
+      padding: 5px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pf-allocation-toggle button.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* ─── ホールディングス ─────────────────────────────── */
+    .pf-holdings { margin-top: 4px; }
+    .pf-holdings__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .pf-sort {
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: 7px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .pf-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .pf-row {
+      background: var(--bg-card);
+      border-radius: var(--pf-radius-row);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      animation: pfRowIn 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-delay: calc(var(--i, 0) * var(--pf-stagger));
+      transition: border-color 0.2s;
+    }
+    .pf-row:hover { border-color: var(--border-default); }
+    @keyframes pfRowIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .pf-row__main {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: inherit;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 200ms;
+      align-items: center;
+    }
+    .pf-row__main:active { background: rgba(255,255,255,0.03); }
+    .pf-row__symbol {
+      font-weight: 700;
+      font-size: 15px;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.02em;
+    }
+    .pf-row__name { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+    .pf-row__center { text-align: right; }
+    .pf-row__value {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .pf-row__qty { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+    .pf-row__right { text-align: right; min-width: 68px; }
+    .pf-row__pnl-pct {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .pf-row__pnl-pct.up  { color: var(--bullish); }
+    .pf-row__pnl-pct.down { color: var(--bearish); }
+    .pf-row__day-change { font-size: 11px; margin-top: 3px; color: var(--text-muted); }
+
+    /* ─── 展開パネル ───────────────────────────────────── */
+    .pf-row__expand {
+      padding: 0 16px 16px;
+      border-top: 1px solid var(--border-subtle);
+      animation: pfExpand 250ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes pfExpand { from { opacity: 0; } to { opacity: 1; } }
+    .pf-row__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 14px 0 10px;
+    }
+    .pf-row__grid > div > span {
+      display: block;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .pf-row__grid > div > b {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 14px;
+      font-weight: 600;
+      display: block;
+      margin-top: 3px;
+    }
+    .pf-row__chart { height: 80px; margin: 4px 0 8px; border-radius: 6px; overflow: hidden; }
+    .pf-row__actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    /* ─── 空状態 ───────────────────────────────────────── */
+    .pf-empty {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--text-muted);
+    }
+    .pf-empty__icon { font-size: 48px; margin-bottom: 12px; }
+    .pf-empty__title { font-size: 17px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+    .pf-empty__sub { font-size: 13px; line-height: 1.6; margin-bottom: 24px; }
+    .pf-empty__sample { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+    .pf-empty__sample button {
+      background: var(--bullish-bg);
+      color: var(--bullish);
+      border: 1px solid var(--bullish);
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ─── FAB ──────────────────────────────────────────── */
+    .pf-fab {
+      position: fixed;
+      right: 20px;
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--bullish);
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--pf-fab-shadow);
+      cursor: pointer;
+      transition: transform 200ms, box-shadow 200ms;
+      z-index: 100;
+    }
+    .pf-fab:active { transform: scale(0.92); box-shadow: 0 4px 12px rgba(0,200,83,0.25); }
+    @media (prefers-color-scheme: light) {
+      .pf-fab { --pf-fab-shadow: 0 8px 24px rgba(26,127,55,0.4); }
+    }
+
+    /* ─── モーダル ─────────────────────────────────────── */
+    .pf-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .pf-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      animation: pfFade 200ms;
+    }
+    .pf-modal__sheet {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      background: var(--bg-card);
+      border-radius: 20px 20px 0 0;
+      padding: 12px 20px calc(24px + env(safe-area-inset-bottom));
+      animation: pfSlideUp 300ms cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid var(--border-subtle);
+      border-bottom: none;
+    }
+    .pf-modal__handle {
+      width: 40px;
+      height: 4px;
+      background: var(--border-default);
+      border-radius: 2px;
+      margin: 0 auto 16px;
+    }
+    .pf-modal__title { font-size: 18px; font-weight: 700; margin: 0 0 18px; }
+    .pf-form label {
+      display: block;
+      margin-bottom: 14px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+    .pf-form input {
+      width: 100%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-default);
+      border-radius: 10px;
+      padding: 13px 14px;
+      color: var(--text-primary);
+      font-size: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 6px;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+    }
+    .pf-form input:focus {
+      outline: none;
+      border-color: var(--bullish);
+      box-shadow: 0 0 0 3px var(--bullish-bg);
+    }
+    .pf-form__actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .pf-suggest {
+      margin-top: -8px;
+      margin-bottom: 4px;
+    }
+    .pf-suggest-item {
+      width: 100%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--text-primary);
+      font-size: 13px;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.15s;
+    }
+    .pf-suggest-item:hover { background: var(--bg-card-hover); }
+    .pf-suggest-sym { font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .pf-suggest-name { flex: 1; color: var(--text-secondary); font-size: 12px; }
+    .pf-suggest-price { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--bullish); }
+
+    /* ─── ボタン ───────────────────────────────────────── */
+    .pf-btn-primary {
+      flex: 1;
+      background: var(--bullish);
+      color: #fff;
+      border: none;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .pf-btn-primary:disabled { opacity: 0.6; cursor: default; }
+    .pf-btn-secondary {
+      flex: 1;
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border-default);
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .pf-btn-danger {
+      background: rgba(255,59,48,0.1);
+      color: var(--bearish);
+      border: 1px solid rgba(255,59,48,0.25);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .pf-btn-danger:hover { background: rgba(255,59,48,0.18); }
+    .pf-btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-default);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* ─── アニメーション ───────────────────────────────── */
+    @keyframes pfFade    { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pfSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+    /* ─── レスポンシブ ─────────────────────────────────── */
+    @media (max-width: 380px) {
+      .pf-row__main { gap: 8px; padding: 12px 12px; }
+      .pf-row__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header class="pf-header">
+    <div class="pf-header__inner">
+      <div class="pf-header__title">💼 ポートフォリオ</div>
+      <nav class="pf-header__nav">
+        <a href="https://example.github.io/trading/index.html">← ニュース</a>
+        <button onclick="toggleTheme()" title="テーマ切替">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="portfolio-page">
+
+    <!-- APIエラーバナー -->
+    <div class="pf-api-error" id="pfApiError" hidden>
+      ⚠ データ取得失敗 — 前回値を表示中。しばらくして再試行します。
+    </div>
+
+    <!-- ヒーロー: 総評価額 -->
+    <section class="pf-hero">
+      <div class="pf-hero__label">Total Portfolio Value</div>
+      <div class="pf-hero__value" id="pfTotalValue">¥ 0</div>
+      <div class="pf-hero__delta" id="pfTotalDelta">
+        <span class="pf-arrow">▲</span>
+        <span class="pf-delta-amount">+¥ 0</span>
+        <span class="pf-delta-pct">(+0.00%)</span>
+      </div>
+      <div class="pf-spark" id="pfSparkline"></div>
+      <div class="pf-period-tabs">
+        <button data-period="1D">1D</button>
+        <button data-period="1W">1W</button>
+        <button data-period="1M" class="active">1M</button>
+        <button data-period="3M">3M</button>
+        <button data-period="1Y">1Y</button>
+        <button data-period="ALL">ALL</button>
+      </div>
+      <div class="pf-last-update" id="pfLastUpdate"></div>
+    </section>
+
+    <!-- ドーナツチャート: 構成比 -->
+    <section class="pf-allocation">
+      <div class="pf-section-title">Allocation</div>
+      <div class="pf-donut-wrap">
+        <canvas id="pfDonut" width="200" height="200"></canvas>
+        <div class="pf-donut-center">
+          <div class="pf-donut-label">Holdings</div>
+          <div class="pf-donut-count" id="pfHoldingCount">0</div>
+        </div>
+      </div>
+      <div class="pf-allocation-toggle">
+        <button data-mode="symbol" class="active">By Symbol</button>
+        <button data-mode="sector">By Sector</button>
+      </div>
+    </section>
+
+    <!-- ホールディングス一覧 -->
+    <section class="pf-holdings">
+      <div class="pf-holdings__header">
+        <div class="pf-section-title" style="margin-bottom:0">Holdings</div>
+        <select id="pfSortSelect" class="pf-sort">
+          <option value="value">時価額順</option>
+          <option value="pnl_pct">損益率順</option>
+          <option value="alpha">A-Z</option>
+        </select>
+      </div>
+      <ul class="pf-list" id="pfList"></ul>
+      <div class="pf-empty" id="pfEmpty" hidden>
+        <div class="pf-empty__icon">📊</div>
+        <div class="pf-empty__title">保有銘柄がありません</div>
+        <div class="pf-empty__sub">
+          右下の ＋ ボタンをタップして<br>最初の銘柄を追加しましょう。<br>
+          <small>日本株: 7203.T / 米国株: AAPL / ETF: VOO</small>
+        </div>
+        <div class="pf-empty__sample">
+          <button onclick="addSample('7203.T', 100, 2500)">サンプル: トヨタ (7203.T) を追加</button>
+          <button onclick="addSample('AAPL', 10, 180)">サンプル: Apple (AAPL) を追加</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FAB: 銘柄追加ボタン -->
+  <button class="pf-fab" id="pfAddBtn" aria-label="銘柄を追加">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <!-- 追加/編集モーダル -->
+  <div class="pf-modal" id="pfModal" hidden>
+    <div class="pf-modal__backdrop" data-close></div>
+    <div class="pf-modal__sheet">
+      <div class="pf-modal__handle"></div>
+      <h3 class="pf-modal__title">銘柄を追加</h3>
+      <div class="pf-form">
+        <label>ティッカーシンボル
+          <input type="text" id="pfTickerInput"
+                 placeholder="例: 7203.T, AAPL, VOO"
+                 autocomplete="off"
+                 autocapitalize="characters"
+                 spellcheck="false"/>
+        </label>
+        <div class="pf-suggest" id="pfSuggest"></div>
+        <label>保有数量
+          <input type="number" id="pfQtyInput"
+                 step="0.0001" min="0.0001"
+                 placeholder="100" inputmode="decimal"/>
+        </label>
+        <label>平均取得単価
+          <input type="number" id="pfAvgInput"
+                 step="0.01" min="0.01"
+                 placeholder="2500.00" inputmode="decimal"/>
+        </label>
+        <div class="pf-form__actions">
+          <button class="pf-btn-secondary" data-close>キャンセル</button>
+          <button class="pf-btn-primary" id="pfSaveBtn">追加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 銘柄行テンプレート -->
+  <template id="pfRowTemplate">
+    <li class="pf-row" data-symbol="">
+      <button class="pf-row__main" type="button">
+        <div class="pf-row__left">
+          <div class="pf-row__symbol"></div>
+          <div class="pf-row__name"></div>
+        </div>
+        <div class="pf-row__center">
+          <div class="pf-row__value"></div>
+          <div class="pf-row__qty"></div>
+        </div>
+        <div class="pf-row__right">
+          <div class="pf-row__pnl-pct"></div>
+          <div class="pf-row__day-change"></div>
+        </div>
+      </button>
+      <div class="pf-row__expand" hidden>
+        <div class="pf-row__grid">
+          <div><span>Qty</span><b class="pf-d-qty"></b></div>
+          <div><span>Avg Cost</span><b class="pf-d-avg"></b></div>
+          <div><span>Last</span><b class="pf-d-last"></b></div>
+          <div><span>Day Chg</span><b class="pf-d-day"></b></div>
+          <div><span>P/L</span><b class="pf-d-pnl"></b></div>
+          <div><span>P/L %</span><b class="pf-d-pnlpct"></b></div>
+        </div>
+        <div class="pf-row__chart"></div>
+        <div class="pf-row__actions">
+          <button class="pf-btn-ghost pf-edit" type="button">✏ 編集</button>
+          <button class="pf-btn-danger pf-delete" type="button">🗑 削除</button>
+        </div>
+      </div>
+    </li>
+  </template>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+  <!-- Portfolio JS -->
+  <script src="https://example.github.io/trading/static/js/portfolio.js"></script>
+
+  <!-- サンプルデータ追加ヘルパー -->
+  <script>
+    function addSample(symbol, qty, avgCost) {
+      const items = JSON.parse(localStorage.getItem('portfolio_v1') || '[]');
+      if (!items.some(i => i.symbol === symbol)) {
+        items.push({ symbol, qty, avgCost, name: symbol, addedAt: new Date().toISOString() });
+        localStorage.setItem('portfolio_v1', JSON.stringify(items));
+      }
+      location.reload();
+    }
+
+    // テーマ同期（他ページと共有）
+    function toggleTheme() {
+      const body = document.body;
+      const cur = body.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      body.dataset.theme = next;
+      localStorage.setItem('theme', next);
+      document.getElementById('pfApiError'); // dummy
+      const btn = document.querySelector('.pf-header__nav button');
+      if (btn) btn.textContent = next === 'dark' ? '☀️' : '🌙';
+    }
+
+    // テーマ初期適用
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) {
+        document.body.dataset.theme = saved;
+        const btn = document.querySelector('.pf-header__nav button');
+        if (btn) btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+      }
+    })();
+  </script>
+
+</body>
+</html>

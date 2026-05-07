@@ -778,7 +778,18 @@
     }
     .card-v2[data-importance="5"] { border-left: 3px solid var(--importance-5); }
     .card-v2[data-importance="4"] { border-left: 3px solid var(--importance-4); }
+    .card-v2[data-owned="true"] { border-left: 3px solid var(--bullish); }
     .card-v2.hidden-by-filter, .card-v2.hidden-by-cat { display: none; }
+    .pf-owned-badge {
+      background: rgba(0,200,83,0.15);
+      color: var(--bullish);
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
 
     /* ── ヘッダー ── */
     .card-v2__header {
@@ -1580,6 +1591,7 @@
         <a class="btn btn-secondary" href="{{ base_url }}/glossary.html">📚 用語集</a>
         <a class="btn btn-secondary" href="{{ base_url }}/analysis.html">📊 長期分析</a>
         <a class="btn btn-secondary" href="{{ base_url }}/preferences-history.html">🕓 設定履歴</a>
+        <a class="btn btn-secondary" href="{{ base_url }}/portfolio.html">💼 ポートフォリオ</a>
         <button class="btn btn-bookmark" id="bookmark-tab-btn" onclick="toggleBookmarkPanel()">🔖 ブックマーク <span id="bookmark-count"></span></button>
       </div>
     </header>
@@ -2977,6 +2989,44 @@
       } else {
         document.addEventListener('DOMContentLoaded', renderTimeline);
       }
+    })();
+  </script>
+
+  <!-- ポートフォリオ保有銘柄バッジ -->
+  <script>
+    (function markOwnedArticles() {
+      try {
+        var portfolio = JSON.parse(localStorage.getItem('portfolio_v1') || '[]');
+        if (!portfolio.length) return;
+        var symbols = portfolio.map(function(p) {
+          return p.symbol.replace(/\.T$/i, '').toLowerCase();
+        });
+        var cards = document.querySelectorAll('.card-v2');
+        var owned = [];
+        cards.forEach(function(card) {
+          var text = card.textContent.toLowerCase();
+          if (symbols.some(function(s) { return text.includes(s); })) {
+            card.dataset.owned = 'true';
+            var header = card.querySelector('.card-v2__header');
+            if (header && !header.querySelector('.pf-owned-badge')) {
+              var badge = document.createElement('span');
+              badge.className = 'pf-owned-badge';
+              badge.textContent = '📌 保有中';
+              header.appendChild(badge);
+            }
+            owned.push(card);
+          }
+        });
+        // 保有銘柄カードを最上部に移動
+        if (owned.length) {
+          var containers = new Set();
+          owned.forEach(function(c) { if (c.parentElement) containers.add(c.parentElement); });
+          containers.forEach(function(container) {
+            var ownedInContainer = [...container.querySelectorAll('.card-v2[data-owned="true"]')];
+            ownedInContainer.reverse().forEach(function(c) { container.prepend(c); });
+          });
+        }
+      } catch (e) {}
     })();
   </script>
 </body>

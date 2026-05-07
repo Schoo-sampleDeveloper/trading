@@ -811,6 +811,38 @@ def build_rss(articles: list, date_str: str) -> None:
     print(f"  生成: docs/feed.xml ({len(articles)} 件)")
 
 
+def build_portfolio_page() -> None:
+    """docs/portfolio.html を生成する（クライアント側 LocalStorage 管理）。"""
+    DOCS_DIR.mkdir(parents=True, exist_ok=True)
+
+    env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=True)
+    env.filters['tojson'] = lambda v: json.dumps(v, ensure_ascii=False)
+
+    try:
+        tmpl = env.get_template("portfolio.html.j2")
+    except Exception as e:
+        print(f"  [WARN] portfolio.html.j2 テンプレート読み込み失敗: {e}")
+        return
+
+    ctx = {
+        "base_url": BASE_URL,
+        "generated_at": _jst_now().strftime("%Y/%m/%d %H:%M JST"),
+    }
+    (DOCS_DIR / "portfolio.html").write_text(tmpl.render(**ctx), encoding="utf-8")
+    print("  生成: docs/portfolio.html")
+
+    # static/js/portfolio.js を docs/static/js/ にコピー
+    src_js = Path(__file__).parent / "static" / "js" / "portfolio.js"
+    if src_js.exists():
+        dst_dir = DOCS_DIR / "static" / "js"
+        dst_dir.mkdir(parents=True, exist_ok=True)
+        dst_js = dst_dir / "portfolio.js"
+        dst_js.write_bytes(src_js.read_bytes())
+        print("  コピー: docs/static/js/portfolio.js")
+    else:
+        print("  [WARN] static/js/portfolio.js が見つかりません")
+
+
 def build_analysis_page(long_term: Optional[dict] = None, scenarios: Optional[dict] = None) -> None:
     """docs/analysis.html を生成する（長期パフォーマンス分析ページ）。"""
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
@@ -859,6 +891,7 @@ def build(
     build_glossary_html(BASE_URL)
     _build_preferences_history(BASE_URL)
     build_analysis_page(long_term=long_term, scenarios=scenarios)
+    build_portfolio_page()
     _copy_static()
     print("サイト生成完了\n")
 
