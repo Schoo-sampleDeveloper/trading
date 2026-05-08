@@ -632,6 +632,74 @@
       cursor: pointer;
     }
 
+    /* ─── モーダル閉じるボタン ──────────────────────────── */
+    .pf-modal__close {
+      position: absolute; top: 12px; right: 12px;
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(255,255,255,0.06); color: var(--text-muted);
+      border: none; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 200ms;
+    }
+    .pf-modal__close:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+
+    /* ─── プリセットセクション ──────────────────────────── */
+    .pf-preset-section { margin-bottom: 20px; }
+    .pf-preset-label {
+      font-size: 11px; color: var(--text-muted); text-transform: uppercase;
+      letter-spacing: 0.08em; font-weight: 600; margin-bottom: 8px;
+    }
+    .pf-preset-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;
+    }
+    @media (min-width: 480px) {
+      .pf-preset-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .pf-preset {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px; padding: 10px 12px;
+      display: flex; flex-direction: column; gap: 2px;
+      text-align: left; cursor: pointer; transition: all 200ms;
+      color: var(--text-primary);
+    }
+    .pf-preset:hover { background: rgba(34,197,94,0.08); border-color: var(--bullish); }
+    .pf-preset.active {
+      background: rgba(34,197,94,0.12);
+      border-color: var(--bullish);
+    }
+    .pf-preset-name { font-size: 13px; font-weight: 600; }
+    .pf-preset-symbol {
+      font-size: 11px; color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ─── FAB モード別カラー ─────────────────────────────── */
+    .pf-fab[data-mode="recurring"] {
+      background: #3b82f6;
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+    }
+
+    /* ─── トースト ─────────────────────────────────────── */
+    .pf-toast {
+      position: fixed; left: 50%; bottom: 100px;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--bg-card); color: var(--text-primary);
+      padding: 12px 20px; border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      font-size: 14px; font-weight: 500;
+      opacity: 0; pointer-events: none;
+      transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 400; max-width: 90vw;
+      border-left: 3px solid var(--text-muted);
+      white-space: nowrap;
+    }
+    .pf-toast.show {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
+    .pf-toast[data-type="success"] { border-left-color: var(--bullish); }
+    .pf-toast[data-type="error"]   { border-left-color: var(--bearish); }
+    .pf-toast[data-type="info"]    { border-left-color: #3b82f6; }
+
     /* ─── アニメーション ───────────────────────────────── */
     @keyframes pfFade    { from { opacity: 0; } to { opacity: 1; } }
     @keyframes pfSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
@@ -774,58 +842,122 @@
     </svg>
   </button>
 
-  <!-- 追加/編集モーダル -->
-  <div class="pf-modal" id="pfModal" hidden>
+  <!-- Holdings 用モーダル -->
+  <div class="pf-modal" id="pfModalHoldings" hidden>
     <div class="pf-modal__backdrop" data-close></div>
     <div class="pf-modal__sheet">
       <div class="pf-modal__handle"></div>
+      <button class="pf-modal__close" data-close aria-label="閉じる">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
       <h3 class="pf-modal__title">銘柄を追加</h3>
       <div class="pf-form">
-        <!-- モード切替ラジオ -->
-        <div class="pf-form__mode">
-          <label><input type="radio" name="pfFormMode" value="holdings" checked> 保有銘柄</label>
-          <label><input type="radio" name="pfFormMode" value="recurring"> 積立</label>
-        </div>
-
-        <!-- ティッカー（共通） -->
-        <label>ティッカーシンボル
-          <input type="text" id="pfTickerInput"
-                 placeholder="例: 7203 → 7203.T, AAPL, VOO"
+        <label>ティッカー
+          <input type="text" id="pfHTickerInput"
+                 placeholder="例: 7203.T, AAPL, VOO"
                  autocomplete="off"
                  autocapitalize="characters"
                  spellcheck="false"/>
         </label>
-        <div class="pf-suggest" id="pfSuggest"></div>
-
-        <!-- Holdings フィールド -->
-        <div id="pfHoldingsFields">
-          <label>保有数量
-            <input type="number" id="pfQtyInput"
-                   step="0.0001" min="0.0001"
-                   placeholder="100" inputmode="decimal"/>
-          </label>
-          <label>平均取得単価
-            <input type="number" id="pfAvgInput"
-                   step="0.01" min="0.01"
-                   placeholder="2500.00" inputmode="decimal"/>
-          </label>
-        </div>
-
-        <!-- Recurring フィールド -->
-        <div id="pfRecurringFields" hidden>
-          <label>毎月積立額（円）
-            <input type="number" id="pfRecAmount"
-                   step="1000" min="1"
-                   placeholder="30000" inputmode="numeric"/>
-          </label>
-          <label>開始月
-            <input type="month" id="pfRecStart"/>
-          </label>
-        </div>
-
+        <div class="pf-suggest" id="pfHSuggest"></div>
+        <label>保有数量
+          <input type="number" id="pfHQtyInput"
+                 step="0.0001" min="0.0001"
+                 placeholder="100" inputmode="decimal"/>
+        </label>
+        <label>平均取得単価
+          <input type="number" id="pfHAvgInput"
+                 step="0.01" min="0.01"
+                 placeholder="2500.00" inputmode="decimal"/>
+        </label>
         <div class="pf-form__actions">
           <button class="pf-btn-secondary" data-close>キャンセル</button>
-          <button class="pf-btn-primary" id="pfSaveBtn">追加</button>
+          <button class="pf-btn-primary" id="pfSaveHoldingsBtn">追加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recurring 用モーダル -->
+  <div class="pf-modal" id="pfModalRecurring" hidden>
+    <div class="pf-modal__backdrop" data-close></div>
+    <div class="pf-modal__sheet">
+      <div class="pf-modal__handle"></div>
+      <button class="pf-modal__close" data-close aria-label="閉じる">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <h3 class="pf-modal__title">積立を追加</h3>
+
+      <div class="pf-preset-section">
+        <div class="pf-preset-label">よく使う指数・ETF</div>
+        <div class="pf-preset-grid">
+          <button class="pf-preset" data-symbol="VOO" data-name="S&amp;P 500">
+            <span class="pf-preset-name">S&amp;P 500</span>
+            <span class="pf-preset-symbol">VOO</span>
+          </button>
+          <button class="pf-preset" data-symbol="VT" data-name="全世界株">
+            <span class="pf-preset-name">全世界株</span>
+            <span class="pf-preset-symbol">VT</span>
+          </button>
+          <button class="pf-preset" data-symbol="QQQ" data-name="NASDAQ100">
+            <span class="pf-preset-name">NASDAQ100</span>
+            <span class="pf-preset-symbol">QQQ</span>
+          </button>
+          <button class="pf-preset" data-symbol="VTI" data-name="米国全株">
+            <span class="pf-preset-name">米国全株</span>
+            <span class="pf-preset-symbol">VTI</span>
+          </button>
+          <button class="pf-preset" data-symbol="1321.T" data-name="日経225 ETF">
+            <span class="pf-preset-name">日経225</span>
+            <span class="pf-preset-symbol">1321.T</span>
+          </button>
+          <button class="pf-preset" data-symbol="1306.T" data-name="TOPIX ETF">
+            <span class="pf-preset-name">TOPIX</span>
+            <span class="pf-preset-symbol">1306.T</span>
+          </button>
+          <button class="pf-preset" data-symbol="VEA" data-name="先進国株">
+            <span class="pf-preset-name">先進国株</span>
+            <span class="pf-preset-symbol">VEA</span>
+          </button>
+          <button class="pf-preset" data-symbol="VWO" data-name="新興国株">
+            <span class="pf-preset-name">新興国株</span>
+            <span class="pf-preset-symbol">VWO</span>
+          </button>
+          <button class="pf-preset" data-symbol="BND" data-name="米国総合債券">
+            <span class="pf-preset-name">米国債券</span>
+            <span class="pf-preset-symbol">BND</span>
+          </button>
+          <button class="pf-preset" data-symbol="GLD" data-name="ゴールド">
+            <span class="pf-preset-name">ゴールド</span>
+            <span class="pf-preset-symbol">GLD</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="pf-form">
+        <label>ティッカー（プリセット選択 or 手入力）
+          <input type="text" id="pfRTickerInput"
+                 placeholder="例: VOO, VTI, 1321.T"
+                 autocomplete="off"
+                 autocapitalize="characters"
+                 spellcheck="false"/>
+        </label>
+        <div class="pf-suggest" id="pfRSuggest"></div>
+        <label>毎月積立額（円）
+          <input type="number" id="pfRAmountInput"
+                 step="1000" min="1"
+                 placeholder="30000" inputmode="numeric"/>
+        </label>
+        <label>開始月
+          <input type="month" id="pfRStartInput"/>
+        </label>
+        <div class="pf-form__actions">
+          <button class="pf-btn-secondary" data-close>キャンセル</button>
+          <button class="pf-btn-primary" id="pfSaveRecurringBtn">追加</button>
         </div>
       </div>
     </div>

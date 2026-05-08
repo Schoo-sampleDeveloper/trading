@@ -80,7 +80,6 @@ let _quoteCache = {};
 let _quoteCacheTime = 0;
 const CACHE_TTL = 25000; // 25秒
 
-// 1銘柄の現在値取得（v8/chart エンドポイント使用）
 async function fetchQuoteSingle(symbol) {
   const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1d&interval=1m`;
   const proxyUrl = `${WORKER_BASE}/?url=${encodeURIComponent(yahooUrl)}`;
@@ -111,7 +110,6 @@ async function fetchQuoteSingle(symbol) {
   }
 }
 
-// 複数銘柄を並列取得
 async function fetchQuotes(symbols) {
   if (!symbols.length) return {};
   const now = Date.now();
@@ -163,19 +161,16 @@ function showApiError(show) {
 }
 
 // ─── ティッカー正規化・バリデーション ────────────────────
-// 4桁数字なら .T を付与
 function normalizeSymbol(input) {
   const s = input.trim().toUpperCase();
   if (/^\d{4}$/.test(s)) return s + '.T';
   return s;
 }
 
-// バリデーション: 価格取得を試みる、失敗しても候補を提示
 async function validateSymbol(input) {
   const normalized = normalizeSymbol(input);
   const candidates = [normalized];
 
-  // 4桁数字の場合は .T だけでなく素のシンボルも試す
   const raw = input.trim().toUpperCase();
   if (/^\d{4}$/.test(raw) && normalized !== raw) {
     candidates.push(raw);
@@ -350,12 +345,392 @@ function renderSparkline(containerId, data, color = '#00c853') {
   container.appendChild(svg);
 }
 
+// ─── トースト通知 ─────────────────────────────────────────
+function showToast(message, type = 'info', duration = 3000) {
+  let toast = document.getElementById('pfToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'pfToast';
+    toast.className = 'pf-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.dataset.type = type;
+  toast.classList.add('show');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => toast.classList.remove('show'), duration);
+}
+
+// ─── モーダル制御 ─────────────────────────────────────────
+function escHandler(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.pf-modal:not([hidden])').forEach(m => hideModal(m));
+  }
+}
+
+function showModal(modalEl) {
+  modalEl.hidden = false;
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.width = '100%';
+  document.body.dataset.scrollY = String(window.scrollY);
+  document.addEventListener('keydown', escHandler);
+
+  const firstInput = modalEl.querySelector('input:not([disabled])');
+  if (firstInput) {
+    setTimeout(() => firstInput.focus(), 100);
+  }
+}
+
+function hideModal(modalEl) {
+  modalEl.hidden = true;
+
+  // iOS Safari スクロール位置復元
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.width = '';
+  const y = parseInt(document.body.dataset.scrollY || '0', 10);
+  window.scrollTo(0, y);
+
+  document.removeEventListener('keydown', escHandler);
+
+  // 編集フラグをクリア
+  modalEl.dataset.editingId = '';
+
+  // disabled 解除
+  modalEl.querySelectorAll('input[type="text"]').forEach(i => { i.disabled = false; });
+
+  // 全入力をクリア
+  modalEl.querySelectorAll('input').forEach(i => { i.value = ''; });
+
+  // タイトル / ボタン文言をリセット
+  const title = modalEl.querySelector('.pf-modal__title');
+  if (modalEl.id === 'pfModalHoldings') {
+    if (title) title.textContent = '銘柄を追加';
+    const btn = modalEl.querySelector('#pfSaveHoldingsBtn');
+    if (btn) { btn.textContent = '追加'; btn.disabled = false; }
+  } else if (modalEl.id === 'pfModalRecurring') {
+    if (title) title.textContent = '積立を追加';
+    const btn = modalEl.querySelector('#pfSaveRecurringBtn');
+    if (btn) { btn.textContent = '追加'; btn.disabled = false; }
+    // プリセットの active 解除
+    modalEl.querySelectorAll('.pf-preset.active').forEach(p => p.classList.remove('active'));
+  }
+
+  // サジェストクリア
+  modalEl.querySelectorAll('.pf-suggest').forEach(s => { s.innerHTML = ''; });
+}
+
+// ─── Holdings モーダル ────────────────────────────────────
+function openHoldingsModal() {
+  const modal = document.getElementById('pfModalHoldings');
+  if (!modal) return;
+  modal.dataset.editingId = '';
+  showModal(modal);
+}
+
+function openEditHoldingsModal(item) {
+  const modal = document.getElementById('pfModalHoldings');
+  if (!modal) return;
+  modal.dataset.editingId = item.symbol;
+
+  document.getElementById('pfHTickerInput').value = item.symbol;
+  document.getElementById('pfHTickerInput').disabled = true;
+  document.getElementById('pfHQtyInput').value = item.qty;
+  document.getElementById('pfHAvgInput').value = item.avgCost;
+
+  const title = modal.querySelector('.pf-modal__title');
+  if (title) title.textContent = '銘柄を編集';
+  const btn = modal.querySelector('#pfSaveHoldingsBtn');
+  if (btn) btn.textContent = '保存';
+
+  showModal(modal);
+}
+
+// Holdings ティッカーサジェスト
+let _hSuggestTimer = null;
+function onHTickerInput() {
+  clearTimeout(_hSuggestTimer);
+  const val = document.getElementById('pfHTickerInput').value.trim();
+  const suggest = document.getElementById('pfHSuggest');
+  if (!suggest) return;
+  if (val.length < 1) { suggest.innerHTML = ''; return; }
+
+  const normalized = normalizeSymbol(val);
+  if (normalized !== val.trim().toUpperCase()) {
+    suggest.innerHTML = `<div class="pf-suggest-hint">→ ${normalized} として検索します</div>`;
+  } else {
+    suggest.innerHTML = '';
+  }
+
+  _hSuggestTimer = setTimeout(async () => {
+    const quote = await fetchQuoteSingle(normalized);
+    suggest.innerHTML = '';
+    if (quote) {
+      const btn = document.createElement('button');
+      btn.className = 'pf-suggest-item';
+      btn.type = 'button';
+      btn.innerHTML = `<span class="pf-suggest-sym">${normalized}</span>
+        <span class="pf-suggest-name">${quote.name || ''}</span>
+        <span class="pf-suggest-price">${fmt(quote.price, quote.currency)}</span>`;
+      btn.addEventListener('click', () => {
+        document.getElementById('pfHTickerInput').value = normalized;
+        suggest.innerHTML = '';
+        document.getElementById('pfHQtyInput').focus();
+      });
+      suggest.appendChild(btn);
+    }
+  }, 400);
+}
+
+async function onSaveHoldings() {
+  const modal = document.getElementById('pfModalHoldings');
+  const editingId = modal.dataset.editingId;
+
+  const tickerEl = document.getElementById('pfHTickerInput');
+  const qtyEl    = document.getElementById('pfHQtyInput');
+  const avgEl    = document.getElementById('pfHAvgInput');
+
+  const ticker  = tickerEl.value.trim();
+  const qty     = parseFloat(qtyEl.value);
+  const avgCost = parseFloat(avgEl.value);
+
+  if (!ticker)            { showToast('ティッカーを入力してください', 'error'); tickerEl.focus(); return; }
+  if (!qty || qty <= 0)   { showToast('数量を正しく入力してください', 'error'); qtyEl.focus(); return; }
+  if (!avgCost || avgCost <= 0) { showToast('平均取得単価を正しく入力してください', 'error'); avgEl.focus(); return; }
+
+  const saveBtn = document.getElementById('pfSaveHoldingsBtn');
+  saveBtn.disabled = true;
+  saveBtn.textContent = '確認中…';
+
+  try {
+    const validation = await validateSymbol(ticker);
+    let finalSymbol = validation.symbol;
+    let finalName   = validation.quote?.name || finalSymbol;
+
+    if (!validation.ok) {
+      const proceed = confirm(
+        `「${validation.tried.join('」「')}」の価格データが取得できませんでした。それでも登録しますか？`
+      );
+      if (!proceed) return;
+      finalName = finalSymbol;
+    }
+
+    const items = loadPortfolio();
+    const existing = items.findIndex(i => i.symbol === finalSymbol);
+    const newItem = {
+      symbol: finalSymbol,
+      qty,
+      avgCost,
+      name: finalName,
+      addedAt: new Date().toISOString(),
+    };
+
+    if (editingId && editingId !== finalSymbol) {
+      const oldIdx = items.findIndex(i => i.symbol === editingId);
+      if (oldIdx >= 0) items.splice(oldIdx, 1);
+    }
+
+    if (existing >= 0 && editingId === finalSymbol) {
+      items[existing] = newItem;
+    } else if (existing >= 0) {
+      if (!confirm(`${finalSymbol} は既に登録されています。上書きしますか？`)) return;
+      items[existing] = newItem;
+    } else {
+      items.push(newItem);
+    }
+
+    savePortfolio(items);
+    _quoteCache = {};
+    _quoteCacheTime = 0;
+    hideModal(modal);
+    showToast(`${finalSymbol} を追加しました`, 'success');
+    await render();
+  } catch (e) {
+    console.error(e);
+    showToast('登録に失敗しました', 'error');
+  } finally {
+    // モーダルがまだ開いている場合のみボタンを復元
+    if (!modal.hidden) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = editingId ? '保存' : '追加';
+    }
+  }
+}
+
+// ─── Recurring モーダル ───────────────────────────────────
+function openRecurringModal() {
+  const modal = document.getElementById('pfModalRecurring');
+  if (!modal) return;
+  modal.dataset.editingId = '';
+
+  // デフォルト開始月: 12ヶ月前
+  const d = new Date();
+  d.setMonth(d.getMonth() - 12);
+  document.getElementById('pfRStartInput').value =
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+
+  showModal(modal);
+}
+
+function openEditRecurringModal(item) {
+  const modal = document.getElementById('pfModalRecurring');
+  if (!modal) return;
+  modal.dataset.editingId = item.symbol;
+
+  document.getElementById('pfRTickerInput').value = item.symbol;
+  document.getElementById('pfRTickerInput').disabled = true;
+  document.getElementById('pfRAmountInput').value = item.monthlyAmount;
+  document.getElementById('pfRStartInput').value  = item.startMonth;
+
+  // プリセットのアクティブ状態を更新
+  document.querySelectorAll('.pf-preset').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.symbol === item.symbol);
+  });
+
+  const title = modal.querySelector('.pf-modal__title');
+  if (title) title.textContent = '積立を編集';
+  const btn = modal.querySelector('#pfSaveRecurringBtn');
+  if (btn) btn.textContent = '保存';
+
+  showModal(modal);
+}
+
+// Recurring ティッカーサジェスト
+let _rSuggestTimer = null;
+function onRTickerInput() {
+  clearTimeout(_rSuggestTimer);
+  const val = document.getElementById('pfRTickerInput').value.trim();
+  const suggest = document.getElementById('pfRSuggest');
+  if (!suggest) return;
+  if (val.length < 1) { suggest.innerHTML = ''; return; }
+
+  const normalized = normalizeSymbol(val);
+  if (normalized !== val.trim().toUpperCase()) {
+    suggest.innerHTML = `<div class="pf-suggest-hint">→ ${normalized} として検索します</div>`;
+  } else {
+    suggest.innerHTML = '';
+  }
+
+  _rSuggestTimer = setTimeout(async () => {
+    const quote = await fetchQuoteSingle(normalized);
+    suggest.innerHTML = '';
+    if (quote) {
+      const btn = document.createElement('button');
+      btn.className = 'pf-suggest-item';
+      btn.type = 'button';
+      btn.innerHTML = `<span class="pf-suggest-sym">${normalized}</span>
+        <span class="pf-suggest-name">${quote.name || ''}</span>
+        <span class="pf-suggest-price">${fmt(quote.price, quote.currency)}</span>`;
+      btn.addEventListener('click', () => {
+        document.getElementById('pfRTickerInput').value = normalized;
+        suggest.innerHTML = '';
+        document.getElementById('pfRAmountInput').focus();
+      });
+      suggest.appendChild(btn);
+    }
+  }, 400);
+}
+
+async function onSaveRecurring() {
+  const modal = document.getElementById('pfModalRecurring');
+  const editingId = modal.dataset.editingId;
+
+  const tickerEl = document.getElementById('pfRTickerInput');
+  const amountEl = document.getElementById('pfRAmountInput');
+  const startEl  = document.getElementById('pfRStartInput');
+
+  const ticker        = tickerEl.value.trim();
+  const monthlyAmount = parseFloat(amountEl.value);
+  const startMonth    = startEl.value;
+
+  if (!ticker) {
+    showToast('ティッカーを入力してください', 'error');
+    tickerEl.focus();
+    return;
+  }
+
+  if (isNaN(monthlyAmount) || monthlyAmount < 1000) {
+    showToast('積立額は 1,000 円以上で入力してください', 'error');
+    amountEl.focus();
+    return;
+  }
+
+  if (!startMonth || !/^\d{4}-\d{2}$/.test(startMonth)) {
+    showToast('開始月を選択してください', 'error');
+    return;
+  }
+
+  const startDate = new Date(startMonth + '-01');
+  const now = new Date();
+  if (startDate > now) {
+    showToast('開始月は今月以前を選択してください', 'error');
+    return;
+  }
+  if (startDate < new Date('1990-01-01')) {
+    showToast('開始月は1990年以降を選択してください', 'error');
+    return;
+  }
+
+  const saveBtn = document.getElementById('pfSaveRecurringBtn');
+  saveBtn.disabled = true;
+  saveBtn.textContent = '確認中…';
+
+  try {
+    const validation = await validateSymbol(ticker);
+    let finalSymbol = validation.symbol;
+
+    if (!validation.ok) {
+      const proceed = confirm(
+        `「${validation.tried.join('」「')}」の価格データが取得できませんでした。それでも登録しますか？`
+      );
+      if (!proceed) return;
+    }
+
+    const items = loadRecurring();
+    const existing = items.findIndex(i => i.symbol === finalSymbol);
+    const newItem = {
+      symbol: finalSymbol,
+      monthlyAmount,
+      startMonth,
+      addedAt: new Date().toISOString(),
+    };
+
+    if (editingId && editingId !== finalSymbol) {
+      const oldIdx = items.findIndex(i => i.symbol === editingId);
+      if (oldIdx >= 0) items.splice(oldIdx, 1);
+    }
+
+    if (existing >= 0 && editingId === finalSymbol) {
+      items[existing] = newItem;
+    } else if (existing >= 0) {
+      if (!confirm(`${finalSymbol} は既に登録されています。上書きしますか？`)) return;
+      items[existing] = newItem;
+    } else {
+      items.push(newItem);
+    }
+
+    saveRecurring(items);
+    hideModal(modal);
+    showToast(`${finalSymbol} の積立を追加しました`, 'success');
+    await renderRecurring();
+  } catch (e) {
+    console.error(e);
+    showToast('登録に失敗しました', 'error');
+  } finally {
+    if (!modal.hidden) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = editingId ? '保存' : '追加';
+    }
+  }
+}
+
 // ─── メインレンダリング ───────────────────────────────────
 let _prevTotal = 0;
 let _donutMode = 'symbol';
-let _sortMode = 'value';
+let _sortMode  = 'value';
 let _refreshTimer = null;
-let _currentMode = 'holdings'; // 'holdings' or 'recurring'
+let _currentMode  = 'holdings'; // 'holdings' | 'recurring'
 
 async function render() {
   if (_currentMode === 'recurring') {
@@ -364,13 +739,13 @@ async function render() {
   }
 
   const items = loadPortfolio();
-  const pfEmpty = document.getElementById('pfEmpty');
-  const pfList = document.getElementById('pfList');
+  const pfEmpty        = document.getElementById('pfEmpty');
+  const pfList         = document.getElementById('pfList');
   const pfHoldingCount = document.getElementById('pfHoldingCount');
 
   if (!items.length) {
     if (pfEmpty) pfEmpty.hidden = false;
-    if (pfList) pfList.innerHTML = '';
+    if (pfList)  pfList.innerHTML = '';
     const tv = document.getElementById('pfTotalValue');
     if (tv) tv.textContent = '¥ 0';
     const td = document.getElementById('pfTotalDelta');
@@ -387,24 +762,20 @@ async function render() {
 
   const quotes = await fetchQuotes(items.map(i => i.symbol));
 
-  // ─── ヒーロー集計 ───
   let totalValue = 0;
-  let totalCost = 0;
-  let totalDayChange = 0;
+  let totalCost  = 0;
 
   items.forEach(item => {
     const q = quotes[item.symbol];
     if (!q) return;
-    const { market, cost, dayChange } = calcPnL(item, q);
+    const { market, cost } = calcPnL(item, q);
     totalValue += market;
-    totalCost += cost;
-    totalDayChange += dayChange;
+    totalCost  += cost;
   });
 
-  const totalPnL = totalValue - totalCost;
+  const totalPnL    = totalValue - totalCost;
   const totalPnLPct = totalCost > 0 ? (totalPnL / totalCost) * 100 : 0;
 
-  // 総評価額（アニメーション）
   const heroVal = document.getElementById('pfTotalValue');
   if (heroVal) {
     animateNumber(heroVal, _prevTotal, totalValue, 800, v => {
@@ -414,16 +785,14 @@ async function render() {
   }
   _prevTotal = totalValue;
 
-  const heroD = document.getElementById('pfTotalDelta');
+  const heroD    = document.getElementById('pfTotalDelta');
   const deltaAmt = document.querySelector('.pf-delta-amount');
   const deltaPct = document.querySelector('.pf-delta-pct');
   const currency = Object.values(quotes)[0]?.currency || 'JPY';
 
-  if (heroD) {
-    heroD.className = 'pf-hero__delta ' + (totalPnL >= 0 ? 'up' : 'down');
-  }
+  if (heroD) heroD.className = 'pf-hero__delta ' + (totalPnL >= 0 ? 'up' : 'down');
   const arrow = document.querySelector('.pf-arrow');
-  if (arrow) arrow.textContent = totalPnL >= 0 ? '▲' : '▼';
+  if (arrow)    arrow.textContent    = totalPnL >= 0 ? '▲' : '▼';
   if (deltaAmt) deltaAmt.textContent = (totalPnL >= 0 ? '+' : '') + fmt(totalPnL, currency);
   if (deltaPct) deltaPct.textContent = `(${fmtPct(totalPnLPct)})`;
 
@@ -442,7 +811,6 @@ function renderHoldingsList(items, quotes) {
 
   const currency = Object.values(quotes)[0]?.currency || 'JPY';
 
-  // ソート
   const sorted = [...items].sort((a, b) => {
     const qa = quotes[a.symbol] || {};
     const qb = quotes[b.symbol] || {};
@@ -457,7 +825,7 @@ function renderHoldingsList(items, quotes) {
     return a.symbol.localeCompare(b.symbol);
   });
 
-  // 既存の展開状態を保持
+  // 展開状態を保持
   const expandedSet = new Set();
   pfList.querySelectorAll('.pf-row[data-symbol]').forEach(row => {
     const exp = row.querySelector('.pf-row__expand');
@@ -472,43 +840,38 @@ function renderHoldingsList(items, quotes) {
     const cur = q.currency || currency;
 
     const clone = template.content.cloneNode(true);
-    const li = clone.querySelector('.pf-row');
+    const li    = clone.querySelector('.pf-row');
 
     li.dataset.symbol = item.symbol;
     li.style.setProperty('--i', idx);
 
     li.querySelector('.pf-row__symbol').textContent = item.symbol;
-    li.querySelector('.pf-row__name').textContent = q.name || item.name || '';
-    li.querySelector('.pf-row__value').textContent = fmt(market, cur);
-    li.querySelector('.pf-row__qty').textContent = fmtNum(item.qty, 4) + ' 株';
+    li.querySelector('.pf-row__name').textContent   = q.name || item.name || '';
+    li.querySelector('.pf-row__value').textContent  = fmt(market, cur);
+    li.querySelector('.pf-row__qty').textContent    = fmtNum(item.qty, 4) + ' 株';
 
     const pnlEl = li.querySelector('.pf-row__pnl-pct');
     pnlEl.textContent = fmtPct(pnlPct);
-    pnlEl.className = 'pf-row__pnl-pct ' + (pnlPct >= 0 ? 'up' : 'down');
+    pnlEl.className   = 'pf-row__pnl-pct ' + (pnlPct >= 0 ? 'up' : 'down');
 
-    const dayEl = li.querySelector('.pf-row__day-change');
+    const dayEl   = li.querySelector('.pf-row__day-change');
     const daySign = dayChange >= 0 ? '+' : '';
     dayEl.textContent = `${daySign}${fmt(dayChange, cur)} 今日`;
     dayEl.style.color = dayChange >= 0 ? 'var(--bullish)' : 'var(--bearish)';
 
-    // 展開パネル
     const expand = li.querySelector('.pf-row__expand');
-    li.querySelector('.pf-d-qty').textContent = fmtNum(item.qty, 4);
-    li.querySelector('.pf-d-avg').textContent = fmt(item.avgCost, cur);
-    li.querySelector('.pf-d-last').textContent = q.price != null ? fmt(q.price, cur) : '—';
-    li.querySelector('.pf-d-day').textContent = `${daySign}${fmtPct(dayChangePct)}`;
-    li.querySelector('.pf-d-day').style.color = dayChange >= 0 ? 'var(--bullish)' : 'var(--bearish)';
-    li.querySelector('.pf-d-pnl').textContent = (pnl >= 0 ? '+' : '') + fmt(pnl, cur);
-    li.querySelector('.pf-d-pnl').style.color = pnl >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    li.querySelector('.pf-d-qty').textContent    = fmtNum(item.qty, 4);
+    li.querySelector('.pf-d-avg').textContent    = fmt(item.avgCost, cur);
+    li.querySelector('.pf-d-last').textContent   = q.price != null ? fmt(q.price, cur) : '—';
+    li.querySelector('.pf-d-day').textContent    = `${daySign}${fmtPct(dayChangePct)}`;
+    li.querySelector('.pf-d-day').style.color    = dayChange >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    li.querySelector('.pf-d-pnl').textContent    = (pnl >= 0 ? '+' : '') + fmt(pnl, cur);
+    li.querySelector('.pf-d-pnl').style.color    = pnl >= 0 ? 'var(--bullish)' : 'var(--bearish)';
     li.querySelector('.pf-d-pnlpct').textContent = fmtPct(pnlPct);
     li.querySelector('.pf-d-pnlpct').style.color = pnlPct >= 0 ? 'var(--bullish)' : 'var(--bearish)';
 
-    // 展開状態の復元
-    if (expandedSet.has(item.symbol)) {
-      expand.hidden = false;
-    }
+    if (expandedSet.has(item.symbol)) expand.hidden = false;
 
-    // メインボタン: 展開トグル
     li.querySelector('.pf-row__main').addEventListener('click', () => {
       const isHidden = expand.hidden;
       expand.hidden = !isHidden;
@@ -521,19 +884,16 @@ function renderHoldingsList(items, quotes) {
         chartDiv.innerHTML = `<div id="${chartId}" style="height:80px;"></div>`;
         fetchHistory(item.symbol, '1mo', '1d').then(hist => {
           if (!hist) return;
-          const color = pnlPct >= 0 ? '#00c853' : '#ff3b30';
-          renderSparkline(chartId, hist, color);
+          renderSparkline(chartId, hist, pnlPct >= 0 ? '#00c853' : '#ff3b30');
         });
       }
     });
 
-    // 編集ボタン
     li.querySelector('.pf-edit').addEventListener('click', e => {
       e.stopPropagation();
-      openEditModal(item);
+      openEditHoldingsModal(item);
     });
 
-    // 削除ボタン
     li.querySelector('.pf-delete').addEventListener('click', e => {
       e.stopPropagation();
       deleteHolding(item.symbol);
@@ -543,11 +903,11 @@ function renderHoldingsList(items, quotes) {
   });
 }
 
-// ─── 削除 ────────────────────────────────────────────────
+// ─── 削除 ─────────────────────────────────────────────────
 function deleteHolding(symbol) {
   const items = loadPortfolio().filter(i => i.symbol !== symbol);
   savePortfolio(items);
-  _quoteCache = {};
+  _quoteCache    = {};
   _quoteCacheTime = 0;
   render();
 }
@@ -561,65 +921,50 @@ function deleteRecurring(symbol) {
 // ─── 積立計算ロジック ─────────────────────────────────────
 async function computeRecurring(item) {
   const start = new Date(item.startMonth + '-01');
-  const now = new Date();
+  const now   = new Date();
   const monthsElapsed =
     (now.getFullYear() - start.getFullYear()) * 12 +
     (now.getMonth() - start.getMonth()) + 1;
 
-  const range = monthsElapsed > 60 ? '10y' : '5y';
-  const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(item.symbol)}?range=${range}&interval=1mo`;
-  const proxyUrl = `${WORKER_BASE}/?url=${encodeURIComponent(yahooUrl)}`;
+  const range     = monthsElapsed > 60 ? '10y' : '5y';
+  const yahooUrl  = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(item.symbol)}?range=${range}&interval=1mo`;
+  const proxyUrl  = `${WORKER_BASE}/?url=${encodeURIComponent(yahooUrl)}`;
 
   try {
-    const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(15000) });
+    const res    = await fetch(proxyUrl, { signal: AbortSignal.timeout(15000) });
     if (!res.ok) return null;
-    const json = await res.json();
+    const json   = await res.json();
     const result = json?.chart?.result?.[0];
-    if (!result) return null;
+    if (!result)  return null;
 
-    const timestamps = result.timestamp || [];
-    const opens = result.indicators?.quote?.[0]?.open || [];
+    const timestamps   = result.timestamp || [];
+    const opens        = result.indicators?.quote?.[0]?.open || [];
     const currentPrice = result.meta.regularMarketPrice;
-    const currency = result.meta.currency || 'USD';
+    const currency     = result.meta.currency || 'USD';
 
-    let totalShares = 0;
+    let totalShares   = 0;
     let totalInvested = 0;
 
     for (let i = 0; i < timestamps.length; i++) {
       const date = new Date(timestamps[i] * 1000);
       if (date < start) continue;
-      if (date > now) break;
-
+      if (date > now)   break;
       const price = opens[i];
       if (!price) continue;
-
-      const shares = item.monthlyAmount / price;
-      totalShares += shares;
+      totalShares   += item.monthlyAmount / price;
       totalInvested += item.monthlyAmount;
     }
 
     const currentValue = totalShares * currentPrice;
-    const pnl = currentValue - totalInvested;
-    const pnlPct = totalInvested > 0 ? (pnl / totalInvested) * 100 : 0;
-
-    // 年率換算 (CAGR)
-    const years = monthsElapsed / 12;
-    const cagr =
+    const pnl          = currentValue - totalInvested;
+    const pnlPct       = totalInvested > 0 ? (pnl / totalInvested) * 100 : 0;
+    const years        = monthsElapsed / 12;
+    const cagr         =
       totalInvested > 0 && years > 0
         ? (Math.pow(currentValue / totalInvested, 1 / years) - 1) * 100
         : 0;
 
-    return {
-      totalShares,
-      totalInvested,
-      currentValue,
-      currentPrice,
-      pnl,
-      pnlPct,
-      monthsElapsed,
-      cagr,
-      currency,
-    };
+    return { totalShares, totalInvested, currentValue, currentPrice, pnl, pnlPct, monthsElapsed, cagr, currency };
   } catch (e) {
     console.warn(`computeRecurring(${item.symbol}) failed:`, e);
     return null;
@@ -628,13 +973,13 @@ async function computeRecurring(item) {
 
 // ─── Recurring レンダリング ──────────────────────────────
 async function renderRecurring() {
-  const items = loadRecurring();
-  const pfRecList = document.getElementById('pfRecList');
+  const items      = loadRecurring();
+  const pfRecList  = document.getElementById('pfRecList');
   const pfRecEmpty = document.getElementById('pfRecEmpty');
 
   if (!items.length) {
     if (pfRecEmpty) pfRecEmpty.hidden = false;
-    if (pfRecList) pfRecList.innerHTML = '';
+    if (pfRecList)  pfRecList.innerHTML = '';
     const inv = document.getElementById('pfRecInvested');
     const cur = document.getElementById('pfRecCurrent');
     const pnl = document.getElementById('pfRecPnL');
@@ -645,28 +990,25 @@ async function renderRecurring() {
   }
 
   if (pfRecEmpty) pfRecEmpty.hidden = true;
-  if (pfRecList) pfRecList.innerHTML =
+  if (pfRecList)  pfRecList.innerHTML =
     '<li style="padding:16px;color:var(--text-muted);text-align:center;font-size:13px;">計算中...</li>';
 
   const results = await Promise.all(items.map(item => computeRecurring(item)));
 
   let totalInvested = 0;
-  let totalCurrent = 0;
+  let totalCurrent  = 0;
   results.forEach(r => {
-    if (r) {
-      totalInvested += r.totalInvested;
-      totalCurrent += r.currentValue;
-    }
+    if (r) { totalInvested += r.totalInvested; totalCurrent += r.currentValue; }
   });
 
-  const totalPnL = totalCurrent - totalInvested;
+  const totalPnL    = totalCurrent - totalInvested;
   const totalPnLPct = totalInvested > 0 ? (totalPnL / totalInvested) * 100 : 0;
 
   const invEl = document.getElementById('pfRecInvested');
   const curEl = document.getElementById('pfRecCurrent');
   const pnlEl = document.getElementById('pfRecPnL');
   if (invEl) invEl.textContent = fmt(totalInvested, 'JPY');
-  if (curEl) curEl.textContent = fmt(totalCurrent, 'JPY');
+  if (curEl) curEl.textContent = fmt(totalCurrent,  'JPY');
   if (pnlEl) {
     pnlEl.textContent = `${totalPnL >= 0 ? '+' : ''}${fmt(totalPnL, 'JPY')} (${fmtPct(totalPnLPct)})`;
     pnlEl.style.color = totalPnL >= 0 ? 'var(--bullish)' : 'var(--bearish)';
@@ -676,10 +1018,10 @@ async function renderRecurring() {
   pfRecList.innerHTML = '';
 
   items.forEach((item, idx) => {
-    const r = results[idx];
+    const r        = results[idx];
     const pnlColor = r && r.pnl >= 0 ? 'var(--bullish)' : 'var(--bearish)';
-    const pnlSign = r && r.pnl >= 0 ? '+' : '';
-    const avgCost = r && r.totalShares > 0 ? r.totalInvested / r.totalShares : null;
+    const pnlSign  = r && r.pnl >= 0 ? '+' : '';
+    const avgCost  = r && r.totalShares > 0 ? r.totalInvested / r.totalShares : null;
 
     const li = document.createElement('li');
     li.className = 'pf-row';
@@ -739,261 +1081,25 @@ async function renderRecurring() {
   });
 }
 
-// ─── FAB & モーダル ──────────────────────────────────────
-function openModal(edit = null, mode = null) {
-  const modal = document.getElementById('pfModal');
-  if (!modal) return;
-  modal.hidden = false;
-
-  const formMode = mode || (edit?.monthlyAmount != null ? 'recurring' : 'holdings');
-
-  // フォームモード切替
-  document.querySelectorAll('input[name="pfFormMode"]').forEach(radio => {
-    radio.checked = radio.value === formMode;
-  });
-  toggleFormMode(formMode);
-
-  if (formMode === 'recurring') {
-    document.getElementById('pfTickerInput').value = edit?.symbol || '';
-    document.getElementById('pfRecAmount').value = edit?.monthlyAmount || '';
-    document.getElementById('pfRecStart').value = edit?.startMonth || '';
-    modal.dataset.editingRecurring = edit?.symbol || '';
-    modal.dataset.editing = '';
-  } else {
-    document.getElementById('pfTickerInput').value = edit?.symbol || '';
-    document.getElementById('pfQtyInput').value = edit?.qty || '';
-    document.getElementById('pfAvgInput').value = edit?.avgCost || '';
-    modal.dataset.editing = edit?.symbol || '';
-    modal.dataset.editingRecurring = '';
-  }
-
-  document.getElementById('pfSuggest').innerHTML = '';
-  document.getElementById('pfTickerInput').focus();
-
-  const title = document.querySelector('.pf-modal__title');
-  if (title) title.textContent = edit ? '銘柄を編集' : '銘柄を追加';
-}
-
-function openEditModal(item) {
-  openModal(item, 'holdings');
-}
-
-function openEditRecurringModal(item) {
-  openModal(item, 'recurring');
-}
-
-function toggleFormMode(mode) {
-  const holdingsFields = document.getElementById('pfHoldingsFields');
-  const recurringFields = document.getElementById('pfRecurringFields');
-  if (holdingsFields) holdingsFields.hidden = mode !== 'holdings';
-  if (recurringFields) recurringFields.hidden = mode !== 'recurring';
-}
-
-function closeModal() {
-  const modal = document.getElementById('pfModal');
-  if (modal) {
-    modal.hidden = true;
-    document.getElementById('pfSuggest').innerHTML = '';
-  }
-}
-
-async function saveHolding() {
-  const formModeEl = document.querySelector('input[name="pfFormMode"]:checked');
-  const formMode = formModeEl?.value || 'holdings';
-
-  if (formMode === 'recurring') {
-    await saveRecurringItem();
-    return;
-  }
-
-  const modal = document.getElementById('pfModal');
-  const ticker = document.getElementById('pfTickerInput').value.trim();
-  const qty = parseFloat(document.getElementById('pfQtyInput').value);
-  const avgCost = parseFloat(document.getElementById('pfAvgInput').value);
-
-  if (!ticker) { alert('ティッカーを入力してください'); return; }
-  if (!qty || qty <= 0) { alert('数量を正しく入力してください'); return; }
-  if (!avgCost || avgCost <= 0) { alert('平均取得単価を正しく入力してください'); return; }
-
-  const saveBtn = document.getElementById('pfSaveBtn');
-  saveBtn.disabled = true;
-  saveBtn.textContent = '確認中…';
-
-  // シンボルバリデーション
-  const validation = await validateSymbol(ticker);
-  let finalSymbol = validation.symbol;
-  let finalName = validation.quote?.name || finalSymbol;
-
-  if (!validation.ok) {
-    const proceed = confirm(
-      `「${validation.tried.join('」「')}」の価格データが取得できませんでした。それでも登録しますか？`
-    );
-    if (!proceed) {
-      saveBtn.disabled = false;
-      saveBtn.textContent = '追加';
-      return;
-    }
-    finalName = finalSymbol;
-  }
-
-  const items = loadPortfolio();
-  const editingSymbol = modal.dataset.editing;
-  const existing = items.findIndex(i => i.symbol === finalSymbol);
-
-  const newItem = {
-    symbol: finalSymbol,
-    qty,
-    avgCost,
-    name: finalName,
-    addedAt: new Date().toISOString(),
-  };
-
-  if (editingSymbol && editingSymbol !== finalSymbol) {
-    const oldIdx = items.findIndex(i => i.symbol === editingSymbol);
-    if (oldIdx >= 0) items.splice(oldIdx, 1);
-  }
-
-  if (existing >= 0 && editingSymbol === finalSymbol) {
-    items[existing] = newItem;
-  } else if (existing >= 0) {
-    if (!confirm(`${finalSymbol} は既に登録されています。上書きしますか？`)) {
-      saveBtn.disabled = false;
-      saveBtn.textContent = '追加';
-      return;
-    }
-    items[existing] = newItem;
-  } else {
-    items.push(newItem);
-  }
-
-  savePortfolio(items);
-  _quoteCache = {};
-  _quoteCacheTime = 0;
-  closeModal();
-  saveBtn.disabled = false;
-  saveBtn.textContent = '追加';
-  render();
-}
-
-async function saveRecurringItem() {
-  const modal = document.getElementById('pfModal');
-  const ticker = document.getElementById('pfTickerInput').value.trim();
-  const monthlyAmount = parseFloat(document.getElementById('pfRecAmount').value);
-  const startMonth = document.getElementById('pfRecStart').value;
-
-  if (!ticker) { alert('ティッカーを入力してください'); return; }
-  if (!monthlyAmount || monthlyAmount <= 0) { alert('積立金額を正しく入力してください'); return; }
-  if (!startMonth) { alert('開始月を入力してください'); return; }
-
-  const saveBtn = document.getElementById('pfSaveBtn');
-  saveBtn.disabled = true;
-  saveBtn.textContent = '確認中…';
-
-  const validation = await validateSymbol(ticker);
-  let finalSymbol = validation.symbol;
-
-  if (!validation.ok) {
-    const proceed = confirm(
-      `「${validation.tried.join('」「')}」の価格データが取得できませんでした。それでも登録しますか？`
-    );
-    if (!proceed) {
-      saveBtn.disabled = false;
-      saveBtn.textContent = '追加';
-      return;
-    }
-  }
-
-  const items = loadRecurring();
-  const editingSymbol = modal.dataset.editingRecurring;
-  const existing = items.findIndex(i => i.symbol === finalSymbol);
-
-  const newItem = {
-    symbol: finalSymbol,
-    monthlyAmount,
-    startMonth,
-    addedAt: new Date().toISOString(),
-  };
-
-  if (editingSymbol && editingSymbol !== finalSymbol) {
-    const oldIdx = items.findIndex(i => i.symbol === editingSymbol);
-    if (oldIdx >= 0) items.splice(oldIdx, 1);
-  }
-
-  if (existing >= 0 && editingSymbol === finalSymbol) {
-    items[existing] = newItem;
-  } else if (existing >= 0) {
-    if (!confirm(`${finalSymbol} は既に登録されています。上書きしますか？`)) {
-      saveBtn.disabled = false;
-      saveBtn.textContent = '追加';
-      return;
-    }
-    items[existing] = newItem;
-  } else {
-    items.push(newItem);
-  }
-
-  saveRecurring(items);
-  closeModal();
-  saveBtn.disabled = false;
-  saveBtn.textContent = '追加';
-  renderRecurring();
-}
-
-// ─── ティッカーサジェスト ────────────────────────────────
-let _suggestTimer = null;
-
-async function onTickerInput() {
-  clearTimeout(_suggestTimer);
-  const val = document.getElementById('pfTickerInput').value.trim();
-  const suggest = document.getElementById('pfSuggest');
-  if (!suggest) return;
-  if (val.length < 1) { suggest.innerHTML = ''; return; }
-
-  const normalized = normalizeSymbol(val);
-  if (normalized !== val.trim().toUpperCase()) {
-    suggest.innerHTML = `<div class="pf-suggest-hint">→ ${normalized} として検索します</div>`;
-  }
-
-  _suggestTimer = setTimeout(async () => {
-    const quote = await fetchQuoteSingle(normalized);
-    suggest.innerHTML = '';
-    if (quote) {
-      const btn = document.createElement('button');
-      btn.className = 'pf-suggest-item';
-      btn.type = 'button';
-      btn.innerHTML = `<span class="pf-suggest-sym">${normalized}</span> <span class="pf-suggest-name">${quote.name || ''}</span> <span class="pf-suggest-price">${fmt(quote.price, quote.currency)}</span>`;
-      btn.addEventListener('click', () => {
-        document.getElementById('pfTickerInput').value = normalized;
-        suggest.innerHTML = '';
-        const nextFocus = document.getElementById('pfQtyInput') || document.getElementById('pfRecAmount');
-        if (nextFocus) nextFocus.focus();
-      });
-      suggest.appendChild(btn);
-    }
-  }, 400);
-}
-
 // ─── ヒーロースパークライン ──────────────────────────────
 async function loadHeroSparkline(period) {
   const items = loadPortfolio();
   if (!items.length) return;
 
-  const first = items[0];
   const rangeMap = {
-    '1D': ['1d', '5m'],
-    '1W': ['5d', '1h'],
-    '1M': ['1mo', '1d'],
-    '3M': ['3mo', '1d'],
-    '1Y': ['1y', '1wk'],
+    '1D':  ['1d',  '5m'],
+    '1W':  ['5d',  '1h'],
+    '1M':  ['1mo', '1d'],
+    '3M':  ['3mo', '1d'],
+    '1Y':  ['1y',  '1wk'],
     'ALL': ['max', '1mo'],
   };
   const [range, interval] = rangeMap[period] || ['1mo', '1d'];
-  const hist = await fetchHistory(first.symbol, range, interval);
+  const hist = await fetchHistory(items[0].symbol, range, interval);
   if (hist) {
     const firstPrice = hist[0]?.c || 0;
-    const lastPrice = hist[hist.length - 1]?.c || 0;
-    const color = lastPrice >= firstPrice ? '#00c853' : '#ff3b30';
-    renderSparkline('pfSparkline', hist, color);
+    const lastPrice  = hist[hist.length - 1]?.c || 0;
+    renderSparkline('pfSparkline', hist, lastPrice >= firstPrice ? '#00c853' : '#ff3b30');
   }
 }
 
@@ -1018,13 +1124,21 @@ function switchMode(mode) {
 
   document.querySelectorAll('.pf-mode-tab').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.mode === mode);
+    btn.setAttribute('aria-selected', String(btn.dataset.mode === mode));
   });
 
-  const holdingsSection = document.getElementById('pfHoldingsSection');
+  const holdingsSection  = document.getElementById('pfHoldingsSection');
   const recurringSection = document.getElementById('pfRecurringSection');
-  if (holdingsSection) holdingsSection.hidden = mode !== 'holdings';
+  if (holdingsSection)  holdingsSection.hidden  = mode !== 'holdings';
   if (recurringSection) recurringSection.hidden = mode !== 'recurring';
 
+  const fab = document.getElementById('pfAddBtn');
+  if (fab) {
+    fab.dataset.mode = mode;
+    fab.setAttribute('aria-label', mode === 'recurring' ? '積立を追加' : '銘柄を追加');
+  }
+
+  localStorage.setItem('pf_current_mode', mode);
   render();
 }
 
@@ -1035,33 +1149,46 @@ function initPortfolio() {
     btn.addEventListener('click', () => switchMode(btn.dataset.mode));
   });
 
-  // FABボタン
-  document.getElementById('pfAddBtn')?.addEventListener('click', () => openModal(null, _currentMode));
-
-  // モーダル閉じる
-  document.querySelectorAll('[data-close]').forEach(el => {
-    el.addEventListener('click', closeModal);
-  });
-
-  // 保存ボタン
-  document.getElementById('pfSaveBtn')?.addEventListener('click', saveHolding);
-
-  // フォームモード切替ラジオ
-  document.querySelectorAll('input[name="pfFormMode"]').forEach(radio => {
-    radio.addEventListener('change', e => toggleFormMode(e.target.value));
-  });
-
-  // Enterキーで保存
-  document.getElementById('pfModal')?.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      saveHolding();
+  // FABボタン（モードに応じて専用モーダルを開く）
+  document.getElementById('pfAddBtn')?.addEventListener('click', () => {
+    if (_currentMode === 'recurring') {
+      openRecurringModal();
+    } else {
+      openHoldingsModal();
     }
-    if (e.key === 'Escape') closeModal();
   });
 
-  // ティッカー入力
-  document.getElementById('pfTickerInput')?.addEventListener('input', onTickerInput);
+  // バックドロップ・キャンセルボタンで閉じる
+  document.addEventListener('click', e => {
+    if (e.target.matches('[data-close]')) {
+      const modal = e.target.closest('.pf-modal');
+      if (modal) hideModal(modal);
+    }
+  });
+
+  // Holdings モーダル
+  document.getElementById('pfSaveHoldingsBtn')?.addEventListener('click', onSaveHoldings);
+  document.getElementById('pfModalHoldings')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onSaveHoldings(); }
+  });
+  document.getElementById('pfHTickerInput')?.addEventListener('input', onHTickerInput);
+
+  // Recurring モーダル
+  document.getElementById('pfSaveRecurringBtn')?.addEventListener('click', onSaveRecurring);
+  document.getElementById('pfModalRecurring')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onSaveRecurring(); }
+  });
+  document.getElementById('pfRTickerInput')?.addEventListener('input', onRTickerInput);
+
+  // プリセットチップ
+  document.querySelectorAll('.pf-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('pfRTickerInput').value = btn.dataset.symbol;
+      document.querySelectorAll('.pf-preset').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('pfRAmountInput').focus();
+    });
+  });
 
   // ソート
   document.getElementById('pfSortSelect')?.addEventListener('change', e => {
@@ -1101,11 +1228,13 @@ function initPortfolio() {
     }
   });
 
-  // 初回レンダリング
-  render().then(() => {
-    loadHeroSparkline('1M');
-    updateLastRefreshTime();
-  });
+  // モード復元
+  const savedMode = localStorage.getItem('pf_current_mode') || 'holdings';
+  switchMode(savedMode);
+
+  // 初回レンダリング（switchMode 内で render() 済みだがスパークラインは別途）
+  loadHeroSparkline('1M');
+  updateLastRefreshTime();
 
   // 自動更新 (30秒)
   startAutoRefresh(30000);
