@@ -376,6 +376,16 @@ function showModal(modalEl) {
   document.body.dataset.scrollY = String(window.scrollY);
   document.addEventListener('keydown', escHandler);
 
+  // バックドロップ・×・キャンセルに直接バインド（デリゲーション失敗時の保険）
+  modalEl.querySelectorAll('[data-close]').forEach(el => {
+    el.onclick = (e) => {
+      console.log('[pf] direct close click:', el.className);
+      e.preventDefault();
+      e.stopPropagation();
+      hideModal(modalEl);
+    };
+  });
+
   const firstInput = modalEl.querySelector('input:not([disabled])');
   if (firstInput) {
     setTimeout(() => firstInput.focus(), 100);
@@ -383,6 +393,7 @@ function showModal(modalEl) {
 }
 
 function hideModal(modalEl) {
+  console.log('[pf] hideModal called:', modalEl.id);
   modalEl.hidden = true;
 
   // iOS Safari スクロール位置復元
@@ -1159,10 +1170,16 @@ function initPortfolio() {
   });
 
   // バックドロップ・キャンセルボタンで閉じる
-  document.addEventListener('click', e => {
-    if (e.target.matches('[data-close]')) {
-      const modal = e.target.closest('.pf-modal');
-      if (modal) hideModal(modal);
+  document.addEventListener('click', (e) => {
+    const closeTrigger = e.target.closest('[data-close]');
+    if (closeTrigger) {
+      console.log('[pf] close trigger clicked:', closeTrigger.tagName, closeTrigger.className);
+      const modal = closeTrigger.closest('.pf-modal');
+      if (modal && !modal.hidden) {
+        e.preventDefault();
+        e.stopPropagation();
+        hideModal(modal);
+      }
     }
   });
 
