@@ -393,8 +393,13 @@ function showModal(modalEl) {
 }
 
 function hideModal(modalEl) {
-  console.log('[pf] hideModal called:', modalEl.id);
+  console.log('[pf] hideModal called:', modalEl?.id, 'currently hidden:', modalEl?.hidden);
+  if (!modalEl) {
+    console.error('[pf] hideModal: modalEl is null/undefined');
+    return;
+  }
   modalEl.hidden = true;
+  console.log('[pf] hideModal: set hidden=true, now:', modalEl.hidden);
 
   // iOS Safari スクロール位置復元
   document.body.style.overflow = '';
@@ -1170,16 +1175,35 @@ function initPortfolio() {
   });
 
   // バックドロップ・キャンセルボタンで閉じる
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', function(e) {
     const closeTrigger = e.target.closest('[data-close]');
-    if (closeTrigger) {
-      console.log('[pf] close trigger clicked:', closeTrigger.tagName, closeTrigger.className);
-      const modal = closeTrigger.closest('.pf-modal');
-      if (modal && !modal.hidden) {
-        e.preventDefault();
-        e.stopPropagation();
-        hideModal(modal);
-      }
+    if (!closeTrigger) return;
+
+    console.log('[pf] close trigger clicked:', closeTrigger.tagName, closeTrigger.className);
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    // モーダル要素を確実に取得（複数の方法でフォールバック）
+    let modalEl = closeTrigger.closest('.pf-modal');
+    if (!modalEl) {
+      modalEl = closeTrigger.classList.contains('pf-modal')
+        ? closeTrigger
+        : document.querySelector('.pf-modal:not([hidden])');
+    }
+
+    console.log('[pf] modal element found:', modalEl ? modalEl.id : 'NULL');
+
+    if (modalEl) {
+      hideModal(modalEl);
+    } else {
+      // 最終手段: 全モーダル強制クローズ
+      console.warn('[pf] fallback: closing all modals');
+      document.querySelectorAll('.pf-modal').forEach(m => {
+        m.hidden = true;
+      });
+      document.body.style.overflow = '';
+      document.body.style.position = '';
     }
   });
 
