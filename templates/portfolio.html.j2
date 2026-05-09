@@ -707,6 +707,47 @@
     @keyframes pfFade    { from { opacity: 0; } to { opacity: 1; } }
     @keyframes pfSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
+    /* ─── Recurring 展開詳細 ──────────────────────────── */
+    .pf-rec-detail {
+      padding: 12px 0 4px;
+    }
+    .pf-rec-detail__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 13px;
+    }
+    .pf-rec-detail__row span {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    .pf-rec-detail__row b {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .pf-rec-detail__future {
+      margin: 12px 0 4px;
+      padding: 12px;
+      background: rgba(34,197,94,0.06);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 10px;
+    }
+    .pf-rec-detail__future-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--bullish);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .pf-rec-detail__future .pf-rec-detail__row {
+      border-bottom-color: rgba(34,197,94,0.1);
+    }
+
     /* ─── レスポンシブ ─────────────────────────────────── */
     @media (max-width: 380px) {
       .pf-row__main { gap: 8px; padding: 12px 12px; }
@@ -809,14 +850,17 @@
     <!-- Recurring セクション -->
     <div id="pfRecurringSection" hidden>
       <section class="pf-recurring__hero">
-        <div class="pf-hero__label">Total Invested vs Current</div>
+        <div class="pf-hero__label">Total Portfolio Value</div>
+        <div class="pf-hero__value" id="pfRecHeroValue" style="font-size:clamp(28px,8vw,44px);text-align:center;">¥ 0</div>
+        <div id="pfRecHeroDelta" style="text-align:center;font-size:13px;font-weight:500;margin:4px 0 12px;color:var(--text-secondary);"></div>
+        <div class="pf-hero__label" style="margin-top:8px;">Total Invested vs Current</div>
         <div class="pf-recurring__values">
           <div>
             <span>累計投入</span>
             <b id="pfRecInvested">¥ 0</b>
           </div>
           <div>
-            <span>現在評価額</span>
+            <span>予測評価額</span>
             <b id="pfRecCurrent">¥ 0</b>
           </div>
           <div>
@@ -831,7 +875,7 @@
         <div class="pf-empty__title">積立がありません</div>
         <div class="pf-empty__sub">
           右下の ＋ ボタンから積立を追加してください。<br>
-          <small>例: VOO を月3万円、2024-01 開始</small>
+          <small>例: VOO を月10万円、2026-05 開始、30年</small>
         </div>
       </div>
     </div>
@@ -952,11 +996,29 @@
         <div class="pf-suggest" id="pfRSuggest"></div>
         <label>毎月積立額（円）
           <input type="number" id="pfRAmountInput"
-                 step="1000" min="1"
+                 step="1000" min="1000"
                  placeholder="30000" inputmode="numeric"/>
         </label>
-        <label>開始月
+        <label>開始月（未来月も指定可）
           <input type="month" id="pfRStartInput"/>
+        </label>
+        <label>想定年利（%）
+          <input type="number" id="pfRUserReturnInput"
+                 step="0.1" min="-50" max="200"
+                 placeholder="空欄で過去データを自動使用"
+                 inputmode="decimal"/>
+          <span style="font-size:11px;color:var(--text-muted);margin-top:4px;display:block;">
+            保守的に見たい場合は低めに設定（例: 5）
+          </span>
+        </label>
+        <label>シミュレーション期間
+          <select id="pfRSimYearsSelect" style="width:100%;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:10px;padding:13px 14px;color:var(--text-primary);font-size:16px;margin-top:6px;">
+            <option value="5">5年</option>
+            <option value="10">10年</option>
+            <option value="20">20年</option>
+            <option value="30" selected>30年</option>
+            <option value="40">40年</option>
+          </select>
         </label>
         <div class="pf-form__actions">
           <button class="pf-btn-secondary" data-close>キャンセル</button>
@@ -1000,6 +1062,36 @@
       </div>
     </li>
   </template>
+
+  <!-- 年利変更モーダル -->
+  <div class="pf-modal" id="pfModalAnnualReturn" hidden>
+    <div class="pf-modal__backdrop" data-close></div>
+    <div class="pf-modal__sheet">
+      <div class="pf-modal__handle"></div>
+      <button class="pf-modal__close" data-close aria-label="閉じる">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <h3 class="pf-modal__title">想定年利を変更</h3>
+      <div class="pf-form">
+        <div id="pfARAutoInfo" style="font-size:12px;color:var(--text-muted);margin-bottom:14px;padding:10px 12px;background:var(--bg-elevated);border-radius:8px;"></div>
+        <label>カスタム年利（%）
+          <input type="number" id="pfARInput"
+                 step="0.1" min="-50" max="200"
+                 placeholder="例: 5.0" inputmode="decimal"/>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;margin-bottom:14px;text-transform:none;letter-spacing:0;font-size:14px;cursor:pointer;">
+          <input type="checkbox" id="pfARReset" style="accent-color:var(--bullish);width:16px;height:16px;"/>
+          自動算出に戻す
+        </label>
+        <div class="pf-form__actions">
+          <button class="pf-btn-secondary" data-close>キャンセル</button>
+          <button class="pf-btn-primary" id="pfSaveARBtn">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>

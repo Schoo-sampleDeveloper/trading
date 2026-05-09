@@ -8,7 +8,20 @@
 // ─── 定数 ─────────────────────────────────────────────────
 const WORKER_BASE = 'https://yahoo-proxy.kazuki35344.workers.dev';
 const STORAGE_KEY = 'portfolio_v1';
-const STORAGE_KEY_RECURRING = 'portfolio_recurring_v1';
+const STORAGE_KEY_RECURRING = 'portfolio_recurring_v2';
+
+// フォールバック年利（自動算出失敗時）
+const FALLBACK_ANNUAL_RETURNS = {
+  'VOO': 0.10, '^GSPC': 0.10, 'SPY': 0.10,
+  'VT': 0.08,
+  'QQQ': 0.13,
+  'VTI': 0.105,
+  '1321.T': 0.05, '1306.T': 0.05, '^N225': 0.05,
+  'VEA': 0.07,
+  'VWO': 0.08,
+  'BND': 0.03, 'AGG': 0.03,
+  'GLD': 0.06, 'IAU': 0.06,
+};
 
 // ─── ストレージ ───────────────────────────────────────────
 function loadPortfolio() {
@@ -25,7 +38,27 @@ function savePortfolio(items) {
 
 function loadRecurring() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY_RECURRING) || '[]');
+    const v2 = JSON.parse(localStorage.getItem(STORAGE_KEY_RECURRING) || 'null');
+    if (v2 !== null) return v2;
+
+    // v1 → v2 移行
+    const v1 = JSON.parse(localStorage.getItem('portfolio_recurring_v1') || '[]');
+    if (v1.length) {
+      const migrated = v1.map(old => ({
+        id: old.symbol + '_' + Date.now(),
+        symbol: old.symbol,
+        name: old.name || old.symbol,
+        monthlyAmount: old.monthlyAmount || 30000,
+        startMonth: old.startMonth || '2024-01',
+        autoAnnualReturn: null,
+        userAnnualReturn: null,
+        simYears: 30,
+        lastFetchedAt: null,
+      }));
+      localStorage.setItem(STORAGE_KEY_RECURRING, JSON.stringify(migrated));
+      return migrated;
+    }
+    return [];
   } catch (e) {
     return [];
   }
@@ -431,6 +464,13 @@ function hideModal(modalEl) {
     if (btn) { btn.textContent = '追加'; btn.disabled = false; }
     // プリセットの active 解除
     modalEl.querySelectorAll('.pf-preset.active').forEach(p => p.classList.remove('active'));
+  } else if (modalEl.id === 'pfModalAnnualReturn') {
+    const btn = modalEl.querySelector('#pfSaveARBtn');
+    if (btn) { btn.disabled = false; }
+    const resetChk = modalEl.querySelector('#pfARReset');
+    if (resetChk) resetChk.checked = false;
+    const input = modalEl.querySelector('#pfARInput');
+    if (input) input.disabled = false;
   }
 
   // サジェストクリア
@@ -574,17 +614,98 @@ async function onSaveHoldings() {
   }
 }
 
+// ─── 年利自動算出 ────────────────────────────────────────
+async function fetchAutoAnnualReturn(symbol) {
+  const fallback = FALLBACK_ANNUAL_RETURNS[symbol] ?? 0.07;
+  const ranges = ['max', '30y', '10y', '5y'];
+
+  for (const range of ranges) {
+    try {
+      const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=1mo`;
+      const proxyUrl = `${WORKER_BASE}/?url=${encodeURIComponent(yahooUrl)}`;
+      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(15000) });
+      if (!res.ok) continue;
+      const json = await res.json();
+      const result = json?.chart?.result?.[0];
+      if (!result) continue;
+
+      const closes = result.indicators?.quote?.[0]?.close || [];
+      const valid = closes.filter(c => c != null && c > 0);
+      if (valid.length < 12) continue;
+
+      // 月次リターン → 幾何平均 → 年率換算
+      let product = 1;
+      let n = 0;
+      for (let i = 1; i < valid.length; i++) {
+        const r = valid[i] / valid[i - 1] - 1;
+        product *= (1 + r);
+        n++;
+      }
+      if (n < 12) continue;
+      const monthlyGeomean = Math.pow(product, 1 / n) - 1;
+      const annualReturn = Math.pow(1 + monthlyGeomean, 12) - 1;
+
+      // 合理的な範囲チェック (-50% 〜 +100%)
+      if (annualReturn < -0.5 || annualReturn > 1.0) continue;
+      return annualReturn;
+    } catch (e) {
+      continue;
+    }
+  }
+  return fallback;
+}
+
+// ─── シミュレーション計算 ────────────────────────────────
+function calcSimulationArrays(item) {
+  const annualReturn = item.userAnnualReturn ?? item.autoAnnualReturn ?? 0.07;
+  const simYears = item.simYears || 30;
+  const totalMonths = simYears * 12;
+  const monthlyAmount = item.monthlyAmount;
+  const r = Math.pow(1 + annualReturn, 1 / 12) - 1; // 月利
+
+  const principal = [];
+  const value = [];
+  for (let i = 1; i <= totalMonths; i++) {
+    principal.push(monthlyAmount * i);
+    if (r === 0) {
+      value.push(monthlyAmount * i);
+    } else {
+      value.push(monthlyAmount * ((Math.pow(1 + r, i) - 1) / r) * (1 + r));
+    }
+  }
+  return { principal, value, totalMonths, annualReturn, simYears };
+}
+
+function getElapsedMonths(startMonth) {
+  const [sy, sm] = startMonth.split('-').map(Number);
+  const now = new Date();
+  const ny = now.getFullYear();
+  const nm = now.getMonth() + 1;
+  const elapsed = (ny - sy) * 12 + (nm - sm);
+  return Math.max(0, elapsed);
+}
+
+function fmtJPYShort(n) {
+  if (n == null || isNaN(n)) return '—';
+  const abs = Math.abs(n);
+  if (abs >= 1e8) return (n / 1e8).toFixed(1) + '億';
+  if (abs >= 1e4) return Math.round(n / 1e4) + '万';
+  return Math.round(n).toLocaleString('ja-JP');
+}
+
 // ─── Recurring モーダル ───────────────────────────────────
 function openRecurringModal() {
   const modal = document.getElementById('pfModalRecurring');
   if (!modal) return;
   modal.dataset.editingId = '';
 
-  // デフォルト開始月: 12ヶ月前
-  const d = new Date();
-  d.setMonth(d.getMonth() - 12);
+  // デフォルト開始月: 当月
+  const now = new Date();
   document.getElementById('pfRStartInput').value =
-    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  document.getElementById('pfRUserReturnInput').value = '';
+  const simYearsEl = document.getElementById('pfRSimYearsSelect');
+  if (simYearsEl) simYearsEl.value = '30';
 
   showModal(modal);
 }
@@ -592,12 +713,16 @@ function openRecurringModal() {
 function openEditRecurringModal(item) {
   const modal = document.getElementById('pfModalRecurring');
   if (!modal) return;
-  modal.dataset.editingId = item.symbol;
+  modal.dataset.editingId = item.id || item.symbol;
 
   document.getElementById('pfRTickerInput').value = item.symbol;
   document.getElementById('pfRTickerInput').disabled = true;
   document.getElementById('pfRAmountInput').value = item.monthlyAmount;
   document.getElementById('pfRStartInput').value  = item.startMonth;
+  document.getElementById('pfRUserReturnInput').value =
+    item.userAnnualReturn != null ? (item.userAnnualReturn * 100).toFixed(1) : '';
+  const simYearsEl = document.getElementById('pfRSimYearsSelect');
+  if (simYearsEl) simYearsEl.value = String(item.simYears || 30);
 
   // プリセットのアクティブ状態を更新
   document.querySelectorAll('.pf-preset').forEach(btn => {
@@ -652,39 +777,39 @@ async function onSaveRecurring() {
   const modal = document.getElementById('pfModalRecurring');
   const editingId = modal.dataset.editingId;
 
-  const tickerEl = document.getElementById('pfRTickerInput');
-  const amountEl = document.getElementById('pfRAmountInput');
-  const startEl  = document.getElementById('pfRStartInput');
+  const tickerEl     = document.getElementById('pfRTickerInput');
+  const amountEl     = document.getElementById('pfRAmountInput');
+  const startEl      = document.getElementById('pfRStartInput');
+  const userReturnEl = document.getElementById('pfRUserReturnInput');
+  const simYearsEl   = document.getElementById('pfRSimYearsSelect');
 
   const ticker        = tickerEl.value.trim();
   const monthlyAmount = parseFloat(amountEl.value);
   const startMonth    = startEl.value;
+  const userReturnRaw = userReturnEl ? userReturnEl.value.trim() : '';
+  const userAnnualReturn = userReturnRaw !== '' ? parseFloat(userReturnRaw) / 100 : null;
+  const simYears      = simYearsEl ? parseInt(simYearsEl.value, 10) : 30;
 
   if (!ticker) {
     showToast('ティッカーを入力してください', 'error');
     tickerEl.focus();
     return;
   }
-
   if (isNaN(monthlyAmount) || monthlyAmount < 1000) {
     showToast('積立額は 1,000 円以上で入力してください', 'error');
     amountEl.focus();
     return;
   }
-
   if (!startMonth || !/^\d{4}-\d{2}$/.test(startMonth)) {
     showToast('開始月を選択してください', 'error');
     return;
   }
-
-  const startDate = new Date(startMonth + '-01');
-  const now = new Date();
-  if (startDate > now) {
-    showToast('開始月は今月以前を選択してください', 'error');
+  if (new Date(startMonth + '-01') < new Date('1990-01-01')) {
+    showToast('開始月は1990年以降を選択してください', 'error');
     return;
   }
-  if (startDate < new Date('1990-01-01')) {
-    showToast('開始月は1990年以降を選択してください', 'error');
+  if (userAnnualReturn !== null && (isNaN(userAnnualReturn) || userAnnualReturn < -0.5 || userAnnualReturn > 2)) {
+    showToast('年利は -50% 〜 200% の範囲で入力してください', 'error');
     return;
   }
 
@@ -695,33 +820,33 @@ async function onSaveRecurring() {
   try {
     const validation = await validateSymbol(ticker);
     let finalSymbol = validation.symbol;
+    let finalName   = validation.quote?.name || finalSymbol;
 
     if (!validation.ok) {
       const proceed = confirm(
         `「${validation.tried.join('」「')}」の価格データが取得できませんでした。それでも登録しますか？`
       );
       if (!proceed) return;
+      finalName = finalSymbol;
     }
 
     const items = loadRecurring();
-    const existing = items.findIndex(i => i.symbol === finalSymbol);
+    const existingIdx = items.findIndex(i => i.id === editingId || (!editingId && i.symbol === finalSymbol));
+
     const newItem = {
+      id: editingId && items[existingIdx]?.id ? items[existingIdx].id : (crypto.randomUUID?.() || finalSymbol + '_' + Date.now()),
       symbol: finalSymbol,
+      name: finalName,
       monthlyAmount,
       startMonth,
-      addedAt: new Date().toISOString(),
+      autoAnnualReturn: items[existingIdx]?.autoAnnualReturn ?? null,
+      userAnnualReturn,
+      simYears,
+      lastFetchedAt: items[existingIdx]?.lastFetchedAt ?? null,
     };
 
-    if (editingId && editingId !== finalSymbol) {
-      const oldIdx = items.findIndex(i => i.symbol === editingId);
-      if (oldIdx >= 0) items.splice(oldIdx, 1);
-    }
-
-    if (existing >= 0 && editingId === finalSymbol) {
-      items[existing] = newItem;
-    } else if (existing >= 0) {
-      if (!confirm(`${finalSymbol} は既に登録されています。上書きしますか？`)) return;
-      items[existing] = newItem;
+    if (existingIdx >= 0) {
+      items[existingIdx] = newItem;
     } else {
       items.push(newItem);
     }
@@ -928,80 +1053,197 @@ function deleteHolding(symbol) {
   render();
 }
 
-function deleteRecurring(symbol) {
-  const items = loadRecurring().filter(i => i.symbol !== symbol);
+function deleteRecurring(id) {
+  const items = loadRecurring().filter(i => (i.id || i.symbol) !== id);
   saveRecurring(items);
   renderRecurring();
 }
 
-// ─── 積立計算ロジック ─────────────────────────────────────
-async function computeRecurring(item) {
-  const start = new Date(item.startMonth + '-01');
-  const now   = new Date();
-  const monthsElapsed =
-    (now.getFullYear() - start.getFullYear()) * 12 +
-    (now.getMonth() - start.getMonth()) + 1;
+// ─── Recurring Chart.js グラフ ───────────────────────────
+const _recCharts = {};
 
-  const range     = monthsElapsed > 60 ? '10y' : '5y';
-  const yahooUrl  = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(item.symbol)}?range=${range}&interval=1mo`;
-  const proxyUrl  = `${WORKER_BASE}/?url=${encodeURIComponent(yahooUrl)}`;
-
-  try {
-    const res    = await fetch(proxyUrl, { signal: AbortSignal.timeout(15000) });
-    if (!res.ok) return null;
-    const json   = await res.json();
-    const result = json?.chart?.result?.[0];
-    if (!result)  return null;
-
-    const timestamps   = result.timestamp || [];
-    const opens        = result.indicators?.quote?.[0]?.open || [];
-    const currentPrice = result.meta.regularMarketPrice;
-    const currency     = result.meta.currency || 'USD';
-
-    let totalShares   = 0;
-    let totalInvested = 0;
-
-    for (let i = 0; i < timestamps.length; i++) {
-      const date = new Date(timestamps[i] * 1000);
-      if (date < start) continue;
-      if (date > now)   break;
-      const price = opens[i];
-      if (!price) continue;
-      totalShares   += item.monthlyAmount / price;
-      totalInvested += item.monthlyAmount;
-    }
-
-    const currentValue = totalShares * currentPrice;
-    const pnl          = currentValue - totalInvested;
-    const pnlPct       = totalInvested > 0 ? (pnl / totalInvested) * 100 : 0;
-    const years        = monthsElapsed / 12;
-    const cagr         =
-      totalInvested > 0 && years > 0
-        ? (Math.pow(currentValue / totalInvested, 1 / years) - 1) * 100
-        : 0;
-
-    return { totalShares, totalInvested, currentValue, currentPrice, pnl, pnlPct, monthsElapsed, cagr, currency };
-  } catch (e) {
-    console.warn(`computeRecurring(${item.symbol}) failed:`, e);
-    return null;
+function renderRecurringChart(canvasEl, item, elapsedMonths) {
+  const canvasId = canvasEl.id;
+  if (_recCharts[canvasId]) {
+    _recCharts[canvasId].destroy();
+    delete _recCharts[canvasId];
   }
+
+  const { principal, value, totalMonths, simYears } = calcSimulationArrays(item);
+  const [sy, sm] = item.startMonth.split('-').map(Number);
+
+  // X軸ラベル（年単位で間引き）
+  const labels = [];
+  for (let i = 1; i <= totalMonths; i++) {
+    const labelMonth = sm + i - 1;
+    const labelYear  = sy + Math.floor((labelMonth - 1) / 12);
+    const labelMod   = ((labelMonth - 1) % 12) + 1;
+    if (labelMod === 1) labels.push(labelYear + '年');
+    else labels.push('');
+  }
+
+  const ctx = canvasEl.getContext('2d');
+  _recCharts[canvasId] = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: '元本',
+          data: principal,
+          borderColor: '#6b7280',
+          backgroundColor: 'transparent',
+          borderWidth: 1.5,
+          pointRadius: 0,
+          tension: 0,
+        },
+        {
+          label: '予測評価額',
+          data: value,
+          borderColor: '#22c55e',
+          backgroundColor: 'rgba(34,197,94,0.08)',
+          fill: true,
+          borderWidth: 2,
+          pointRadius: 0,
+          tension: 0.4,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 400 },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ctx.dataset.label + ': ' + fmtJPYShort(ctx.parsed.y),
+          },
+          backgroundColor: '#1a2029',
+          titleColor: '#e8edf2',
+          bodyColor: '#8b95a3',
+          borderColor: '#2a3340',
+          borderWidth: 1,
+        },
+        annotation: elapsedMonths > 0 && elapsedMonths < totalMonths ? {
+          annotations: {
+            nowLine: {
+              type: 'line',
+              xMin: elapsedMonths - 1,
+              xMax: elapsedMonths - 1,
+              borderColor: '#ef4444',
+              borderWidth: 1.5,
+              borderDash: [4, 4],
+              label: {
+                content: '現在',
+                display: true,
+                position: 'start',
+                color: '#ef4444',
+                font: { size: 10 },
+                backgroundColor: 'transparent',
+              },
+            },
+          },
+        } : {},
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#545d6b',
+            font: { size: 10 },
+            maxRotation: 0,
+            autoSkip: false,
+          },
+          grid: { color: 'rgba(255,255,255,0.04)' },
+        },
+        y: {
+          ticks: {
+            color: '#545d6b',
+            font: { size: 10 },
+            callback: v => fmtJPYShort(v),
+          },
+          grid: { color: 'rgba(255,255,255,0.06)' },
+        },
+      },
+    },
+  });
+}
+
+// ─── 年利変更モーダル ─────────────────────────────────────
+let _annualReturnEditItem = null;
+
+function openAnnualReturnModal(item) {
+  _annualReturnEditItem = item;
+  const modal = document.getElementById('pfModalAnnualReturn');
+  if (!modal) return;
+
+  const autoRate = item.autoAnnualReturn != null
+    ? (item.autoAnnualReturn * 100).toFixed(2) + '%'
+    : '算出中…';
+  const autoInfo = document.getElementById('pfARAutoInfo');
+  if (autoInfo) autoInfo.textContent = `自動算出値: ${autoRate}（${item.symbol}過去平均）`;
+
+  const input = document.getElementById('pfARInput');
+  if (input) input.value = item.userAnnualReturn != null ? (item.userAnnualReturn * 100).toFixed(1) : '';
+
+  const resetChk = document.getElementById('pfARReset');
+  if (resetChk) resetChk.checked = false;
+
+  showModal(modal);
+}
+
+async function onSaveAnnualReturn() {
+  if (!_annualReturnEditItem) return;
+  const input    = document.getElementById('pfARInput');
+  const resetChk = document.getElementById('pfARReset');
+  const modal    = document.getElementById('pfModalAnnualReturn');
+
+  let userRate = null;
+  if (resetChk && resetChk.checked) {
+    userRate = null;
+  } else {
+    const raw = input ? input.value.trim() : '';
+    if (raw !== '') {
+      const v = parseFloat(raw) / 100;
+      if (isNaN(v) || v < -0.5 || v > 2) {
+        showToast('年利は -50% 〜 200% の範囲で入力してください', 'error');
+        return;
+      }
+      userRate = v;
+    }
+  }
+
+  const items = loadRecurring();
+  const idx   = items.findIndex(i => (i.id || i.symbol) === (_annualReturnEditItem.id || _annualReturnEditItem.symbol));
+  if (idx >= 0) {
+    items[idx].userAnnualReturn = userRate;
+    saveRecurring(items);
+  }
+  hideModal(modal);
+  _annualReturnEditItem = null;
+  await renderRecurring();
 }
 
 // ─── Recurring レンダリング ──────────────────────────────
 async function renderRecurring() {
-  const items      = loadRecurring();
+  let items     = loadRecurring();
   const pfRecList  = document.getElementById('pfRecList');
   const pfRecEmpty = document.getElementById('pfRecEmpty');
 
   if (!items.length) {
     if (pfRecEmpty) pfRecEmpty.hidden = false;
     if (pfRecList)  pfRecList.innerHTML = '';
-    const inv = document.getElementById('pfRecInvested');
-    const cur = document.getElementById('pfRecCurrent');
-    const pnl = document.getElementById('pfRecPnL');
-    if (inv) inv.textContent = '¥ 0';
-    if (cur) cur.textContent = '¥ 0';
-    if (pnl) pnl.textContent = '¥ 0 (+0.00%)';
+    // ヒーロークリア
+    const heroVal = document.getElementById('pfRecHeroValue');
+    const heroDelta = document.getElementById('pfRecHeroDelta');
+    const invEl = document.getElementById('pfRecInvested');
+    const curEl = document.getElementById('pfRecCurrent');
+    const pnlEl = document.getElementById('pfRecPnL');
+    if (heroVal)   heroVal.textContent   = '¥ 0';
+    if (heroDelta) heroDelta.textContent = '';
+    if (invEl) invEl.textContent = '¥ 0';
+    if (curEl) curEl.textContent = '¥ 0';
+    if (pnlEl) { pnlEl.textContent = '¥ 0 (+0.00%)'; pnlEl.style.color = ''; }
     return;
   }
 
@@ -1009,70 +1251,189 @@ async function renderRecurring() {
   if (pfRecList)  pfRecList.innerHTML =
     '<li style="padding:16px;color:var(--text-muted);text-align:center;font-size:13px;">計算中...</li>';
 
-  const results = await Promise.all(items.map(item => computeRecurring(item)));
+  // 年利の自動算出（未取得 or 1日以上経過）
+  const needFetch = items.filter(item =>
+    item.autoAnnualReturn == null ||
+    !item.lastFetchedAt ||
+    Date.now() - item.lastFetchedAt > 86400000
+  );
+  if (needFetch.length) {
+    await Promise.all(needFetch.map(async item => {
+      const rate = await fetchAutoAnnualReturn(item.symbol);
+      item.autoAnnualReturn = rate;
+      item.lastFetchedAt   = Date.now();
+    }));
+    saveRecurring(items);
+  }
 
-  let totalInvested = 0;
-  let totalCurrent  = 0;
-  results.forEach(r => {
-    if (r) { totalInvested += r.totalInvested; totalCurrent += r.currentValue; }
+  // 当日株価取得（dayChange 用）
+  const quotes = await fetchQuotes(items.map(i => i.symbol));
+
+  // 集計
+  let totalCurrentValue = 0;
+  let totalPrincipal    = 0;
+  let totalDayChange    = 0;
+
+  const simResults = items.map(item => {
+    const elapsed = getElapsedMonths(item.startMonth);
+    const { principal, value, totalMonths, annualReturn, simYears } = calcSimulationArrays(item);
+
+    // 経過月インデックス（0-based: elapsed月後は配列のelapsed-1番目）
+    const idx = Math.min(elapsed, totalMonths) - 1;
+    const currPrincipal = elapsed > 0 ? principal[idx] : 0;
+    const currValue     = elapsed > 0 ? value[idx]     : 0;
+
+    // 当日変動
+    const q        = quotes[item.symbol] || {};
+    const dayChgPct = q.price && q.prevClose ? (q.price / q.prevClose - 1) : 0;
+    const displayValue = currValue * (1 + dayChgPct);
+    const dayChgAmt    = currValue * dayChgPct;
+
+    // 30年後の最終値
+    const finalPrincipal = principal[totalMonths - 1];
+    const finalValue     = value[totalMonths - 1];
+
+    totalCurrentValue += displayValue;
+    totalPrincipal    += currPrincipal;
+    totalDayChange    += dayChgAmt;
+
+    return {
+      item, elapsed, currPrincipal, currValue, displayValue, dayChgPct, dayChgAmt,
+      annualReturn, simYears, totalMonths, finalPrincipal, finalValue,
+      principal, value,
+    };
   });
 
-  const totalPnL    = totalCurrent - totalInvested;
-  const totalPnLPct = totalInvested > 0 ? (totalPnL / totalInvested) * 100 : 0;
+  // ヒーロー更新
+  const heroVal   = document.getElementById('pfRecHeroValue');
+  const heroDelta = document.getElementById('pfRecHeroDelta');
+  const invEl     = document.getElementById('pfRecInvested');
+  const curEl     = document.getElementById('pfRecCurrent');
+  const pnlEl     = document.getElementById('pfRecPnL');
 
-  const invEl = document.getElementById('pfRecInvested');
-  const curEl = document.getElementById('pfRecCurrent');
-  const pnlEl = document.getElementById('pfRecPnL');
-  if (invEl) invEl.textContent = fmt(totalInvested, 'JPY');
-  if (curEl) curEl.textContent = fmt(totalCurrent,  'JPY');
+  const totalPnL    = totalCurrentValue - totalPrincipal;
+  const totalPnLPct = totalPrincipal > 0 ? (totalPnL / totalPrincipal) * 100 : 0;
+  const dayChgPct   = totalCurrentValue > 0 ? (totalDayChange / (totalCurrentValue - totalDayChange)) * 100 : 0;
+
+  if (heroVal) heroVal.textContent = fmt(totalCurrentValue, 'JPY');
+  if (heroDelta) {
+    const sign = totalDayChange >= 0 ? '+' : '';
+    heroDelta.textContent = `${sign}${fmt(totalDayChange, 'JPY')} (${sign}${dayChgPct.toFixed(2)}%) 本日`;
+    heroDelta.style.color = totalDayChange >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+  }
+  if (invEl) invEl.textContent = fmt(totalPrincipal, 'JPY');
+  if (curEl) curEl.textContent = fmt(totalCurrentValue, 'JPY');
   if (pnlEl) {
-    pnlEl.textContent = `${totalPnL >= 0 ? '+' : ''}${fmt(totalPnL, 'JPY')} (${fmtPct(totalPnLPct)})`;
+    const sign = totalPnL >= 0 ? '+' : '';
+    pnlEl.textContent = `${sign}${fmt(totalPnL, 'JPY')} (${sign}${totalPnLPct.toFixed(2)}%)`;
     pnlEl.style.color = totalPnL >= 0 ? 'var(--bullish)' : 'var(--bearish)';
   }
 
   if (!pfRecList) return;
   pfRecList.innerHTML = '';
 
-  items.forEach((item, idx) => {
-    const r        = results[idx];
-    const pnlColor = r && r.pnl >= 0 ? 'var(--bullish)' : 'var(--bearish)';
-    const pnlSign  = r && r.pnl >= 0 ? '+' : '';
-    const avgCost  = r && r.totalShares > 0 ? r.totalInvested / r.totalShares : null;
+  simResults.forEach(({ item, elapsed, currPrincipal, displayValue, dayChgPct, dayChgAmt,
+                         annualReturn, simYears, totalMonths, finalPrincipal, finalValue,
+                         principal, value }, rowIdx) => {
+
+    const pnl       = displayValue - currPrincipal;
+    const pnlPct    = currPrincipal > 0 ? (pnl / currPrincipal) * 100 : 0;
+    const isUncounted = elapsed === 0; // 未来開始
+
+    // 開始まであと何ヶ月
+    const [sy, sm] = item.startMonth.split('-').map(Number);
+    const now = new Date();
+    const futureMonths = isUncounted
+      ? (sy - now.getFullYear()) * 12 + (sm - (now.getMonth() + 1))
+      : 0;
+
+    const useLabel   = item.userAnnualReturn != null ? '手動' : '自動';
+    const rateLabel  = `${(annualReturn * 100).toFixed(1)}%（${useLabel}）`;
+    const pnlColor   = pnl >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    const pnlSign    = pnl >= 0 ? '+' : '';
+    const daySign    = dayChgPct >= 0 ? '+' : '';
+    const finalPnL   = finalValue - finalPrincipal;
+    const finalPnLPct = finalPrincipal > 0 ? (finalPnL / finalPrincipal) * 100 : 0;
 
     const li = document.createElement('li');
     li.className = 'pf-row';
-    li.style.setProperty('--i', idx);
+    li.style.setProperty('--i', rowIdx);
     li.dataset.symbol = item.symbol;
+
+    const statusText = isUncounted
+      ? `開始まであと${futureMonths}ヶ月`
+      : `月${fmt(item.monthlyAmount, 'JPY')} × ${elapsed}ヶ月経過`;
+
+    const canvasId = `rec-chart-${(item.id || item.symbol).replace(/[^a-z0-9]/gi, '')}-${rowIdx}`;
 
     li.innerHTML = `
       <button class="pf-row__main" type="button">
         <div class="pf-row__left">
           <div class="pf-row__symbol">${item.symbol}</div>
-          <div class="pf-row__name">月${fmt(item.monthlyAmount, 'JPY')} × ${r ? r.monthsElapsed : '?'}ヶ月</div>
+          <div class="pf-row__name">${statusText}</div>
         </div>
         <div class="pf-row__center">
-          <div class="pf-row__value">${r ? fmt(r.currentValue, r.currency) : '—'}</div>
-          <div class="pf-row__qty">投入: ${r ? fmt(r.totalInvested, 'JPY') : '—'}</div>
+          <div class="pf-row__value">${isUncounted ? '¥ 0' : fmt(displayValue, 'JPY')}</div>
+          <div class="pf-row__qty">投入: ${fmt(currPrincipal, 'JPY')} ${isUncounted ? '' : pnlSign + fmt(pnl, 'JPY')}</div>
         </div>
         <div class="pf-row__right">
-          <div class="pf-row__pnl-pct ${r && r.pnl >= 0 ? 'up' : 'down'}">${r ? fmtPct(r.pnlPct) : '—'}</div>
-          <div class="pf-row__day-change" style="color:${pnlColor}">${r ? pnlSign + fmt(r.pnl, r.currency) : '—'}</div>
+          <div class="pf-row__pnl-pct ${pnl >= 0 ? 'up' : 'down'}">${isUncounted ? '—' : fmtPct(pnlPct)}</div>
+          <div class="pf-row__day-change" style="color:${dayChgPct >= 0 ? 'var(--bullish)' : 'var(--bearish)'}">
+            ${isUncounted ? '—' : daySign + dayChgPct.toFixed(2) + '% 本日'}
+          </div>
         </div>
       </button>
       <div class="pf-row__expand" hidden>
-        <div class="pf-row__grid">
-          <div><span>累計投入</span><b>${r ? fmt(r.totalInvested, 'JPY') : '—'}</b></div>
-          <div><span>現在評価額</span><b>${r ? fmt(r.currentValue, r.currency) : '—'}</b></div>
-          <div><span>累計株数</span><b>${r ? fmtNum(r.totalShares, 4) : '—'}</b></div>
-          <div><span>平均取得単価</span><b>${r && avgCost ? fmt(avgCost, r.currency) : '—'}</b></div>
-          <div><span>現在価格</span><b>${r ? fmt(r.currentPrice, r.currency) : '—'}</b></div>
-          <div><span>損益</span><b style="color:${pnlColor}">${r ? pnlSign + fmt(r.pnl, r.currency) : '—'}</b></div>
-          <div><span>月数</span><b>${r ? r.monthsElapsed + 'ヶ月' : '—'}</b></div>
-          <div><span>年率換算</span><b style="color:${r && r.cagr >= 0 ? 'var(--bullish)' : 'var(--bearish)'}">${r ? fmtPct(r.cagr) : '—'}</b></div>
-          <div><span>開始月</span><b>${item.startMonth}</b></div>
+        <div class="pf-rec-detail">
+          <div class="pf-rec-detail__row">
+            <span>想定年利</span>
+            <b style="color:var(--bullish)">${rateLabel}</b>
+          </div>
+          <div class="pf-rec-detail__row">
+            <span>シミュレーション期間</span>
+            <b>${simYears}年</b>
+          </div>
+          <div class="pf-rec-detail__row">
+            <span>経過月数 / 総月数</span>
+            <b>${elapsed} / ${totalMonths}ヶ月</b>
+          </div>
+          <div class="pf-rec-detail__row">
+            <span>累計投入額（現在）</span>
+            <b>${fmt(currPrincipal, 'JPY')}</b>
+          </div>
+          <div class="pf-rec-detail__row">
+            <span>予測評価額（現在）</span>
+            <b style="color:var(--bullish)">${isUncounted ? '¥ 0' : fmt(displayValue, 'JPY')}</b>
+          </div>
+          <div class="pf-rec-detail__row">
+            <span>本日の変動</span>
+            <b style="color:${dayChgPct >= 0 ? 'var(--bullish)' : 'var(--bearish)'}">
+              ${daySign}${dayChgPct.toFixed(2)}% (${daySign}${fmt(dayChgAmt, 'JPY')})
+            </b>
+          </div>
+          <div class="pf-rec-detail__row">
+            <span>損益（現在）</span>
+            <b style="color:${pnlColor}">${isUncounted ? '—' : pnlSign + fmt(pnl, 'JPY') + ' (' + fmtPct(pnlPct) + ')'}</b>
+          </div>
+          <div class="pf-rec-detail__future">
+            <div class="pf-rec-detail__future-title">${simYears}年後の予測</div>
+            <div class="pf-rec-detail__row"><span>投入合計</span><b>${fmt(finalPrincipal, 'JPY')}</b></div>
+            <div class="pf-rec-detail__row">
+              <span>評価額</span>
+              <b style="color:var(--bullish)">約${fmt(finalValue, 'JPY')}</b>
+            </div>
+            <div class="pf-rec-detail__row">
+              <span>損益</span>
+              <b style="color:var(--bullish)">+${fmt(finalPnL, 'JPY')} (+${finalPnLPct.toFixed(0)}%)</b>
+            </div>
+          </div>
+          <div style="height:200px;margin:12px 0 4px;">
+            <canvas id="${canvasId}" style="width:100%;height:200px;"></canvas>
+          </div>
         </div>
         <div class="pf-row__actions">
           <button class="pf-btn-ghost pf-rec-edit" type="button">✏ 編集</button>
+          <button class="pf-btn-ghost pf-rec-rate" type="button">📈 年利を変更</button>
           <button class="pf-btn-danger pf-rec-delete" type="button">🗑 削除</button>
         </div>
       </div>
@@ -1080,7 +1441,18 @@ async function renderRecurring() {
 
     li.querySelector('.pf-row__main').addEventListener('click', () => {
       const expand = li.querySelector('.pf-row__expand');
-      expand.hidden = !expand.hidden;
+      const wasHidden = expand.hidden;
+      expand.hidden = !wasHidden;
+      if (wasHidden) {
+        // グラフ描画（1フレーム後）
+        requestAnimationFrame(() => {
+          const canvas = document.getElementById(canvasId);
+          if (canvas && !canvas.dataset.drawn) {
+            canvas.dataset.drawn = '1';
+            renderRecurringChart(canvas, item, elapsed);
+          }
+        });
+      }
     });
 
     li.querySelector('.pf-rec-edit').addEventListener('click', e => {
@@ -1088,9 +1460,14 @@ async function renderRecurring() {
       openEditRecurringModal(item);
     });
 
+    li.querySelector('.pf-rec-rate').addEventListener('click', e => {
+      e.stopPropagation();
+      openAnnualReturnModal(item);
+    });
+
     li.querySelector('.pf-rec-delete').addEventListener('click', e => {
       e.stopPropagation();
-      deleteRecurring(item.symbol);
+      deleteRecurring(item.id || item.symbol);
     });
 
     pfRecList.appendChild(li);
@@ -1220,6 +1597,13 @@ function initPortfolio() {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onSaveRecurring(); }
   });
   document.getElementById('pfRTickerInput')?.addEventListener('input', onRTickerInput);
+
+  // 年利変更モーダル
+  document.getElementById('pfSaveARBtn')?.addEventListener('click', onSaveAnnualReturn);
+  document.getElementById('pfARReset')?.addEventListener('change', e => {
+    const input = document.getElementById('pfARInput');
+    if (input) input.disabled = e.target.checked;
+  });
 
   // プリセットチップ
   document.querySelectorAll('.pf-preset').forEach(btn => {
