@@ -754,6 +754,42 @@
       .pf-row__grid { grid-template-columns: repeat(2, 1fr); }
       .pf-recurring__values { grid-template-columns: 1fr 1fr; }
     }
+
+    /* ─── Recurring シミュレーション グラフ ────────────── */
+    .pf-rec-chart-wrapper {
+      position: relative;
+      height: 280px;
+      margin-top: 16px;
+      padding: 16px 12px 8px;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.03), rgba(34, 197, 94, 0.01));
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .pf-rec-chart-wrapper canvas {
+      flex: 1;
+      min-height: 0;
+    }
+    .pf-rec-chart-summary {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+      padding: 0 4px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+    .pf-rec-chart-summary span strong {
+      color: rgba(255,255,255,0.95);
+      font-weight: 600;
+      margin-left: 4px;
+    }
+    @media (max-width: 640px) {
+      .pf-rec-chart-wrapper { height: 220px; padding: 12px 8px 4px; }
+      .pf-rec-chart-summary { font-size: 10px; gap: 10px; flex-wrap: wrap; }
+    }
   </style>
 </head>
 <body>
@@ -1095,6 +1131,7 @@
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3/dist/chartjs-plugin-annotation.min.js"></script>
 
   <!-- Portfolio JS -->
   <script src="static/js/portfolio.js" defer></script>

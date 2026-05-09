@@ -693,6 +693,18 @@ function fmtJPYShort(n) {
   return Math.round(n).toLocaleString('ja-JP');
 }
 
+function formatYAxisJPY(val) {
+  const abs = Math.abs(val);
+  if (abs >= 1e12) return (val / 1e12).toFixed(1) + '兆';
+  if (abs >= 1e8)  return (val / 1e8).toFixed(1) + '億';
+  if (abs >= 1e4)  return (val / 1e4).toFixed(0) + '万';
+  return val.toString();
+}
+
+function formatJPY(val) {
+  return Math.round(val).toLocaleString('ja-JP');
+}
+
 // ─── Recurring モーダル ───────────────────────────────────
 function openRecurringModal() {
   const modal = document.getElementById('pfModalRecurring');
@@ -1069,101 +1081,212 @@ function renderRecurringChart(canvasEl, item, elapsedMonths) {
     delete _recCharts[canvasId];
   }
 
-  const { principal, value, totalMonths, simYears } = calcSimulationArrays(item);
-  const [sy, sm] = item.startMonth.split('-').map(Number);
+  // annotation プラグイン登録
+  if (window['chartjs-plugin-annotation']) {
+    try { Chart.register(window['chartjs-plugin-annotation']); } catch(e) { /* already registered */ }
+  }
 
-  // X軸ラベル（年単位で間引き）
-  const labels = [];
-  for (let i = 1; i <= totalMonths; i++) {
-    const labelMonth = sm + i - 1;
-    const labelYear  = sy + Math.floor((labelMonth - 1) / 12);
-    const labelMod   = ((labelMonth - 1) % 12) + 1;
-    if (labelMod === 1) labels.push(labelYear + '年');
-    else labels.push('');
+  const { principal, value, totalMonths, annualReturn, simYears } = calcSimulationArrays(item);
+  const startDate = new Date(item.startMonth + '-01');
+  const startYear = startDate.getFullYear();
+
+  // 年単位に集約（simYears+1 点: 開始〜simYears年後）
+  const yearlyPrincipal = [];
+  const yearlyValue = [];
+  const yearlyLabels = [];
+
+  for (let y = 0; y <= simYears; y++) {
+    const monthIdx = y * 12 - 1; // y年経過時点の月インデックス（0-based）
+    if (monthIdx < 0) {
+      yearlyPrincipal.push(0);
+      yearlyValue.push(0);
+    } else if (monthIdx >= principal.length) {
+      yearlyPrincipal.push(principal[principal.length - 1]);
+      yearlyValue.push(value[value.length - 1]);
+    } else {
+      yearlyPrincipal.push(principal[monthIdx]);
+      yearlyValue.push(value[monthIdx]);
+    }
+    yearlyLabels.push(y === 0 ? '開始' : `${y}年後`);
+  }
+
+  const elapsedYears = elapsedMonths / 12;
+  const isNarrow = window.innerWidth < 640;
+
+  function makeGradient(ctx, chartArea) {
+    const g = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+    g.addColorStop(0,   'rgba(34, 197, 94, 0.35)');
+    g.addColorStop(0.5, 'rgba(34, 197, 94, 0.08)');
+    g.addColorStop(1,   'rgba(34, 197, 94, 0.00)');
+    return g;
   }
 
   const ctx = canvasEl.getContext('2d');
   _recCharts[canvasId] = new Chart(ctx, {
     type: 'line',
     data: {
-      labels,
+      labels: yearlyLabels,
       datasets: [
         {
           label: '元本',
-          data: principal,
-          borderColor: '#6b7280',
-          backgroundColor: 'transparent',
+          data: yearlyPrincipal,
+          borderColor: 'rgba(156, 163, 175, 0.9)',
           borderWidth: 1.5,
+          borderDash: [4, 4],
           pointRadius: 0,
+          pointHoverRadius: 4,
+          pointHoverBackgroundColor: '#9ca3af',
+          fill: false,
           tension: 0,
         },
         {
           label: '予測評価額',
-          data: value,
+          data: yearlyValue,
           borderColor: '#22c55e',
-          backgroundColor: 'rgba(34,197,94,0.08)',
-          fill: true,
-          borderWidth: 2,
+          borderWidth: 2.5,
           pointRadius: 0,
-          tension: 0.4,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#22c55e',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+          fill: true,
+          backgroundColor: function(context) {
+            const chart = context.chart;
+            const { ctx, chartArea } = chart;
+            if (!chartArea) return null;
+            return makeGradient(ctx, chartArea);
+          },
+          tension: 0.35,
+          cubicInterpolationMode: 'monotone',
         },
       ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      animation: { duration: 400 },
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
       plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => ctx.dataset.label + ': ' + fmtJPYShort(ctx.parsed.y),
+        legend: {
+          display: true,
+          position: 'top',
+          align: 'end',
+          labels: {
+            usePointStyle: true,
+            pointStyle: 'circle',
+            boxWidth: 8,
+            boxHeight: 8,
+            padding: 12,
+            font: { size: 12, family: "'JetBrains Mono', 'SF Mono', monospace" },
+            color: 'rgba(255,255,255,0.7)',
           },
-          backgroundColor: '#1a2029',
-          titleColor: '#e8edf2',
-          bodyColor: '#8b95a3',
-          borderColor: '#2a3340',
-          borderWidth: 1,
         },
-        annotation: elapsedMonths > 0 && elapsedMonths < totalMonths ? {
+        tooltip: {
+          enabled: true,
+          backgroundColor: 'rgba(15, 23, 42, 0.95)',
+          titleColor: '#fff',
+          bodyColor: 'rgba(255,255,255,0.85)',
+          borderColor: 'rgba(34, 197, 94, 0.3)',
+          borderWidth: 1,
+          padding: 12,
+          titleFont: { size: 13, weight: '600' },
+          bodyFont: { size: 12, family: "'JetBrains Mono', monospace" },
+          cornerRadius: 8,
+          displayColors: true,
+          boxPadding: 4,
+          callbacks: {
+            title: (items) => {
+              const idx = items[0].dataIndex;
+              const labelYear = startYear + idx;
+              return idx === 0 ? `開始時点 (${labelYear})` : `${idx}年後 (${labelYear})`;
+            },
+            label: (ctx) => {
+              const v = ctx.parsed.y;
+              return `${ctx.dataset.label}: ¥${formatJPY(v)}`;
+            },
+            afterBody: (items) => {
+              const principalItem = items.find(i => i.dataset.label === '元本');
+              const valueItem     = items.find(i => i.dataset.label === '予測評価額');
+              const p = principalItem?.parsed.y || 0;
+              const v = valueItem?.parsed.y || 0;
+              if (p === 0) return [];
+              const profit   = v - p;
+              const ratio    = ((v / p - 1) * 100).toFixed(1);
+              const multiple = (v / p).toFixed(2);
+              return [
+                '',
+                `損益: +¥${formatJPY(profit)} (+${ratio}%)`,
+                `倍率: ×${multiple}`,
+              ];
+            },
+          },
+        },
+        annotation: {
           annotations: {
-            nowLine: {
+            currentLine: {
               type: 'line',
-              xMin: elapsedMonths - 1,
-              xMax: elapsedMonths - 1,
-              borderColor: '#ef4444',
+              xMin: elapsedYears,
+              xMax: elapsedYears,
+              borderColor: 'rgba(239, 68, 68, 0.6)',
               borderWidth: 1.5,
-              borderDash: [4, 4],
+              borderDash: [6, 6],
               label: {
+                display: elapsedMonths > 0,
                 content: '現在',
-                display: true,
                 position: 'start',
-                color: '#ef4444',
-                font: { size: 10 },
-                backgroundColor: 'transparent',
+                backgroundColor: 'rgba(239, 68, 68, 0.9)',
+                color: '#fff',
+                font: { size: 10, weight: '600' },
+                padding: 4,
+                borderRadius: 4,
               },
             },
           },
-        } : {},
+        },
       },
       scales: {
         x: {
-          ticks: {
-            color: '#545d6b',
-            font: { size: 10 },
-            maxRotation: 0,
-            autoSkip: false,
+          grid: {
+            display: false,
+            drawBorder: false,
           },
-          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: {
+            color: 'rgba(255,255,255,0.5)',
+            font: { size: 11, family: "'JetBrains Mono', monospace" },
+            maxRotation: 0,
+            autoSkip: true,
+            maxTicksLimit: isNarrow ? 5 : 8,
+            callback: function(val, idx) {
+              if (idx === 0) return '開始';
+              if (idx % 5 === 0) return `${idx}年後`;
+              return '';
+            },
+          },
         },
         y: {
-          ticks: {
-            color: '#545d6b',
-            font: { size: 10 },
-            callback: v => fmtJPYShort(v),
+          grid: {
+            color: 'rgba(255,255,255,0.05)',
+            drawBorder: false,
           },
-          grid: { color: 'rgba(255,255,255,0.06)' },
+          ticks: {
+            color: 'rgba(255,255,255,0.5)',
+            font: { size: 11, family: "'JetBrains Mono', monospace" },
+            padding: 8,
+            callback: function(val) {
+              return formatYAxisJPY(val);
+            },
+          },
+          beginAtZero: true,
         },
+      },
+      animation: {
+        duration: 800,
+        easing: 'easeOutCubic',
+      },
+      elements: {
+        line: { borderJoinStyle: 'round' },
       },
     },
   });
@@ -1427,8 +1550,13 @@ async function renderRecurring() {
               <b style="color:var(--bullish)">+${fmt(finalPnL, 'JPY')} (+${finalPnLPct.toFixed(0)}%)</b>
             </div>
           </div>
-          <div style="height:200px;margin:12px 0 4px;">
-            <canvas id="${canvasId}" style="width:100%;height:200px;"></canvas>
+          <div class="pf-rec-chart-wrapper">
+            <div class="pf-rec-chart-summary">
+              <span>期間 <strong>${simYears}年</strong></span>
+              <span>年利 <strong>${(annualReturn * 100).toFixed(1)}%</strong></span>
+              <span>最終評価額 <strong>¥${formatYAxisJPY(finalValue)}</strong></span>
+            </div>
+            <canvas id="${canvasId}" class="pf-rec-chart"></canvas>
           </div>
         </div>
         <div class="pf-row__actions">
