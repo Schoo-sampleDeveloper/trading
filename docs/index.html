@@ -1137,10 +1137,9 @@
       position: relative;
       margin-top: 20px;
       padding: 20px 22px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
-      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--bg3);
+      border: 1px solid var(--border);
       border-radius: 14px;
-      backdrop-filter: blur(20px);
       overflow: hidden;
     }
     .ds-panel::before {
@@ -1160,7 +1159,7 @@
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.04em;
-      color: rgba(255,255,255,0.95);
+      color: var(--text);
       margin: 0;
     }
     .ds-panel__badge {
@@ -1168,10 +1167,10 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       padding: 3px 9px;
-      background: rgba(255,255,255,0.06);
+      background: var(--bg4);
       border-radius: 999px;
-      color: rgba(255,255,255,0.55);
-      border: 1px solid rgba(255,255,255,0.07);
+      color: var(--text2);
+      border: 1px solid var(--border);
     }
 
     /* ── パーセンタイルバー ── */
@@ -1180,20 +1179,20 @@
       font-size: 0.6rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: var(--text3);
       margin-bottom: 6px;
     }
     .ds-percentile__value {
       font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
       font-size: 28px;
       font-weight: 700;
-      color: #fff;
+      color: var(--text);
       margin-bottom: 10px;
       letter-spacing: -0.02em;
     }
     .ds-percentile__value .unit {
       font-size: 12px;
-      color: rgba(255,255,255,0.45);
+      color: var(--text3);
       margin-left: 3px;
       font-weight: 400;
     }
@@ -1215,16 +1214,16 @@
       top: -5px;
       width: 4px;
       height: 17px;
-      background: #fff;
+      background: var(--text);
       border-radius: 2px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.65), 0 2px 4px rgba(0,0,0,0.3);
+      box-shadow: 0 0 8px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
       transform: translateX(-50%);
       transition: left 1.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .ds-percentile__caption {
       margin-top: 8px;
       font-size: 0.7rem;
-      color: rgba(255,255,255,0.5);
+      color: var(--text2);
     }
 
     /* ── KPI 4枚グリッド ── */
@@ -1236,8 +1235,8 @@
     }
     .ds-kpi {
       padding: 12px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.05);
+      background: var(--bg4);
+      border: 1px solid var(--border);
       border-radius: 9px;
       transition: transform 0.28s cubic-bezier(0.4,0,0.2,1),
                   border-color 0.28s,
@@ -1246,26 +1245,26 @@
     }
     .ds-kpi:hover {
       transform: translateY(-2px);
-      background: rgba(255,255,255,0.04);
-      border-color: rgba(34,197,94,0.22);
+      background: var(--bg4);
+      border-color: rgba(34,197,94,0.5);
     }
     .ds-kpi__label {
       font-size: 0.58rem;
       letter-spacing: 0.09em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: var(--text3);
       margin-bottom: 5px;
     }
     .ds-kpi__value {
       font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
       font-size: 1.05rem;
       font-weight: 600;
-      color: rgba(255,255,255,0.9);
+      color: var(--text);
       letter-spacing: -0.01em;
     }
     .ds-kpi__value .unit {
       font-size: 0.6rem;
-      color: rgba(255,255,255,0.35);
+      color: var(--text3);
       margin-left: 2px;
       font-weight: 400;
     }
@@ -1274,25 +1273,25 @@
     .ds-kpi__caption {
       margin-top: 3px;
       font-size: 0.58rem;
-      color: rgba(255,255,255,0.35);
+      color: var(--text3);
     }
 
     /* ── 類似日予測 ── */
     .ds-similar {
       padding: 14px;
-      background: rgba(255,255,255,0.018);
+      background: var(--bg4);
       border-radius: 10px;
     }
     .ds-similar__title {
       display: flex;
       justify-content: space-between;
       font-size: 0.7rem;
-      color: rgba(255,255,255,0.65);
+      color: var(--text2);
       margin-bottom: 10px;
     }
     .ds-similar__count {
       font-family: 'JetBrains Mono', 'SF Mono', monospace;
-      color: rgba(255,255,255,0.38);
+      color: var(--text3);
     }
     .ds-similar__forecast {
       display: grid;
@@ -1302,14 +1301,14 @@
     }
     .ds-forecast {
       padding: 10px;
-      background: rgba(255,255,255,0.022);
+      background: var(--bg3);
       border-radius: 7px;
     }
     .ds-forecast__period {
       font-size: 0.6rem;
       letter-spacing: 0.09em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: var(--text3);
       margin-bottom: 4px;
     }
     .ds-forecast__value {
@@ -1320,11 +1319,11 @@
     }
     .ds-forecast__value[data-trend="up"] { color: #22c55e; }
     .ds-forecast__value[data-trend="down"] { color: #ef4444; }
-    .ds-forecast__value[data-trend="neutral"] { color: rgba(255,255,255,0.7); }
+    .ds-forecast__value[data-trend="neutral"] { color: var(--text2); }
     .ds-forecast__value .unit { font-size: 0.65rem; color: inherit; opacity: 0.7; margin-left: 1px; font-weight: 400; }
     .ds-forecast__bar {
       height: 3px;
-      background: rgba(255,255,255,0.06);
+      background: var(--border);
       border-radius: 2px;
       overflow: hidden;
     }
@@ -1343,7 +1342,7 @@
     .ds-forecast__win {
       margin-top: 5px;
       font-size: 0.6rem;
-      color: rgba(255,255,255,0.4);
+      color: var(--text3);
     }
 
     /* ── 詳細リスト ── */
@@ -1375,14 +1374,14 @@
       grid-template-columns: auto 64px 1fr auto;
       gap: 10px;
       padding: 9px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid var(--border);
       font-size: 0.68rem;
       align-items: center;
     }
     .ds-similar__list li:last-child { border-bottom: none; }
     .ds-similar__date {
       font-family: 'JetBrains Mono', 'SF Mono', monospace;
-      color: rgba(255,255,255,0.65);
+      color: var(--text2);
     }
     .ds-similar__change {
       font-family: 'JetBrains Mono', 'SF Mono', monospace;
@@ -1391,12 +1390,12 @@
     }
     .ds-similar__change.pos { color: #22c55e; }
     .ds-similar__context {
-      color: rgba(255,255,255,0.45);
+      color: var(--text3);
       font-size: 0.62rem;
     }
     .ds-similar__after {
       font-size: 0.62rem;
-      color: rgba(255,255,255,0.55);
+      color: var(--text2);
       text-align: right;
       white-space: nowrap;
     }
