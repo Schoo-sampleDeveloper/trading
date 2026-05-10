@@ -1,0 +1,44 @@
+name: 日経225 履歴データ月次更新
+
+on:
+  schedule:
+    # 月初 1日 00:00 UTC (09:00 JST)
+    - cron: '0 0 1 * *'
+  workflow_dispatch:  # 手動実行も可能
+
+permissions:
+  contents: write
+
+jobs:
+  update-nikkei-history:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Python 3.11 セットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 依存パッケージインストール
+        run: pip install yfinance pandas
+
+      - name: nikkei.json を更新
+        run: |
+          python3 -c "
+          from daily_stats import update_historical_data
+          count = update_historical_data()
+          print(f'Updated: {count} records')
+          "
+
+      - name: 変更をコミット & プッシュ
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/historical_daily/nikkei.json
+          git diff --cached --quiet && echo "変更なし。スキップ。" || (
+            git commit -m "chore: update nikkei historical data $(date +'%Y-%m-%d')"
+            git push
+          )

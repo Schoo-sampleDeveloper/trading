@@ -700,6 +700,28 @@ def build_html(
     # マーケットデータをJSON文字列化(テンプレートにJS埋め込み)
     market_data_json = json.dumps(market_data or {}, ensure_ascii=False)
 
+    # ── 統計分析データ ──
+    daily_stats: dict = {}
+    try:
+        from daily_stats import compute_daily_stats, load_historical_data
+        nk = (market_data or {}).get("nikkei", {})
+        today_close = nk.get("current")
+        prev_close = nk.get("previous_close")
+        today_volume = 0
+        ohlc = nk.get("ohlc", [])
+        if ohlc:
+            today_volume = ohlc[-1].get("volume", 0)
+        if today_close and prev_close:
+            historical = load_historical_data()
+            daily_stats = compute_daily_stats(
+                today_close=today_close,
+                prev_close=prev_close,
+                today_volume=today_volume,
+                historical=historical,
+            )
+    except Exception as e:
+        print(f"  [WARN] 統計分析エラー: {e}")
+
     # ── ニュースマーカー (チャート用、過去1年の★4以上) ──
     nk_ohlc = (market_data or {}).get("nikkei", {}).get("ohlc", [])
     ohlc_dates = {r["date"] for r in nk_ohlc}
@@ -734,6 +756,7 @@ def build_html(
         "insight": insight or {},
         "news_markers_json": json.dumps(news_markers, ensure_ascii=False),
         "news_timeline_json": json.dumps(news_timeline, ensure_ascii=False),
+        "daily_stats": daily_stats,
     }
 
     (DOCS_DIR / "index.html").write_text(tmpl.render(**ctx), encoding="utf-8")

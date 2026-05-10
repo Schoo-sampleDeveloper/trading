@@ -1458,6 +1458,374 @@
       padding: 20px 0; line-height: 1.6;
     }
 
+    /* ════════════════════════════════════════════
+       DS (Daily Stats) 統計分析パネル
+       ════════════════════════════════════════════ */
+    .ds-panel {
+      position: relative;
+      margin-top: 20px;
+      padding: 20px 22px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+    }
+    .ds-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(34,197,94,0.4), transparent);
+    }
+    .ds-panel__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .ds-panel__header h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.95);
+      margin: 0;
+    }
+    .ds-panel__badge {
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      color: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    /* ── パーセンタイルバー ── */
+    .ds-percentile { margin-bottom: 22px; }
+    .ds-percentile__label {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 6px;
+    }
+    .ds-percentile__value {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+    .ds-percentile__value .unit {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      margin-left: 3px;
+      font-weight: 400;
+    }
+    .ds-percentile__bar {
+      position: relative;
+      height: 7px;
+      background: linear-gradient(90deg,
+        rgba(239,68,68,0.45) 0%,
+        rgba(245,158,11,0.3) 20%,
+        rgba(34,197,94,0.35) 50%,
+        rgba(245,158,11,0.3) 80%,
+        rgba(239,68,68,0.45) 100%
+      );
+      border-radius: 4px;
+      overflow: visible;
+    }
+    .ds-percentile__marker {
+      position: absolute;
+      top: -5px;
+      width: 4px;
+      height: 17px;
+      background: #fff;
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.65), 0 2px 4px rgba(0,0,0,0.3);
+      transform: translateX(-50%);
+      transition: left 1.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .ds-percentile__caption {
+      margin-top: 8px;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── KPI 4枚グリッド ── */
+    .ds-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .ds-kpi {
+      padding: 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 9px;
+      transition: transform 0.28s cubic-bezier(0.4,0,0.2,1),
+                  border-color 0.28s,
+                  background 0.28s;
+      cursor: default;
+    }
+    .ds-kpi:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(34,197,94,0.22);
+    }
+    .ds-kpi__label {
+      font-size: 0.58rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 5px;
+    }
+    .ds-kpi__value {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: -0.01em;
+    }
+    .ds-kpi__value .unit {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.35);
+      margin-left: 2px;
+      font-weight: 400;
+    }
+    .ds-kpi[data-trend="up"] .ds-kpi__value { color: #22c55e; }
+    .ds-kpi[data-trend="down"] .ds-kpi__value { color: #ef4444; }
+    .ds-kpi__caption {
+      margin-top: 3px;
+      font-size: 0.58rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── 類似日予測 ── */
+    .ds-similar {
+      padding: 14px;
+      background: rgba(255,255,255,0.018);
+      border-radius: 10px;
+    }
+    .ds-similar__title {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 10px;
+    }
+    .ds-similar__count {
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      color: rgba(255,255,255,0.38);
+    }
+    .ds-similar__forecast {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .ds-forecast {
+      padding: 10px;
+      background: rgba(255,255,255,0.022);
+      border-radius: 7px;
+    }
+    .ds-forecast__period {
+      font-size: 0.6rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 4px;
+    }
+    .ds-forecast__value {
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .ds-forecast__value[data-trend="up"] { color: #22c55e; }
+    .ds-forecast__value[data-trend="down"] { color: #ef4444; }
+    .ds-forecast__value[data-trend="neutral"] { color: rgba(255,255,255,0.7); }
+    .ds-forecast__value .unit { font-size: 0.65rem; color: inherit; opacity: 0.7; margin-left: 1px; font-weight: 400; }
+    .ds-forecast__bar {
+      height: 3px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .ds-forecast__bar > div {
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: ds-bar-fill 1.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation-delay: 0.4s;
+    }
+    .ds-forecast__bar.neg > div {
+      background: linear-gradient(90deg, #ef4444, #dc2626);
+    }
+    .ds-forecast__win {
+      margin-top: 5px;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── 詳細リスト ── */
+    .ds-similar__detail summary {
+      cursor: pointer;
+      font-size: 0.7rem;
+      color: #22c55e;
+      user-select: none;
+      padding: 7px 0;
+      list-style: none;
+    }
+    .ds-similar__detail summary::-webkit-details-marker { display: none; }
+    .ds-similar__detail summary::before {
+      content: '▶';
+      display: inline-block;
+      margin-right: 5px;
+      transition: transform 0.2s;
+      font-size: 0.5rem;
+      vertical-align: middle;
+    }
+    .ds-similar__detail[open] summary::before { transform: rotate(90deg); }
+    .ds-similar__list {
+      list-style: none;
+      margin: 6px 0 0;
+      padding: 0;
+    }
+    .ds-similar__list li {
+      display: grid;
+      grid-template-columns: auto 64px 1fr auto;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.68rem;
+      align-items: center;
+    }
+    .ds-similar__list li:last-child { border-bottom: none; }
+    .ds-similar__date {
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      color: rgba(255,255,255,0.65);
+    }
+    .ds-similar__change {
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      color: #ef4444;
+      text-align: right;
+    }
+    .ds-similar__change.pos { color: #22c55e; }
+    .ds-similar__context {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.62rem;
+    }
+    .ds-similar__after {
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.55);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .ds-similar__after strong { color: #22c55e; }
+    .ds-similar__after strong.neg { color: #ef4444; }
+
+    /* ── アラート ── */
+    .ds-alert {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      margin-top: 16px;
+      border-radius: 14px;
+      overflow: hidden;
+      animation: ds-alert-enter 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .ds-alert[data-level="warning"] {
+      background: linear-gradient(135deg, rgba(245,158,11,0.16), rgba(245,158,11,0.05));
+      border: 1px solid rgba(245,158,11,0.32);
+    }
+    .ds-alert[data-level="extreme"] {
+      background: linear-gradient(135deg, rgba(239,68,68,0.19), rgba(239,68,68,0.06));
+      border: 1px solid rgba(239,68,68,0.42);
+    }
+    .ds-alert__pulse {
+      position: absolute;
+      top: 50%;
+      left: 26px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+    .ds-alert[data-level="warning"] .ds-alert__pulse { background: #f59e0b; }
+    .ds-alert[data-level="extreme"] .ds-alert__pulse { background: #ef4444; }
+    .ds-alert__pulse::before,
+    .ds-alert__pulse::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: inherit;
+      animation: ds-pulse 2s cubic-bezier(0,0,0.2,1) infinite;
+    }
+    .ds-alert__pulse::after { animation-delay: 1s; }
+    .ds-alert__icon { font-size: 1.5rem; margin-left: 20px; flex-shrink: 0; }
+    .ds-alert__body { flex: 1; min-width: 0; }
+    .ds-alert__title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+      color: rgba(255,255,255,0.95);
+    }
+    .ds-alert__desc {
+      font-size: 0.77rem;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 3px;
+    }
+    .ds-alert__history { font-size: 0.65rem; color: rgba(255,255,255,0.5); }
+
+    /* ── アニメーション ── */
+    @keyframes ds-pulse {
+      0% { transform: scale(1); opacity: 0.7; }
+      100% { transform: scale(3.5); opacity: 0; }
+    }
+    @keyframes ds-alert-enter {
+      from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes ds-bar-fill {
+      to { transform: scaleX(1); }
+    }
+    @keyframes ds-counter-in {
+      from { opacity: 0; transform: translateY(7px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .ds-percentile__value,
+    .ds-kpi__value,
+    .ds-forecast__value {
+      animation: ds-counter-in 0.45s cubic-bezier(0.16,1,0.3,1) backwards;
+    }
+    .ds-kpi:nth-child(1) .ds-kpi__value { animation-delay: 0.05s; }
+    .ds-kpi:nth-child(2) .ds-kpi__value { animation-delay: 0.10s; }
+    .ds-kpi:nth-child(3) .ds-kpi__value { animation-delay: 0.15s; }
+    .ds-kpi:nth-child(4) .ds-kpi__value { animation-delay: 0.20s; }
+
+    /* ── DS スマホ ── */
+    @media (max-width: 640px) {
+      .ds-panel { padding: 14px 14px; }
+      .ds-percentile__value { font-size: 22px; }
+      .ds-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .ds-kpi__value { font-size: 0.9rem; }
+      .ds-similar__forecast { grid-template-columns: 1fr; gap: 7px; }
+      .ds-similar__list li { grid-template-columns: auto 55px; row-gap: 3px; }
+      .ds-similar__context, .ds-similar__after { grid-column: 1 / -1; text-align: left; }
+      .ds-alert { padding: 12px 13px; gap: 10px; }
+      .ds-alert__icon { font-size: 1.2rem; margin-left: 18px; }
+    }
+
     /* ── News Timeline ── */
     .news-timeline-section {
       background: var(--bg2); border: 1px solid var(--border);
@@ -1737,6 +2105,179 @@
         </div><!-- /market-hero-right -->
 
       </div><!-- /market-hero-body -->
+
+      {# ── 統計分析パネル ───────────────────────────────────── #}
+      {% if daily_stats %}
+      {% set ds = daily_stats %}
+      {% set sim = ds.similar_days %}
+
+      {# アラート (±2σ超え) #}
+      {% if ds.is_anomaly %}
+      <div class="ds-alert" data-level="{{ ds.anomaly_level }}">
+        <div class="ds-alert__pulse"></div>
+        <div class="ds-alert__icon">{% if ds.anomaly_level == 'extreme' %}🚨{% else %}⚠️{% endif %}</div>
+        <div class="ds-alert__body">
+          <div class="ds-alert__title">本日は異常変動を検知</div>
+          <div class="ds-alert__desc">
+            <strong>{{ "{:+.2f}".format(ds.change_pct) }}%</strong> は過去30年で
+            <strong>{{ ds.percentile_str }}</strong>
+            ({{ "{:+.1f}".format(ds.sigma) }}σ{% if ds.anomaly_level == 'extreme' %}・極めて稀{% else %}・稀{% endif %})
+          </div>
+          <div class="ds-alert__history">
+            過去30年で同等以上の変動: <strong>{{ ds.extreme_count }}日</strong> / {{ ds.total_days }}日中
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      {# メイン統計パネル #}
+      <div class="ds-panel" data-anomaly="{{ ds.anomaly_level }}">
+        <header class="ds-panel__header">
+          <h3>📊 統計分析</h3>
+          <span class="ds-panel__badge">過去30年比較</span>
+        </header>
+
+        {# パーセンタイルバー #}
+        <div class="ds-percentile">
+          <div class="ds-percentile__label">変動率パーセンタイル</div>
+          <div class="ds-percentile__value">
+            <span data-counter="{{ ds.percentile }}" data-decimals="1">{{ "{:.1f}".format(ds.percentile) }}</span><span class="unit">%ile</span>
+          </div>
+          <div class="ds-percentile__bar">
+            <div class="ds-percentile__marker" style="left:{{ ds.percentile }}%"></div>
+          </div>
+          <div class="ds-percentile__caption">
+            {% if ds.percentile >= 75 %}上位{{ "{:.0f}".format(100 - ds.percentile) }}%・やや高い変動
+            {% elif ds.percentile <= 25 %}下位{{ "{:.0f}".format(ds.percentile) }}%・やや低い変動
+            {% else %}中央値付近・平常範囲
+            {% endif %}
+          </div>
+        </div>
+
+        {# 4 KPI カード #}
+        {% set sigma_trend = 'up' if ds.sigma > 0.5 else ('down' if ds.sigma < -0.5 else 'neutral') %}
+        {% set vol_trend = 'up' if ds.volume_ratio >= 100 else 'down' %}
+        {% set high_trend = 'up' if ds.from_high_pct >= 0 else 'down' %}
+        {% set low_trend = 'up' if ds.from_low_pct >= 0 else 'down' %}
+        <div class="ds-kpi-grid">
+          <div class="ds-kpi" data-trend="{{ sigma_trend }}">
+            <div class="ds-kpi__label">標準偏差</div>
+            <div class="ds-kpi__value">
+              <span data-counter="{{ ds.sigma }}" data-decimals="2" data-prefix="{{ '+' if ds.sigma > 0 else '' }}">{{ "{:+.2f}".format(ds.sigma) }}</span><span class="unit">σ</span>
+            </div>
+          </div>
+          <div class="ds-kpi" data-trend="{{ vol_trend }}">
+            <div class="ds-kpi__label">出来高比</div>
+            <div class="ds-kpi__value">
+              <span data-counter="{{ ds.volume_ratio }}" data-decimals="0">{{ "{:.0f}".format(ds.volume_ratio) }}</span><span class="unit">%</span>
+            </div>
+            <div class="ds-kpi__caption">30日平均比</div>
+          </div>
+          <div class="ds-kpi" data-trend="{{ high_trend }}">
+            <div class="ds-kpi__label">年高比</div>
+            <div class="ds-kpi__value">
+              <span data-counter="{{ ds.from_high_pct }}" data-decimals="2" data-prefix="{{ '+' if ds.from_high_pct > 0 else '' }}">{{ "{:+.2f}".format(ds.from_high_pct) }}</span><span class="unit">%</span>
+            </div>
+            <div class="ds-kpi__caption">年初来高値比</div>
+          </div>
+          <div class="ds-kpi" data-trend="{{ low_trend }}">
+            <div class="ds-kpi__label">年安比</div>
+            <div class="ds-kpi__value">
+              <span data-counter="{{ ds.from_low_pct }}" data-decimals="2" data-prefix="{{ '+' if ds.from_low_pct > 0 else '' }}">{{ "{:+.2f}".format(ds.from_low_pct) }}</span><span class="unit">%</span>
+            </div>
+            <div class="ds-kpi__caption">年初来安値比</div>
+          </div>
+        </div>
+
+        {# 類似日分析 #}
+        {% if sim and sim.sample_size > 0 %}
+        <div class="ds-similar">
+          <div class="ds-similar__title">
+            <span>過去の類似日 ({{ sim.range }})</span>
+            <span class="ds-similar__count">N={{ "{:,}".format(sim.sample_size) }}</span>
+          </div>
+
+          <div class="ds-similar__forecast">
+            {# 5日後 #}
+            {% if sim.return_5d is not none %}
+            {% set t5 = 'up' if sim.return_5d >= 0 else 'down' %}
+            {% set w5 = [[(sim.return_5d | abs * 6) | int, 100] | min, 3] | max %}
+            <div class="ds-forecast">
+              <div class="ds-forecast__period">5日後</div>
+              <div class="ds-forecast__value" data-trend="{{ t5 }}">
+                {{ "{:+.2f}".format(sim.return_5d) }}<span class="unit">%</span>
+              </div>
+              <div class="ds-forecast__bar {% if t5 == 'down' %}neg{% endif %}">
+                <div style="width:{{ w5 }}%"></div>
+              </div>
+            </div>
+            {% endif %}
+
+            {# 30日後 #}
+            {% if sim.return_30d is not none %}
+            {% set t30 = 'up' if sim.return_30d >= 0 else 'down' %}
+            {% set w30 = [[(sim.return_30d | abs * 6) | int, 100] | min, 3] | max %}
+            <div class="ds-forecast">
+              <div class="ds-forecast__period">30日後</div>
+              <div class="ds-forecast__value" data-trend="{{ t30 }}">
+                {{ "{:+.2f}".format(sim.return_30d) }}<span class="unit">%</span>
+              </div>
+              <div class="ds-forecast__bar {% if t30 == 'down' %}neg{% endif %}">
+                <div style="width:{{ w30 }}%"></div>
+              </div>
+              {% if sim.win_rate_30d is not none %}
+              <div class="ds-forecast__win">勝率 {{ "{:.1f}".format(sim.win_rate_30d) }}%</div>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            {# 90日後 #}
+            {% if sim.return_90d is not none %}
+            {% set t90 = 'up' if sim.return_90d >= 0 else 'down' %}
+            {% set w90 = [[(sim.return_90d | abs * 4) | int, 100] | min, 3] | max %}
+            <div class="ds-forecast">
+              <div class="ds-forecast__period">90日後</div>
+              <div class="ds-forecast__value" data-trend="{{ t90 }}">
+                {{ "{:+.2f}".format(sim.return_90d) }}<span class="unit">%</span>
+              </div>
+              <div class="ds-forecast__bar {% if t90 == 'down' %}neg{% endif %}">
+                <div style="width:{{ w90 }}%"></div>
+              </div>
+            </div>
+            {% endif %}
+          </div><!-- /ds-similar__forecast -->
+
+          {# 具体的な類似日 #}
+          {% if sim.top_examples %}
+          <details class="ds-similar__detail">
+            <summary>具体的な類似日を見る</summary>
+            <ul class="ds-similar__list">
+              {% for ex in sim.top_examples %}
+              <li>
+                <div class="ds-similar__date">{{ ex.date }}</div>
+                <div class="ds-similar__change {% if ex.change >= 0 %}pos{% endif %}">{{ "{:+.2f}".format(ex.change) }}%</div>
+                <div class="ds-similar__context">{{ ex.context if ex.context else '—' }}</div>
+                <div class="ds-similar__after">
+                  30日後
+                  {% if ex.return_30d is not none %}
+                  <strong {% if ex.return_30d < 0 %}class="neg"{% endif %}>{{ "{:+.1f}".format(ex.return_30d) }}%</strong>
+                  {% else %}—{% endif %}
+                  {% if ex.return_90d is not none %}
+                  / 90日後 <strong {% if ex.return_90d < 0 %}class="neg"{% endif %}>{{ "{:+.1f}".format(ex.return_90d) }}%</strong>
+                  {% endif %}
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </details>
+          {% endif %}
+
+        </div><!-- /ds-similar -->
+        {% endif %}
+      </div><!-- /ds-panel -->
+      {% endif %}
+      {# ─────────────────────────────────────────────────────── #}
+
     </div>
     {% endif %}
 
@@ -3028,6 +3569,70 @@
         }
       } catch (e) {}
     })();
+  </script>
+
+  <!-- DS (Daily Stats) カウントアップ & アニメーション -->
+  <script>
+  (function() {
+    function animateValue(el, end, duration, decimals, prefix) {
+      var start = 0;
+      var startTime = null;
+      var easeOut = function(t) { return 1 - Math.pow(1 - t, 3); };
+      function tick(ts) {
+        if (!startTime) startTime = ts;
+        var t = Math.min(1, (ts - startTime) / duration);
+        var v = start + (end - start) * easeOut(t);
+        el.textContent = prefix + (v >= 0 && prefix === '+' ? '' : '') + v.toFixed(decimals);
+        // rebuild prefix correctly
+        var raw = v.toFixed(decimals);
+        if (prefix === '+') {
+          el.textContent = (parseFloat(raw) >= 0 ? '+' : '') + raw;
+        } else {
+          el.textContent = raw;
+        }
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function initDsPanel(panel) {
+      // 初期位置: パーセンタイルマーカーをアニメーション開始
+      var marker = panel.querySelector('.ds-percentile__marker');
+      if (marker) {
+        // CSS transition が効くよう、一時的に left:0% にしてから戻す
+        var finalLeft = marker.style.left;
+        marker.style.transition = 'none';
+        marker.style.left = '0%';
+        // 一フレーム待ってから transition 有効化
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            marker.style.transition = 'left 1.4s cubic-bezier(0.34,1.56,0.64,1)';
+            marker.style.left = finalLeft;
+          });
+        });
+      }
+
+      // data-counter 属性を持つ要素をカウントアップ
+      panel.querySelectorAll('[data-counter]').forEach(function(el) {
+        var target = parseFloat(el.dataset.counter);
+        var decimals = parseInt(el.dataset.decimals || '1');
+        var prefix = el.dataset.prefix || '';
+        if (isNaN(target)) return;
+        animateValue(el, target, 1100, decimals, prefix);
+      });
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !entry.target.dataset.dsAnimated) {
+          entry.target.dataset.dsAnimated = '1';
+          initDsPanel(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    document.querySelectorAll('.ds-panel').forEach(function(p) { observer.observe(p); });
+  })();
   </script>
 </body>
 </html>
