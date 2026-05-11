@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
   <meta name="theme-color" content="#0a0e14">
   <title>ポートフォリオ | マーケットニュース</title>
+  <meta name="base-url" content="https://schoo-sampledeveloper.github.io/trading">
+  <link rel="stylesheet" href="static/css/monte_carlo.css">
   <style>
     /* ─── Design tokens (card-v2 継承) ─────────────────── */
     :root {
@@ -906,6 +908,115 @@
         </div>
       </section>
       <ul class="pf-list" id="pfRecList"></ul>
+
+      <!-- ═══ Monte Carlo Simulation Section ═══ -->
+      <div id="mcSection" class="mc-section" hidden>
+        <!-- コントロールバー -->
+        <div class="mc-controls">
+          <label>銘柄
+            <select id="mcItemSelect"></select>
+          </label>
+          <label>目標額
+            <input type="number" id="mcTargetInput" value="100000000" min="0" step="10000000" inputmode="numeric"/>
+          </label>
+          <label>試行数
+            <select id="mcTrialsSelect">
+              <option value="1000">1,000</option>
+              <option value="10000" selected>10,000</option>
+              <option value="100000">100,000</option>
+            </select>
+          </label>
+          <label>モード
+            <select id="mcModeSelect">
+              <option value="bootstrap">過去実証分布</option>
+              <option value="lognormal">対数正規</option>
+              <option value="garch">GARCH風</option>
+            </select>
+          </label>
+          <button class="mc-run-btn" id="mcRunBtn">シミュレーション実行</button>
+        </div>
+
+        <!-- プログレスバー -->
+        <div class="mc-progress" id="mcProgress">
+          <div class="mc-progress__bar" id="mcProgressBar"></div>
+        </div>
+        <div class="mc-progress__text" id="mcProgressText" hidden></div>
+
+        <!-- KPIカード4枚 -->
+        <div class="mc-kpi-grid" id="mcKpiGrid" hidden>
+          <!-- Card 1: 目標達成確率 -->
+          <div class="mc-kpi-card mc-kpi-card--goal" id="mcKpiGoal">
+            <div class="mc-kpi-card__label">目標達成確率</div>
+            <div class="mc-kpi-card__value">
+              <svg class="mc-kpi-ring" viewBox="0 0 36 36">
+                <circle class="mc-kpi-ring__bg" cx="18" cy="18" r="15.9"/>
+                <circle class="mc-kpi-ring__fg" id="mcRingFg" cx="18" cy="18" r="15.9"
+                        stroke-dasharray="100 100" stroke-dashoffset="100"/>
+              </svg>
+              <span class="mc-countup" id="mcGoalPct">0%</span>
+            </div>
+            <div class="mc-kpi-card__sub" id="mcGoalSub"></div>
+          </div>
+          <!-- Card 2: 中央値最終評価額 -->
+          <div class="mc-kpi-card mc-kpi-card--median">
+            <div class="mc-kpi-card__label">中央値（最終評価額）</div>
+            <div class="mc-kpi-card__value mc-countup" id="mcMedianVal">¥0</div>
+            <div class="mc-kpi-card__sub" id="mcMedianSub"></div>
+          </div>
+          <!-- Card 3: 最悪ケース (5th) -->
+          <div class="mc-kpi-card mc-kpi-card--worst">
+            <div class="mc-kpi-card__label">最悪ケース（5%タイル）</div>
+            <div class="mc-kpi-card__value mc-countup" id="mcWorstVal">¥0</div>
+            <div class="mc-kpi-card__sub" id="mcWorstSub"></div>
+          </div>
+          <!-- Card 4: 最良ケース (95th) -->
+          <div class="mc-kpi-card mc-kpi-card--best">
+            <div class="mc-kpi-card__label">最良ケース（95%タイル）</div>
+            <div class="mc-kpi-card__value mc-countup" id="mcBestVal">¥0</div>
+            <div class="mc-kpi-card__sub" id="mcBestSub"></div>
+          </div>
+        </div>
+
+        <!-- ファンチャート -->
+        <div class="mc-fanchart-wrapper" id="mcFanChartWrapper" hidden>
+          <div id="mcFanChart"></div>
+        </div>
+
+        <!-- 凡例 -->
+        <div class="mc-legend" id="mcLegend" hidden>
+          <div class="mc-legend__item">
+            <div class="mc-legend__swatch" style="background:#00FF88"></div>
+            <span>中央値</span>
+          </div>
+          <div class="mc-legend__item">
+            <div class="mc-legend__swatch" style="background:rgba(255,255,255,0.5);border:1px dashed rgba(255,255,255,0.3)"></div>
+            <span>元本</span>
+          </div>
+          <div class="mc-legend__item">
+            <div class="mc-legend__swatch--band" style="background:rgba(0,217,255,0.16)"></div>
+            <span>25-75%</span>
+          </div>
+          <div class="mc-legend__item">
+            <div class="mc-legend__swatch--band" style="background:rgba(0,217,255,0.06)"></div>
+            <span>5-95%</span>
+          </div>
+          <div class="mc-legend__item">
+            <div class="mc-legend__swatch" style="background:#FFD60A;border:1px dashed #FFD60A"></div>
+            <span>目標額</span>
+          </div>
+        </div>
+
+        <!-- 確率密度ビューア -->
+        <div class="mc-density-section" id="mcDensitySection" hidden>
+          <div class="mc-density-tabs" id="mcDensityTabs">
+            <button class="mc-density-tab" data-tab="5y">5年後</button>
+            <button class="mc-density-tab" data-tab="15y">15年後</button>
+            <button class="mc-density-tab active" data-tab="final">最終年</button>
+          </div>
+          <div class="mc-density-chart" id="mcDensityChart"></div>
+        </div>
+      </div>
+
       <div class="pf-empty" id="pfRecEmpty" hidden>
         <div class="pf-empty__icon">📅</div>
         <div class="pf-empty__title">積立がありません</div>
@@ -1132,6 +1243,14 @@
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3/dist/chartjs-plugin-annotation.min.js"></script>
+
+  <!-- D3.js v7 (Fan Chart) -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+
+  <!-- Monte Carlo Modules -->
+  <script src="static/js/monte_carlo.js"></script>
+  <script src="static/js/fan_chart.js"></script>
+  <script src="static/js/density_viewer.js"></script>
 
   <!-- Portfolio JS -->
   <script src="static/js/portfolio.js" defer></script>

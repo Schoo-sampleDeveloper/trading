@@ -1,0 +1,3192 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マーケットニュース 2026-05-10</title>
+  <link rel="manifest" href="https://example.com/manifest.json">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="マーケットニュース">
+  <style>
+    /* ── CSS Variables ── */
+    :root {
+      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --bg4: #2d333b;
+      --border: #30363d; --text: #e6edf3; --text2: #8b949e; --text3: #656d76;
+      --accent: #58a6ff; --green: #3fb950; --red: #f85149;
+      --yellow: #d29922; --purple: #bc8cff; --tag-bg: #1f2937;
+      --card-hover: #1c2230; --font-size: 16px;
+
+      /* ── Bloomberg/Koyfin デザインシステム (card-v2) ── */
+      --bg-page: #0a0e14;
+      --bg-card: #11161d;
+      --bg-card-hover: #161c25;
+      --bg-elevated: #1a2029;
+      --border-subtle: #1f2630;
+      --border-default: #2a3340;
+      --text-primary: #e8edf2;
+      --text-secondary: #8b95a3;
+      --text-tertiary: #545d6b;
+      --bullish: #00c853;
+      --bullish-bg: #00c8531a;
+      --bearish: #ff3b30;
+      --bearish-bg: #ff3b301a;
+      --neutral: #8b95a3;
+      --neutral-bg: #8b95a31a;
+      --action: #2196f3;
+      --importance-5: #ff6b35;
+      --importance-4: #ffa726;
+      --importance-3: #ffd54f;
+      --importance-2: #90caf9;
+      --importance-1: #546e7a;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f8fa; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e8ecf0;
+        --border: #d0d7de; --text: #1f2328; --text2: #656d76; --text3: #8c959f;
+        --accent: #0969da; --green: #1a7f37; --red: #cf222e;
+        --yellow: #9a6700; --purple: #8250df; --tag-bg: #ddf4ff;
+        --card-hover: #f0f6ff;
+        --bg-page: #fafbfc;
+        --bg-card: #ffffff;
+        --bg-card-hover: #f5f7fa;
+        --bg-elevated: #f0f3f7;
+        --border-subtle: #e4e8ed;
+        --border-default: #d0d7de;
+        --text-primary: #0f1419;
+        --text-secondary: #57606a;
+        --text-tertiary: #8b95a3;
+      }
+    }
+    /* Manual theme overrides */
+    [data-theme="dark"] {
+      --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --bg4: #2d333b;
+      --border: #30363d; --text: #e6edf3; --text2: #8b949e; --text3: #656d76;
+      --accent: #58a6ff; --green: #3fb950; --red: #f85149;
+      --yellow: #d29922; --purple: #bc8cff; --tag-bg: #1f2937; --card-hover: #1c2230;
+      --bg-page: #0a0e14; --bg-card: #11161d; --bg-card-hover: #161c25;
+      --bg-elevated: #1a2029; --border-subtle: #1f2630; --border-default: #2a3340;
+      --text-primary: #e8edf2; --text-secondary: #8b95a3; --text-tertiary: #545d6b;
+    }
+    [data-theme="light"] {
+      --bg: #f6f8fa; --bg2: #ffffff; --bg3: #f0f2f5; --bg4: #e8ecf0;
+      --border: #d0d7de; --text: #1f2328; --text2: #656d76; --text3: #8c959f;
+      --accent: #0969da; --green: #1a7f37; --red: #cf222e;
+      --yellow: #9a6700; --purple: #8250df; --tag-bg: #ddf4ff; --card-hover: #f0f6ff;
+      --bg-page: #fafbfc; --bg-card: #ffffff; --bg-card-hover: #f5f7fa;
+      --bg-elevated: #f0f3f7; --border-subtle: #e4e8ed; --border-default: #d0d7de;
+      --text-primary: #0f1419; --text-secondary: #57606a; --text-tertiary: #8b95a3;
+    }
+    /* Font size classes */
+    .font-s { --font-size: 14px; }
+    .font-m { --font-size: 16px; }
+    .font-l { --font-size: 18px; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      font-size: var(--font-size); line-height: 1.7;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 860px; margin: 0 auto; padding: 12px 16px; }
+
+    /* ── Header ── */
+    header {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px; margin-bottom: 12px;
+    }
+    .header-top {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+      margin-bottom: 10px;
+    }
+    header h1 { font-size: 1.25rem; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+    header .meta { font-size: 0.82rem; color: var(--text2); }
+    .header-controls {
+      display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+    }
+    /* Font size buttons */
+    .font-btns { display: flex; gap: 4px; }
+    .font-btn {
+      padding: 4px 8px; border-radius: 6px; font-size: .78rem; font-weight: 700;
+      cursor: pointer; border: 1px solid var(--border); background: var(--bg3);
+      color: var(--text2); min-height: 32px; min-width: 32px; text-align: center;
+      transition: all .15s;
+    }
+    .font-btn:hover, .font-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    /* Theme toggle */
+    .theme-toggle {
+      padding: 6px 10px; border-radius: 20px; font-size: .8rem;
+      cursor: pointer; border: 1px solid var(--border); background: var(--bg3);
+      color: var(--text2); min-height: 32px; transition: all .15s;
+    }
+    .theme-toggle:hover { background: var(--bg4); }
+    /* Action buttons */
+    .header-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 6px 14px; border-radius: 20px; font-size: 0.82rem;
+      font-weight: 600; cursor: pointer; border: none; min-height: 40px;
+      transition: opacity .15s; text-decoration: none;
+    }
+    .btn:hover { opacity: .85; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
+    .btn-bookmark { background: var(--bg3); color: var(--yellow); border: 1px solid var(--border); }
+    .btn-bookmark.has-bookmarks { background: rgba(210,153,34,.12); border-color: var(--yellow); }
+    #bookmark-count { font-size: .75rem; }
+
+    /* ── Market summary box ── */
+    .theme-box {
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+      border: 1px solid var(--accent); border-radius: 12px;
+      padding: 14px 16px; margin-bottom: 12px;
+    }
+    .theme-box h2 { font-size: .9rem; color: var(--accent); margin-bottom: 6px; font-weight: 700; }
+    .theme-text { font-size: 0.88rem; color: var(--text); white-space: pre-wrap; line-height: 1.7; }
+
+    /* ── Section title ── */
+    .section-title {
+      font-size: 1.0rem; font-weight: 700; color: var(--text);
+      margin: 18px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .badge {
+      background: var(--bg3); color: var(--text2);
+      font-size: 0.72rem; padding: 2px 8px; border-radius: 10px;
+      border: 1px solid var(--border); font-weight: 600;
+    }
+
+    /* ── Category filter tabs (sticky) ── */
+    .cat-filter-wrap {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 6px 0; margin-bottom: 12px;
+    }
+    .cat-filter-inner {
+      max-width: 860px; margin: 0 auto; padding: 0 16px;
+      display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+    }
+    .cat-filter-inner::-webkit-scrollbar { display: none; }
+    .cat-filter-btn {
+      white-space: nowrap; padding: 5px 12px; border-radius: 14px;
+      font-size: 0.78rem; font-weight: 600; cursor: pointer;
+      background: var(--bg3); color: var(--text2);
+      border: 1px solid var(--border); min-height: 34px;
+      display: inline-flex; align-items: center; transition: all .15s;
+    }
+    .cat-filter-btn:hover { background: var(--bg4); color: var(--text); }
+    .cat-filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* ── Filter bar (importance) ── */
+    .filter-bar {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 12px; align-items: center;
+    }
+    .filter-btn {
+      padding: 5px 12px; border-radius: 14px; font-size: 0.8rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 34px;
+      transition: all .15s;
+    }
+    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; margin-bottom: 10px;
+      transition: border-color .2s; overflow: hidden;
+    }
+    .card:hover { border-color: var(--accent); }
+    .card.featured { border-left: 3px solid var(--accent); }
+    .card[data-importance="5"] { border-left: 3px solid var(--red); }
+    .card[data-importance="4"]:not(.featured) { border-left: 3px solid var(--yellow); }
+
+    .card-always { padding: 14px 16px 10px; }
+    .card-header-row {
+      display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;
+    }
+    .impact-emoji { font-size: 1.15rem; flex-shrink: 0; margin-top: 3px; }
+    .card-header-body { flex: 1; min-width: 0; }
+    .headline { font-size: 1.02rem; font-weight: 700; color: var(--text); line-height: 1.45; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+    .tag {
+      background: var(--tag-bg); color: var(--accent);
+      font-size: 0.72rem; font-weight: 600;
+      padding: 2px 8px; border-radius: 10px; border: 1px solid var(--border);
+    }
+    .tag-cat { color: var(--text2); }
+    .tag.impact-強気 { color: var(--green); border-color: var(--green); background: rgba(63,185,80,.08); }
+    .tag.impact-弱気 { color: var(--red); border-color: var(--red); background: rgba(248,81,73,.08); }
+    .tag.impact-中立 { color: var(--yellow); border-color: var(--yellow); background: rgba(210,153,34,.08); }
+    .tag.imp-5 { background: rgba(248,81,73,.12); color: var(--red); border-color: var(--red); }
+    .tag.imp-4 { background: rgba(210,153,34,.12); color: var(--yellow); border-color: var(--yellow); }
+    .stars { color: var(--yellow); font-size: 0.78rem; letter-spacing: 1px; }
+
+    /* ── 重要度内訳 (why-btn + breakdown panel) ── */
+    .why-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--text2); font-size: 0.68rem; font-weight: 600;
+      padding: 2px 7px; border-radius: 10px; cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .why-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .why-btn[aria-expanded="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .importance-breakdown {
+      margin: 4px 16px 10px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+    }
+    .bd-transparency {
+      color: var(--text2); font-size: 0.74rem;
+      margin-bottom: 8px; line-height: 1.5;
+    }
+    .bd-rows { display: flex; flex-direction: column; gap: 6px; }
+    .bd-row {
+      display: flex; align-items: center; gap: 8px;
+      min-height: 22px;
+    }
+    .bd-label {
+      flex-shrink: 0; width: 82px;
+      color: var(--text3); font-size: 0.72rem;
+    }
+    .bd-bar-wrap {
+      flex: 0 0 80px; height: 6px;
+      background: var(--bg4, #30363d); border-radius: 3px; overflow: hidden;
+    }
+    .bd-bar {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--green) 100%);
+      transition: width .4s ease;
+    }
+    .bd-value {
+      flex: 1; color: var(--text2); font-size: 0.73rem; line-height: 1.4;
+    }
+    .bd-note {
+      font-size: 0.68rem; color: var(--yellow);
+      margin-left: 4px; opacity: .8;
+    }
+    .bd-final {
+      margin-top: 8px; padding-top: 6px;
+      border-top: 1px solid var(--border);
+      color: var(--text3); font-size: 0.73rem; text-align: right;
+    }
+    .bd-final strong { color: var(--accent); }
+
+    /* Bookmark button */
+    .bookmark-btn {
+      flex-shrink: 0; background: none; border: none; cursor: pointer;
+      font-size: 1.1rem; color: var(--text3); padding: 2px 4px;
+      transition: color .15s, transform .15s;
+    }
+    .bookmark-btn:hover { color: var(--yellow); transform: scale(1.15); }
+    .bookmark-btn.bookmarked { color: var(--yellow); }
+
+    /* ── Points list ── */
+    .points-list {
+      list-style: none; padding: 0; margin-bottom: 10px;
+    }
+    .points-list li {
+      font-size: .88rem; color: var(--text); line-height: 1.6;
+      padding: 3px 0 3px 16px; position: relative;
+    }
+    .points-list li::before {
+      content: '✓'; position: absolute; left: 0;
+      color: var(--accent); font-weight: 700; font-size: .8rem;
+    }
+
+    .card-summary-text {
+      font-size: .88rem; color: var(--text); line-height: 1.65;
+      margin-bottom: 10px;
+    }
+
+    /* ── Key data badges ── */
+    .key-data-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+    .kd-badge {
+      display: inline-flex; align-items: center;
+      background: var(--bg4); border: 1px solid var(--border);
+      border-radius: 6px; overflow: hidden; font-size: .78rem;
+    }
+    .kd-label {
+      background: var(--bg3); color: var(--text2);
+      padding: 3px 7px; border-right: 1px solid var(--border);
+      font-size: .7rem; font-weight: 600;
+    }
+    .kd-value { padding: 3px 8px; font-weight: 700; color: var(--text); }
+
+    /* ── Expand bar ── */
+    .expand-bar {
+      padding: 7px 16px; cursor: pointer;
+      font-size: .78rem; color: var(--accent);
+      display: flex; align-items: center; gap: 5px;
+      border-top: 1px solid var(--border);
+      background: var(--bg2); user-select: none;
+      transition: background .15s;
+    }
+    .expand-bar:hover { background: var(--card-hover); }
+    .expand-icon { transition: transform .2s; display: inline-block; font-size: .7rem; }
+    .card.open .expand-bar .expand-icon { transform: rotate(90deg); }
+    .expand-label-open { display: none; }
+    .card.open .expand-label { display: none; }
+    .card.open .expand-label-open { display: inline; }
+
+    /* ── Card detail (expandable) ── */
+    .card-detail { display: none; border-top: 1px solid var(--border); }
+    .card.open .card-detail { display: block; }
+
+    .detail-section {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .detail-section:last-child { border-bottom: none; }
+    .detail-label {
+      font-size: .75rem; font-weight: 700; color: var(--text2);
+      letter-spacing: .3px; margin-bottom: 8px;
+    }
+    .detail-text {
+      font-size: .88rem; color: var(--text); line-height: 1.65;
+    }
+
+    /* ── Market view ── */
+    .mv-grid { display: flex; flex-direction: column; gap: 6px; }
+    .mv-row { display: grid; grid-template-columns: 80px 1fr; gap: 8px; align-items: baseline; }
+    .mv-key {
+      font-size: .72rem; font-weight: 700; color: var(--text2);
+      white-space: nowrap; padding-top: 2px;
+    }
+
+    /* ── Scenarios ── */
+    .scenario-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+    }
+    @media (max-width: 580px) { .scenario-grid { grid-template-columns: 1fr; } }
+    .scenario-cell {
+      border-radius: 8px; padding: 10px 12px;
+      border: 1px solid var(--border); font-size: .83rem; line-height: 1.5;
+    }
+    .scenario-cell.base { border-color: var(--accent); background: rgba(88,166,255,.06); }
+    .scenario-cell.bull { border-color: var(--green); background: rgba(63,185,80,.06); }
+    .scenario-cell.bear { border-color: var(--red); background: rgba(248,81,73,.06); }
+    .sc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .sc-label { font-size: .7rem; font-weight: 700; }
+    .scenario-cell.base .sc-label { color: var(--accent); }
+    .scenario-cell.bull .sc-label { color: var(--green); }
+    .scenario-cell.bear .sc-label { color: var(--red); }
+    .sc-prob-text { font-size: .7rem; font-weight: 700; color: var(--text2); }
+    .sc-prob-bar {
+      height: 3px; background: var(--bg4); border-radius: 2px; margin-bottom: 7px;
+    }
+    .sc-prob-fill { height: 100%; border-radius: 2px; }
+    .scenario-cell.base .sc-prob-fill { background: var(--accent); }
+    .scenario-cell.bull .sc-prob-fill { background: var(--green); }
+    .scenario-cell.bear .sc-prob-fill { background: var(--red); }
+
+    /* ── Investment angle tabs ── */
+    .inv-angle { }
+    .inv-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .inv-tab {
+      padding: 5px 12px; border-radius: 14px; font-size: .78rem; font-weight: 600;
+      cursor: pointer; border: 1px solid var(--border); background: var(--bg3);
+      color: var(--text2); min-height: 32px; transition: all .15s;
+    }
+    .inv-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .inv-panel { display: none; }
+    .inv-panel.active { display: block; }
+
+    /* Watch list */
+    .watch-list { padding-left: 0; list-style: none; }
+    .watch-list li {
+      padding: 4px 0 4px 16px; position: relative; font-size: .88rem;
+    }
+    .watch-list li::before {
+      content: '→'; position: absolute; left: 0; color: var(--text2);
+    }
+
+    /* Historical analog */
+    .analog-text { color: var(--text2); font-style: italic; }
+
+    /* Card footer */
+    .card-footer {
+      padding: 8px 16px;
+      font-size: 0.76rem; color: var(--text2);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 4px;
+      background: var(--bg3);
+    }
+    .card-footer-simple {
+      padding: 8px 16px; border-top: 1px solid var(--border);
+      font-size: 0.76rem; color: var(--text2);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 4px;
+    }
+
+    /* ══════════════════════════════════════
+       card-v2 デザインシステム (Bloomberg級)
+    ══════════════════════════════════════ */
+
+    /* ── カード本体 ── */
+    .card-v2 {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+                  background 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-v2:hover {
+      border-color: var(--border-default);
+      background: var(--bg-card-hover);
+    }
+    .card-v2[data-importance="5"] { border-left: 3px solid var(--importance-5); }
+    .card-v2[data-importance="4"] { border-left: 3px solid var(--importance-4); }
+    .card-v2[data-owned="true"] { border-left: 3px solid var(--bullish); }
+    .card-v2.hidden-by-filter, .card-v2.hidden-by-cat { display: none; }
+    .pf-owned-badge {
+      background: rgba(0,200,83,0.15);
+      color: var(--bullish);
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    /* ── ヘッダー ── */
+    .card-v2__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      gap: 12px;
+    }
+    .card-v2__meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    /* ── 重要度インジケータ (バー5本+スコア) ── */
+    .imp-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      flex-shrink: 0;
+    }
+    .imp-indicator:hover {
+      background: var(--border-subtle);
+      border-color: var(--border-default);
+    }
+    .imp-indicator__bars {
+      display: inline-flex;
+      gap: 2px;
+    }
+    .imp-indicator__bar {
+      width: 3px;
+      height: 12px;
+      background: var(--border-default);
+      border-radius: 1px;
+      transition: background 200ms;
+    }
+    .imp-indicator--5 .imp-indicator__bar.is-active { background: var(--importance-5); }
+    .imp-indicator--4 .imp-indicator__bar.is-active { background: var(--importance-4); }
+    .imp-indicator--3 .imp-indicator__bar.is-active { background: var(--importance-3); }
+    .imp-indicator--2 .imp-indicator__bar.is-active { background: var(--importance-2); }
+    .imp-indicator--1 .imp-indicator__bar.is-active { background: var(--importance-1); }
+    .imp-indicator__score {
+      font-family: "SF Mono", "JetBrains Mono", "IBM Plex Mono", monospace;
+      font-feature-settings: "tnum";
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: -0.02em;
+    }
+
+    /* ── カテゴリ・影響チップ ── */
+    .cat-chip, .impact-chip {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .cat-chip {
+      background: var(--neutral-bg);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+    .impact-chip--bullish { background: var(--bullish-bg); color: var(--bullish); }
+    .impact-chip--bearish { background: var(--bearish-bg); color: var(--bearish); }
+    .impact-chip--neutral { background: var(--neutral-bg); color: var(--neutral); }
+
+    /* ── ブックマークボタン (SVG版) ── */
+    .card-v2__header .bookmark-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      transition: color 200ms;
+      flex-shrink: 0;
+      font-size: inherit;
+    }
+    .card-v2__header .bookmark-btn:hover { color: var(--action); transform: none; }
+    .card-v2__header .bookmark-btn.bookmarked,
+    .card-v2__header .bookmark-btn.is-active { color: var(--action); }
+    .card-v2__header .bookmark-btn.bookmarked svg path,
+    .card-v2__header .bookmark-btn.is-active svg path { fill: currentColor; }
+
+    /* ── メインコンテンツ ── */
+    .card-v2__main { padding: 16px; }
+    .card-v2__title {
+      font-family: "Inter", "SF Pro Text", -apple-system, "Hiragino Sans", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text-primary);
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
+    }
+    @media (min-width: 768px) { .card-v2__title { font-size: 16px; } }
+
+    /* ── データグリッド (Bloomberg風) ── */
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .data-cell {
+      background: var(--bg-card);
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .data-cell__label {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+    .data-cell__value {
+      font-family: "SF Mono", "JetBrains Mono", "IBM Plex Mono", monospace;
+      font-feature-settings: "tnum";
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .data-cell__value.is-positive { color: var(--bullish); }
+    .data-cell__value.is-negative { color: var(--bearish); }
+    @media (max-width: 480px) {
+      .data-grid { grid-template-columns: repeat(2, 1fr); }
+      .data-grid .data-cell:nth-child(3) { grid-column: span 2; }
+      .data-cell__value { font-size: 14px; }
+    }
+    @media (min-width: 768px) { .data-cell__value { font-size: 16px; } }
+
+    /* ── ポイントリスト (card-v2) ── */
+    .card-v2__main .points-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .points-list__item {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      padding-left: 16px;
+      position: relative;
+    }
+    .points-list__item::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 8px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--action);
+    }
+
+    /* ── 内訳パネル ── */
+    .breakdown-v2 {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border-subtle);
+      padding: 16px;
+      animation: breakdown-in 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes breakdown-in {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .breakdown-v2__summary {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-primary);
+      padding: 12px;
+      background: var(--bg-card);
+      border-radius: 4px;
+      border-left: 2px solid var(--action);
+      margin-bottom: 16px;
+    }
+    .breakdown-v2__rows { display: flex; flex-direction: column; gap: 16px; }
+    .bd-row { display: grid; grid-template-columns: 1fr; gap: 6px; }
+    .bd-row__head { display: flex; justify-content: space-between; align-items: center; }
+    .bd-row__label {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+    .bd-row__weight {
+      font-family: "SF Mono", monospace;
+      font-feature-settings: "tnum";
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+    .bd-row__bar-wrap {
+      height: 4px;
+      background: var(--border-subtle);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .bd-row__bar {
+      height: 100%;
+      width: 0;
+      background: var(--bar-color, var(--action));
+      border-radius: 2px;
+      transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .bd-row__detail { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .bd-row__rationale {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .bd-row__na { color: var(--text-tertiary); font-style: italic; }
+    .bd-final {
+      margin-top: 12px; padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-tertiary); font-size: 11px; text-align: right;
+    }
+    .bd-final strong { color: var(--action); font-family: "SF Mono", monospace; }
+    .is-positive { color: var(--bullish) !important; font-weight: 500; }
+    .is-negative { color: var(--bearish) !important; font-weight: 500; }
+
+    /* ── フッター ── */
+    .card-v2__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }
+    .card-v2__expand {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: none;
+      color: var(--action);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 4px 0;
+      transition: opacity 200ms;
+    }
+    .card-v2__expand:hover { opacity: 0.7; }
+    .card-v2__expand-icon {
+      transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-v2__expand[aria-expanded="true"] .card-v2__expand-icon {
+      transform: rotate(180deg);
+    }
+    .card-v2__source { font-size: 11px; color: var(--text-tertiary); }
+
+    /* ── 詳細セクション ── */
+    .card-v2__details {
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      animation: breakdown-in 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ══════════════════════════════════════ */
+
+    /* ── Category sections ── */
+    .cat-section { margin-bottom: 18px; }
+    .cat-section-header {
+      display: flex; align-items: center; gap: 8px;
+      cursor: pointer; padding: 8px 0; user-select: none;
+    }
+    .cat-section-title { font-size: .95rem; font-weight: 700; color: var(--text); }
+    .cat-toggle { color: var(--text2); transition: transform .2s; font-size: .8rem; }
+    .cat-section.collapsed .cat-toggle { transform: rotate(-90deg); }
+    .cat-section.collapsed .cat-body { display: none; }
+    .card.hidden-by-filter { display: none; }
+    .card.hidden-by-cat { display: none; }
+    .cat-section.all-hidden { display: none; }
+
+    /* ── Bookmarks panel ── */
+    #bookmarks-panel { margin-bottom: 20px; }
+    .bookmarks-empty { color: var(--text2); font-size: .88rem; padding: 16px 0; }
+
+    /* ── Preferences form ── */
+    #tomorrow-preferences {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin-top: 20px;
+    }
+    #tomorrow-preferences h2 { font-size: 1.0rem; color: var(--accent); margin-bottom: 6px; }
+    #tomorrow-preferences > p { font-size: .86rem; color: var(--text2); margin-bottom: 16px; }
+    .pref-group { margin-bottom: 16px; }
+    .pref-label { font-size: .83rem; font-weight: 700; color: var(--text2); margin-bottom: 8px; display: block; }
+    .cat-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 480px) { .cat-checkboxes { grid-template-columns: 1fr; } }
+    .cat-checkbox-item {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg3); border: 2px solid var(--border);
+      border-radius: 10px; padding: 10px 12px; cursor: pointer;
+      min-height: 44px; font-size: .86rem; transition: all .15s; user-select: none;
+    }
+    .cat-checkbox-item:hover { border-color: var(--accent); }
+    .cat-checkbox-item.selected { border-color: var(--accent); background: rgba(88,166,255,.08); color: var(--accent); }
+    .cat-checkbox-item input[type=checkbox] { display: none; }
+    .kw-input {
+      width: 100%; padding: 10px 14px; border-radius: 10px;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text); font-size: .9rem; font-family: inherit; min-height: 44px;
+    }
+    .kw-input:focus { outline: none; border-color: var(--accent); }
+    .count-options { display: flex; gap: 8px; flex-wrap: wrap; }
+    .count-option {
+      padding: 8px 18px; border-radius: 20px; border: 2px solid var(--border);
+      background: var(--bg3); color: var(--text2); cursor: pointer;
+      font-size: .86rem; min-height: 44px; display: flex; align-items: center;
+      transition: all .15s; font-weight: 600; user-select: none;
+    }
+    .count-option.selected { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,.08); }
+    .pref-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .pref-note { font-size: .75rem; color: var(--text2); margin-top: 10px; line-height: 1.5; }
+    .pref-status {
+      font-size: .85rem; margin-top: 10px; padding: 10px 14px;
+      border-radius: 8px; display: none; line-height: 1.5;
+    }
+    .pref-status.success { background: rgba(63,185,80,.12); color: var(--green); display: block; }
+    .pref-status.error { background: rgba(248,81,73,.12); color: var(--red); display: block; }
+    .pref-status.loading { background: rgba(88,166,255,.08); color: var(--accent); display: block; }
+    .pref-status a { color: inherit; text-decoration: underline; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      display: inline-block; width: 13px; height: 13px;
+      border: 2px solid var(--border); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin .6s linear infinite;
+      vertical-align: middle; margin-right: 5px;
+    }
+    .debug-toggle-link {
+      font-size: .75rem; color: var(--text2); cursor: pointer;
+      margin-top: 10px; display: inline-block;
+    }
+    .debug-toggle-link:hover { color: var(--accent); }
+    .debug-panel {
+      margin-top: 8px; background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px; font-size: .75rem;
+      font-family: 'SF Mono', 'Consolas', monospace; color: var(--text2); display: none;
+    }
+    .debug-panel.open { display: block; }
+    .debug-row { margin-bottom: 5px; word-break: break-all; }
+    .debug-key { color: var(--accent); margin-right: 6px; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; color: var(--text2); font-size: 0.8rem;
+      margin-top: 40px; padding: 20px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .disclaimer {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px; margin-bottom: 14px;
+      text-align: left; font-size: .82rem; line-height: 1.6;
+    }
+
+    /* ── Scroll to top ── */
+    #scroll-top {
+      position: fixed; bottom: 24px; right: 20px; z-index: 200;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 50%; width: 44px; height: 44px;
+      font-size: 1.1rem; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.3);
+      display: none; align-items: center; justify-content: center;
+      transition: opacity .2s;
+    }
+    #scroll-top.visible { display: flex; }
+
+    /* ── Glossary highlight ── */
+    .gloss-hl {
+      border-bottom: 1px dashed var(--accent); cursor: help;
+      color: inherit; transition: background .1s;
+    }
+    .gloss-hl:hover { background: rgba(88,166,255,.12); border-radius: 2px; }
+    .gloss-tooltip {
+      position: fixed; background: var(--bg2); border: 1px solid var(--accent);
+      border-radius: 8px; padding: 8px 12px; font-size: 0.8rem;
+      max-width: 260px; z-index: 500; pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,.3); line-height: 1.5;
+      color: var(--text); display: none;
+    }
+    .gloss-tooltip-term { font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+
+    /* ── Market Hero Section ── */
+    .market-hero {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px 22px; margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .market-hero-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px; gap: 10px; flex-wrap: wrap;
+    }
+    .market-hero-title {
+      font-size: 0.9rem; font-weight: 700; color: var(--text2);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .market-hero-updated {
+      font-size: 0.75rem; color: var(--text3);
+    }
+    .market-price-row {
+      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .market-current {
+      font-size: 2.6rem; font-weight: 800; line-height: 1.1;
+      font-variant-numeric: tabular-nums; letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .market-change {
+      font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .market-change.up { color: #22c55e; }
+    .market-change.down { color: #ef4444; }
+    .market-change.flat { color: var(--text2); }
+    .market-sub-row {
+      display: flex; flex-wrap: wrap; gap: 6px 20px;
+      font-size: 0.8rem; color: var(--text2); margin-bottom: 14px;
+    }
+    .market-sub-item { white-space: nowrap; }
+    .market-sub-label { color: var(--text3); }
+
+    /* Index selector tabs */
+    .index-selector {
+      display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .idx-sel-btn {
+      padding: 7px 18px; border-radius: 8px; border: 1px solid var(--border);
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      background: var(--bg3); color: var(--text2); transition: all 0.15s;
+    }
+    .idx-sel-btn.active {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+
+    /* Period tabs */
+    .chart-period-tabs {
+      display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap;
+    }
+    .chart-period-btn {
+      padding: 4px 12px; border-radius: 10px; font-size: 0.78rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 30px;
+      transition: all .15s;
+    }
+    .chart-period-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* Chart container */
+    .chart-container {
+      width: 100%; height: 320px; border-radius: 8px; overflow: hidden;
+    }
+    @media (max-width: 480px) {
+      .chart-container { height: 220px; }
+      .market-current { font-size: 2rem; }
+    }
+    @media (min-width: 700px) {
+      .chart-container { height: 380px; }
+    }
+
+    /* 52-week range */
+    .market-range-row {
+      display: flex; flex-wrap: wrap; gap: 6px 20px;
+      font-size: 0.79rem; color: var(--text2); margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .market-range-item { white-space: nowrap; }
+    .market-range-label { color: var(--text3); }
+    .market-range-val { font-variant-numeric: tabular-nums; font-weight: 600; }
+    .market-range-val.up { color: #22c55e; }
+    .market-range-val.down { color: #ef4444; }
+
+    /* ── Market History Section ── */
+    .market-history {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 12px;
+    }
+    .market-history-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
+    }
+    .market-history-title {
+      font-size: 0.95rem; font-weight: 700; color: var(--text);
+    }
+    .history-period-tabs {
+      display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap;
+    }
+    .history-period-btn {
+      padding: 4px 10px; border-radius: 10px; font-size: 0.76rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 28px;
+      transition: all .15s;
+    }
+    .history-period-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .history-csv-btn {
+      padding: 5px 12px; border-radius: 10px; font-size: 0.76rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 28px;
+      transition: all .15s; text-decoration: none; display: inline-flex;
+      align-items: center; gap: 4px;
+    }
+    .history-csv-btn:hover { background: var(--bg4); color: var(--text); text-decoration: none; }
+    .history-table-wrap {
+      overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .history-table {
+      width: 100%; border-collapse: collapse; font-size: 0.82rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .history-table th {
+      background: var(--bg3); color: var(--text2); font-weight: 600;
+      padding: 8px 12px; text-align: right; white-space: nowrap;
+      border-bottom: 1px solid var(--border);
+    }
+    .history-table th:first-child { text-align: left; }
+    .history-table td {
+      padding: 7px 12px; text-align: right; border-bottom: 1px solid var(--border);
+      white-space: nowrap; color: var(--text);
+    }
+    .history-table td:first-child { text-align: left; color: var(--text2); }
+    .history-table tr:last-child td { border-bottom: none; }
+    .history-table tr:hover td { background: var(--card-hover); }
+    .history-table td.up { color: #22c55e; }
+    .history-table td.down { color: #ef4444; }
+    @media (max-width: 540px) {
+      .history-table .col-volume { display: none; }
+    }
+
+    /* ── Market Hero Two-Column Layout ── */
+    .market-hero-body {
+      display: grid;
+      grid-template-columns: 1fr 310px;
+      gap: 20px;
+      align-items: start;
+      margin-top: 4px;
+    }
+    .market-hero-left { min-width: 0; }
+    .market-hero-right { min-width: 0; }
+    @media (max-width: 900px) {
+      .market-hero-body { grid-template-columns: 1fr; gap: 14px; }
+    }
+    @media (max-width: 480px) {
+      .chart-container { height: 220px !important; }
+      .market-hero { padding: 14px 14px; }
+    }
+
+    /* ── Insight Panel (AI洞察) ── */
+    .insight-panel {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+    }
+    .insight-header {
+      display: flex; align-items: center; gap: 7px;
+      margin-bottom: 12px; padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .insight-icon { font-size: 0.95rem; flex-shrink: 0; }
+    .insight-title {
+      font-size: 0.8rem; font-weight: 700; color: var(--text2); flex: 1;
+      letter-spacing: .2px;
+    }
+    .sentiment-badge {
+      font-size: 0.65rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px; white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .sentiment-badge.sentiment-強気 {
+      background: rgba(34,197,94,.14); color: #22c55e;
+      border: 1px solid rgba(34,197,94,.35);
+    }
+    .sentiment-badge.sentiment-弱気 {
+      background: rgba(239,68,68,.14); color: #ef4444;
+      border: 1px solid rgba(239,68,68,.35);
+    }
+    .sentiment-badge.sentiment-中立 {
+      background: rgba(139,148,158,.12); color: var(--text2);
+      border: 1px solid var(--border);
+    }
+    .insight-driver {
+      display: flex; align-items: flex-start; gap: 7px;
+      margin-bottom: 10px;
+    }
+    .insight-driver-label {
+      font-size: 0.62rem; font-weight: 700;
+      background: var(--bg4); border: 1px solid var(--border);
+      border-radius: 5px; padding: 2px 6px; color: var(--text3);
+      white-space: nowrap; flex-shrink: 0; margin-top: 1px;
+    }
+    .insight-driver-text {
+      font-size: 0.84rem; font-weight: 700; color: var(--text); line-height: 1.4;
+    }
+    .insight-body {
+      font-size: 0.78rem; color: var(--text); line-height: 1.75;
+      margin-bottom: 14px; max-height: 148px; overflow-y: auto;
+      scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+    }
+    .insight-body::-webkit-scrollbar { width: 3px; }
+    .insight-body::-webkit-scrollbar-thumb {
+      background: var(--border); border-radius: 2px;
+    }
+    .impact-map-title {
+      font-size: 0.62rem; font-weight: 700; color: var(--text3);
+      letter-spacing: .6px; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .impact-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 5px;
+    }
+    .impact-bar-track {
+      flex: 1; height: 4px; background: var(--bg4);
+      border-radius: 2px; overflow: hidden; min-width: 30px;
+    }
+    .impact-bar-fill { height: 100%; border-radius: 2px; }
+    .impact-row.positive .impact-bar-fill { background: #22c55e; }
+    .impact-row.negative .impact-bar-fill { background: #ef4444; }
+    .impact-row.neutral .impact-bar-fill { background: var(--text3); }
+    .impact-label {
+      font-size: 0.7rem; color: var(--text2);
+      min-width: 90px; text-align: right; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .impact-sign { font-weight: 800; margin-left: 3px; }
+    .impact-row.positive .impact-sign { color: #22c55e; }
+    .impact-row.negative .impact-sign { color: #ef4444; }
+    .impact-row.neutral .impact-sign { color: var(--text3); }
+    .insight-related {
+      margin-top: 12px; padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .insight-related-label {
+      font-size: 0.62rem; font-weight: 700; color: var(--text3);
+      letter-spacing: .4px; text-transform: uppercase; margin-bottom: 5px;
+    }
+    .insight-related-link {
+      display: block; font-size: 0.72rem; color: var(--accent);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-top: 3px; line-height: 1.4;
+    }
+    .insight-related-link:hover { text-decoration: underline; }
+    .insight-empty {
+      text-align: center; color: var(--text2); font-size: 0.78rem;
+      padding: 20px 0; line-height: 1.6;
+    }
+
+    /* ════════════════════════════════════════════
+       DS (Daily Stats) 統計分析パネル
+       ════════════════════════════════════════════ */
+    .ds-panel {
+      position: relative;
+      margin-top: 20px;
+      padding: 20px 22px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+    }
+    .ds-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(34,197,94,0.4), transparent);
+    }
+    .ds-panel__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .ds-panel__header h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.95);
+      margin: 0;
+    }
+    .ds-panel__badge {
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      color: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    /* ── パーセンタイルバー ── */
+    .ds-percentile { margin-bottom: 22px; }
+    .ds-percentile__label {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 6px;
+    }
+    .ds-percentile__value {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+    .ds-percentile__value .unit {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      margin-left: 3px;
+      font-weight: 400;
+    }
+    .ds-percentile__bar {
+      position: relative;
+      height: 7px;
+      background: linear-gradient(90deg,
+        rgba(239,68,68,0.45) 0%,
+        rgba(245,158,11,0.3) 20%,
+        rgba(34,197,94,0.35) 50%,
+        rgba(245,158,11,0.3) 80%,
+        rgba(239,68,68,0.45) 100%
+      );
+      border-radius: 4px;
+      overflow: visible;
+    }
+    .ds-percentile__marker {
+      position: absolute;
+      top: -5px;
+      width: 4px;
+      height: 17px;
+      background: #fff;
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.65), 0 2px 4px rgba(0,0,0,0.3);
+      transform: translateX(-50%);
+      transition: left 1.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .ds-percentile__caption {
+      margin-top: 8px;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── KPI 4枚グリッド ── */
+    .ds-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .ds-kpi {
+      padding: 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 9px;
+      transition: transform 0.28s cubic-bezier(0.4,0,0.2,1),
+                  border-color 0.28s,
+                  background 0.28s;
+      cursor: default;
+    }
+    .ds-kpi:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(34,197,94,0.22);
+    }
+    .ds-kpi__label {
+      font-size: 0.58rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 5px;
+    }
+    .ds-kpi__value {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: -0.01em;
+    }
+    .ds-kpi__value .unit {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.35);
+      margin-left: 2px;
+      font-weight: 400;
+    }
+    .ds-kpi[data-trend="up"] .ds-kpi__value { color: #22c55e; }
+    .ds-kpi[data-trend="down"] .ds-kpi__value { color: #ef4444; }
+    .ds-kpi__caption {
+      margin-top: 3px;
+      font-size: 0.58rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── 類似日予測 ── */
+    .ds-similar {
+      padding: 14px;
+      background: rgba(255,255,255,0.018);
+      border-radius: 10px;
+    }
+    .ds-similar__title {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 10px;
+    }
+    .ds-similar__count {
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      color: rgba(255,255,255,0.38);
+    }
+    .ds-similar__forecast {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .ds-forecast {
+      padding: 10px;
+      background: rgba(255,255,255,0.022);
+      border-radius: 7px;
+    }
+    .ds-forecast__period {
+      font-size: 0.6rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 4px;
+    }
+    .ds-forecast__value {
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .ds-forecast__value[data-trend="up"] { color: #22c55e; }
+    .ds-forecast__value[data-trend="down"] { color: #ef4444; }
+    .ds-forecast__value[data-trend="neutral"] { color: rgba(255,255,255,0.7); }
+    .ds-forecast__value .unit { font-size: 0.65rem; color: inherit; opacity: 0.7; margin-left: 1px; font-weight: 400; }
+    .ds-forecast__bar {
+      height: 3px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .ds-forecast__bar > div {
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: ds-bar-fill 1.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation-delay: 0.4s;
+    }
+    .ds-forecast__bar.neg > div {
+      background: linear-gradient(90deg, #ef4444, #dc2626);
+    }
+    .ds-forecast__win {
+      margin-top: 5px;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── 詳細リスト ── */
+    .ds-similar__detail summary {
+      cursor: pointer;
+      font-size: 0.7rem;
+      color: #22c55e;
+      user-select: none;
+      padding: 7px 0;
+      list-style: none;
+    }
+    .ds-similar__detail summary::-webkit-details-marker { display: none; }
+    .ds-similar__detail summary::before {
+      content: '▶';
+      display: inline-block;
+      margin-right: 5px;
+      transition: transform 0.2s;
+      font-size: 0.5rem;
+      vertical-align: middle;
+    }
+    .ds-similar__detail[open] summary::before { transform: rotate(90deg); }
+    .ds-similar__list {
+      list-style: none;
+      margin: 6px 0 0;
+      padding: 0;
+    }
+    .ds-similar__list li {
+      display: grid;
+      grid-template-columns: auto 64px 1fr auto;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.68rem;
+      align-items: center;
+    }
+    .ds-similar__list li:last-child { border-bottom: none; }
+    .ds-similar__date {
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      color: rgba(255,255,255,0.65);
+    }
+    .ds-similar__change {
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      color: #ef4444;
+      text-align: right;
+    }
+    .ds-similar__change.pos { color: #22c55e; }
+    .ds-similar__context {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.62rem;
+    }
+    .ds-similar__after {
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.55);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .ds-similar__after strong { color: #22c55e; }
+    .ds-similar__after strong.neg { color: #ef4444; }
+
+    /* ── アラート ── */
+    .ds-alert {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      margin-top: 16px;
+      border-radius: 14px;
+      overflow: hidden;
+      animation: ds-alert-enter 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .ds-alert[data-level="warning"] {
+      background: linear-gradient(135deg, rgba(245,158,11,0.16), rgba(245,158,11,0.05));
+      border: 1px solid rgba(245,158,11,0.32);
+    }
+    .ds-alert[data-level="extreme"] {
+      background: linear-gradient(135deg, rgba(239,68,68,0.19), rgba(239,68,68,0.06));
+      border: 1px solid rgba(239,68,68,0.42);
+    }
+    .ds-alert__pulse {
+      position: absolute;
+      top: 50%;
+      left: 26px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+    .ds-alert[data-level="warning"] .ds-alert__pulse { background: #f59e0b; }
+    .ds-alert[data-level="extreme"] .ds-alert__pulse { background: #ef4444; }
+    .ds-alert__pulse::before,
+    .ds-alert__pulse::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: inherit;
+      animation: ds-pulse 2s cubic-bezier(0,0,0.2,1) infinite;
+    }
+    .ds-alert__pulse::after { animation-delay: 1s; }
+    .ds-alert__icon { font-size: 1.5rem; margin-left: 20px; flex-shrink: 0; }
+    .ds-alert__body { flex: 1; min-width: 0; }
+    .ds-alert__title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+      color: rgba(255,255,255,0.95);
+    }
+    .ds-alert__desc {
+      font-size: 0.77rem;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 3px;
+    }
+    .ds-alert__history { font-size: 0.65rem; color: rgba(255,255,255,0.5); }
+
+    /* ── アニメーション ── */
+    @keyframes ds-pulse {
+      0% { transform: scale(1); opacity: 0.7; }
+      100% { transform: scale(3.5); opacity: 0; }
+    }
+    @keyframes ds-alert-enter {
+      from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes ds-bar-fill {
+      to { transform: scaleX(1); }
+    }
+    @keyframes ds-counter-in {
+      from { opacity: 0; transform: translateY(7px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .ds-percentile__value,
+    .ds-kpi__value,
+    .ds-forecast__value {
+      animation: ds-counter-in 0.45s cubic-bezier(0.16,1,0.3,1) backwards;
+    }
+    .ds-kpi:nth-child(1) .ds-kpi__value { animation-delay: 0.05s; }
+    .ds-kpi:nth-child(2) .ds-kpi__value { animation-delay: 0.10s; }
+    .ds-kpi:nth-child(3) .ds-kpi__value { animation-delay: 0.15s; }
+    .ds-kpi:nth-child(4) .ds-kpi__value { animation-delay: 0.20s; }
+
+    /* ── DS スマホ ── */
+    @media (max-width: 640px) {
+      .ds-panel { padding: 14px 14px; }
+      .ds-percentile__value { font-size: 22px; }
+      .ds-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .ds-kpi__value { font-size: 0.9rem; }
+      .ds-similar__forecast { grid-template-columns: 1fr; gap: 7px; }
+      .ds-similar__list li { grid-template-columns: auto 55px; row-gap: 3px; }
+      .ds-similar__context, .ds-similar__after { grid-column: 1 / -1; text-align: left; }
+      .ds-alert { padding: 12px 13px; gap: 10px; }
+      .ds-alert__icon { font-size: 1.2rem; margin-left: 18px; }
+    }
+
+    /* ── News Timeline ── */
+    .news-timeline-section {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 12px;
+    }
+    .timeline-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+    }
+    .timeline-title {
+      font-size: 0.95rem; font-weight: 700; color: var(--text);
+    }
+    .timeline-filters { display: flex; gap: 4px; flex-wrap: wrap; }
+    .tl-filter-btn {
+      padding: 4px 10px; border-radius: 10px; font-size: 0.74rem;
+      font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); min-height: 28px;
+      transition: all .15s;
+    }
+    .tl-filter-btn:hover { background: var(--bg4); color: var(--text); }
+    .tl-filter-btn.active {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+    /* Each timeline day */
+    .timeline-entry { margin-bottom: 3px; }
+    .timeline-day-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border-radius: 8px;
+      background: var(--bg3); cursor: pointer;
+      transition: background .12s; user-select: none;
+    }
+    .timeline-day-header:hover { background: var(--bg4); }
+    .tl-bar {
+      width: 3px; min-height: 26px; border-radius: 2px; flex-shrink: 0;
+    }
+    .tl-bar.up { background: #22c55e; }
+    .tl-bar.down { background: #ef4444; }
+    .tl-bar.flat { background: var(--text3); }
+    .tl-date {
+      font-size: 0.8rem; font-weight: 700; color: var(--text);
+      min-width: 82px; font-variant-numeric: tabular-nums;
+    }
+    .tl-chg {
+      font-size: 0.8rem; font-weight: 700;
+      font-variant-numeric: tabular-nums; min-width: 72px;
+    }
+    .tl-chg.up { color: #22c55e; }
+    .tl-chg.down { color: #ef4444; }
+    .tl-chg.flat { color: var(--text3); }
+    .tl-driver {
+      font-size: 0.76rem; color: var(--text2); flex: 1;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .tl-toggle {
+      color: var(--text3); font-size: 0.68rem; flex-shrink: 0;
+      transition: transform .2s; display: inline-block;
+    }
+    .timeline-entry.open .tl-toggle { transform: rotate(90deg); }
+    .tl-news-list {
+      display: none; padding: 5px 0 8px 15px;
+      border-left: 2px solid var(--bg4); margin-left: 14px;
+    }
+    .timeline-entry.open .tl-news-list { display: block; }
+    .tl-news-item {
+      display: flex; align-items: flex-start; gap: 7px;
+      padding: 5px 8px; margin-bottom: 2px; border-radius: 6px;
+      font-size: 0.77rem; transition: background .1s;
+    }
+    .tl-news-item:hover { background: var(--bg3); }
+    .tl-news-badge {
+      font-size: 0.6rem; font-weight: 700; padding: 2px 5px;
+      border-radius: 5px; white-space: nowrap; flex-shrink: 0; margin-top: 1px;
+    }
+    .tl-news-badge.bullish {
+      background: rgba(34,197,94,.13); color: #22c55e;
+    }
+    .tl-news-badge.bearish {
+      background: rgba(239,68,68,.13); color: #ef4444;
+    }
+    .tl-news-badge.neutral {
+      background: rgba(139,148,158,.12); color: var(--text2);
+    }
+    .tl-news-hl { color: var(--text); flex: 1; line-height: 1.4; }
+    .tl-news-hl a { color: var(--text); }
+    .tl-news-hl a:hover { color: var(--accent); text-decoration: underline; }
+    .tl-empty {
+      text-align: center; color: var(--text2); padding: 20px;
+      font-size: 0.88rem;
+    }
+    @media (max-width: 540px) {
+      .tl-driver { display: none; }
+      .tl-date { min-width: 70px; }
+    }
+
+    /* ── PAT Modal ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.78); z-index: 999;
+      align-items: center; justify-content: center;
+    }
+    .modal-box {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 14px;
+      padding: 24px; max-width: 440px; width: 90%; margin: auto;
+    }
+    .modal-box h3 { color: var(--accent); margin-bottom: 10px; }
+    .modal-box p { font-size: .87rem; color: var(--text2); margin-bottom: 14px; }
+    .modal-actions { display: flex; gap: 8px; }
+  </style>
+</head>
+<body class="font-m">
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-top">
+        <div>
+          <h1>📊 デイリーマーケットニュース</h1>
+          <div class="meta">2026-05-10 &nbsp;|&nbsp; 更新: 2026/05/10 09:00 JST &nbsp;|&nbsp; 0本</div>
+        </div>
+        <div class="header-controls">
+          <div class="font-btns">
+            <button class="font-btn" id="font-s" onclick="setFont('s')" title="文字を小さく">A-</button>
+            <button class="font-btn active" id="font-m" onclick="setFont('m')" title="標準">A</button>
+            <button class="font-btn" id="font-l" onclick="setFont('l')" title="文字を大きく">A+</button>
+          </div>
+          <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="ダーク/ライト切り替え">🌙</button>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a class="btn btn-primary" href="https://example.com/feed.xml">📡 RSS</a>
+        <a class="btn btn-secondary" href="https://example.com/glossary.html">📚 用語集</a>
+        <a class="btn btn-secondary" href="https://example.com/analysis.html">📊 長期分析</a>
+        <a class="btn btn-secondary" href="https://example.com/preferences-history.html">🕓 設定履歴</a>
+        <a class="btn btn-secondary" href="https://example.com/portfolio.html">💼 ポートフォリオ</a>
+        <button class="btn btn-bookmark" id="bookmark-tab-btn" onclick="toggleBookmarkPanel()">🔖 ブックマーク <span id="bookmark-count"></span></button>
+      </div>
+    </header>
+
+    <!-- Index selector (日経 / S&P500) -->
+    
+    <div class="index-selector" id="index-selector">
+      
+      <button class="idx-sel-btn active" data-idx="nikkei" onclick="switchHeroIndex(this,'nikkei')">📊 日経平均</button>
+      
+      
+    </div>
+    
+
+    <!-- Market Hero (日経平均チャート) -->
+    
+    
+    
+    
+    <div class="market-hero" id="market-nikkei">
+      <div class="market-hero-header">
+        <div class="market-hero-title">📊 日経平均株価</div>
+        
+        <div class="market-hero-updated">最終更新 2026-05-10 21:55 JST</div>
+        
+      </div>
+
+      <div class="market-price-row">
+        <div class="market-current" id="nk-current">
+          62,713.65
+        </div>
+        <div class="market-change down">
+          ▼
+          203.96
+          (-0.32%)
+        </div>
+      </div>
+
+      <div class="market-sub-row">
+        <span class="market-sub-item"><span class="market-sub-label">前日終値 </span>62,917.61</span>
+        <span class="market-sub-item"><span class="market-sub-label">始値 </span>62,654.01</span>
+        <span class="market-sub-item"><span class="market-sub-label">高値 </span>62,724.36</span>
+        <span class="market-sub-item"><span class="market-sub-label">安値 </span>62,137.95</span>
+      </div>
+
+      <!-- Two-column body: Left=Chart / Right=AI Insight -->
+      <div class="market-hero-body">
+
+        <!-- Left: Period tabs + Chart + 52-week range -->
+        <div class="market-hero-left">
+          <div class="chart-period-tabs">
+            <button class="chart-period-btn active" data-days="30" onclick="setChartPeriod(this, 30)">1M</button>
+            <button class="chart-period-btn" data-days="90" onclick="setChartPeriod(this, 90)">3M</button>
+            <button class="chart-period-btn" data-days="180" onclick="setChartPeriod(this, 180)">6M</button>
+            <button class="chart-period-btn" data-days="365" onclick="setChartPeriod(this, 365)">1Y</button>
+          </div>
+
+          <div class="chart-container" id="nikkei-chart"></div>
+
+          <div class="market-range-row">
+            
+            <span class="market-range-item">
+              <span class="market-range-label">年初来高値 </span>
+              <span class="market-range-val up">63,091.14</span>
+              <span style="color:var(--text3)"> (2026-05-07)</span>
+            </span>
+            
+            
+            <span class="market-range-item">
+              <span class="market-range-label">年初来安値 </span>
+              <span class="market-range-val down">36,855.83</span>
+              <span style="color:var(--text3)"> (2025-05-22)</span>
+            </span>
+            
+          </div>
+        </div><!-- /market-hero-left -->
+
+        <!-- Right: AI Insight Panel -->
+        <div class="market-hero-right">
+          <div class="insight-panel">
+            
+            <div class="insight-empty">
+              🧠 今日の動きの背景<br>
+              <span style="font-size:0.72rem;margin-top:6px;display:block;color:var(--text3)">
+                AI洞察は毎日の実行時に生成されます
+              </span>
+            </div>
+            
+          </div><!-- /insight-panel -->
+        </div><!-- /market-hero-right -->
+
+      </div><!-- /market-hero-body -->
+
+      
+      
+      
+      
+
+      
+      
+      <div class="ds-alert" data-level="extreme">
+        <div class="ds-alert__pulse"></div>
+        <div class="ds-alert__icon">🚨</div>
+        <div class="ds-alert__body">
+          <div class="ds-alert__title">本日は異常変動を検知</div>
+          <div class="ds-alert__desc">
+            <strong>+7.00%</strong> は過去30年で
+            <strong>上位0.1%</strong>
+            (+4.7σ・極めて稀)
+          </div>
+          <div class="ds-alert__history">
+            過去30年で同等以上の変動: <strong>11日</strong> / 7352日中
+          </div>
+        </div>
+      </div>
+      
+
+      
+      <div class="ds-panel" data-anomaly="extreme">
+        <header class="ds-panel__header">
+          <h3>📊 統計分析</h3>
+          <span class="ds-panel__badge">過去30年比較</span>
+        </header>
+
+        
+        <div class="ds-percentile">
+          <div class="ds-percentile__label">変動率パーセンタイル</div>
+          <div class="ds-percentile__value">
+            <span data-counter="99.9" data-decimals="1">99.9</span><span class="unit">%ile</span>
+          </div>
+          <div class="ds-percentile__bar">
+            <div class="ds-percentile__marker" style="left:99.9%"></div>
+          </div>
+          <div class="ds-percentile__caption">
+            上位0%・やや高い変動
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+        <div class="ds-kpi-grid">
+          <div class="ds-kpi" data-trend="up">
+            <div class="ds-kpi__label">標準偏差</div>
+            <div class="ds-kpi__value">
+              <span data-counter="4.73" data-decimals="2" data-prefix="+">+4.73</span><span class="unit">σ</span>
+            </div>
+          </div>
+          <div class="ds-kpi" data-trend="up">
+            <div class="ds-kpi__label">出来高比</div>
+            <div class="ds-kpi__value">
+              <span data-counter="138.3" data-decimals="0">138</span><span class="unit">%</span>
+            </div>
+            <div class="ds-kpi__caption">30日平均比</div>
+          </div>
+          <div class="ds-kpi" data-trend="up">
+            <div class="ds-kpi__label">年高比</div>
+            <div class="ds-kpi__value">
+              <span data-counter="7.14" data-decimals="2" data-prefix="+">+7.14</span><span class="unit">%</span>
+            </div>
+            <div class="ds-kpi__caption">年初来高値比</div>
+          </div>
+          <div class="ds-kpi" data-trend="up">
+            <div class="ds-kpi__label">年安比</div>
+            <div class="ds-kpi__value">
+              <span data-counter="31.84" data-decimals="2" data-prefix="+">+31.84</span><span class="unit">%</span>
+            </div>
+            <div class="ds-kpi__caption">年初来安値比</div>
+          </div>
+        </div>
+
+        
+        
+        <div class="ds-similar">
+          <div class="ds-similar__title">
+            <span>過去の類似日 (+7.0%〜+7.5%)</span>
+            <span class="ds-similar__count">N=3</span>
+          </div>
+
+          <div class="ds-similar__forecast">
+            
+            
+            
+            
+            <div class="ds-forecast">
+              <div class="ds-forecast__period">5日後</div>
+              <div class="ds-forecast__value" data-trend="up">
+                +3.39<span class="unit">%</span>
+              </div>
+              <div class="ds-forecast__bar ">
+                <div style="width:20%"></div>
+              </div>
+            </div>
+            
+
+            
+            
+            
+            
+            <div class="ds-forecast">
+              <div class="ds-forecast__period">30日後</div>
+              <div class="ds-forecast__value" data-trend="up">
+                +10.11<span class="unit">%</span>
+              </div>
+              <div class="ds-forecast__bar ">
+                <div style="width:60%"></div>
+              </div>
+              
+              <div class="ds-forecast__win">勝率 100.0%</div>
+              
+            </div>
+            
+
+            
+            
+            
+            
+            <div class="ds-forecast">
+              <div class="ds-forecast__period">90日後</div>
+              <div class="ds-forecast__value" data-trend="up">
+                +3.50<span class="unit">%</span>
+              </div>
+              <div class="ds-forecast__bar ">
+                <div style="width:14%"></div>
+              </div>
+            </div>
+            
+          </div><!-- /ds-similar__forecast -->
+
+          
+          
+          <details class="ds-similar__detail">
+            <summary>具体的な類似日を見る</summary>
+            <ul class="ds-similar__list">
+              
+              <li>
+                <div class="ds-similar__date">2020-03-24</div>
+                <div class="ds-similar__change pos">+7.13%</div>
+                <div class="ds-similar__context">コロナショック</div>
+                <div class="ds-similar__after">
+                  30日後
+                  
+                  <strong >+12.7%</strong>
+                  
+                  
+                  / 90日後 <strong >+24.4%</strong>
+                  
+                </div>
+              </li>
+              
+              <li>
+                <div class="ds-similar__date">2001-03-21</div>
+                <div class="ds-similar__change pos">+7.49%</div>
+                <div class="ds-similar__context">ITバブル崩壊</div>
+                <div class="ds-similar__after">
+                  30日後
+                  
+                  <strong >+10.9%</strong>
+                  
+                  
+                  / 90日後 <strong class="neg">-9.5%</strong>
+                  
+                </div>
+              </li>
+              
+              <li>
+                <div class="ds-similar__date">2016-02-15</div>
+                <div class="ds-similar__change pos">+7.16%</div>
+                <div class="ds-similar__context">—</div>
+                <div class="ds-similar__after">
+                  30日後
+                  
+                  <strong >+6.7%</strong>
+                  
+                  
+                  / 90日後 <strong class="neg">-4.5%</strong>
+                  
+                </div>
+              </li>
+              
+            </ul>
+          </details>
+          
+
+        </div><!-- /ds-similar -->
+        
+      </div><!-- /ds-panel -->
+      
+      
+
+    </div>
+    
+
+    <!-- Market Hero (S&P 500チャート) -->
+    
+
+    <!-- News Timeline (過去30日) -->
+    <div class="news-timeline-section" id="news-timeline-section">
+      <div class="timeline-header">
+        <div class="timeline-title">📌 過去30日のニュースタイムライン</div>
+        <div class="timeline-filters">
+          <button class="tl-filter-btn active" data-filter="all" onclick="setTlFilter(this)">全て</button>
+          <button class="tl-filter-btn" data-filter="強気" onclick="setTlFilter(this)">強気</button>
+          <button class="tl-filter-btn" data-filter="弱気" onclick="setTlFilter(this)">弱気</button>
+          <button class="tl-filter-btn" data-filter="中立" onclick="setTlFilter(this)">中立</button>
+        </div>
+      </div>
+      <div id="timeline-body">
+        <div class="tl-empty" style="color:var(--text2);font-size:.82rem;padding:16px 0">
+          データを読み込み中...
+        </div>
+      </div>
+    </div>
+
+    <!-- Market Summary -->
+    
+
+    <!-- Featured section title + filter bar -->
+    <div class="section-title" id="featured">
+      🎯 今日の注目 TOP0
+      <span class="badge">全カテゴリ横断</span>
+    </div>
+    <div class="filter-bar">
+      <span style="font-size:.82rem;color:var(--text2)">絞り込み:</span>
+      <button class="filter-btn" id="filter-all" onclick="setFilter('all')">すべて表示</button>
+      <button class="filter-btn" id="filter-4up" onclick="setFilter('4up')">★4以上のみ</button>
+    </div>
+
+  </div><!-- /container -->
+
+  <!-- Category Filter (sticky) -->
+  <div class="cat-filter-wrap">
+    <div class="cat-filter-inner">
+      <button class="cat-filter-btn active" data-cat="all" onclick="setCatFilter(this)">📋 全て</button>
+      
+      <a class="cat-filter-btn" href="#featured">⭐ 注目TOP</a>
+      <a class="cat-filter-btn" href="#tomorrow-preferences">🔮 翌日設定</a>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Bookmarks panel (hidden by default) -->
+    <section id="bookmarks-panel" style="display:none">
+      <div class="section-title">🔖 ブックマーク</div>
+      <div id="bookmarks-list">
+        <p class="bookmarks-empty">ブックマークされた記事がありません。<br>各カードの ☆ ボタンで追加できます。</p>
+      </div>
+    </section>
+
+    <!-- Featured cards -->
+    <div id="featured-section">
+      
+    </div>
+
+    <!-- Category sections -->
+    
+
+    <!-- Tomorrow Preferences Form -->
+    <section id="tomorrow-preferences">
+      <h2>🔮 翌日の重点設定</h2>
+      <p>選択したカテゴリ・キーワードの記事が優先収集されます（最大3カテゴリ）</p>
+
+      <div class="pref-group">
+        <span class="pref-label">📑 カテゴリ（最大3つ）</span>
+        <div class="cat-checkboxes" id="pref-cats">
+          <label class="cat-checkbox-item"><input type="checkbox" value="jp_stock">🇯🇵 日本個別株</label>
+          <label class="cat-checkbox-item"><input type="checkbox" value="jp_index">📊 日本インデックス</label>
+          <label class="cat-checkbox-item"><input type="checkbox" value="foreign_stock">🇺🇸 外国個別株</label>
+          <label class="cat-checkbox-item"><input type="checkbox" value="foreign_index">📈 外国インデックス</label>
+          <label class="cat-checkbox-item"><input type="checkbox" value="futures">🎯 先物</label>
+          <label class="cat-checkbox-item"><input type="checkbox" value="fx_macro">💱 為替・マクロ</label>
+        </div>
+      </div>
+
+      <div class="pref-group">
+        <label class="pref-label" for="pref-keywords">🔍 注目キーワード（任意、カンマ区切り）</label>
+        <input type="text" id="pref-keywords" class="kw-input" placeholder="例: FOMC, 半導体, トヨタ, 日銀, VIX">
+      </div>
+
+      <div class="pref-group">
+        <span class="pref-label">📰 記事の本数</span>
+        <div class="count-options" id="pref-count">
+          <div class="count-option" data-value="20" onclick="selectCount(this)">20本</div>
+          <div class="count-option selected" data-value="30" onclick="selectCount(this)">30本</div>
+          <div class="count-option" data-value="40" onclick="selectCount(this)">40本</div>
+        </div>
+      </div>
+
+      <div class="pref-actions">
+        <button class="btn btn-primary" onclick="submitPreferences()">📨 設定を送信</button>
+        <button class="btn btn-secondary" onclick="resetPat()">🔑 PATを再設定</button>
+        <button class="btn btn-secondary" onclick="resetPreferences()">🔄 フォームをリセット</button>
+      </div>
+      <div class="pref-note">
+        ※ 送信時にGitHub Personal Access Token(PAT)が必要です。<br>
+        Issues read/write 権限のみの Fine-grained PAT を推奨。ブラウザのみに保存されます。
+      </div>
+      <div id="pref-status" class="pref-status"></div>
+      <span class="debug-toggle-link" onclick="toggleDebug()">🔧 デバッグ情報</span>
+      <div id="debug-panel" class="debug-panel">
+        <div class="debug-row"><span class="debug-key">PAT:</span><span id="dbg-pat">—</span></div>
+        <div class="debug-row"><span class="debug-key">最終送信:</span><span id="dbg-time">—</span></div>
+        <div class="debug-row"><span class="debug-key">結果:</span><span id="dbg-result">—</span></div>
+        <div class="debug-row"><span class="debug-key">URL:</span><span id="dbg-url">—</span></div>
+        <div class="debug-row"><span class="debug-key">Status:</span><span id="dbg-status">—</span></div>
+        <div class="debug-row"><span class="debug-key">Response:</span><span id="dbg-resp">—</span></div>
+      </div>
+    </section>
+
+    <!-- Market History Table -->
+    
+    <section class="market-history" id="market-history-nikkei">
+      <div class="market-history-header">
+        <div class="market-history-title">📋 日経平均の記録</div>
+        <button class="history-csv-btn" onclick="downloadHistoryCsv()">📥 CSV</button>
+      </div>
+      <div class="history-period-tabs">
+        <button class="history-period-btn active" data-hdays="30" onclick="setHistoryPeriod(this, 30)">直近30日</button>
+        <button class="history-period-btn" data-hdays="90" onclick="setHistoryPeriod(this, 90)">直近90日</button>
+        <button class="history-period-btn" data-hdays="365" onclick="setHistoryPeriod(this, 365)">直近1年</button>
+        <button class="history-period-btn" data-hdays="0" onclick="setHistoryPeriod(this, 0)">全期間</button>
+      </div>
+      <div class="history-table-wrap">
+        <table class="history-table" id="history-table">
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>終値</th>
+              <th>前日比</th>
+              <th>変化率</th>
+              <th class="col-volume">出来高</th>
+            </tr>
+          </thead>
+          <tbody id="history-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+    
+
+    <!-- Footer -->
+    <footer>
+      <div class="disclaimer">
+        <strong>免責事項</strong><br>
+        本サイトの情報はAIによる自動生成であり、投資推奨ではありません。<br>
+        投資判断はご自身の責任で行ってください。情報の正確性は保証されません。<br>
+        シナリオ・投資視点は「市場参加者がどう動きうるかの仮説」であり推奨ではありません。
+      </div>
+      <p>マーケットニュース &mdash; Powered by Groq (llama-3.3-70b) &amp; GitHub Pages</p>
+      <p style="margin-top:6px">
+        <a href="https://example.com/feed.xml">📡 feed.xml</a> &nbsp;|&nbsp;
+        <a href="https://example.com/glossary.html">📚 用語集</a> &nbsp;|&nbsp;
+        <a href="https://example.com/analysis.html">📊 長期分析</a> &nbsp;|&nbsp;
+        <a href="https://example.com/preferences-history.html">🕓 設定履歴</a>
+      </p>
+    </footer>
+
+  </div><!-- /container -->
+
+  <!-- Scroll to top button -->
+  <button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="トップへ戻る">↑</button>
+
+  <!-- PAT Modal -->
+  <div id="pat-modal" class="modal-overlay">
+    <div class="modal-box">
+      <h3>🔑 GitHub PAT を入力</h3>
+      <p>Issues read/write 権限のみの Fine-grained Personal Access Token を入力してください。<br>
+      トークンはこのブラウザにのみ保存され、サーバーへは送信されません。</p>
+      <input type="password" id="pat-input" placeholder="github_pat_..." class="kw-input" style="margin-bottom:12px">
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="savePat()" style="flex:1">保存して送信</button>
+        <button class="btn btn-secondary" onclick="closePat()">キャンセル</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Glossary tooltip -->
+  <div id="gloss-tooltip" class="gloss-tooltip">
+    <div id="gloss-tooltip-term" class="gloss-tooltip-term"></div>
+    <div id="gloss-tooltip-def"></div>
+  </div>
+
+  <!-- Lightweight Charts (TradingView, Apache 2.0) -->
+  <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+
+  <!-- Market data embedded JSON -->
+  <script type="application/json" id="market-data-json">{"nikkei": {"symbol": "^N225", "name": "日経平均株価", "currency": "JPY", "current": 62713.6484, "previous_close": 62917.6094, "change": -203.961, "change_percent": -0.3242, "open": 62654.0117, "day_high": 62724.3594, "day_low": 62137.9492, "year_high": 63091.1406, "year_high_date": "2026-05-07", "year_low": 36855.8281, "year_low_date": "2025-05-22", "fifty_two_week_high": 63091.1406, "fifty_two_week_low": 36855.8281, "ohlc": [{"date": "2025-05-08", "open": 36863.3789, "high": 36977.3516, "low": 36606.7109, "close": 36928.6289, "volume": 137300000}, {"date": "2025-05-09", "open": 37332.5703, "high": 37557.4102, "low": 37219.0312, "close": 37503.3281, "volume": 201400000}, {"date": "2025-05-12", "open": 37697.2812, "high": 37726.4414, "low": 37417.3906, "close": 37644.2617, "volume": 142900000}, {"date": "2025-05-13", "open": 38149.5312, "high": 38494.0586, "low": 38124.1992, "close": 38183.2617, "volume": 177400000}, {"date": "2025-05-14", "open": 38199.0312, "high": 38325.8789, "low": 37851.8008, "close": 38128.1289, "volume": 152100000}, {"date": "2025-05-15", "open": 37832.3594, "high": 37876.8398, "low": 37633.3594, "close": 37755.5117, "volume": 134800000}, {"date": "2025-05-16", "open": 37748.5781, "high": 37786.4297, "low": 37479.2109, "close": 37753.7188, "volume": 128100000}, {"date": "2025-05-19", "open": 37572.3594, "high": 37656.2305, "low": 37445.9297, "close": 37498.6289, "volume": 107600000}, {"date": "2025-05-20", "open": 37723.6016, "high": 37921.8086, "low": 37455.6992, "close": 37529.4883, "volume": 125800000}, {"date": "2025-05-21", "open": 37590.1484, "high": 37659.9414, "low": 37298.9805, "close": 37298.9805, "volume": 121300000}, {"date": "2025-05-22", "open": 36931.8906, "high": 37100.4492, "low": 36855.8281, "close": 36985.8711, "volume": 110900000}, {"date": "2025-05-23", "open": 37161.7383, "high": 37373.9102, "low": 37111.6289, "close": 37160.4688, "volume": 105300000}, {"date": "2025-05-26", "open": 37209.2617, "high": 37531.5312, "low": 37167.0117, "close": 37531.5312, "volume": 89900000}, {"date": "2025-05-27", "open": 37523.3711, "high": 37769.0508, "low": 37411.6797, "close": 37724.1094, "volume": 86200000}, {"date": "2025-05-28", "open": 38094.7891, "high": 38178.7305, "low": 37709.7109, "close": 37722.3984, "volume": 122600000}, {"date": "2025-05-29", "open": 38046.9688, "high": 38454.0703, "low": 38035.3203, "close": 38432.9805, "volume": 133200000}, {"date": "2025-05-30", "open": 37912.4883, "high": 38114.4688, "low": 37748.1719, "close": 37965.1016, "volume": 204300000}, {"date": "2025-06-02", "open": 37651.1797, "high": 37651.1797, "low": 37320.7188, "close": 37470.6719, "volume": 109600000}, {"date": "2025-06-03", "open": 37598.3086, "high": 37729.4492, "low": 37446.8086, "close": 37446.8086, "volume": 109300000}, {"date": "2025-06-04", "open": 37686.6602, "high": 37868.4219, "low": 37672.4688, "close": 37747.4492, "volume": 106700000}, {"date": "2025-06-05", "open": 37590.3906, "high": 37732.8789, "low": 37527.8789, "close": 37554.4883, "volume": 113800000}, {"date": "2025-06-06", "open": 37590.4414, "high": 37756.1484, "low": 37590.4219, "close": 37741.6094, "volume": 98100000}, {"date": "2025-06-09", "open": 38028.7109, "high": 38178.0117, "low": 38018.2188, "close": 38088.5703, "volume": 85700000}, {"date": "2025-06-10", "open": 38278.1719, "high": 38495.6992, "low": 38139.1016, "close": 38211.5117, "volume": 106000000}, {"date": "2025-06-11", "open": 38431.1016, "high": 38529.6406, "low": 38288.2812, "close": 38421.1914, "volume": 109300000}, {"date": "2025-06-12", "open": 38324.9297, "high": 38407.5703, "low": 38102.0508, "close": 38173.0898, "volume": 104500000}, {"date": "2025-06-13", "open": 38130.25, "high": 38141.5898, "low": 37540.1992, "close": 37834.25, "volume": 143500000}, {"date": "2025-06-16", "open": 38056.8594, "high": 38342.5195, "low": 38055.5195, "close": 38311.3281, "volume": 104700000}, {"date": "2025-06-17", "open": 38366.6797, "high": 38581.25, "low": 38333.3516, "close": 38536.7383, "volume": 103600000}, {"date": "2025-06-18", "open": 38364.1602, "high": 38885.1484, "low": 38364.1602, "close": 38885.1484, "volume": 110000000}, {"date": "2025-06-19", "open": 38858.5195, "high": 38870.5508, "low": 38488.3398, "close": 38488.3398, "volume": 89300000}, {"date": "2025-06-20", "open": 38472.25, "high": 38646.1602, "low": 38362.5391, "close": 38403.2305, "volume": 183900000}, {"date": "2025-06-23", "open": 38260.6914, "high": 38368.2188, "low": 38026.3203, "close": 38354.0898, "volume": 95800000}, {"date": "2025-06-24", "open": 38779.1797, "high": 38990.1094, "low": 38665.6094, "close": 38790.5586, "volume": 100800000}, {"date": "2025-06-25", "open": 38904.1797, "high": 38944.7695, "low": 38711.1094, "close": 38942.0703, "volume": 102900000}, {"date": "2025-06-26", "open": 39072.1406, "high": 39615.5898, "low": 39056.1406, "close": 39584.5781, "volume": 123600000}, {"date": "2025-06-27", "open": 39866.3594, "high": 40267.8398, "low": 39847.3086, "close": 40150.7891, "volume": 156100000}, {"date": "2025-06-30", "open": 40550.7891, "high": 40852.5391, "low": 40322.5391, "close": 40487.3906, "volume": 143900000}, {"date": "2025-07-01", "open": 40340.6406, "high": 40345.8711, "low": 39885.3789, "close": 39986.3281, "volume": 124000000}, {"date": "2025-07-02", "open": 39631.1719, "high": 39943.6211, "low": 39444.6992, "close": 39762.4805, "volume": 127600000}, {"date": "2025-07-03", "open": 39796.75, "high": 39865.8906, "low": 39667.8203, "close": 39785.8984, "volume": 135400000}, {"date": "2025-07-04", "open": 39994.6406, "high": 40012.6602, "low": 39693.3984, "close": 39810.8789, "volume": 96600000}, {"date": "2025-07-07", "open": 39729.5586, "high": 39829.3789, "low": 39524.25, "close": 39587.6797, "volume": 93400000}, {"date": "2025-07-08", "open": 39542.0703, "high": 39816.2695, "low": 39510.4805, "close": 39688.8086, "volume": 136600000}, {"date": "2025-07-09", "open": 39942.8008, "high": 39971.0586, "low": 39573.3398, "close": 39821.2812, "volume": 129000000}, {"date": "2025-07-10", "open": 39795.75, "high": 39795.75, "low": 39530.9492, "close": 39646.3594, "volume": 129300000}, {"date": "2025-07-11", "open": 39886.5391, "high": 39957.8008, "low": 39497.6992, "close": 39569.6797, "volume": 115900000}, {"date": "2025-07-14", "open": 39416.1016, "high": 39608.0195, "low": 39288.8984, "close": 39459.6211, "volume": 91500000}, {"date": "2025-07-15", "open": 39525.8281, "high": 39678.0195, "low": 39379.3203, "close": 39678.0195, "volume": 98800000}, {"date": "2025-07-16", "open": 39734.7383, "high": 39923.6094, "low": 39520.9609, "close": 39663.3984, "volume": 96400000}, {"date": "2025-07-17", "open": 39492.0195, "high": 39910.9609, "low": 39370.4297, "close": 39901.1914, "volume": 101500000}, {"date": "2025-07-18", "open": 40072.3906, "high": 40087.5898, "low": 39745.4219, "close": 39819.1094, "volume": 92000000}, {"date": "2025-07-22", "open": 39864.6289, "high": 40275.8906, "low": 39586.5312, "close": 39774.9219, "volume": 112100000}, {"date": "2025-07-23", "open": 40189.1797, "high": 41342.5898, "low": 40087.8594, "close": 41171.3203, "volume": 221100000}, {"date": "2025-07-24", "open": 41657.9805, "high": 42065.8281, "low": 41554.1797, "close": 41826.3398, "volume": 149400000}, {"date": "2025-07-25", "open": 41760.5781, "high": 41773.6992, "low": 41389.7891, "close": 41456.2305, "volume": 117500000}, {"date": "2025-07-28", "open": 41515.9102, "high": 41534.2109, "low": 40997.8711, "close": 40998.2695, "volume": 106500000}, {"date": "2025-07-29", "open": 40767.7695, "high": 40792.8516, "low": 40563.5312, "close": 40674.5508, "volume": 101000000}, {"date": "2025-07-30", "open": 40744.5312, "high": 40744.5312, "low": 40556.6094, "close": 40654.6992, "volume": 123700000}, {"date": "2025-07-31", "open": 40693.0, "high": 41151.25, "low": 40639.3203, "close": 41069.8203, "volume": 134800000}, {"date": "2025-08-01", "open": 41029.8398, "high": 41064.7305, "low": 40588.1719, "close": 40799.6016, "volume": 148400000}, {"date": "2025-08-04", "open": 40118.8086, "high": 40332.25, "low": 39850.5195, "close": 40290.6992, "volume": 130800000}, {"date": "2025-08-05", "open": 40521.0, "high": 40649.3789, "low": 40421.8789, "close": 40549.5391, "volume": 145300000}, {"date": "2025-08-06", "open": 40430.4609, "high": 40850.8906, "low": 40423.1289, "close": 40794.8594, "volume": 145500000}, {"date": "2025-08-07", "open": 40668.1914, "high": 41164.1094, "low": 40668.1914, "close": 41059.1484, "volume": 154000000}, {"date": "2025-08-08", "open": 41283.6992, "high": 42033.9219, "low": 41248.0508, "close": 41820.4805, "volume": 183300000}, {"date": "2025-08-12", "open": 42098.3203, "high": 42999.7109, "low": 42083.5781, "close": 42718.1719, "volume": 176100000}, {"date": "2025-08-13", "open": 43090.9102, "high": 43451.4609, "low": 43008.1992, "close": 43274.6719, "volume": 154100000}, {"date": "2025-08-14", "open": 43129.1797, "high": 43199.8281, "low": 42606.7305, "close": 42649.2617, "volume": 127800000}, {"date": "2025-08-15", "open": 42866.3789, "high": 43405.4297, "low": 42736.8594, "close": 43378.3086, "volume": 134500000}, {"date": "2025-08-18", "open": 43452.8984, "high": 43835.1211, "low": 43390.2188, "close": 43714.3086, "volume": 124200000}, {"date": "2025-08-19", "open": 43846.5508, "high": 43876.4219, "low": 43411.9688, "close": 43546.2891, "volume": 117100000}, {"date": "2025-08-20", "open": 43400.6602, "high": 43425.7812, "low": 42724.1484, "close": 42888.5508, "volume": 116700000}, {"date": "2025-08-21", "open": 42783.2617, "high": 42926.1094, "low": 42564.3008, "close": 42610.1719, "volume": 103100000}, {"date": "2025-08-22", "open": 42629.8086, "high": 42720.5703, "low": 42331.3906, "close": 42633.2891, "volume": 97800000}, {"date": "2025-08-25", "open": 42977.2695, "high": 43201.4219, "low": 42681.3711, "close": 42807.8203, "volume": 102200000}, {"date": "2025-08-26", "open": 42619.6602, "high": 42703.2695, "low": 42137.6211, "close": 42394.3984, "volume": 162600000}, {"date": "2025-08-27", "open": 42476.0898, "high": 42628.0391, "low": 42270.1797, "close": 42520.2695, "volume": 108400000}, {"date": "2025-08-28", "open": 42308.1406, "high": 42828.7891, "low": 42299.7891, "close": 42828.7891, "volume": 112700000}, {"date": "2025-08-29", "open": 42774.2891, "high": 42807.0312, "low": 42611.3086, "close": 42718.4688, "volume": 114900000}, {"date": "2025-09-01", "open": 42362.7109, "high": 42454.9883, "low": 41835.1719, "close": 42188.7891, "volume": 96600000}, {"date": "2025-09-02", "open": 42299.6289, "high": 42473.6719, "low": 42084.7812, "close": 42310.4883, "volume": 99800000}, {"date": "2025-09-03", "open": 42085.6602, "high": 42293.5391, "low": 41863.1992, "close": 41938.8906, "volume": 130200000}, {"date": "2025-09-04", "open": 42093.6992, "high": 42608.8008, "low": 42066.5898, "close": 42580.2695, "volume": 110300000}, {"date": "2025-09-05", "open": 42983.4688, "high": 43220.9414, "low": 42783.5391, "close": 43018.75, "volume": 118300000}, {"date": "2025-09-08", "open": 43451.0703, "high": 43838.6016, "low": 43343.5781, "close": 43643.8086, "volume": 115500000}, {"date": "2025-09-09", "open": 43907.5508, "high": 44185.7305, "low": 43452.7383, "close": 43459.2891, "volume": 117500000}, {"date": "2025-09-10", "open": 43513.1602, "high": 43848.7695, "low": 43509.0195, "close": 43837.6719, "volume": 115700000}, {"date": "2025-09-11", "open": 43876.2188, "high": 44396.9492, "low": 43870.5391, "close": 44372.5, "volume": 107300000}, {"date": "2025-09-12", "open": 44803.3008, "high": 44888.0195, "low": 44548.5703, "close": 44768.1211, "volume": 124900000}, {"date": "2025-09-16", "open": 44948.8516, "high": 45055.3789, "low": 44616.3203, "close": 44902.2695, "volume": 111700000}, {"date": "2025-09-17", "open": 44751.8398, "high": 45033.3398, "low": 44612.0703, "close": 44790.3789, "volume": 104600000}, {"date": "2025-09-18", "open": 44910.5, "high": 45508.6719, "low": 44815.3984, "close": 45303.4297, "volume": 113700000}, {"date": "2025-09-19", "open": 45634.2891, "high": 45852.75, "low": 44495.4609, "close": 45045.8086, "volume": 208600000}, {"date": "2025-09-22", "open": 45193.7695, "high": 45757.7383, "low": 45193.7695, "close": 45493.6602, "volume": 116600000}, {"date": "2025-09-24", "open": 45484.4102, "high": 45693.2812, "low": 45205.4688, "close": 45630.3086, "volume": 131700000}, {"date": "2025-09-25", "open": 45600.0703, "high": 45824.6914, "low": 45503.3086, "close": 45754.9297, "volume": 127200000}, {"date": "2025-09-26", "open": 45634.1992, "high": 45766.7695, "low": 45354.9883, "close": 45354.9883, "volume": 147500000}, {"date": "2025-09-29", "open": 45113.2891, "high": 45152.6992, "low": 44890.1992, "close": 45043.75, "volume": 130500000}, {"date": "2025-09-30", "open": 45054.9609, "high": 45126.2305, "low": 44733.6016, "close": 44932.6289, "volume": 160600000}, {"date": "2025-10-01", "open": 44831.9492, "high": 44874.4219, "low": 44357.6484, "close": 44550.8516, "volume": 136700000}, {"date": "2025-10-02", "open": 44736.0312, "high": 45125.9609, "low": 44659.2188, "close": 44936.7305, "volume": 131100000}, {"date": "2025-10-03", "open": 45042.5391, "high": 45778.6602, "low": 45042.5391, "close": 45769.5, "volume": 117600000}, {"date": "2025-10-06", "open": 46636.0703, "high": 48150.0391, "low": 46592.9883, "close": 47944.7617, "volume": 178300000}, {"date": "2025-10-07", "open": 48281.1211, "high": 48527.3281, "low": 47904.3789, "close": 47950.8789, "volume": 154200000}, {"date": "2025-10-08", "open": 47925.2188, "high": 48181.1211, "low": 47728.2695, "close": 47734.9883, "volume": 142200000}, {"date": "2025-10-09", "open": 48035.4219, "high": 48597.0781, "low": 47995.2188, "close": 48580.4414, "volume": 138500000}, {"date": "2025-10-10", "open": 48510.7188, "high": 48510.7188, "low": 47962.6094, "close": 48088.8008, "volume": 150700000}, {"date": "2025-10-14", "open": 47446.7305, "high": 47865.6484, "low": 46544.0508, "close": 46847.3203, "volume": 170300000}, {"date": "2025-10-15", "open": 47002.3008, "high": 47774.8281, "low": 46910.8281, "close": 47672.6719, "volume": 118400000}, {"date": "2025-10-16", "open": 48107.4414, "high": 48317.3398, "low": 47937.7188, "close": 48277.7383, "volume": 121100000}, {"date": "2025-10-17", "open": 47820.9688, "high": 48140.8984, "low": 47494.3086, "close": 47582.1484, "volume": 124800000}, {"date": "2025-10-20", "open": 48332.7109, "high": 49185.5, "low": 48254.8281, "close": 49185.5, "volume": 121000000}, {"date": "2025-10-21", "open": 49675.4297, "high": 49945.9492, "low": 49127.1992, "close": 49316.0586, "volume": 124500000}, {"date": "2025-10-22", "open": 49252.0312, "high": 49458.2812, "low": 48613.6992, "close": 49307.7891, "volume": 141100000}, {"date": "2025-10-23", "open": 48866.5781, "high": 48866.5781, "low": 48399.0508, "close": 48641.6094, "volume": 107600000}, {"date": "2025-10-24", "open": 49095.2695, "high": 49435.3086, "low": 48965.7812, "close": 49299.6484, "volume": 109100000}, {"date": "2025-10-27", "open": 49905.8008, "high": 50549.6016, "low": 49838.9805, "close": 50512.3203, "volume": 122100000}, {"date": "2025-10-28", "open": 50357.1484, "high": 50485.8008, "low": 50107.7695, "close": 50219.1797, "volume": 119500000}, {"date": "2025-10-29", "open": 50453.6406, "high": 51412.9688, "low": 50365.6211, "close": 51307.6484, "volume": 129700000}, {"date": "2025-10-30", "open": 51146.2695, "high": 51657.2812, "low": 50972.5586, "close": 51325.6094, "volume": 230900000}, {"date": "2025-10-31", "open": 51629.8008, "high": 52411.3398, "low": 51613.0312, "close": 52411.3398, "volume": 180300000}, {"date": "2025-11-04", "open": 52294.3086, "high": 52636.8711, "low": 51497.1992, "close": 51497.1992, "volume": 190100000}, {"date": "2025-11-05", "open": 51291.3906, "high": 51422.4219, "low": 49073.5781, "close": 50212.2695, "volume": 219700000}, {"date": "2025-11-06", "open": 50792.5508, "high": 51248.2812, "low": 50594.1914, "close": 50883.6797, "volume": 171300000}, {"date": "2025-11-07", "open": 50524.3086, "high": 50642.7891, "low": 49640.5586, "close": 50276.3711, "volume": 146700000}, {"date": "2025-11-10", "open": 50645.2695, "high": 50969.5, "low": 50392.4414, "close": 50911.7617, "volume": 129700000}, {"date": "2025-11-11", "open": 51314.0391, "high": 51513.1602, "low": 50581.1719, "close": 50842.9297, "volume": 125900000}, {"date": "2025-11-12", "open": 50988.5312, "high": 51072.2617, "low": 50537.5, "close": 51063.3086, "volume": 150400000}, {"date": "2025-11-13", "open": 51013.1484, "high": 51338.8906, "low": 50954.2695, "close": 51281.8281, "volume": 135700000}, {"date": "2025-11-14", "open": 50767.7383, "high": 50767.7383, "low": 50246.6016, "close": 50376.5312, "volume": 149300000}, {"date": "2025-11-17", "open": 50282.3906, "high": 50398.1602, "low": 49845.8594, "close": 50323.9102, "volume": 126000000}, {"date": "2025-11-18", "open": 49812.9492, "high": 49971.5508, "low": 48661.5195, "close": 48702.9805, "volume": 137400000}, {"date": "2025-11-19", "open": 48822.8789, "high": 49087.1094, "low": 48235.3008, "close": 48537.6992, "volume": 136500000}, {"date": "2025-11-20", "open": 49129.2891, "high": 50574.8203, "low": 49113.3906, "close": 49823.9414, "volume": 139400000}, {"date": "2025-11-21", "open": 49251.2617, "high": 49459.5898, "low": 48490.0312, "close": 48625.8789, "volume": 212200000}, {"date": "2025-11-25", "open": 49113.8203, "high": 49182.3203, "low": 48511.9492, "close": 48659.5195, "volume": 144500000}, {"date": "2025-11-26", "open": 49012.25, "high": 49749.5898, "low": 48964.1914, "close": 49559.0703, "volume": 134100000}, {"date": "2025-11-27", "open": 49868.7891, "high": 50322.1406, "low": 49865.1719, "close": 50167.1016, "volume": 99300000}, {"date": "2025-11-28", "open": 50218.9609, "high": 50258.25, "low": 49989.5391, "close": 50253.9102, "volume": 98200000}, {"date": "2025-12-01", "open": 50318.5898, "high": 50366.7383, "low": 49215.9609, "close": 49303.2812, "volume": 118200000}, {"date": "2025-12-02", "open": 49494.5781, "high": 49636.7891, "low": 49243.5508, "close": 49303.4492, "volume": 127100000}, {"date": "2025-12-03", "open": 49540.6406, "high": 50138.6016, "low": 49521.2305, "close": 49864.6797, "volume": 119500000}, {"date": "2025-12-04", "open": 49942.9414, "high": 51028.4219, "low": 49910.0586, "close": 51028.4219, "volume": 127300000}, {"date": "2025-12-05", "open": 50530.3398, "high": 50634.8516, "low": 50215.4102, "close": 50491.8711, "volume": 119300000}, {"date": "2025-12-08", "open": 50643.0898, "high": 50678.0508, "low": 50224.6484, "close": 50581.9414, "volume": 104400000}, {"date": "2025-12-09", "open": 50677.3594, "high": 50793.6914, "low": 50417.1094, "close": 50655.1016, "volume": 107100000}, {"date": "2025-12-10", "open": 50878.6602, "high": 51107.7695, "low": 50329.2695, "close": 50602.8008, "volume": 125100000}, {"date": "2025-12-11", "open": 50818.3906, "high": 50875.9805, "low": 49926.2695, "close": 50148.8203, "volume": 109900000}, {"date": "2025-12-12", "open": 50480.2305, "high": 51127.6914, "low": 50457.4219, "close": 50836.5508, "volume": 152200000}, {"date": "2025-12-15", "open": 50352.0898, "high": 50432.1016, "low": 49965.6797, "close": 50168.1094, "volume": 121900000}, {"date": "2025-12-16", "open": 50051.2383, "high": 50051.2383, "low": 49355.8711, "close": 49383.2891, "volume": 124600000}, {"date": "2025-12-17", "open": 49413.1914, "high": 49571.5, "low": 49077.8086, "close": 49512.2812, "volume": 113200000}, {"date": "2025-12-18", "open": 49058.3086, "high": 49169.7891, "low": 48643.7812, "close": 49001.5, "volume": 116200000}, {"date": "2025-12-19", "open": 49387.7109, "high": 49766.9609, "low": 49257.1484, "close": 49507.2109, "volume": 163300000}, {"date": "2025-12-22", "open": 50084.5508, "high": 50590.8789, "low": 49982.1992, "close": 50402.3906, "volume": 112900000}, {"date": "2025-12-23", "open": 50374.4805, "high": 50544.5586, "low": 50264.4219, "close": 50412.8711, "volume": 92700000}, {"date": "2025-12-24", "open": 50475.4805, "high": 50636.9492, "low": 50323.9219, "close": 50344.1016, "volume": 83200000}, {"date": "2025-12-25", "open": 50450.1797, "high": 50510.1094, "low": 50283.7617, "close": 50407.7891, "volume": 58300000}, {"date": "2025-12-26", "open": 50527.1289, "high": 50941.8906, "low": 50527.1289, "close": 50750.3906, "volume": 81100000}, {"date": "2025-12-29", "open": 50691.2188, "high": 50707.2305, "low": 50347.6484, "close": 50526.9219, "volume": 98000000}, {"date": "2025-12-30", "open": 50312.8516, "high": 50534.6406, "low": 50198.9688, "close": 50339.4805, "volume": 93700000}, {"date": "2026-01-05", "open": 51010.2812, "high": 52033.2383, "low": 50995.6719, "close": 51832.8008, "volume": 139400000}, {"date": "2026-01-06", "open": 52157.2188, "high": 52523.7695, "low": 52024.6211, "close": 52518.0781, "volume": 151900000}, {"date": "2026-01-07", "open": 52144.6406, "high": 52404.1094, "low": 51830.3984, "close": 51961.9805, "volume": 138600000}, {"date": "2026-01-08", "open": 51769.8281, "high": 51866.1914, "low": 51052.8281, "close": 51117.2617, "volume": 135400000}, {"date": "2026-01-09", "open": 51367.9805, "high": 51986.9102, "low": 51189.1406, "close": 51939.8906, "volume": 133100000}, {"date": "2026-01-13", "open": 52808.2891, "high": 53814.7891, "low": 52741.6406, "close": 53549.1602, "volume": 168500000}, {"date": "2026-01-14", "open": 53827.2383, "high": 54487.3203, "low": 53792.6797, "close": 54341.2305, "volume": 144500000}, {"date": "2026-01-15", "open": 54039.3984, "high": 54153.6094, "low": 53709.8711, "close": 54110.5, "volume": 150900000}, {"date": "2026-01-16", "open": 54071.2812, "high": 54130.6016, "low": 53706.7891, "close": 53936.1719, "volume": 144300000}, {"date": "2026-01-19", "open": 53390.0508, "high": 53583.5703, "low": 53091.4492, "close": 53583.5703, "volume": 122900000}, {"date": "2026-01-20", "open": 53348.5898, "high": 53408.3516, "low": 52852.8984, "close": 52991.1016, "volume": 126800000}, {"date": "2026-01-21", "open": 52228.0781, "high": 52848.7812, "low": 52194.8086, "close": 52774.6406, "volume": 139000000}, {"date": "2026-01-22", "open": 53327.3906, "high": 53922.5312, "low": 53242.3789, "close": 53688.8906, "volume": 150900000}, {"date": "2026-01-23", "open": 53898.4492, "high": 54050.8398, "low": 53603.6797, "close": 53846.8711, "volume": 129500000}, {"date": "2026-01-26", "open": 53023.2812, "high": 53138.6719, "low": 52656.0, "close": 52885.25, "volume": 138300000}, {"date": "2026-01-27", "open": 52847.5391, "high": 53334.0312, "low": 52637.6602, "close": 53333.5391, "volume": 136700000}, {"date": "2026-01-28", "open": 53023.8789, "high": 53507.1797, "low": 52788.1016, "close": 53358.7109, "volume": 149800000}, {"date": "2026-01-29", "open": 53301.2617, "high": 53742.6914, "low": 52990.4219, "close": 53375.6016, "volume": 154500000}, {"date": "2026-01-30", "open": 53434.7305, "high": 53590.2383, "low": 52923.1211, "close": 53322.8516, "volume": 156800000}, {"date": "2026-02-02", "open": 53575.3711, "high": 54247.1484, "low": 52655.1797, "close": 52655.1797, "volume": 153800000}, {"date": "2026-02-03", "open": 53332.1797, "high": 54782.8281, "low": 53307.7383, "close": 54720.6602, "volume": 156900000}, {"date": "2026-02-04", "open": 54250.4102, "high": 54459.4102, "low": 53965.5117, "close": 54293.3594, "volume": 186300000}, {"date": "2026-02-05", "open": 54289.0508, "high": 54459.0781, "low": 53653.0586, "close": 53818.0391, "volume": 213200000}, {"date": "2026-02-06", "open": 53435.3711, "high": 54253.6797, "low": 52950.1484, "close": 54253.6797, "volume": 188900000}, {"date": "2026-02-09", "open": 55130.6289, "high": 57337.0703, "low": 55018.5703, "close": 56363.9414, "volume": 205000000}, {"date": "2026-02-10", "open": 56812.0117, "high": 57960.1914, "low": 56812.0117, "close": 57650.5391, "volume": 191500000}, {"date": "2026-02-12", "open": 57864.7383, "high": 58015.0781, "low": 57554.4883, "close": 57639.8398, "volume": 190000000}, {"date": "2026-02-13", "open": 57197.3281, "high": 57407.25, "low": 56652.4805, "close": 56941.9688, "volume": 210000000}, {"date": "2026-02-16", "open": 57212.9688, "high": 57219.1992, "low": 56748.1797, "close": 56806.4102, "volume": 137400000}, {"date": "2026-02-17", "open": 56819.3711, "high": 56926.2383, "low": 56135.1211, "close": 56566.4883, "volume": 132600000}, {"date": "2026-02-18", "open": 56734.2695, "high": 57392.8906, "low": 56734.2695, "close": 57143.8398, "volume": 130100000}, {"date": "2026-02-19", "open": 57472.0781, "high": 57709.8203, "low": 57362.0117, "close": 57467.8281, "volume": 135500000}, {"date": "2026-02-20", "open": 56979.7383, "high": 56979.7383, "low": 56680.8789, "close": 56825.6992, "volume": 152400000}, {"date": "2026-02-24", "open": 56764.1406, "high": 57421.6719, "low": 56732.9297, "close": 57321.0898, "volume": 157800000}, {"date": "2026-02-25", "open": 57695.3984, "high": 58875.1719, "low": 57656.5, "close": 58583.1211, "volume": 167100000}, {"date": "2026-02-26", "open": 58995.3906, "high": 59332.4297, "low": 58577.8398, "close": 58753.3906, "volume": 155300000}, {"date": "2026-02-27", "open": 58606.0312, "high": 58924.1719, "low": 58130.5703, "close": 58850.2695, "volume": 192400000}, {"date": "2026-03-02", "open": 57976.1992, "high": 58365.2109, "low": 57285.7695, "close": 58057.2383, "volume": 162400000}, {"date": "2026-03-03", "open": 57729.8008, "high": 57890.7617, "low": 56091.5391, "close": 56279.0508, "volume": 179000000}, {"date": "2026-03-04", "open": 55470.8789, "high": 55701.2695, "low": 53618.1992, "close": 54245.5391, "volume": 214000000}, {"date": "2026-03-05", "open": 55204.1602, "high": 56619.9805, "low": 54910.3281, "close": 55278.0586, "volume": 184900000}, {"date": "2026-03-06", "open": 54674.6016, "high": 55686.5586, "low": 54513.4297, "close": 55620.8398, "volume": 142800000}, {"date": "2026-03-09", "open": 54608.6289, "high": 54608.6289, "low": 51407.6602, "close": 52728.7188, "volume": 219400000}, {"date": "2026-03-10", "open": 53524.0898, "high": 54694.8906, "low": 53487.1914, "close": 54248.3906, "volume": 162500000}, {"date": "2026-03-11", "open": 54917.9297, "high": 55745.3789, "low": 54882.5781, "close": 55025.3711, "volume": 146900000}, {"date": "2026-03-12", "open": 54387.8984, "high": 54733.0781, "low": 53796.0117, "close": 54452.9609, "volume": 154100000}, {"date": "2026-03-13", "open": 53587.3008, "high": 54065.3086, "low": 53286.6914, "close": 53819.6094, "volume": 169000000}, {"date": "2026-03-16", "open": 53627.8594, "high": 53983.5117, "low": 53113.9492, "close": 53751.1484, "volume": 128800000}, {"date": "2026-03-17", "open": 54286.2617, "high": 54388.4297, "low": 53482.5898, "close": 53700.3906, "volume": 117800000}, {"date": "2026-03-18", "open": 54148.8398, "high": 55239.3984, "low": 54148.8398, "close": 55239.3984, "volume": 136700000}, {"date": "2026-03-19", "open": 54287.8008, "high": 54333.0195, "low": 53190.1797, "close": 53372.5312, "volume": 200600000}, {"date": "2026-03-23", "open": 52468.7188, "high": 52479.8086, "low": 50688.7617, "close": 51515.4883, "volume": 177100000}, {"date": "2026-03-24", "open": 52380.6016, "high": 52701.9883, "low": 51645.1484, "close": 52252.2812, "volume": 131800000}, {"date": "2026-03-25", "open": 53015.8008, "high": 54022.8789, "low": 53015.8008, "close": 53749.6211, "volume": 133700000}, {"date": "2026-03-26", "open": 53855.1289, "high": 54175.8008, "low": 53176.7695, "close": 53603.6484, "volume": 124500000}, {"date": "2026-03-27", "open": 53239.5898, "high": 53714.8984, "low": 52516.9219, "close": 53373.0703, "volume": 170500000}, {"date": "2026-03-30", "open": 52054.6797, "high": 52054.6797, "low": 50566.9883, "close": 51885.8516, "volume": 183100000}, {"date": "2026-03-31", "open": 51382.5312, "high": 52169.0117, "low": 50558.9102, "close": 51063.7188, "volume": 174500000}, {"date": "2026-04-01", "open": 51959.4688, "high": 53739.6797, "low": 51902.8398, "close": 53739.6797, "volume": 165900000}, {"date": "2026-04-02", "open": 54066.8281, "high": 54258.4805, "low": 52273.0703, "close": 52463.2695, "volume": 163200000}, {"date": "2026-04-03", "open": 53039.3984, "high": 53426.3086, "low": 52925.1016, "close": 53123.4883, "volume": 104100000}, {"date": "2026-04-06", "open": 53205.9297, "high": 54039.3398, "low": 53205.9297, "close": 53413.6797, "volume": 102500000}, {"date": "2026-04-07", "open": 53571.2812, "high": 53916.3516, "low": 53156.9414, "close": 53429.5586, "volume": 118800000}, {"date": "2026-04-08", "open": 54386.6484, "high": 56424.6289, "low": 54380.0195, "close": 56308.4219, "volume": 186700000}, {"date": "2026-04-09", "open": 56199.8594, "high": 56406.4883, "low": 55763.0508, "close": 55895.3203, "volume": 154700000}, {"date": "2026-04-10", "open": 56265.7695, "high": 57012.7695, "low": 56251.1797, "close": 56924.1094, "volume": 165000000}, {"date": "2026-04-13", "open": 56421.4609, "high": 56765.7188, "low": 56232.7812, "close": 56502.7695, "volume": 135300000}, {"date": "2026-04-14", "open": 57085.6484, "high": 57979.8203, "low": 57010.1797, "close": 57877.3906, "volume": 143700000}, {"date": "2026-04-15", "open": 58265.1797, "high": 58585.9492, "low": 58028.75, "close": 58134.2383, "volume": 161000000}, {"date": "2026-04-16", "open": 58479.8281, "high": 59688.1016, "low": 58428.1914, "close": 59518.3398, "volume": 150300000}, {"date": "2026-04-17", "open": 59255.0898, "high": 59381.25, "low": 58475.8984, "close": 58475.8984, "volume": 140000000}, {"date": "2026-04-20", "open": 58821.1602, "high": 59169.1289, "low": 58687.9609, "close": 58824.8906, "volume": 121500000}, {"date": "2026-04-21", "open": 59031.5117, "high": 59611.9102, "low": 59004.7617, "close": 59349.1719, "volume": 129500000}, {"date": "2026-04-22", "open": 59104.1094, "high": 59708.2109, "low": 59005.4805, "close": 59585.8594, "volume": 145700000}, {"date": "2026-04-23", "open": 59758.6406, "high": 60013.9805, "low": 58621.4805, "close": 59140.2305, "volume": 165300000}, {"date": "2026-04-24", "open": 59407.4414, "high": 59763.6797, "low": 59225.3711, "close": 59716.1797, "volume": 141400000}, {"date": "2026-04-27", "open": 59880.7109, "high": 60903.9492, "low": 59608.6289, "close": 60537.3594, "volume": 148900000}, {"date": "2026-04-28", "open": 60531.7812, "high": 60634.6602, "low": 59701.8398, "close": 59917.4609, "volume": 174500000}, {"date": "2026-04-30", "open": 59484.7109, "high": 59560.5703, "low": 58928.1992, "close": 59284.9219, "volume": 201600000}, {"date": "2026-05-01", "open": 59379.1211, "high": 59706.6992, "low": 59263.5, "close": 59513.1211, "volume": 150700000}, {"date": "2026-05-07", "open": 60241.3086, "high": 63091.1406, "low": 60213.0195, "close": 62833.8398, "volume": 230800000}, {"date": "2026-05-08", "open": 62654.0117, "high": 62724.3594, "low": 62137.9492, "close": 62713.6484, "volume": 213500000}], "ma5": [null, null, null, null, 37677.5219, 37842.8984, 37892.9766, 37863.85, 37733.0953, 37567.2656, 37413.3375, 37294.6875, 37301.268, 37340.1922, 37424.8758, 37714.2977, 37875.2242, 37863.0524, 37807.5922, 37812.6024, 37636.9039, 37592.2055, 37715.7852, 37868.7258, 38003.4742, 38127.1945, 38145.7226, 38190.2742, 38255.3195, 38348.1109, 38411.1609, 38524.957, 38533.5094, 38584.2734, 38595.6578, 38814.9055, 39164.4172, 39591.0773, 39830.2312, 39994.3133, 40034.5773, 39966.5953, 39786.6531, 39727.1492, 39738.9094, 39711.0016, 39662.7617, 39637.15, 39634.9922, 39603.4156, 39654.382, 39704.268, 39767.3281, 40065.9883, 40498.5766, 40809.5844, 41045.4164, 41225.3422, 41122.018, 40970.7141, 40839.3883, 40697.8742, 40672.8719, 40700.9039, 40698.7695, 40902.9453, 41388.4399, 41933.4664, 42304.3469, 42768.1789, 43146.9445, 43312.568, 43235.3438, 43227.5258, 43078.5219, 42897.2242, 42666.8461, 42593.1898, 42636.9133, 42653.9492, 42530.143, 42513.361, 42397.0852, 42347.3813, 42407.4375, 42698.4414, 42928.2016, 43307.9578, 43666.4039, 44016.2781, 44267.9703, 44534.1883, 44827.3398, 44962.0016, 45107.1094, 45252.7172, 45445.6274, 45455.9391, 45455.5274, 45343.3211, 45127.4297, 44963.7899, 45046.6922, 45626.8945, 46230.5445, 46867.3719, 47596.1141, 48059.9742, 47840.4859, 47784.8445, 47893.3945, 47693.7359, 47913.0758, 48406.8234, 48733.8469, 48806.6211, 49150.1211, 49415.4852, 49596.1094, 49996.0812, 50532.8812, 51155.2195, 51352.1953, 51350.8133, 51266.0195, 51056.1719, 50756.2562, 50625.4023, 50795.6102, 50875.2398, 50895.2719, 50777.7016, 50349.7117, 49844.5898, 49553.0125, 49202.882, 48870.0039, 49041.2219, 49367.1023, 49453.0961, 49588.5766, 49717.3625, 49778.4844, 49950.7484, 49998.3406, 50254.0727, 50524.4031, 50672.0274, 50496.107, 50565.043, 50482.2766, 50227.9141, 50009.8102, 49780.3461, 49514.4781, 49561.3344, 49767.2508, 49933.6148, 50214.8727, 50463.5086, 50488.4149, 50473.7367, 50771.4766, 51193.5344, 51435.8524, 51553.9203, 51874.0023, 52217.2742, 52581.9047, 53011.6086, 53575.3906, 53904.1266, 53792.5149, 53479.1969, 53394.875, 53377.0148, 53237.3508, 53305.8383, 53422.6523, 53359.9945, 53255.1906, 53209.1766, 53486.6008, 53673.5305, 53762.018, 53948.1836, 54689.936, 55275.9117, 55945.2078, 56569.9938, 57080.5399, 57121.0492, 57019.7094, 56985.307, 56962.0531, 57064.989, 57468.3156, 57790.2258, 58066.714, 58313.0219, 58104.6141, 57237.0977, 56542.0313, 55896.1453, 54830.4414, 54424.3094, 54580.2758, 54415.2562, 54055.0102, 54259.4961, 54149.8961, 54192.7015, 53976.6156, 53515.7914, 53216.0179, 53225.864, 52898.714, 52898.8219, 52972.8945, 52735.182, 52733.1938, 52505.118, 52455.2016, 52760.7672, 53233.9352, 53747.6836, 54434.0938, 55194.218, 55812.0359, 56701.6023, 57066.7656, 57791.3695, 58101.7273, 58566.1515, 58860.5078, 59150.832, 59075.2102, 59323.2664, 59665.7602, 59779.418, 59719.2305, 59793.8086, 60417.3406, 60852.5984], "ma25": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 37697.148, 37746.9264, 37760.1633, 37786.8459, 37800.985, 37831.2658, 37860.5789, 37886.5594, 37920.7778, 37971.2206, 38036.9442, 38140.8925, 38260.5053, 38378.7397, 38469.2284, 38550.8317, 38604.9484, 38678.7795, 38763.4598, 38853.1398, 38936.0931, 39019.768, 39092.8908, 39147.7328, 39206.3931, 39256.0814, 39325.2055, 39404.5998, 39463.1436, 39568.5269, 39686.1745, 39804.8902, 39908.6917, 40001.5102, 40076.0758, 40161.1858, 40209.7867, 40215.3831, 40217.8691, 40250.2103, 40302.077, 40383.4603, 40499.752, 40647.2317, 40765.6498, 40907.9309, 41070.6489, 41229.7133, 41366.8705, 41484.1566, 41602.9522, 41719.2174, 41822.2289, 41932.0428, 41998.3416, 42034.0267, 42063.3291, 42115.8178, 42166.3914, 42243.4142, 42321.3714, 42435.1397, 42561.8833, 42693.4086, 42836.5142, 42984.8731, 43108.1447, 43191.033, 43272.1833, 43368.0452, 43452.6592, 43529.2992, 43617.6449, 43716.3024, 43813.6455, 43905.6191, 43975.3403, 44077.0336, 44207.0028, 44411.6417, 44620.9381, 44842.7861, 45093.5842, 45339.5806, 45510.2627, 45696.4195, 45881.7767, 46046.6911, 46260.6042, 46458.3466, 46639.9333, 46789.5069, 46969.8777, 47178.2333, 47385.1681, 47617.7277, 47845.5397, 48111.7961, 48357.4845, 48564.2253, 48802.2673, 49031.2881, 49270.2894, 49473.2266, 49597.9684, 49731.2064, 49836.8681, 49906.6069, 49931.1741, 49998.7892, 50084.84, 50098.7656, 50141.8605, 50156.8033, 50190.845, 50228.6898, 50255.1567, 50255.3087, 50229.4031, 50261.7728, 50229.1417, 50199.395, 50129.1455, 50093.3695, 50090.8316, 50088.9464, 50084.6159, 50023.477, 49970.2511, 49887.7788, 49816.7941, 49817.8284, 49821.3869, 49887.0317, 49961.8353, 49998.8933, 50074.935, 50142.1334, 50233.0827, 50327.1217, 50395.4445, 50468.0038, 50573.4614, 50720.8406, 50853.353, 50998.0981, 51132.2674, 51249.4061, 51344.9381, 51449.9709, 51564.0645, 51711.215, 51851.2934, 52004.1438, 52178.4322, 52333.1678, 52449.9863, 52539.6786, 52714.7409, 52870.1638, 52992.8697, 53141.94, 53382.9184, 53615.628, 53820.4984, 54019.698, 54247.2639, 54432.3278, 54576.115, 54701.1789, 54809.7869, 54945.1836, 55145.1656, 55375.6572, 55618.6823, 55793.4163, 55890.7034, 55945.115, 56022.8958, 56113.3809, 56087.5056, 56124.5272, 56219.3348, 56208.6269, 56189.6769, 56187.0012, 56164.8697, 56119.888, 55948.7676, 55703.7936, 55516.2061, 55393.9345, 55275.4209, 55124.5901, 54901.3111, 54670.8319, 54527.5755, 54282.7814, 54057.5853, 53840.1217, 53655.0145, 53656.1894, 53722.1806, 53788.0227, 53823.2998, 54029.2467, 54184.6806, 54364.3994, 54525.3169, 54725.5281, 54949.4491, 55184.8678, 55340.9011, 55594.647, 55955.5219, 56262.1291, 56483.5411, 56719.92, 57098.3508, 57531.4627], "ma75": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 39518.7272, 39597.1164, 39662.3307, 39727.3441, 39789.2845, 39850.489, 39909.5994, 39970.3563, 40029.5598, 40096.9035, 40173.1671, 40261.9396, 40345.9239, 40430.0058, 40518.651, 40612.594, 40698.8511, 40789.8548, 40894.2916, 40995.6116, 41098.8944, 41206.572, 41313.4163, 41410.3019, 41501.3984, 41588.2176, 41673.2544, 41767.9541, 41867.3964, 41992.8367, 42113.7131, 42237.0018, 42372.6979, 42502.4941, 42609.9176, 42726.3256, 42842.2344, 42941.3192, 43057.294, 43181.6904, 43308.9612, 43427.0373, 43553.5542, 43699.2161, 43839.621, 43992.7726, 44148.4959, 44319.7181, 44480.2191, 44620.6758, 44770.2795, 44908.6153, 45056.5173, 45204.0907, 45335.9839, 45462.0571, 45580.9944, 45705.3363, 45812.382, 45917.4887, 46034.2103, 46138.5607, 46250.145, 46370.272, 46495.2353, 46617.8321, 46717.6028, 46805.4065, 46893.2732, 47004.9954, 47099.8429, 47191.4113, 47286.1955, 47389.0521, 47489.5675, 47598.9443, 47697.0815, 47790.2667, 47883.4935, 47965.7963, 48056.3129, 48165.8276, 48273.8593, 48385.9288, 48490.2957, 48593.3843, 48685.1591, 48776.895, 48883.4967, 48992.1044, 49088.0226, 49170.8891, 49266.2159, 49376.159, 49500.098, 49614.9892, 49725.734, 49830.1159, 49931.9307, 50035.0093, 50151.7594, 50275.7064, 50381.6866, 50482.5405, 50554.7265, 50627.0561, 50701.5609, 50755.8908, 50844.3156, 50943.5961, 51025.5343, 51105.2135, 51222.3041, 51335.1713, 51446.1551, 51547.9441, 51656.8081, 51753.6993, 51842.1196, 51938.7682, 52012.3422, 52092.282, 52174.5724, 52271.3216, 52386.495, 52482.1424, 52562.1781, 52606.6285, 52665.7635, 52726.5306, 52745.8225, 52797.4473, 52860.1334, 52936.7998, 53007.2253, 53059.5881, 53127.2482, 53214.98, 53265.8261, 53283.8046, 53310.4495, 53369.7341, 53427.0701, 53473.8486, 53485.281, 53492.9056, 53535.0088, 53559.1177, 53592.7269, 53636.2583, 53670.8318, 53752.7026, 53839.5297, 53938.3541, 54038.371, 54149.9734, 54253.0647, 54374.4709, 54482.8949, 54595.1229, 54709.7733, 54830.5592, 54947.9025, 55053.0142, 55159.938, 55266.011, 55374.9132, 55475.8896, 55599.6853, 55711.3176], "updated_at": "2026-05-10T21:55:15+09:00"}}</script>
+
+  <!-- News markers for chart -->
+  <script type="application/json" id="news-markers-json">[]</script>
+
+  <!-- News timeline data -->
+  <script type="application/json" id="news-timeline-json">[]</script>
+
+  <script>
+    // ── Market Chart & History ──
+    (function() {
+      const raw = document.getElementById('market-data-json');
+      if (!raw) return;
+      let MARKET;
+      try { MARKET = JSON.parse(raw.textContent); } catch(e) { return; }
+      const nk = MARKET.nikkei;
+      if (!nk || !nk.ohlc || !nk.ohlc.length) return;
+
+      // ── Helpers ──
+      function fmtNum(v, decimals=2) {
+        if (v == null) return '—';
+        return Number(v).toLocaleString('ja-JP', {minimumFractionDigits: decimals, maximumFractionDigits: decimals});
+      }
+      function fmtVol(v) {
+        if (v == null || v === 0) return '—';
+        const n = Number(v);
+        if (n >= 1e8) return (n / 1e8).toFixed(1) + '億';
+        if (n >= 1e4) return (n / 1e4).toFixed(0) + '万';
+        return n.toLocaleString('ja-JP');
+      }
+      function cutoffDate(days) {
+        if (!days) return null;
+        const d = new Date();
+        d.setDate(d.getDate() - days);
+        return d.toISOString().slice(0, 10);
+      }
+
+      // ── Chart ──
+      const isDark = () =>
+        (document.body.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
+
+      function chartColors() {
+        return isDark()
+          ? { bg: 'transparent', text: '#8b949e', grid: '#30363d', border: '#30363d', up: '#22c55e', down: '#ef4444' }
+          : { bg: '#ffffff', text: '#656d76', grid: '#e5e7eb', border: '#d0d7de', up: '#16a34a', down: '#dc2626' };
+      }
+
+      let _chart = null, _candleSeries = null, _volSeries = null;
+      let _ma5Series = null, _ma25Series = null, _ma75Series = null;
+      let _currentDays = 30;
+
+      // ── News markers (loaded from embedded JSON) ──
+      let _newsMarkers = [];
+      (function() {
+        const el = document.getElementById('news-markers-json');
+        if (!el) return;
+        try { _newsMarkers = JSON.parse(el.textContent) || []; } catch(e) {}
+      })();
+
+      function initChart() {
+        const container = document.getElementById('nikkei-chart');
+        if (!container || typeof LightweightCharts === 'undefined') return;
+
+        const c = chartColors();
+        _chart = LightweightCharts.createChart(container, {
+          layout: { background: { type: 'solid', color: c.bg }, textColor: c.text },
+          grid: { vertLines: { color: c.grid }, horzLines: { color: c.grid } },
+          crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+          rightPriceScale: { borderColor: c.border },
+          timeScale: { borderColor: c.border, timeVisible: true },
+          handleScroll: true,
+          handleScale: true,
+        });
+
+        // Volume pane (bottom sub-chart)
+        _volSeries = _chart.addHistogramSeries({
+          color: 'rgba(100,149,237,0.4)',
+          priceFormat: { type: 'volume' },
+          priceScaleId: 'volume',
+          scaleMargins: { top: 0.8, bottom: 0 },
+        });
+
+        // Candles
+        _candleSeries = _chart.addCandlestickSeries({
+          upColor: c.up, downColor: c.down,
+          borderUpColor: c.up, borderDownColor: c.down,
+          wickUpColor: c.up, wickDownColor: c.down,
+          priceScaleId: 'right',
+          scaleMargins: { top: 0.05, bottom: 0.25 },
+        });
+
+        // MA lines
+        _ma5Series  = _chart.addLineSeries({ color: '#f59e0b', lineWidth: 1, title: 'MA5',  priceScaleId: 'right', crosshairMarkerVisible: false, lastValueVisible: false });
+        _ma25Series = _chart.addLineSeries({ color: '#3b82f6', lineWidth: 1, title: 'MA25', priceScaleId: 'right', crosshairMarkerVisible: false, lastValueVisible: false });
+        _ma75Series = _chart.addLineSeries({ color: '#a855f7', lineWidth: 1, title: 'MA75', priceScaleId: 'right', crosshairMarkerVisible: false, lastValueVisible: false });
+
+        renderChartData(_currentDays);
+
+        // Chart click → scroll to timeline day
+        _chart.subscribeClick(function(param) {
+          if (!param.time) return;
+          const entry = document.querySelector(
+            `.timeline-entry[data-date="${param.time}"]`
+          );
+          if (entry) {
+            entry.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (!entry.classList.contains('open')) {
+              entry.classList.add('open');
+            }
+          }
+        });
+
+        // Resize
+        const ro = new ResizeObserver(() => {
+          if (_chart) _chart.applyOptions({ width: container.clientWidth });
+        });
+        ro.observe(container);
+      }
+
+      function renderChartData(days) {
+        if (!_chart) return;
+        const cutoff = cutoffDate(days);
+        const filtered = cutoff ? nk.ohlc.filter(r => r.date >= cutoff) : nk.ohlc;
+
+        const candles = filtered.map(r => ({
+          time: r.date,
+          open: r.open, high: r.high, low: r.low, close: r.close,
+        }));
+        const vols = filtered.map(r => ({
+          time: r.date,
+          value: r.volume || 0,
+          color: (r.close >= r.open) ? 'rgba(34,197,94,0.4)' : 'rgba(239,68,68,0.4)',
+        }));
+
+        // MA lines (align indices to filtered ohlc)
+        function buildMa(maArr, field) {
+          const out = [];
+          nk.ohlc.forEach((r, i) => {
+            if (cutoff && r.date < cutoff) return;
+            const v = maArr[i];
+            if (v != null) out.push({ time: r.date, value: v });
+          });
+          return out;
+        }
+
+        _candleSeries.setData(candles);
+        _volSeries.setData(vols);
+        _ma5Series.setData(buildMa(nk.ma5 || [], 'ma5'));
+        _ma25Series.setData(buildMa(nk.ma25 || [], 'ma25'));
+        _ma75Series.setData(buildMa(nk.ma75 || [], 'ma75'));
+
+        // ── News markers ──
+        if (_newsMarkers.length && _candleSeries) {
+          const cutoffStr = cutoff || '1900-01-01';
+          const markers = _newsMarkers
+            .filter(m => m.date >= cutoffStr)
+            .sort((a, b) => a.date < b.date ? -1 : 1)
+            .map(m => {
+              const isBull = m.impact === '強気';
+              const isBear = m.impact === '弱気';
+              return {
+                time: m.date,
+                position: isBull ? 'belowBar' : 'aboveBar',
+                color: isBull ? '#22c55e' : isBear ? '#ef4444' : '#8b949e',
+                shape: isBull ? 'arrowUp' : isBear ? 'arrowDown' : 'circle',
+                text: (m.headline || '').slice(0, 13),
+                size: m.importance >= 5 ? 2 : 1,
+              };
+            });
+          try { _candleSeries.setMarkers(markers); } catch(e) {}
+        }
+
+        if (filtered.length > 0) {
+          _chart.timeScale().fitContent();
+        }
+      }
+
+      window.setChartPeriod = function(btn, days) {
+        document.querySelectorAll('.chart-period-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        _currentDays = days;
+        renderChartData(days);
+      };
+
+      // Re-apply chart colors on theme toggle
+      const _origToggle = window.toggleTheme;
+      window.toggleTheme = function() {
+        _origToggle && _origToggle();
+        if (_chart) {
+          const c = chartColors();
+          _chart.applyOptions({
+            layout: { background: { type: 'solid', color: c.bg }, textColor: c.text },
+            grid: { vertLines: { color: c.grid }, horzLines: { color: c.grid } },
+          });
+        }
+      };
+
+      // ── History table ──
+      let _historyDays = 30;
+
+      function renderHistory(days) {
+        const tbody = document.getElementById('history-tbody');
+        if (!tbody) return;
+        const cutoff = cutoffDate(days);
+        // reversed (newest first)
+        const rows = [...nk.ohlc].reverse().filter(r => !cutoff || r.date >= cutoff);
+
+        // Pre-compute previous close map for change calculation
+        const dateIndex = {};
+        nk.ohlc.forEach((r, i) => { dateIndex[r.date] = i; });
+
+        tbody.innerHTML = rows.map(r => {
+          const idx = dateIndex[r.date];
+          const prev = idx > 0 ? nk.ohlc[idx - 1].close : null;
+          const chg = (r.close != null && prev != null) ? r.close - prev : null;
+          const chgPct = (chg != null && prev) ? chg / prev * 100 : null;
+          const cls = chg == null ? '' : chg > 0 ? 'up' : chg < 0 ? 'down' : '';
+          const arrow = chg == null ? '—' : chg > 0 ? '▲' : chg < 0 ? '▼' : '—';
+          const dDisplay = r.date.replace(/-/g, '/');
+          return `<tr>
+            <td>${dDisplay}</td>
+            <td>${fmtNum(r.close)}</td>
+            <td class="${cls}">${chg != null ? arrow + fmtNum(Math.abs(chg)) : '—'}</td>
+            <td class="${cls}">${chgPct != null ? (chgPct >= 0 ? '+' : '') + chgPct.toFixed(2) + '%' : '—'}</td>
+            <td class="col-volume">${fmtVol(r.volume)}</td>
+          </tr>`;
+        }).join('');
+      }
+
+      window.setHistoryPeriod = function(btn, days) {
+        document.querySelectorAll('.history-period-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        _historyDays = days;
+        renderHistory(days);
+      };
+
+      window.downloadHistoryCsv = function() {
+        const cutoff = cutoffDate(_historyDays);
+        const rows = [...nk.ohlc].reverse().filter(r => !cutoff || r.date >= cutoff);
+        const dateIndex = {};
+        nk.ohlc.forEach((r, i) => { dateIndex[r.date] = i; });
+
+        const header = 'date,open,high,low,close,volume,change,change_percent\n';
+        const body = rows.map(r => {
+          const idx = dateIndex[r.date];
+          const prev = idx > 0 ? nk.ohlc[idx - 1].close : null;
+          const chg = (r.close != null && prev != null) ? (r.close - prev).toFixed(2) : '';
+          const chgPct = (chg !== '' && prev) ? ((r.close - prev) / prev * 100).toFixed(4) : '';
+          return [r.date, r.open??'', r.high??'', r.low??'', r.close??'', r.volume??'', chg, chgPct].join(',');
+        }).join('\n');
+        const blob = new Blob([header + body], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `nikkei_history.csv`; a.click();
+        URL.revokeObjectURL(url);
+      };
+
+      // Init on load
+      document.addEventListener('DOMContentLoaded', function() {
+        initChart();
+        renderHistory(30);
+      });
+      // Also try immediately in case DOMContentLoaded already fired
+      if (document.readyState !== 'loading') {
+        initChart();
+        renderHistory(30);
+      }
+    })();
+  </script>
+
+  <!-- S&P500 Chart -->
+  <script>
+    (function() {
+      const raw = document.getElementById('market-data-json');
+      if (!raw) return;
+      let MARKET;
+      try { MARKET = JSON.parse(raw.textContent); } catch(e) { return; }
+      const sp = MARKET.sp500;
+      if (!sp || !sp.ohlc || !sp.ohlc.length) return;
+
+      function cutoffDate(days) {
+        if (!days) return null;
+        const d = new Date();
+        d.setDate(d.getDate() - days);
+        return d.toISOString().slice(0, 10);
+      }
+      const isDark = () =>
+        (document.body.getAttribute('data-theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
+      function spColors() {
+        return isDark()
+          ? { bg: 'transparent', text: '#8b949e', grid: '#30363d', border: '#30363d', up: '#22c55e', down: '#ef4444' }
+          : { bg: '#ffffff', text: '#656d76', grid: '#e5e7eb', border: '#d0d7de', up: '#16a34a', down: '#dc2626' };
+      }
+
+      let _spChart = null, _spCandle = null, _spVol = null;
+      let _spDays = 30;
+
+      function initSP500Chart() {
+        const container = document.getElementById('sp500-chart');
+        if (!container || typeof LightweightCharts === 'undefined') return;
+        const c = spColors();
+        _spChart = LightweightCharts.createChart(container, {
+          layout: { background: { type: 'solid', color: c.bg }, textColor: c.text },
+          grid: { vertLines: { color: c.grid }, horzLines: { color: c.grid } },
+          crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+          rightPriceScale: { borderColor: c.border },
+          timeScale: { borderColor: c.border, timeVisible: true },
+          handleScroll: true, handleScale: true,
+        });
+        _spVol = _spChart.addHistogramSeries({
+          color: 'rgba(100,149,237,0.4)', priceFormat: { type: 'volume' },
+          priceScaleId: 'volume', scaleMargins: { top: 0.8, bottom: 0 },
+        });
+        _spCandle = _spChart.addCandlestickSeries({
+          upColor: c.up, downColor: c.down,
+          borderUpColor: c.up, borderDownColor: c.down,
+          wickUpColor: c.up, wickDownColor: c.down,
+          priceScaleId: 'right', scaleMargins: { top: 0.05, bottom: 0.25 },
+        });
+        renderSP500Data(_spDays);
+        const ro = new ResizeObserver(() => {
+          if (_spChart) _spChart.applyOptions({ width: container.clientWidth });
+        });
+        ro.observe(container);
+      }
+
+      function renderSP500Data(days) {
+        if (!_spChart) return;
+        const cutoff = cutoffDate(days);
+        const filtered = cutoff ? sp.ohlc.filter(r => r.date >= cutoff) : sp.ohlc;
+        _spCandle.setData(filtered.map(r => ({
+          time: r.date, open: r.open, high: r.high, low: r.low, close: r.close,
+        })));
+        _spVol.setData(filtered.map(r => ({
+          time: r.date, value: r.volume || 0,
+          color: (r.close >= r.open) ? 'rgba(34,197,94,0.4)' : 'rgba(239,68,68,0.4)',
+        })));
+        if (filtered.length > 0) _spChart.timeScale().fitContent();
+      }
+
+      window.setSP500Period = function(btn, days) {
+        document.querySelectorAll('#sp500-period-tabs .chart-period-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        _spDays = days;
+        renderSP500Data(days);
+      };
+
+      // Initialize when S&P500 hero becomes visible
+      window._initSP500Chart = initSP500Chart;
+    })();
+  </script>
+
+  <!-- Index hero switcher -->
+  <script>
+    window.switchHeroIndex = function(btn, idx) {
+      document.querySelectorAll('.idx-sel-btn').forEach(b => b.classList.toggle('active', b.dataset.idx === idx));
+      const nikkeiEl = document.getElementById('market-nikkei');
+      const sp500El  = document.getElementById('market-sp500');
+      if (idx === 'nikkei') {
+        if (nikkeiEl) nikkeiEl.style.display = '';
+        if (sp500El)  sp500El.style.display  = 'none';
+      } else {
+        if (nikkeiEl) nikkeiEl.style.display = 'none';
+        if (sp500El) {
+          sp500El.style.display = '';
+          if (window._initSP500Chart) { window._initSP500Chart(); window._initSP500Chart = null; }
+        }
+      }
+    };
+  </script>
+
+  <script>
+    // ── Glossary data (embedded) ──
+    const GLOSSARY = {};
+
+    // ── Theme ──
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const btn = document.getElementById('theme-toggle');
+      if (saved) {
+        document.body.setAttribute('data-theme', saved);
+        btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+      } else {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        btn.textContent = isDark ? '☀️' : '🌙';
+      }
+    })();
+    function toggleTheme() {
+      const cur = document.body.getAttribute('data-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', next);
+      document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', next);
+    }
+
+    // ── Font size ──
+    (function() {
+      const saved = localStorage.getItem('font_size') || 'm';
+      setFontInternal(saved);
+    })();
+    function setFont(size) {
+      setFontInternal(size);
+      localStorage.setItem('font_size', size);
+    }
+    function setFontInternal(size) {
+      document.body.classList.remove('font-s', 'font-m', 'font-l');
+      document.body.classList.add('font-' + size);
+      ['s','m','l'].forEach(s => {
+        document.getElementById('font-' + s)?.classList.toggle('active', s === size);
+      });
+    }
+
+    // ── Importance filter ──
+    const FILTER_KEY = 'finance_filter';
+    function setFilter(mode) {
+      localStorage.setItem(FILTER_KEY, mode);
+      document.getElementById('filter-all').classList.toggle('active', mode === 'all');
+      document.getElementById('filter-4up').classList.toggle('active', mode === '4up');
+      document.querySelectorAll('.card, .card-v2').forEach(card => {
+        if (mode === '4up') {
+          card.classList.toggle('hidden-by-filter', parseInt(card.dataset.importance || '3') < 4);
+        } else {
+          card.classList.remove('hidden-by-filter');
+        }
+      });
+      document.querySelectorAll('.cat-section').forEach(sec => {
+        const vis = sec.querySelectorAll('.card:not(.hidden-by-filter):not(.hidden-by-cat), .card-v2:not(.hidden-by-filter):not(.hidden-by-cat)').length > 0;
+        sec.classList.toggle('all-hidden', !vis);
+      });
+    }
+    (function() { setFilter(localStorage.getItem(FILTER_KEY) || '4up'); })();
+
+    // ── Category filter ──
+    let _activeCat = 'all';
+    function setCatFilter(btn) {
+      if (btn.tagName === 'A') return; // anchor links pass through
+      _activeCat = btn.dataset.cat;
+      document.querySelectorAll('.cat-filter-btn').forEach(b =>
+        b.classList.toggle('active', b.dataset && b.dataset.cat === _activeCat)
+      );
+      const featuredSec = document.getElementById('featured-section');
+      if (_activeCat === 'all') {
+        featuredSec.style.display = '';
+        document.querySelectorAll('.cat-section').forEach(s => {
+          s.style.display = '';
+          s.querySelectorAll('.card, .card-v2').forEach(c => c.classList.remove('hidden-by-cat'));
+        });
+      } else {
+        featuredSec.style.display = 'none';
+        document.querySelectorAll('.cat-section').forEach(s => {
+          const isMatch = s.id === 'cat-' + _activeCat;
+          s.style.display = isMatch ? '' : 'none';
+        });
+      }
+      localStorage.setItem('cat_filter', _activeCat);
+    }
+    (function() {
+      const saved = localStorage.getItem('cat_filter');
+      if (saved && saved !== 'all') {
+        const btn = document.querySelector(`.cat-filter-btn[data-cat="${saved}"]`);
+        if (btn) setCatFilter(btn);
+      }
+    })();
+
+    // ── Card expand (card-v2 対応) ──
+    function toggleCard(el) {
+      const cardV2 = el.closest('.card-v2');
+      if (cardV2) {
+        const isOpen = el.getAttribute('aria-expanded') === 'true';
+        el.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+        const details = cardV2.querySelector('.card-v2__details');
+        if (details) {
+          if (isOpen) details.setAttribute('hidden', '');
+          else details.removeAttribute('hidden');
+        }
+        const text = el.querySelector('.card-v2__expand-text');
+        if (text) text.textContent = isOpen ? '詳細を見る' : '閉じる';
+        return;
+      }
+      // 旧 .card のフォールバック
+      el.closest('.card').classList.toggle('open');
+    }
+
+    // ── 重要度内訳パネル (card-v2 対応) ──
+    function toggleBreakdown(uid) {
+      const panel = document.getElementById('breakdown-' + uid);
+      if (!panel) return;
+      const isOpen = !panel.hasAttribute('hidden');
+      if (isOpen) {
+        panel.setAttribute('hidden', '');
+      } else {
+        panel.removeAttribute('hidden');
+        // バーグラフを 0% → 目標値 にアニメーション
+        requestAnimationFrame(() => {
+          panel.querySelectorAll('.bd-row__bar').forEach(bar => {
+            const target = bar.dataset.target;
+            if (target) bar.style.width = target + '%';
+          });
+        });
+      }
+    }
+
+    // ── Category section collapse ──
+    function toggleCat(header) { header.closest('.cat-section').classList.toggle('collapsed'); }
+
+    // ── Investment angle tabs ──
+    function switchInvTab(btn) {
+      const uid = btn.dataset.uid;
+      const tab = btn.dataset.tab;
+      const container = btn.closest('.inv-angle');
+      container.querySelectorAll('.inv-tab').forEach(t =>
+        t.classList.toggle('active', t.dataset.tab === tab)
+      );
+      container.querySelectorAll('.inv-panel').forEach(p =>
+        p.classList.toggle('active', p.dataset.panel === tab)
+      );
+    }
+
+    // ── Bookmarks ──
+    function _getBookmarks() {
+      try { return JSON.parse(localStorage.getItem('bookmarks') || '[]'); }
+      catch(e) { return []; }
+    }
+    function _saveBookmarks(bm) {
+      localStorage.setItem('bookmarks', JSON.stringify(bm));
+    }
+    function toggleBookmark(btn) {
+      const link = btn.dataset.link;
+      if (!link) return;
+      const bm = _getBookmarks();
+      const idx = bm.indexOf(link);
+      const hasSvg = !!btn.querySelector('svg');
+      if (idx >= 0) {
+        bm.splice(idx, 1);
+        btn.classList.remove('bookmarked', 'is-active');
+        if (!hasSvg) btn.textContent = '☆';
+        btn.title = '後で読む';
+      } else {
+        bm.push(link);
+        btn.classList.add('bookmarked', 'is-active');
+        if (!hasSvg) btn.textContent = '★';
+        btn.title = 'ブックマーク済み';
+      }
+      _saveBookmarks(bm);
+      _updateBookmarkUI();
+    }
+    function _updateBookmarkUI() {
+      const bm = _getBookmarks();
+      const countEl = document.getElementById('bookmark-count');
+      const tabBtn = document.getElementById('bookmark-tab-btn');
+      if (bm.length > 0) {
+        countEl.textContent = '(' + bm.length + ')';
+        tabBtn.classList.add('has-bookmarks');
+      } else {
+        countEl.textContent = '';
+        tabBtn.classList.remove('has-bookmarks');
+      }
+      // Update bookmark states on all cards (text ★/☆ and SVG versions)
+      document.querySelectorAll('.bookmark-btn').forEach(btn => {
+        const link = btn.dataset.link;
+        const isBookmarked = bm.includes(link);
+        btn.classList.toggle('bookmarked', isBookmarked);
+        btn.classList.toggle('is-active', isBookmarked);
+        if (!btn.querySelector('svg')) {
+          btn.textContent = isBookmarked ? '★' : '☆';
+        }
+        btn.title = isBookmarked ? 'ブックマーク済み' : '後で読む';
+      });
+    }
+    let _bookmarkPanelOpen = false;
+    function toggleBookmarkPanel() {
+      _bookmarkPanelOpen = !_bookmarkPanelOpen;
+      const panel = document.getElementById('bookmarks-panel');
+      panel.style.display = _bookmarkPanelOpen ? '' : 'none';
+      if (_bookmarkPanelOpen) _renderBookmarkList();
+    }
+    function _renderBookmarkList() {
+      const bm = _getBookmarks();
+      const listEl = document.getElementById('bookmarks-list');
+      if (bm.length === 0) {
+        listEl.innerHTML = '<p class="bookmarks-empty">ブックマークされた記事がありません。<br>各カードの ☆ ボタンで追加できます。</p>';
+        return;
+      }
+      // Collect bookmarked cards from page
+      let html = '';
+      bm.forEach(link => {
+        const esc = CSS.escape(link);
+        const card = document.querySelector(`.card[data-link="${esc}"], .card-v2[data-link="${esc}"]`);
+        if (card) {
+          const headline = (card.querySelector('.card-v2__title') || card.querySelector('.headline'))?.textContent || link;
+          html += `<div class="card-v2 bm-card" style="margin-bottom:8px">
+            <div style="padding:12px 16px;display:flex;gap:8px;align-items:center">
+              <a href="${_esc(link)}" target="_blank" rel="noopener" style="font-weight:600;font-size:0.9rem;flex:1;color:var(--text-primary)">${_escHtml(headline.trim())}</a>
+              <button class="bookmark-btn bookmarked is-active" data-link="${_esc(link)}" onclick="toggleBookmark(this);_renderBookmarkList()" title="削除" style="color:var(--action);background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2v12l5-3 5 3V2H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>`;
+        } else {
+          html += `<div class="card-v2 bm-card" style="margin-bottom:8px">
+            <div style="padding:12px 16px">
+              <a href="${_esc(link)}" target="_blank" rel="noopener" style="font-size:0.9rem;color:var(--action)">${_escHtml(link)}</a>
+            </div>
+          </div>`;
+        }
+      });
+      listEl.innerHTML = html;
+    }
+    // Initialize bookmark UI
+    (function() { _updateBookmarkUI(); })();
+
+    // ── Scroll to top ──
+    (function() {
+      const btn = document.getElementById('scroll-top');
+      window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+      }, {passive: true});
+    })();
+
+    // ── Glossary highlighting ──
+    (function() {
+      const terms = Object.keys(GLOSSARY);
+      if (!terms.length) return;
+      // Sort by length descending to match longer terms first
+      terms.sort((a, b) => b.length - a.length);
+
+      function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+      function escapeHtml(s) {
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+
+      function highlightTextNode(node) {
+        let text = node.nodeValue;
+        let changed = false;
+        const frag = document.createDocumentFragment();
+        let remaining = text;
+
+        // Build combined regex (longest terms first)
+        const pattern = new RegExp('(' + terms.map(escapeRe).join('|') + ')', 'g');
+        const parts = remaining.split(pattern);
+        if (parts.length <= 1) return null; // no matches
+
+        parts.forEach(part => {
+          if (GLOSSARY[part] !== undefined) {
+            const span = document.createElement('span');
+            span.className = 'gloss-hl';
+            span.dataset.term = part;
+            span.textContent = part;
+            frag.appendChild(span);
+          } else {
+            frag.appendChild(document.createTextNode(part));
+          }
+        });
+        return frag;
+      }
+
+      function walkNode(node) {
+        if (node.nodeType === 3) { // text node
+          const parent = node.parentNode;
+          if (!parent) return;
+          // Skip if already inside a glossary highlight or anchor
+          if (parent.classList && (parent.classList.contains('gloss-hl') || parent.tagName === 'A' || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE')) return;
+          const replacement = highlightTextNode(node);
+          if (replacement) parent.replaceChild(replacement, node);
+        } else if (node.nodeType === 1) {
+          if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE') return;
+          // Process child nodes (copy to array first since we'll modify DOM)
+          Array.from(node.childNodes).forEach(walkNode);
+        }
+      }
+
+      // Only highlight in specific containers
+      const containers = document.querySelectorAll('.points-list, .detail-text, .theme-text');
+      containers.forEach(walkNode);
+
+      // Tooltip
+      const tooltip = document.getElementById('gloss-tooltip');
+      const tooltipTerm = document.getElementById('gloss-tooltip-term');
+      const tooltipDef = document.getElementById('gloss-tooltip-def');
+      let _tooltipTimer = null;
+
+      function showGlossTooltip(el, e) {
+        const term = el.dataset.term;
+        const def = GLOSSARY[term] || '';
+        if (!def) return;
+        tooltipTerm.textContent = term;
+        tooltipDef.textContent = def;
+        // Position tooltip
+        const r = el.getBoundingClientRect();
+        let x = r.left;
+        let y = r.bottom + 6;
+        tooltip.style.display = 'block';
+        tooltip.style.left = Math.min(x, window.innerWidth - 270) + 'px';
+        tooltip.style.top = y + 'px';
+      }
+      function hideGlossTooltip() {
+        if (_tooltipTimer) clearTimeout(_tooltipTimer);
+        _tooltipTimer = setTimeout(() => { tooltip.style.display = 'none'; }, 200);
+      }
+
+      document.addEventListener('mouseover', e => {
+        if (e.target.classList.contains('gloss-hl')) {
+          if (_tooltipTimer) clearTimeout(_tooltipTimer);
+          showGlossTooltip(e.target, e);
+        }
+      });
+      document.addEventListener('mouseout', e => {
+        if (e.target.classList.contains('gloss-hl')) hideGlossTooltip();
+      });
+      document.addEventListener('click', e => {
+        if (e.target.classList.contains('gloss-hl')) {
+          const term = e.target.dataset.term;
+          window.open('https://example.com/glossary.html?q=' + encodeURIComponent(term), '_blank');
+        }
+      });
+    })();
+
+    // ── Preferences form ──
+    function selectCount(el) {
+      document.querySelectorAll('.count-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    document.querySelectorAll('.cat-checkbox-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const cb = item.querySelector('input[type=checkbox]');
+        if (item.classList.contains('selected')) {
+          item.classList.remove('selected'); cb.checked = false;
+        } else if (document.querySelectorAll('.cat-checkbox-item.selected').length < 3) {
+          item.classList.add('selected'); cb.checked = true;
+        }
+      });
+    });
+
+    // Debug panel
+    const _dbg = { patMasked:'', lastTime:'', lastResult:'', lastUrl:'', lastStatus:'', lastResp:'' };
+    function _esc(s) { return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+    function _escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function _updateDebugPanel() {
+      const pat = localStorage.getItem('gh_pat') || '';
+      const masked = pat.length >= 8 ? pat.slice(0,4) + '*'.repeat(Math.max(0,pat.length-8)) + pat.slice(-4) : (pat ? '****' : '(未設定)');
+      document.getElementById('dbg-pat').textContent = masked;
+      document.getElementById('dbg-time').textContent = _dbg.lastTime || '—';
+      document.getElementById('dbg-result').textContent = _dbg.lastResult || '—';
+      document.getElementById('dbg-url').textContent = _dbg.lastUrl || '—';
+      document.getElementById('dbg-status').textContent = _dbg.lastStatus || '—';
+      document.getElementById('dbg-resp').textContent = _dbg.lastResp || '—';
+    }
+    function toggleDebug() {
+      const p = document.getElementById('debug-panel');
+      p.classList.toggle('open');
+      if (p.classList.contains('open')) _updateDebugPanel();
+    }
+
+    let _statusTimer = null;
+    function showStatus(type, html) {
+      const el = document.getElementById('pref-status');
+      el.className = 'pref-status ' + type;
+      el.innerHTML = html;
+      if (_statusTimer) clearTimeout(_statusTimer);
+      if (type !== 'loading') {
+        _statusTimer = setTimeout(() => { el.style.display = 'none'; el.className = 'pref-status'; }, 9000);
+      }
+    }
+
+    let _pendingBody = null, _pendingDate = null, _pendingTime = null;
+    function resetPat() {
+      _pendingBody = null;
+      document.getElementById('pat-input').value = '';
+      document.getElementById('pat-modal').style.display = 'flex';
+    }
+    function savePat() {
+      const token = document.getElementById('pat-input').value.trim();
+      if (!token) return;
+      localStorage.setItem('gh_pat', token);
+      closePat();
+      if (_pendingBody) {
+        _doSubmit(token, _pendingBody, _pendingDate, _pendingTime);
+        _pendingBody = null;
+      }
+    }
+    function closePat() {
+      document.getElementById('pat-modal').style.display = 'none';
+      document.getElementById('pat-input').value = '';
+    }
+    function submitPreferences() {
+      const cats = Array.from(document.querySelectorAll('.cat-checkbox-item.selected input')).map(i => i.value);
+      const kw = document.getElementById('pref-keywords').value.trim();
+      const keywords = kw ? kw.split(',').map(k => k.trim()).filter(Boolean) : [];
+      const count = parseInt(document.querySelector('.count-option.selected')?.dataset.value || '30');
+      const now = new Date();
+      const dateStr = now.toISOString().slice(0, 10);
+      const timeStr = now.toTimeString().slice(0, 5);
+      const body = JSON.stringify({ date: dateStr, focus_categories: cats, keywords, article_count: count }, null, 2);
+      const token = localStorage.getItem('gh_pat');
+      if (!token) {
+        _pendingBody = body; _pendingDate = dateStr; _pendingTime = timeStr;
+        document.getElementById('pat-modal').style.display = 'flex';
+        return;
+      }
+      _doSubmit(token, body, dateStr, timeStr);
+    }
+    function _doSubmit(token, body, dateStr, timeStr) {
+      const baseUrl = 'https://example.com';
+      const m = baseUrl.match(/https?:\/\/([^.]+)\.github\.io\/([^/?#]+)/i);
+      if (!m) { showStatus('error', '❌ BASE_URLからリポジトリを特定できません: ' + _escHtml(baseUrl)); return; }
+      const owner = m[1], repoName = m[2];
+      const apiUrl = 'https://api.github.com/repos/' + owner + '/' + repoName + '/issues';
+      const issuePayload = JSON.stringify({ title: '[preferences] ' + dateStr + ' ' + timeStr, body, labels: ['preferences'] });
+      _dbg.lastTime = new Date().toLocaleString('ja-JP');
+      _dbg.lastUrl = apiUrl; _dbg.lastStatus = '...'; _dbg.lastResp = '...';
+      if (document.getElementById('debug-panel').classList.contains('open')) _updateDebugPanel();
+      showStatus('loading', '<span class="spinner"></span>📡 GitHub APIに接続中...');
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+        body: issuePayload,
+      })
+      .then(r => r.text().then(text => ({ ok: r.ok, status: r.status, text })))
+      .then(res => {
+        _dbg.lastStatus = String(res.status);
+        _dbg.lastResp = res.text.slice(0, 200);
+        if (document.getElementById('debug-panel').classList.contains('open')) _updateDebugPanel();
+        if (res.ok) {
+          const data = JSON.parse(res.text);
+          _dbg.lastResult = '成功 Issue #' + data.number;
+          showStatus('success', '✅ 送信完了。<a href="' + _esc(data.html_url) + '" target="_blank" rel="noopener">Issue #' + data.number + '</a> を作成しました');
+        } else {
+          let errMsg = '';
+          try { errMsg = JSON.parse(res.text).message || res.text; } catch(e) { errMsg = res.text; }
+          _dbg.lastResult = '失敗 ' + res.status;
+          if (document.getElementById('debug-panel').classList.contains('open')) _updateDebugPanel();
+          if (res.status === 401) showStatus('error', '❌ 401: PATが無効です。<button class="btn btn-secondary" style="padding:4px 10px;font-size:.78rem;margin-left:8px;min-height:28px" onclick="resetPat()">🔑 再設定</button>');
+          else if (res.status === 403) showStatus('error', '❌ 403: 権限不足。Issues read/write 権限を確認してください。');
+          else if (res.status === 404) showStatus('error', '❌ 404: リポジトリが見つかりません。');
+          else showStatus('error', '❌ ' + res.status + ': ' + _escHtml(errMsg.slice(0, 200)));
+        }
+      })
+      .catch(e => {
+        _dbg.lastResult = 'fetch error: ' + e.message;
+        _dbg.lastStatus = 'network error';
+        if (document.getElementById('debug-panel').classList.contains('open')) _updateDebugPanel();
+        showStatus('error', '❌ 通信エラー: ' + _escHtml(e.message));
+      });
+    }
+    function resetPreferences() {
+      document.querySelectorAll('.cat-checkbox-item').forEach(i => { i.classList.remove('selected'); i.querySelector('input').checked = false; });
+      document.getElementById('pref-keywords').value = '';
+      document.querySelectorAll('.count-option').forEach(o => o.classList.remove('selected'));
+      document.querySelector('.count-option[data-value="30"]').classList.add('selected');
+      showStatus('success', '✅ フォームをリセットしました。');
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/trading/sw.js').catch(() => {});
+    }
+  </script>
+
+  <script>
+    // ── News Timeline ──
+    (function() {
+      const tlEl = document.getElementById('news-timeline-json');
+      if (!tlEl) return;
+      let TIMELINE;
+      try { TIMELINE = JSON.parse(tlEl.textContent); } catch(e) { return; }
+
+      const body = document.getElementById('timeline-body');
+      if (!body) return;
+
+      let _tlFilter = 'all';
+
+      function _escHtml(s) {
+        return String(s)
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      function _dow(dateStr) {
+        if (!dateStr) return '';
+        const d = new Date(dateStr + 'T12:00:00+09:00');
+        return ['日','月','火','水','木','金','土'][d.getDay()] || '';
+      }
+
+      function renderTimeline() {
+        if (!TIMELINE || !TIMELINE.length) {
+          body.innerHTML = '<div class="tl-empty">ニュースアーカイブはまだありません。毎日の実行で蓄積されます。</div>';
+          return;
+        }
+
+        const filtered = _tlFilter === 'all'
+          ? TIMELINE
+          : TIMELINE.filter(d =>
+              d.sentiment === _tlFilter ||
+              (d.news || []).some(n => n.impact === _tlFilter)
+            );
+
+        if (!filtered.length) {
+          body.innerHTML = '<div class="tl-empty">該当する日付がありません。</div>';
+          return;
+        }
+
+        body.innerHTML = filtered.map(d => {
+          const chgPct = d.change_percent;
+          const dir = chgPct == null ? 'flat' : chgPct > 0 ? 'up' : chgPct < 0 ? 'down' : 'flat';
+          const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '—';
+          const chgStr = chgPct != null
+            ? arrow + (chgPct >= 0 ? '+' : '') + chgPct.toFixed(2) + '%'
+            : '—';
+          const dow = _dow(d.date);
+          const dateLabel = d.date ? d.date.replace(/-/g, '/') + ` (${dow})` : '—';
+
+          const newsHtml = (d.news || []).map(n => {
+            const impCls = n.impact === '強気' ? 'bullish'
+                         : n.impact === '弱気' ? 'bearish' : 'neutral';
+            const hl = _escHtml(n.headline || '');
+            const linked = n.link
+              ? `<a href="${_escHtml(n.link)}" target="_blank" rel="noopener">${hl}</a>`
+              : hl;
+            return `<div class="tl-news-item">
+              <span class="tl-news-badge ${impCls}">${_escHtml(n.impact)}</span>
+              <span class="tl-news-hl">${linked}</span>
+            </div>`;
+          }).join('');
+
+          const hasNews = (d.news || []).length > 0;
+          const driver = d.primary_driver ? _escHtml(d.primary_driver) : '';
+
+          return `<div class="timeline-entry" data-date="${_escHtml(d.date || '')}" data-sentiment="${_escHtml(d.sentiment || '')}">
+            <div class="timeline-day-header" onclick="
+              var e=this.closest('.timeline-entry');
+              e.classList.toggle('open');
+            ">
+              <div class="tl-bar ${dir}"></div>
+              <div class="tl-date">${_escHtml(dateLabel)}</div>
+              <div class="tl-chg ${dir}">${chgStr}</div>
+              <div class="tl-driver">${driver}</div>
+              ${hasNews ? '<span class="tl-toggle">▶</span>' : ''}
+            </div>
+            ${hasNews ? `<div class="tl-news-list">${newsHtml}</div>` : ''}
+          </div>`;
+        }).join('');
+      }
+
+      window.setTlFilter = function(btn) {
+        _tlFilter = btn.dataset.filter;
+        document.querySelectorAll('.tl-filter-btn').forEach(b =>
+          b.classList.toggle('active', b.dataset.filter === _tlFilter)
+        );
+        renderTimeline();
+      };
+
+      // Init
+      if (document.readyState !== 'loading') {
+        renderTimeline();
+      } else {
+        document.addEventListener('DOMContentLoaded', renderTimeline);
+      }
+    })();
+  </script>
+
+  <!-- ポートフォリオ保有銘柄バッジ -->
+  <script>
+    (function markOwnedArticles() {
+      try {
+        var portfolio = JSON.parse(localStorage.getItem('portfolio_v1') || '[]');
+        if (!portfolio.length) return;
+        var symbols = portfolio.map(function(p) {
+          return p.symbol.replace(/\.T$/i, '').toLowerCase();
+        });
+        var cards = document.querySelectorAll('.card-v2');
+        var owned = [];
+        cards.forEach(function(card) {
+          var text = card.textContent.toLowerCase();
+          if (symbols.some(function(s) { return text.includes(s); })) {
+            card.dataset.owned = 'true';
+            var header = card.querySelector('.card-v2__header');
+            if (header && !header.querySelector('.pf-owned-badge')) {
+              var badge = document.createElement('span');
+              badge.className = 'pf-owned-badge';
+              badge.textContent = '📌 保有中';
+              header.appendChild(badge);
+            }
+            owned.push(card);
+          }
+        });
+        // 保有銘柄カードを最上部に移動
+        if (owned.length) {
+          var containers = new Set();
+          owned.forEach(function(c) { if (c.parentElement) containers.add(c.parentElement); });
+          containers.forEach(function(container) {
+            var ownedInContainer = [...container.querySelectorAll('.card-v2[data-owned="true"]')];
+            ownedInContainer.reverse().forEach(function(c) { container.prepend(c); });
+          });
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- DS (Daily Stats) カウントアップ & アニメーション -->
+  <script>
+  (function() {
+    function animateValue(el, end, duration, decimals, prefix) {
+      var start = 0;
+      var startTime = null;
+      var easeOut = function(t) { return 1 - Math.pow(1 - t, 3); };
+      function tick(ts) {
+        if (!startTime) startTime = ts;
+        var t = Math.min(1, (ts - startTime) / duration);
+        var v = start + (end - start) * easeOut(t);
+        el.textContent = prefix + (v >= 0 && prefix === '+' ? '' : '') + v.toFixed(decimals);
+        // rebuild prefix correctly
+        var raw = v.toFixed(decimals);
+        if (prefix === '+') {
+          el.textContent = (parseFloat(raw) >= 0 ? '+' : '') + raw;
+        } else {
+          el.textContent = raw;
+        }
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function initDsPanel(panel) {
+      // 初期位置: パーセンタイルマーカーをアニメーション開始
+      var marker = panel.querySelector('.ds-percentile__marker');
+      if (marker) {
+        // CSS transition が効くよう、一時的に left:0% にしてから戻す
+        var finalLeft = marker.style.left;
+        marker.style.transition = 'none';
+        marker.style.left = '0%';
+        // 一フレーム待ってから transition 有効化
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            marker.style.transition = 'left 1.4s cubic-bezier(0.34,1.56,0.64,1)';
+            marker.style.left = finalLeft;
+          });
+        });
+      }
+
+      // data-counter 属性を持つ要素をカウントアップ
+      panel.querySelectorAll('[data-counter]').forEach(function(el) {
+        var target = parseFloat(el.dataset.counter);
+        var decimals = parseInt(el.dataset.decimals || '1');
+        var prefix = el.dataset.prefix || '';
+        if (isNaN(target)) return;
+        animateValue(el, target, 1100, decimals, prefix);
+      });
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !entry.target.dataset.dsAnimated) {
+          entry.target.dataset.dsAnimated = '1';
+          initDsPanel(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    document.querySelectorAll('.ds-panel').forEach(function(p) { observer.observe(p); });
+  })();
+  </script>
+</body>
+</html>

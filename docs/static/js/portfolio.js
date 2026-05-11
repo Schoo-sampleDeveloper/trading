@@ -1353,6 +1353,9 @@ async function renderRecurring() {
   const pfRecList  = document.getElementById('pfRecList');
   const pfRecEmpty = document.getElementById('pfRecEmpty');
 
+  // Monte Carlo セレクター更新
+  updateMcItemSelector();
+
   if (!items.length) {
     if (pfRecEmpty) pfRecEmpty.hidden = false;
     if (pfRecList)  pfRecList.innerHTML = '';
@@ -1663,6 +1666,290 @@ function switchMode(mode) {
   render();
 }
 
+// ─── Monte Carlo UI 統合 ──────────────────────────────────
+let _mcResult = null;
+let _mcRunning = false;
+
+function initMonteCarlo() {
+  const section = document.getElementById('mcSection');
+  if (!section) return;
+
+  // 実行ボタン
+  document.getElementById('mcRunBtn')?.addEventListener('click', runMonteCarlo);
+
+  // 確率密度タブ
+  document.getElementById('mcDensityTabs')?.addEventListener('click', (e) => {
+    const tab = e.target.closest('.mc-density-tab');
+    if (!tab) return;
+    document.querySelectorAll('.mc-density-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    if (_mcResult && _mcResult.distributions) {
+      DensityViewer.setTab(tab.dataset.tab);
+    }
+  });
+
+  // 目標額変更時
+  document.getElementById('mcTargetInput')?.addEventListener('change', () => {
+    if (_mcResult) {
+      updateMcKpiGoal(_mcResult);
+      // ファンチャート再描画
+      const items = loadRecurring();
+      const selIdx = document.getElementById('mcItemSelect')?.selectedIndex || 0;
+      const item = items[selIdx];
+      if (item) {
+        const targetAmount = parseFloat(document.getElementById('mcTargetInput')?.value) || 100000000;
+        FanChart.render('mcFanChart', _mcResult, {
+          targetAmount,
+          startYear: parseInt(item.startMonth?.split('-')[0]) || new Date().getFullYear(),
+          simYears: item.simYears || 30,
+          animate: false,
+        });
+        // 密度ビューア更新
+        if (_mcResult.distributions) {
+          DensityViewer.setTarget(targetAmount);
+        }
+      }
+    }
+  });
+}
+
+function updateMcItemSelector() {
+  const select = document.getElementById('mcItemSelect');
+  const section = document.getElementById('mcSection');
+  if (!select || !section) return;
+
+  const items = loadRecurring();
+  select.innerHTML = '';
+
+  if (items.length === 0) {
+    section.hidden = true;
+    return;
+  }
+
+  section.hidden = false;
+  items.forEach((item, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = `${item.symbol} - 月${MonteCarloEngine.formatJPYCompact(item.monthlyAmount)} × ${item.simYears || 30}年`;
+    select.appendChild(opt);
+  });
+}
+
+async function runMonteCarlo() {
+  if (_mcRunning) return;
+  _mcRunning = true;
+
+  const items = loadRecurring();
+  const selIdx = parseInt(document.getElementById('mcItemSelect')?.value) || 0;
+  const item = items[selIdx];
+  if (!item) {
+    _mcRunning = false;
+    return;
+  }
+
+  const targetAmount = parseFloat(document.getElementById('mcTargetInput')?.value) || 100000000;
+  const numTrials = parseInt(document.getElementById('mcTrialsSelect')?.value) || 10000;
+  const mode = document.getElementById('mcModeSelect')?.value || 'bootstrap';
+
+  // UIステート
+  const runBtn = document.getElementById('mcRunBtn');
+  const progress = document.getElementById('mcProgress');
+  const progressBar = document.getElementById('mcProgressBar');
+  const progressText = document.getElementById('mcProgressText');
+
+  if (runBtn) { runBtn.disabled = true; runBtn.textContent = '計算中...'; }
+  if (progress) { progress.classList.add('active'); }
+  if (progressText) { progressText.hidden = false; }
+  if (progressBar) { progressBar.style.width = '0%'; }
+
+  // KPI/Chart を隠す
+  ['mcKpiGrid', 'mcFanChartWrapper', 'mcLegend', 'mcDensitySection'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.hidden = true;
+  });
+
+  try {
+    const result = await MonteCarloEngine.runSimulation({
+      symbol: item.symbol,
+      monthlyAmount: item.monthlyAmount,
+      simYears: item.simYears || 30,
+      targetAmount,
+      numTrials,
+      mode,
+      seed: 42,
+      onProgress: (data) => {
+        if (progressBar) progressBar.style.width = data.pct + '%';
+        if (progressText) progressText.textContent = `${data.completed.toLocaleString()} / ${data.total.toLocaleString()} 試行完了`;
+      },
+    });
+
+    _mcResult = result;
+
+    // UI更新
+    if (progress) progress.classList.remove('active');
+    if (progressText) progressText.hidden = true;
+
+    // KPIカード更新
+    updateMcKpi(result, item, targetAmount);
+
+    // ファンチャート描画
+    const startYear = parseInt(item.startMonth?.split('-')[0]) || new Date().getFullYear();
+    document.getElementById('mcFanChartWrapper').hidden = false;
+    document.getElementById('mcLegend').hidden = false;
+    FanChart.render('mcFanChart', result, {
+      targetAmount,
+      startYear,
+      simYears: item.simYears || 30,
+      animate: true,
+    });
+
+    // 確率密度ビューア
+    if (result.distributions && Object.keys(result.distributions).length > 0) {
+      document.getElementById('mcDensitySection').hidden = false;
+      // タブの有効/無効を調整
+      const tabs = document.querySelectorAll('.mc-density-tab');
+      tabs.forEach(tab => {
+        const key = tab.dataset.tab;
+        tab.disabled = !result.distributions[key];
+        tab.style.opacity = result.distributions[key] ? '1' : '0.3';
+      });
+      // アクティブタブのデータを描画
+      const activeTab = document.querySelector('.mc-density-tab.active')?.dataset.tab || 'final';
+      DensityViewer.render('mcDensityChart', result.distributions, {
+        targetAmount,
+        activeTab,
+        onTargetChange: (newTarget) => {
+          const input = document.getElementById('mcTargetInput');
+          if (input) input.value = Math.round(newTarget);
+          updateMcKpiGoal(result);
+        },
+      });
+    }
+
+  } catch (err) {
+    console.error('[MC] Simulation error:', err);
+    if (progressText) {
+      progressText.textContent = 'エラー: ' + (err.message || 'シミュレーションに失敗しました');
+      progressText.hidden = false;
+    }
+  } finally {
+    _mcRunning = false;
+    if (runBtn) { runBtn.disabled = false; runBtn.textContent = 'シミュレーション実行'; }
+    if (progress) progress.classList.remove('active');
+  }
+}
+
+function updateMcKpi(result, item, targetAmount) {
+  const stats = result.stats;
+  const grid = document.getElementById('mcKpiGrid');
+  if (!grid) return;
+  grid.hidden = false;
+
+  // Card 1: 目標達成確率
+  const prob = stats.goalProbability;
+  const probPct = (prob * 100).toFixed(1);
+  let probLevel = 'low';
+  if (prob >= 0.85) probLevel = 'very-high';
+  else if (prob >= 0.60) probLevel = 'high';
+  else if (prob >= 0.30) probLevel = 'medium';
+
+  const goalCard = document.getElementById('mcKpiGoal');
+  if (goalCard) goalCard.dataset.probLevel = probLevel;
+
+  const ring = document.getElementById('mcRingFg');
+  if (ring) {
+    const circumference = 2 * Math.PI * 15.9;
+    ring.setAttribute('stroke-dasharray', `${circumference} ${circumference}`);
+    // animate ring
+    ring.setAttribute('stroke-dashoffset', circumference);
+    requestAnimationFrame(() => {
+      ring.style.transition = 'stroke-dashoffset 1200ms cubic-bezier(0.16, 1, 0.3, 1)';
+      ring.setAttribute('stroke-dashoffset', circumference * (1 - prob));
+    });
+  }
+
+  animateCountUp('mcGoalPct', 0, parseFloat(probPct), 1200, (v) => v.toFixed(1) + '%');
+  const goalSub = document.getElementById('mcGoalSub');
+  if (goalSub) {
+    goalSub.innerHTML = `${stats.years}年後に ${MonteCarloEngine.formatJPY(targetAmount)} 達成`;
+  }
+
+  // Card 2: 中央値
+  animateCountUp('mcMedianVal', 0, stats.medianFinal, 1200, MonteCarloEngine.formatJPY);
+  const medianSub = document.getElementById('mcMedianSub');
+  if (medianSub) {
+    medianSub.innerHTML = `年率換算 <b>${stats.medianIRR >= 0 ? '+' : ''}${(stats.medianIRR * 100).toFixed(1)}%</b><br>元本の <b>${stats.medianMultiple.toFixed(2)}倍</b>`;
+  }
+
+  // Card 3: 最悪ケース
+  animateCountUp('mcWorstVal', 0, stats.p5Final, 1200, MonteCarloEngine.formatJPY);
+  const worstSub = document.getElementById('mcWorstSub');
+  if (worstSub) {
+    worstSub.innerHTML = `最大DD <b>-${(stats.maxDrawdown5 * 100).toFixed(0)}%</b><br>5%の確率でこれ以下`;
+  }
+
+  // Card 4: 最良ケース
+  animateCountUp('mcBestVal', 0, stats.p95Final, 1200, MonteCarloEngine.formatJPY);
+  const bestSub = document.getElementById('mcBestSub');
+  if (bestSub) {
+    bestSub.innerHTML = `年率換算 <b>${stats.p95IRR >= 0 ? '+' : ''}${(stats.p95IRR * 100).toFixed(1)}%</b><br>5%の確率でこれ以上`;
+  }
+}
+
+function updateMcKpiGoal(result) {
+  const targetAmount = parseFloat(document.getElementById('mcTargetInput')?.value) || 100000000;
+  const dist = result.distributions?.final;
+  if (!dist) return;
+
+  const prob = MonteCarloEngine.calcGoalProbability(dist, targetAmount);
+  const probPct = (prob * 100).toFixed(1);
+
+  let probLevel = 'low';
+  if (prob >= 0.85) probLevel = 'very-high';
+  else if (prob >= 0.60) probLevel = 'high';
+  else if (prob >= 0.30) probLevel = 'medium';
+
+  const goalCard = document.getElementById('mcKpiGoal');
+  if (goalCard) goalCard.dataset.probLevel = probLevel;
+
+  const pctEl = document.getElementById('mcGoalPct');
+  if (pctEl) pctEl.textContent = probPct + '%';
+
+  const ring = document.getElementById('mcRingFg');
+  if (ring) {
+    const circumference = 2 * Math.PI * 15.9;
+    ring.setAttribute('stroke-dashoffset', circumference * (1 - prob));
+  }
+
+  const goalSub = document.getElementById('mcGoalSub');
+  if (goalSub) {
+    goalSub.innerHTML = `${result.stats.years}年後に ${MonteCarloEngine.formatJPY(targetAmount)} 達成`;
+  }
+}
+
+function animateCountUp(elementId, start, end, duration, formatter) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) {
+    el.textContent = formatter(end);
+    return;
+  }
+
+  const startTime = performance.now();
+  function tick(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    // cubic-bezier(0.16, 1, 0.3, 1) approximation
+    const t = 1 - Math.pow(1 - progress, 3);
+    const current = start + (end - start) * t;
+    el.textContent = formatter(current);
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
 // ─── 初期化 ───────────────────────────────────────────────
 function initPortfolio() {
   // モードタブ
@@ -1788,6 +2075,9 @@ function initPortfolio() {
   // 初回レンダリング（switchMode 内で render() 済みだがスパークラインは別途）
   loadHeroSparkline('1M');
   updateLastRefreshTime();
+
+  // Monte Carlo 初期化
+  initMonteCarlo();
 
   // 自動更新 (30秒)
   startAutoRefresh(30000);

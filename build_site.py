@@ -854,16 +854,44 @@ def build_portfolio_page() -> None:
     (DOCS_DIR / "portfolio.html").write_text(tmpl.render(**ctx), encoding="utf-8")
     print("  生成: docs/portfolio.html")
 
-    # static/js/portfolio.js を docs/static/js/ にコピー
-    src_js = Path(__file__).parent / "static" / "js" / "portfolio.js"
-    if src_js.exists():
-        dst_dir = DOCS_DIR / "static" / "js"
-        dst_dir.mkdir(parents=True, exist_ok=True)
-        dst_js = dst_dir / "portfolio.js"
-        dst_js.write_bytes(src_js.read_bytes())
-        print("  コピー: docs/static/js/portfolio.js")
-    else:
-        print("  [WARN] static/js/portfolio.js が見つかりません")
+    # static/js/*.js を docs/static/js/ にコピー
+    js_files = [
+        "portfolio.js",
+        "monte_carlo.js",
+        "monte_carlo_worker.js",
+        "fan_chart.js",
+        "density_viewer.js",
+    ]
+    src_js_dir = Path(__file__).parent / "static" / "js"
+    dst_js_dir = DOCS_DIR / "static" / "js"
+    dst_js_dir.mkdir(parents=True, exist_ok=True)
+    for js_name in js_files:
+        src_js = src_js_dir / js_name
+        if src_js.exists():
+            (dst_js_dir / js_name).write_bytes(src_js.read_bytes())
+            print(f"  コピー: docs/static/js/{js_name}")
+        else:
+            print(f"  [WARN] static/js/{js_name} が見つかりません")
+
+    # static/css/*.css を docs/static/css/ にコピー
+    css_files = ["monte_carlo.css"]
+    src_css_dir = Path(__file__).parent / "static" / "css"
+    dst_css_dir = DOCS_DIR / "static" / "css"
+    dst_css_dir.mkdir(parents=True, exist_ok=True)
+    for css_name in css_files:
+        src_css = src_css_dir / css_name
+        if src_css.exists():
+            (dst_css_dir / css_name).write_bytes(src_css.read_bytes())
+            print(f"  コピー: docs/static/css/{css_name}")
+
+    # data/monte_carlo/*.json を docs/data/monte_carlo/ にコピー
+    src_mc_dir = Path(__file__).parent / "data" / "monte_carlo"
+    dst_mc_dir = DOCS_DIR / "data" / "monte_carlo"
+    if src_mc_dir.exists():
+        dst_mc_dir.mkdir(parents=True, exist_ok=True)
+        for json_file in src_mc_dir.glob("*.json"):
+            (dst_mc_dir / json_file.name).write_bytes(json_file.read_bytes())
+            print(f"  コピー: docs/data/monte_carlo/{json_file.name}")
 
 
 def build_analysis_page(long_term: Optional[dict] = None, scenarios: Optional[dict] = None) -> None:
