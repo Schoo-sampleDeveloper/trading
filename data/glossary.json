@@ -6495,5 +6495,421 @@
     "definition_full": "",
     "example": "",
     "related": []
+  },
+  "AIチップ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "AIパワー": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "AI向け計算資源": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "BIS": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "GPU": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "Kash Patel": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "futures": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "アルミニウム価格": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "インフレ率上昇": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "エネルギー不足": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "エネルギー供給の不安定化": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "エネルギー需要": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "エネルギー需要の変化": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "コモディティ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ストレイト・オブ・ホルムズ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ドル指数": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ドル買い": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ドル高": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ハイテク株価": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "不確実性": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "中国の需要": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "中東の硫黄供給の不安定さ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "企業の財務状況": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "供給のバランス": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "価格安定化": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "債券価格": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "利上げ見送り": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "反対票": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "国債利回り": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "国債市場": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "市場からの問い合わせ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "市場の信頼感": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "市場の期待値": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "市場バブル": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "投資ミス": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "政府の政策変更": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "政治情勢の悪化": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "日銀利上げシグナル": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "日銀政策委員会": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "日銀総裁": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "核エネルギー": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "決算プレー": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "米イラン協議": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "米国の生産者物価指数": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "米連邦捜査局": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "航空会社の運航コスト": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "英国の政局不安": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "英国の財政と経済問題": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "観光業界の収益": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "銅価格": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "銅精錬": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "需給不均衡": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
   }
 }
