@@ -21487,5 +21487,365 @@
     "definition_full": "",
     "example": "",
     "related": []
+  },
+  "BOC": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ECM": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "IPO価格": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "JPモルガン": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "NTSB": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "PPI指数": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "PPイデアル": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "TIPS(Treasury Inflation-Protected Securities)": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "インフレ指標": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "インフレ率、イランの核開発計画、米国株式市場、Bitcoin": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "クラウド・コンプューティング": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "テクノロジー集中度": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "データセンター、政治的影響": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ドローン攻撃": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "パンテルックス": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ポンド/円": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "マイクロソフト": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "マイナス金利導入の経緯": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "メタマスク": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "ワーバーグ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "下落": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "副作用": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "国内供給不足": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "国際刑事裁判所": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "大型株": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "安全性": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "小型株": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "投資家の関心": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "日銀の利上げ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "株価低下": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "業界全体の悪影響": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "為替リスク": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "為替市場の動き": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "石油精製量": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "米国株価指数の上昇": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "経済効果": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "自動運転車": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "自由speech": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "融資": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "議事録": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "連続利上げ": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "過剰投資論": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "食品業界の低迷": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "高配当": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
+  },
+  "黒田氏": {
+    "category": "その他",
+    "reading": "",
+    "definition_short": "",
+    "definition_full": "",
+    "example": "",
+    "related": []
   }
 }
