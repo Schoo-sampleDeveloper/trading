@@ -5,423 +5,425 @@
     <link>https://schoo-sampledeveloper.github.io/trading/index.html</link>
     <description>毎朝6:30 JST 更新。個人投資家向けの市況分析・シナリオ・投資視点。</description>
     <language>ja</language>
-    <lastBuildDate>Fri, 07 Aug 2026 01:15:16 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 09 Aug 2026 22:10:02 GMT</lastBuildDate>
     <atom:link href="https://schoo-sampledeveloper.github.io/trading/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>🔽[💱 為替・マクロ] 富士フイルム株、歴代最低の大幅下落</title>
-      <link>https://www.bloomberg.com/news/articles/2026-08-07/fujifilm-shares-tumble-by-a-record-after-earnings-disappoint</link>
-      <description>★★★★☆ 重要度4/5
-・富士フイルムホールディングスが初期四半期決算を発表、市場予想を下回った
-・東京市場で株価が記録的大幅下落
-・富士フイルム株、過去最大の下落
-ベースシナリオ: 市場は富士フイルムホールディングスの業績が好調ではないため、株価が下落する可能性が高くなる。
-市場影響: 🔽 弱気
+      <title>🔼[💱 為替・マクロ] オーストラリアドルが30年来の高値に迫る</title>
+      <link>https://www.bloomberg.com/news/articles/2026-08-09/aussie-yen-is-set-to-approach-three-decade-high-analysts-say</link>
+      <description>★★★☆☆ 重要度3/5
+・オーストラリアドルが東京の為替介入の影響が薄れ、オーストラリア中央銀行の厳しい姿勢が為替レートを支える
+・為替介入の影響が薄れることでオーストラリアドルが上昇
+・オーストラリア中央銀行の厳しい姿勢が為替レートを支える
+ベースシナリオ: 為替介入の影響が薄れ、オーストラリアドルが上昇する
+市場影響: 🔼 強気
 出典: Bloomberg Markets</description>
-      <pubDate>Fri, 07 Aug 2026 00:45:13 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-08-07/fujifilm-shares-tumble-by-a-record-after-earnings-disappoint</guid>
+      <pubDate>Sun, 09 Aug 2026 21:00:00 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-08-09/aussie-yen-is-set-to-approach-three-decade-high-analysts-say</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔽[💱 為替・マクロ] 円が米日介入による大幅な利得を半分以上失う</title>
-      <link>https://www.bloomberg.com/news/articles/2026-08-07/yen-surrenders-nearly-half-its-gains-from-us-japan-intervention</link>
+      <title>🔽[💱 為替・マクロ] レストラン業界が食中毒の懸念に苦戦</title>
+      <link>https://www.bloomberg.com/news/videos/2026-08-09/food-safety-fears-rattle-restaurants-and-diners-video</link>
       <description>★★★☆☆ 重要度3/5
-・円は米日介入による大幅な利得を半分以上失い、市場では当局が再び介入する可能性が高まる
-・円は週末に向けて急落し、米円は110円台まで下落
-ベースシナリオ: 当局が再び介入する可能性が高まるため、円安が続く
+・レストラン業界の需要が低下。消費者は新鮮な野菜などに懸念を抱く
+・Sweetgreenは供給チェーンとは無関係にもかかわらず予想を下回る
+・チポotleとQdobaはサーモナラ菌の原因とされるチリペッパーを撤去
+ベースシナリオ: メインシナリオは食中毒の懸念が続き、レストラン業界の需要が低下する。
 市場影響: 🔽 弱気
 出典: Bloomberg Markets</description>
-      <pubDate>Fri, 07 Aug 2026 00:04:31 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-08-07/yen-surrenders-nearly-half-its-gains-from-us-japan-intervention</guid>
+      <pubDate>Sun, 09 Aug 2026 14:42:19 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/videos/2026-08-09/food-safety-fears-rattle-restaurants-and-diners-video</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔼[💱 為替・マクロ] 金価格が高値に挑戦、記録更新の可能性</title>
-      <link>https://www.marketwatch.com/story/gold-prices-are-breaking-higher-after-a-tough-stretch-could-fresh-records-be-within-reach-1e1a872f?mod=mw_rss_topstories</link>
+      <title>🔼[📈 外国インデックス] S&amp;amp;P 500の売上成長は5年半ぶりの高水準</title>
+      <link>https://www.marketwatch.com/story/s-p-500-sales-growth-is-at-a-nearly-5-year-high-heres-whats-behind-the-surge-a4ccf06d?mod=mw_rss_topstories</link>
       <description>★★★☆☆ 重要度3/5
-・金鉱業者株がインフレとFedの懸念を持つ投資家に高品質の投資機会を提供
-・金価格が高値に挑戦中
-ベースシナリオ: 金価格が1500ドル/ozに到達する
+・エネルギー企業が2期連続で売上高を伸ばし、S&amp;amp;P 500の売上成長を推進
+・エネルギー企業の売上高は42.5%増加
+ベースシナリオ: メインシナリオは、エネルギー企業の売上高が維持されることによるS&amp;amp;P 500の売上成長の継続
 市場影響: 🔼 強気
 出典: MarketWatch</description>
-      <pubDate>Thu, 06 Aug 2026 20:57:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/gold-prices-are-breaking-higher-after-a-tough-stretch-could-fresh-records-be-within-reach-1e1a872f?mod=mw_rss_topstories</guid>
+      <pubDate>Sun, 09 Aug 2026 14:00:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/s-p-500-sales-growth-is-at-a-nearly-5-year-high-heres-whats-behind-the-surge-a4ccf06d?mod=mw_rss_topstories</guid>
+      <category>📈 外国インデックス</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] ハンガリー中央銀行、ユーロ圏加盟のメリットを強調</title>
+      <link>https://www.bloomberg.com/news/articles/2026-08-09/hungarian-central-banker-touts-benefits-of-joining-euro-area</link>
+      <description>★★★☆☆ 重要度3/5
+・ハンガリー中央銀行、ユーロ圏加盟の条件を満たすための政府の努力を支援
+・ユーロ圏加盟は経済にメリットがあると中央銀行が述べた
+・ユーロ圏加盟の条件を満たすための政府の努力を支援
+ベースシナリオ: 政府の努力が継続し、ユーロ圏加盟の条件を満たす。
+市場影響: ➡️ 中立
+出典: Bloomberg Markets</description>
+      <pubDate>Sun, 09 Aug 2026 17:23:31 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-08-09/hungarian-central-banker-touts-benefits-of-joining-euro-area</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[🎯 先物] S&amp;amp;P 500が新高に達する中のボラティリティ</title>
-      <link>https://www.marketwatch.com/story/how-to-use-options-to-trade-stocks-around-an-earnings-announcement-e1ba7920?mod=mw_rss_topstories</link>
-      <description>★★★★☆ 重要度4/5
-・VIX指数が10.5に低下し、安心感が高まる
-・S&amp;amp;P 500のボラティリティが下降し、安定感が増す
-・長期金利の変動が株価の動向に影響する
-ベースシナリオ: 長期金利の変動が株価の動向に影響する
+      <title>➡️[🎯 先物] Bloomberg This Weekend 08/09/2026</title>
+      <link>https://www.bloomberg.com/news/videos/2026-08-09/bloomberg-this-weekend-08-09-2026-video</link>
+      <description>★☆☆☆☆ 重要度1/5
+・ニュース番組「Bloomberg This Weekend」が8月9日放送
+・米国ニューヨークから生放送
+・ゲストに政治家や経済専門家が登場
 市場影響: ➡️ 中立
-出典: MarketWatch</description>
-      <pubDate>Thu, 06 Aug 2026 20:37:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/how-to-use-options-to-trade-stocks-around-an-earnings-announcement-e1ba7920?mod=mw_rss_topstories</guid>
+出典: Bloomberg Markets</description>
+      <pubDate>Sun, 09 Aug 2026 15:57:13 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/videos/2026-08-09/bloomberg-this-weekend-08-09-2026-video</guid>
       <category>🎯 先物</category>
     </item>
     <item>
-      <title>➡️[🎯 先物] アンワルの娘が党指導部から退く</title>
-      <link>https://www.bloomberg.com/news/articles/2026-08-07/anwar-s-daughter-takes-leave-from-party-leadership-amid-setbacks</link>
+      <title>➡️[📈 外国インデックス] S&amp;P 500を上回る銘柄数が4年ぶり高</title>
+      <link>https://www.marketwatch.com/story/the-number-of-stocks-beating-the-s-p-500-is-the-highest-in-4-years-why-that-number-should-rise-b9bd05b3?mod=mw_rss_topstories</link>
       <description>★★★☆☆ 重要度3/5
-・マレーシア首相アンワルの娘が党副党首を退く
-・党内対立が深刻化し、不正行為の疑惑も
-・党内選挙で1年前から副党首を務めていた
-ベースシナリオ: 党内対立が深刻化し、政権不安が進む
-市場影響: ➡️ 中立
-出典: Bloomberg Markets</description>
-      <pubDate>Fri, 07 Aug 2026 00:46:25 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-08-07/anwar-s-daughter-takes-leave-from-party-leadership-amid-setbacks</guid>
-      <category>🎯 先物</category>
-    </item>
-    <item>
-      <title>🔽[🎯 先物] イラン、ホルムズ海峡を米・イスラエル船に封鎖</title>
-      <link>https://www.bloomberg.com/news/videos/2026-08-07/iran-seeks-to-bar-us-ships-as-deal-with-oman-advances-video</link>
-      <description>★★★★★ 重要度5/5
-・イランがホルムズ海峡封鎖を検討、米・イスラエル船に制限
-・イランとオマーンの交渉が進展、対象国への補償を求める
-・米・イスラエル船のホルムズ海峡通過を阻止
-ベースシナリオ: メインシナリオでは、ホルムズ海峡封鎖が実現せず、原油価格は安定する。
-市場影響: 🔽 弱気
-出典: Bloomberg Markets</description>
-      <pubDate>Fri, 07 Aug 2026 00:25:14 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/videos/2026-08-07/iran-seeks-to-bar-us-ships-as-deal-with-oman-advances-video</guid>
-      <category>🎯 先物</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] コスモエネルギーHD、1Q最終黒字転換 原油価格の上昇など</title>
-      <link>https://news.google.com/rss/articles/CBMihwFBVV95cUxQeFNfVTM5OHpjT3VuUTE4ZkNBdVJEQ18tekxGeVlSWWxub0s5UUNmcElLR1BKWXVPalpNdUpKZHNzY0FIVmRKcnU5MzY0VWNlTTJVT2xaSldSdHg5RjhtSUFNM25jdi1ZMzN1QU5yUHBaYlZmN1FTalR6RWd5Rm1kU2t6WmFicEk?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・コスモエネルギーHDの1Q最終黒字転換、原油価格の上昇などが寄与
-・株価急騰、1日比5.1%上昇
-・原油価格の上昇や石油精製品の売上増加が黒字転換の要因
-ベースシナリオ: 原油価格の安定化や石油精製品の売上減少により、株価が下落する可能性が高い
-市場影響: 🔼 強気
-出典: Google News (原油価格)</description>
-      <pubDate>Fri, 07 Aug 2026 00:57:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMihwFBVV95cUxQeFNfVTM5OHpjT3VuUTE4ZkNBdVJEQ18tekxGeVlSWWxub0s5UUNmcElLR1BKWXVPalpNdUpKZHNzY0FIVmRKcnU5MzY0VWNlTTJVT2xaSldSdHg5RjhtSUFNM25jdi1ZMzN1QU5yUHBaYlZmN1FTalR6RWd5Rm1kU2t6WmFicEk?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] エアビアブが2026年予想を2度目の引き上げ</title>
-      <link>https://www.bloomberg.com/news/articles/2026-08-06/airbnb-lifts-2026-outlook-again-on-robust-us-european-travel</link>
-      <description>★★★★☆ 重要度4/5
-・エアビアブが2026年売上予想を2度目に引き上げた
-・米国とヨーロッパでの旅行需要が好調
-・エアビアブの売上予想が2度目に引き上げられた
-ベースシナリオ: エアビアブの売上予想が実現し、株価が上昇する
-市場影響: 🔼 強気
-出典: Bloomberg Markets</description>
-      <pubDate>Thu, 06 Aug 2026 20:03:32 GMT</pubDate>
-      <guid>https://www.bloomberg.com/news/articles/2026-08-06/airbnb-lifts-2026-outlook-again-on-robust-us-european-travel</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔽[📊 日本インデックス] 日経平均下落500円超え</title>
-      <link>https://news.google.com/rss/articles/CBMiR0FVX3lxTE9xUGc4dTN3enV1UmwwN1dvWGo0b0h0MXVaS191bkhvQzZGNVQ5dzQyQVdXeWNVV0dHbjRaNmo0UHhHWnN3U1Vr?oc=5</link>
-      <description>★★★★★ 重要度5/5
-・日経平均下落500円超え
-・下げ幅拡大
-・市場の不安定化
-ベースシナリオ: 市場の不安定化が続き、日経平均が下落を続ける。
-市場影響: 🔽 弱気
-出典: Google News (日経平均)</description>
-      <pubDate>Fri, 07 Aug 2026 00:18:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiR0FVX3lxTE9xUGc4dTN3enV1UmwwN1dvWGo0b0h0MXVaS191bkhvQzZGNVQ5dzQyQVdXeWNVV0dHbjRaNmo0UHhHWnN3U1Vr?oc=5</guid>
-      <category>📊 日本インデックス</category>
-    </item>
-    <item>
-      <title>➡️[📊 日本インデックス] 日経平均が反発、ＳＯＸ指数高や円安で買い優勢＝７日寄り付き</title>
-      <link>https://news.google.com/rss/articles/CBMiR0FVX3lxTE91QVpmSUxyYV9jTWJaRWpIMUMtOE4zZGcxTmxaTm5tNXpQdXo4amlHRTZmSDhFQlFFVV9vTzVCemliWHFaOGtV?oc=5</link>
-      <description>★★★☆☆ 重要度3/5
-・日経平均が0.8%上昇、ＳＯＸ指数も1.1%高
-・円安も買い気味、1ドル＝136円台で
-・株価指数と円安が買い優勢
-ベースシナリオ: メインシナリオは株価指数と円安が買い優勢のまま、日経平均が上昇を続ける。
-市場影響: ➡️ 中立
-出典: Google News (日経平均)</description>
-      <pubDate>Fri, 07 Aug 2026 00:08:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiR0FVX3lxTE91QVpmSUxyYV9jTWJaRWpIMUMtOE4zZGcxTmxaTm5tNXpQdXo4amlHRTZmSDhFQlFFVV9vTzVCemliWHFaOGtV?oc=5</guid>
-      <category>📊 日本インデックス</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] ホルムズ海峡封鎖の動き再燃、原油価格大幅上昇</title>
-      <link>https://news.google.com/rss/articles/CBMidEFVX3lxTE5PY29KSzBDeTN2STFrZG1vY1o3Q0duOEFtenQ3WW42N2xfVFFHcmdONTJrUExMdVl2anduZFg2SHZJeTE1eDBaTFpwOU1QOHNUSWotaVlUTUZzTzZzNEo5SDBnWkl0bHQzd1E0YkxmWl9QNllR?oc=5</link>
-      <description>★★★★★ 重要度5/5
-・ホルムズ海峡封鎖の動きが再燃、原油価格が3ドル超上昇
-・金価格は急騰後反落
-・世界経済への影響が懸念される
-ベースシナリオ: ホルムズ海峡封鎖の動きが継続し、原油価格が上昇する
-市場影響: 🔼 強気
-出典: Google News (原油価格)</description>
-      <pubDate>Thu, 06 Aug 2026 23:25:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMidEFVX3lxTE5PY29KSzBDeTN2STFrZG1vY1o3Q0duOEFtenQ3WW42N2xfVFFHcmdONTJrUExMdVl2anduZFg2SHZJeTE1eDBaTFpwOU1QOHNUSWotaVlUTUZzTzZzNEo5SDBnWkl0bHQzd1E0YkxmWl9QNllR?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] 日銀利上げ加速への思惑</title>
-      <link>https://news.google.com/rss/articles/CBMiUEFVX3lxTFAtMkltenZfNTJpbkQwUktFVFVjWnBmS1I2SnIxYWNMVGN5V2pDMnEwaGNLMWhnekFvT19ZeWxNd05CRTQtWWhmYjVMamgyWlBH?oc=5</link>
-      <description>★★★☆☆ 重要度3/5
-・高市政権下でもAI関心が高まり、来年のMPM日程の影響から日銀利上げ加速への思惑が生まれる
-・日銀は利上げ加速を検討する可能性が高まっている
-・市場では利上げ加速への期待が高まっている
-ベースシナリオ: メインシナリオでは日銀利上げ加速が実施され、市場は上昇を続ける
-市場影響: ➡️ 中立
-出典: Google News (日銀 金融政策)</description>
-      <pubDate>Thu, 06 Aug 2026 21:03:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiUEFVX3lxTFAtMkltenZfNTJpbkQwUktFVFVjWnBmS1I2SnIxYWNMVGN5V2pDMnEwaGNLMWhnekFvT19ZeWxNd05CRTQtWWhmYjVMamgyWlBH?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔼[💱 為替・マクロ] 日銀会合で利上げ継続意見相次ぐ</title>
-      <link>https://news.google.com/rss/articles/CBMiYkFVX3lxTE00eVhhdlgzRkp4RDRaWU1rZWZlRkR2b3U1dnFtWjFJd3IxSm5pTmdiM291NWFnRnQ3Z1Q2eDFRcFNUUkJSaXlyR3lDbTVRT3Q3Mmh0UEFYTjhoODFCUldFVkRR?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・日銀会合で利上げ継続意見が相次いだ
-・物価上昇リスクで一致
-・政策金利の引き上げが続く可能性高
-ベースシナリオ: 政策金利の引き上げが続く。
-市場影響: 🔼 強気
-出典: Google News (日銀 金融政策)</description>
-      <pubDate>Thu, 06 Aug 2026 20:00:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiYkFVX3lxTE00eVhhdlgzRkp4RDRaWU1rZWZlRkR2b3U1dnFtWjFJd3IxSm5pTmdiM291NWFnRnQ3Z1Q2eDFRcFNUUkJSaXlyR3lDbTVRT3Q3Mmh0UEFYTjhoODFCUldFVkRR?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[🇺🇸 外国株式] 社会保障基金の危機は大きな問題だが、もう一つのリスクも</title>
-      <link>https://www.marketwatch.com/story/if-social-securitys-funding-crisis-is-the-elephant-in-the-room-this-is-the-mouse-everyone-has-overlooked-you-have-been-warned-b95c450d?mod=mw_rss_topstories</link>
-      <description>★★★☆☆ 重要度3/5
-・社会保障基金の信託金が枯渇した場合の国会の対応は不明
-・信託金枯渇のリスクは米国株のボラティリティに影響
-・米国政府の財政政策への影響も懸念
-ベースシナリオ: 信託金枯渇のリスクは米国株のボラティリティに影響するが、国会の対応は不明。
+・S&amp;P 500を上回る銘柄数が4年ぶりに高くなった
+・平均株価が上昇
+・株式市場の期待値が高まっている
+ベースシナリオ: 株価が安い銘柄が上昇し、株価が上昇する
 市場影響: ➡️ 中立
 出典: MarketWatch</description>
-      <pubDate>Fri, 07 Aug 2026 00:31:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/if-social-securitys-funding-crisis-is-the-elephant-in-the-room-this-is-the-mouse-everyone-has-overlooked-you-have-been-warned-b95c450d?mod=mw_rss_topstories</guid>
+      <pubDate>Sun, 09 Aug 2026 19:11:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/the-number-of-stocks-beating-the-s-p-500-is-the-highest-in-4-years-why-that-number-should-rise-b9bd05b3?mod=mw_rss_topstories</guid>
+      <category>📈 外国インデックス</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] ルーマニア、ダニUBE爆発で水位上昇に2号機出力延長</title>
+      <link>https://www.bloomberg.com/news/articles/2026-08-09/romania-extends-reactor-output-by-nine-days-after-danube-blasts</link>
+      <description>★★★☆☆ 重要度3/5
+・ルーマニアのダニUBE川で爆発、水位上昇により2号機出力延長
+・出力延長期間は少なくとも9日間
+・ダニUBE川水位上昇は4cmに達
+ベースシナリオ: 出力延長により、原子力発電所の運営が維持される。
+市場影響: ➡️ 中立
+出典: Bloomberg Markets</description>
+      <pubDate>Sun, 09 Aug 2026 08:55:26 GMT</pubDate>
+      <guid>https://www.bloomberg.com/news/articles/2026-08-09/romania-extends-reactor-output-by-nine-days-after-danube-blasts</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[🎯 先物] ロシア株下落、MOEXロシア指数無変動</title>
+      <link>https://www.investing.com/news/stock-market-news/russia-stocks-lower-at-close-of-trade-moex-russia-index-unchanged-4847756</link>
+      <description>★★★☆☆ 重要度3/5
+・ロシア株式市場は終値で下落した。MOEXロシア指数は無変動
+・ロシア株式市場の下落は、ロシア経済の不確実性とインフレ率の上昇の懸念による
+・ロシアの経済成長は、西側諸国との関係悪化や経済制裁の影響を受けている
+ベースシナリオ: メインシナリオでは、ロシア経済の不確実性とインフレ率の上昇の懸念が続き、株式市場は下落する。
+市場影響: 🔽 弱気
+出典: Investing.com</description>
+      <pubDate>Sun, 09 Aug 2026 21:20:03 GMT</pubDate>
+      <guid>https://www.investing.com/news/stock-market-news/russia-stocks-lower-at-close-of-trade-moex-russia-index-unchanged-4847756</guid>
+      <category>🎯 先物</category>
+    </item>
+    <item>
+      <title>➡️[🇺🇸 外国株式] $2.3 million投資資産から$300,000の住宅ローンを償却するか</title>
+      <link>https://www.marketwatch.com/story/my-wife-and-i-are-both-retired-do-we-dip-into-our-2-3-million-fund-to-pay-off-our-300-000-mortgage-at-2-9-2d23d1df?mod=mw_rss_topstories</link>
+      <description>★★★☆☆ 重要度3/5
+・投資資産から年間$100,000を引き出している
+・住宅ローンは2.9%の低金利
+・投資資産は$2.3 million
+ベースシナリオ: 投資家は投資資産から年間$100,000を引き出しており、住宅ローンを償却するかどうか検討中。
+市場影響: ➡️ 中立
+出典: MarketWatch</description>
+      <pubDate>Sun, 09 Aug 2026 16:00:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/my-wife-and-i-are-both-retired-do-we-dip-into-our-2-3-million-fund-to-pay-off-our-300-000-mortgage-at-2-9-2d23d1df?mod=mw_rss_topstories</guid>
       <category>🇺🇸 外国株式</category>
     </item>
     <item>
-      <title>🔽[💱 為替・マクロ] 日米金利差縮小でも止まらない「超円安」</title>
-      <link>https://news.google.com/rss/articles/CBMiTEFVX3lxTFBhUFgxV0dTeGVUUDRiQzRxSlBKc2l1eFJhcUJFc2pWMzhLSEkwS3lVd2Eyc3M3bTlDNTVTenZBU1B3QmdtZ2M2WDF3X0bSAU9BVV95cUxOellMTVQ1UU1icWtOUlZFR2hXaWFmZkZvUDAzR2JKXzMyZXJsemF0REFrM1V5b3JBM19qYk5zOU90T2k4ZE4wWVFQaUZxYzBr?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・日米金利差縮小にもかかわらず円安が続く理由
-・日本株の急騰が「第3の円売り要因」として影響
-・円売り要因の増加が円安の継続につながる可能性
-ベースシナリオ: 円安が継続する可能性が高い。
+      <title>➡️[📊 日本インデックス] 米利上げ観測後退で日経平均は堅調か、韓国では家計負債と雇用指標に注目</title>
+      <link>https://news.google.com/rss/articles/CBMidEFVX3lxTFB1Q1RKaHhtMHJNLWgzd0IzclJGcGROSndyVDNWbnZFb2lsQkc1Mk5kbjdZMS1FeHRTWnYwcFlZYngzb2VxS3ZKeUljaVJ6RUlvcDY4QjNVeXVqQWdZLXVpM19feU1OUEZjVmNCNUVYRFJpSWRo?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・米連邦準備理事会(Fed)が8月10日、利上げ観測を後退させる可能性を示した
+・日経平均は堅調な動きを続けている
+・韓国では家計負債と雇用指標に注目
+ベースシナリオ: メインシナリオでは、日経平均が堅調な動きを続ける
+市場影響: ➡️ 中立
+出典: Google News (日経平均)</description>
+      <pubDate>Sun, 09 Aug 2026 10:30:49 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMidEFVX3lxTFB1Q1RKaHhtMHJNLWgzd0IzclJGcGROSndyVDNWbnZFb2lsQkc1Mk5kbjdZMS1FeHRTWnYwcFlZYngzb2VxS3ZKeUljaVJ6RUlvcDY4QjNVeXVqQWdZLXVpM19feU1OUEZjVmNCNUVYRFJpSWRo?oc=5</guid>
+      <category>📊 日本インデックス</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] イエメンのフーシ派がサウジアラビア石油精製所を攻撃</title>
+      <link>https://www.investing.com/news/commodities-news/yemens-houthis-say-they-attacked-saudi-aramco-jazan-refinery-fire-extinguished-4847714</link>
+      <description>★★★★★ 重要度5/5
+・フーシ派がサウジアラビアの石油精製所を攻撃。サウジアラビアとイスラエルが防衛協定を締結
+・石油価格が不安定化する可能性
+・中東情勢の緊張が高まる
+ベースシナリオ: 石油価格が不安定化し、中東情勢の緊張が高まる
 市場影響: 🔽 弱気
-出典: Google News (ドル円 為替)</description>
-      <pubDate>Thu, 06 Aug 2026 19:20:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiTEFVX3lxTFBhUFgxV0dTeGVUUDRiQzRxSlBKc2l1eFJhcUJFc2pWMzhLSEkwS3lVd2Eyc3M3bTlDNTVTenZBU1B3QmdtZ2M2WDF3X0bSAU9BVV95cUxOellMTVQ1UU1icWtOUlZFR2hXaWFmZkZvUDAzR2JKXzMyZXJsemF0REFrM1V5b3JBM19qYk5zOU90T2k4ZE4wWVFQaUZxYzBr?oc=5</guid>
+出典: Investing.com</description>
+      <pubDate>Sun, 09 Aug 2026 19:42:26 GMT</pubDate>
+      <guid>https://www.investing.com/news/commodities-news/yemens-houthis-say-they-attacked-saudi-aramco-jazan-refinery-fire-extinguished-4847714</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[🇺🇸 外国株式] 80万ドル規模の年金受給で投資先を探す</title>
-      <link>https://www.marketwatch.com/story/im-easing-into-retirement-im-getting-an-80-000-pension-payout-where-can-i-invest-it-safely-6653d810?mod=mw_rss_topstories</link>
-      <description>★★☆☆☆ 重要度2/5
-・年金受給者が80万ドル規模の年金を受け取り、投資先を探している
-・401(k)口座から出金は数年後
-・安全な投資先を探している
-ベースシナリオ: 年金受給者は、年金の規模や投資先を慎重に検討する必要がある。401(k)口座から出金する時期も重要な要素となる。
-市場影響: ➡️ 中立
-出典: MarketWatch</description>
-      <pubDate>Fri, 07 Aug 2026 00:00:00 GMT</pubDate>
-      <guid>https://www.marketwatch.com/story/im-easing-into-retirement-im-getting-an-80-000-pension-payout-where-can-i-invest-it-safely-6653d810?mod=mw_rss_topstories</guid>
-      <category>🇺🇸 外国株式</category>
+      <title>🔽[💱 為替・マクロ] ビットコイン、過度買い信号発生</title>
+      <link>https://www.investing.com/news/cryptocurrency-news/bitcoin-tests-62k-support-with-breakout-looming-live-levels-93CH-4829888</link>
+      <description>★★★☆☆ 重要度3/5
+・ビットコインが$65,500の強い抵抗線に到達
+・MFI(市場力指数)が過度買いを示す
+・価格の急上昇が続く可能性
+ベースシナリオ: 価格が$65,500の抵抗線を突破し、上昇を続ける
+市場影響: 🔽 弱気
+出典: Investing.com</description>
+      <pubDate>Sun, 09 Aug 2026 19:02:19 GMT</pubDate>
+      <guid>https://www.investing.com/news/cryptocurrency-news/bitcoin-tests-62k-support-with-breakout-looming-live-levels-93CH-4829888</guid>
+      <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[🇺🇸 外国株式] 高齢親族の介護を国家に依存することの倫理的考慮</title>
+      <title>➡️[💱 為替・マクロ] 日経平均堅調展開か　米利上げ観測後退の影響</title>
+      <link>https://news.google.com/rss/articles/CBMibEFVX3lxTFBZb1FYYkhfME91dTFxMHQ0T0ZTZnpIUUM5YUdLcVhaZXhDR1MyaHRVNWhDMVp0QWIzaF9USXlxSl9DVHE5b1YxbDFJbnpFWDF2bm1BOFUta0lpRGFDMXB2TkJKOGlGMjJQVW8xRQ?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・日経平均が前週末の高値を維持
+・米連邦準備理事会(Fed)の利上げ観測が後退
+・今週の市場予定は、経済指標や企業の財務報告
+ベースシナリオ: 経済指標や企業の財務報告が予想通り、日経平均は堅調な展開を続ける。
+市場影響: ➡️ 中立
+出典: Google News (日経平均)</description>
+      <pubDate>Sun, 09 Aug 2026 09:00:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMibEFVX3lxTFBZb1FYYkhfME91dTFxMHQ0T0ZTZnpIUUM5YUdLcVhaZXhDR1MyaHRVNWhDMVp0QWIzaF9USXlxSl9DVHE5b1YxbDFJbnpFWDF2bm1BOFUta0lpRGFDMXB2TkJKOGlGMjJQVW8xRQ?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[🇺🇸 外国株式] 親の介護を国家に任せることの倫理</title>
       <link>https://www.marketwatch.com/story/i-dont-wish-to-be-cold-hearted-my-elderly-relative-can-no-longer-care-for-himself-am-i-wrong-to-leave-his-care-to-the-state-8d546b32?mod=mw_rss_topstories</link>
       <description>★★★☆☆ 重要度3/5
-・高齢親族の介護を国家に依存することの倫理的考慮
-・親族の過去の性格や行動が介護の責任に影響するか
-・国家の介護サービスと家族の介護の比較
+・親の介護を国家に任せることの倫理的影響
+・親の過去の行為と現在の状況の関係
+・介護の負担と国家の責任
+ベースシナリオ: 親が介護を国家に任せることの倫理的影響について議論が起こっている。親の過去の行為と現在の状況の関係を考慮する必要がある。
 市場影響: ➡️ 中立
 出典: MarketWatch</description>
-      <pubDate>Thu, 06 Aug 2026 23:31:00 GMT</pubDate>
+      <pubDate>Sun, 09 Aug 2026 13:30:00 GMT</pubDate>
       <guid>https://www.marketwatch.com/story/i-dont-wish-to-be-cold-hearted-my-elderly-relative-can-no-longer-care-for-himself-am-i-wrong-to-leave-his-care-to-the-state-8d546b32?mod=mw_rss_topstories</guid>
       <category>🇺🇸 外国株式</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] IMF副専務理事、日本経済構造転換が定着 日銀利上げ継続支持</title>
-      <link>https://news.google.com/rss/articles/CBMidEFVX3lxTE5zenJsN0xqYThPNUs5WlZBd1RlWWNXQVVNVnZLQWw0dFJkekhwNFM3NW96WEtSbnN2V1ZYQThtRHNxRTktU2gxV2lKMkZMUGxEZ01uOThzS1hmZzlmVmpmakVoZE1nLU82SFZncWIyR1FOVGpR?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・IMF副専務理事が日本経済の構造転換が定着していることを認め、日銀の利上げ継続による正常化を支持
-・日本経済の構造転換は、景気後退やインフレ低下を防ぎ、正常化を促進する
-・IMF副専務理事は、日銀の利上げ継続が日本経済の正常化を促進する可能性を高めている
-ベースシナリオ: 日本経済の構造転換が定着し、日銀の利上げ継続による正常化が進む
+      <title>➡️[🇺🇸 外国株式] 父親が94歳、弟ががんで家族の重圧</title>
+      <link>https://www.marketwatch.com/story/this-has-been-an-emotionally-difficult-time-my-brother-has-cancer-and-my-father-is-94-how-do-i-shoulder-this-responsibility-9da09dc4?mod=mw_rss_topstories</link>
+      <description>★★★☆☆ 重要度3/5
+・父親が94歳、弟ががんで家族の重圧
+・父親が600万ドルを信託に置き、弟が受益者
+・家族の責任の分担が難しい状況
+ベースシナリオ: 家族は協力して乗り切る
 市場影響: ➡️ 中立
-出典: Google News (日銀 金融政策)</description>
-      <pubDate>Thu, 06 Aug 2026 16:25:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMidEFVX3lxTE5zenJsN0xqYThPNUs5WlZBd1RlWWNXQVVNVnZLQWw0dFJkekhwNFM3NW96WEtSbnN2V1ZYQThtRHNxRTktU2gxV2lKMkZMUGxEZ01uOThzS1hmZzlmVmpmakVoZE1nLU82SFZncWIyR1FOVGpR?oc=5</guid>
+出典: MarketWatch</description>
+      <pubDate>Sun, 09 Aug 2026 13:00:00 GMT</pubDate>
+      <guid>https://www.marketwatch.com/story/this-has-been-an-emotionally-difficult-time-my-brother-has-cancer-and-my-father-is-94-how-do-i-shoulder-this-responsibility-9da09dc4?mod=mw_rss_topstories</guid>
+      <category>🇺🇸 外国株式</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] トランプ氏「米国はイランとの対立を控えめに進めている」</title>
+      <link>https://www.investing.com/news/economy-news/fire-at-saudi-aramcos-jazan-refinery-extinguished-no-injuries-reported-4847703</link>
+      <description>★★★☆☆ 重要度3/5
+・トランプ米大統領がイランとの対立を控えめに進めていると述べた
+・イラン経済が苦境にあることを背景にした発言
+・米国とイランの関係が緊張している状況
+ベースシナリオ: トランプ氏の発言が控えめに進めているイランとの対立を示唆するが、具体的な行動は見られない。
+市場影響: 🔽 弱気
+出典: Investing.com</description>
+      <pubDate>Sun, 09 Aug 2026 17:22:16 GMT</pubDate>
+      <guid>https://www.investing.com/news/economy-news/fire-at-saudi-aramcos-jazan-refinery-extinguished-no-injuries-reported-4847703</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] 金価格は安定、ホルムズ海峡の緊張が連邦準備理事会の見通しを曖昧にする</title>
-      <link>https://www.investing.com/news/commodities-news/gold-steady-as-hormuz-tensions-cloud-fed-outlook-traders-eye-payrolls-4844993</link>
-      <description>★★★★☆ 重要度4/5
-・ホルムズ海峡の緊張が米連邦準備理事会の政策見通しを不安定にする
-・金価格は安定しているが、貿易戦争のリスクが高まっている
-・米国雇用統計の発表を待って市場の動向が変わる
-ベースシナリオ: メインシナリオは、ホルムズ海峡の緊張が続き、米連邦準備理事会の政策見通しを不安定にしている。
+      <title>➡️[💱 為替・マクロ] ドル円、157.70円近辺で値動きが激しい</title>
+      <link>https://news.google.com/rss/articles/CBMihwFBVV95cUxNSVJlQkRkRldCbFZrYjVtWFR2M2dwYTVkaUJad1piNlFRaGI2MDlpV1lIT2U2YmRGbVhWNDJoSkxrZWcxZGRoNDFJd3FSamQxRUFYTlcxQU5vWG13MUt0amxaS3BXeHVzSy1YR0ZZV1BDaTJodzYtNkN3Z1BTRVRMZ1hydUFWZms?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・ドル円は157.70円近辺で値動きが激しい
+・トレーダーズ・ウェブで値動きが見られ
+・ドル円の値動きが注目されている
+ベースシナリオ: ドル円の値動きは、供給と需要のバランスによって決まる。
 市場影響: ➡️ 中立
-出典: Investing.com</description>
-      <pubDate>Fri, 07 Aug 2026 00:52:18 GMT</pubDate>
-      <guid>https://www.investing.com/news/commodities-news/gold-steady-as-hormuz-tensions-cloud-fed-outlook-traders-eye-payrolls-4844993</guid>
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Sun, 09 Aug 2026 21:40:04 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMihwFBVV95cUxNSVJlQkRkRldCbFZrYjVtWFR2M2dwYTVkaUJad1piNlFRaGI2MDlpV1lIT2U2YmRGbVhWNDJoSkxrZWcxZGRoNDFJd3FSamQxRUFYTlcxQU5vWG13MUt0amxaS3BXeHVzSy1YR0ZZV1BDaTJodzYtNkN3Z1BTRVRMZ1hydUFWZms?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔼[💱 為替・マクロ] オイル価格上昇　ホルムズ海峡再開計画に関する懸念</title>
-      <link>https://www.investing.com/news/commodities-news/oil-rises-on-concerns-over-strait-of-hormuz-reopening-plans-4844992</link>
+      <title>➡️[💱 為替・マクロ] ドル円、157.70円近辺で値動きが激しい</title>
+      <link>https://news.google.com/rss/articles/CBMiUkFVX3lxTE1yUVM4MzZGVVVTRElUekZ2WHBEQV9RSS1mUTNmdHNqNlNmVVY5ak5zU0VhMHRQSHU5SnFYbE1lVkNXc0RZUzB6V1EwaEtRWUxlNHc?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・ドル円は157.70円近辺で値動きが激しい
+・為替市場ではドルが売り、円が買われた
+・ドル円は157.70円を突破した
+ベースシナリオ: ドル円は157.70円近辺で値動きが激しくなり、為替市場ではドルが売り、円が買われた。
+市場影響: ➡️ 中立
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Sun, 09 Aug 2026 21:37:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiUkFVX3lxTE1yUVM4MzZGVVVTRElUekZ2WHBEQV9RSS1mUTNmdHNqNlNmVVY5ak5zU0VhMHRQSHU5SnFYbE1lVkNXc0RZUzB6V1EwaEtRWUxlNHc?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] 米NECのハシット氏 "物価は依然高水準"</title>
+      <link>https://news.google.com/rss/articles/CBMiiAFBVV95cUxOLXdoemJIbWtkWTMwTVdjejhDeHVYYkVEU2h2bE1SUTkyYl9jVzJIU25hMUFndHcxMlIzWE4xd0pQN1E0RXJNTTBqaXdLbXVxVnVNU0JpUFBpdFF5SEtoNGFWY1hrckNOMVNBMGUwUFBsOEhVNGQwbElHcDRJLVZuaVdvVDRSMEZa0gGcAUFVX3lxTFBlNFNZb3F2SjQtRWd0WXpVemg3ZTZZcHZUenhWZWNTSnlyWVB4UnhEOFpSNVM3UGVaQWZiSm9lZjBibmZqcjFLSkFoaVF6dUdWcjdUMjhZa0xVRmc3TnF0eEI0MGMtb1BXZ3R0VXo3WWQ0N29QalpaUlliTE5CdG1kNGxvS3QteHMwT3VtYnZqcVlJaHFOdkZLSGVyag?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・米NECのハシット氏が物価は依然高水準であると述べた
+・物価上昇は2023年下半期にも継続する可能性
+・米連邦準備制度理事会(Fed)が金利引き下げを検討する可能性
+ベースシナリオ: 物価上昇は2023年下半期にも継続する可能性がある。
+市場影響: 🔽 弱気
+出典: Google News (原油価格)</description>
+      <pubDate>Sun, 09 Aug 2026 21:23:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiiAFBVV95cUxOLXdoemJIbWtkWTMwTVdjejhDeHVYYkVEU2h2bE1SUTkyYl9jVzJIU25hMUFndHcxMlIzWE4xd0pQN1E0RXJNTTBqaXdLbXVxVnVNU0JpUFBpdFF5SEtoNGFWY1hrckNOMVNBMGUwUFBsOEhVNGQwbElHcDRJLVZuaVdvVDRSMEZa0gGcAUFVX3lxTFBlNFNZb3F2SjQtRWd0WXpVemg3ZTZZcHZUenhWZWNTSnlyWVB4UnhEOFpSNVM3UGVaQWZiSm9lZjBibmZqcjFLSkFoaVF6dUdWcjdUMjhZa0xVRmc3TnF0eEI0MGMtb1BXZ3R0VXo3WWQ0N29QalpaUlliTE5CdG1kNGxvS3QteHMwT3VtYnZqcVlJaHFOdkZLSGVyag?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[💱 為替・マクロ] ワース連邦準備理事会への意見書、市場介入を控える</title>
+      <link>https://www.investing.com/news/economy-news/warsh-wants-a-fed-that-plays-a-smaller-role-in-markets-4847750</link>
+      <description>★★★☆☆ 重要度3/5
+・ワース連邦準備理事会のメンバーが市場介入を控える意見を表明
+・市場介入は経済の安定性を損なう可能性がある
+・市場自体が安定性を維持する能力を高める必要がある
+ベースシナリオ: 市場介入を控えるワースの意見が市場に反映され、ドル円が下落する
+市場影響: 🔽 弱気
+出典: Investing.com</description>
+      <pubDate>Sun, 09 Aug 2026 16:01:07 GMT</pubDate>
+      <guid>https://www.investing.com/news/economy-news/warsh-wants-a-fed-that-plays-a-smaller-role-in-markets-4847750</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] 日経平均、年末に7万2000円 AI関連株への買い再び</title>
+      <link>https://news.google.com/rss/articles/CBMiowFBVV95cUxQTkVJamZLRGJVeWRla0sxT2VhUFpiNnlnNlBPdG1FUmpuZHJDWEJtUkRSZmotZ1JnbUxSeENfTm1tMktHYWhTVjN4SXlnN3I3bHV4bWV4ZWZ2U3JmaXhBVWVSQWVFREh3ek5hWjluVnIyYWZNRlFHQWYyckZ6ZHBnZjFyMVFRVGVnblUtLXdFdnFEM1daSS1CMVdPVEJOdWpWaVpr?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・日経平均は年末に7万2000円を目指す可能性
+・AI関連株が買い再びになる
+・投資家の期待が高まる
+ベースシナリオ: メインシナリオは日経平均が7万2000円を目指す。
+市場影響: ➡️ 中立
+出典: Google News (日経平均)</description>
+      <pubDate>Sun, 09 Aug 2026 20:00:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiowFBVV95cUxQTkVJamZLRGJVeWRla0sxT2VhUFpiNnlnNlBPdG1FUmpuZHJDWEJtUkRSZmotZ1JnbUxSeENfTm1tMktHYWhTVjN4SXlnN3I3bHV4bWV4ZWZ2U3JmaXhBVWVSQWVFREh3ek5hWjluVnIyYWZNRlFHQWYyckZ6ZHBnZjFyMVFRVGVnblUtLXdFdnFEM1daSS1CMVdPVEJOdWpWaVpr?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] みずほ総合研究所「160円台が円安すぎではない理由」</title>
+      <link>https://news.google.com/rss/articles/CBMiX0FVX3lxTE5FX0UzbXkyTE5FLUY5OXZaVUJReGlWM00yOWMyR2ZETkoySDhacF9YYmVuR0x0TEx4eUVQd1E5aXl4MkNtMFhJamVESnlkWDA4R2tvQ3E5a0JJMDJXSjhj?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・みずほ総合研究所が公表した報告書で、160円台が円安すぎではない理由を分析
+・報告書では、円安の影響が輸出業界に及ぼす影響を考慮
+・円安が輸出業界に及ぼす影響を分析することで、円安のリスクを評価
+ベースシナリオ: 円安の影響が輸出業界に及ぼす影響を分析することで、円安のリスクを評価する
+市場影響: ➡️ 中立
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Sun, 09 Aug 2026 18:59:28 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiX0FVX3lxTE5FX0UzbXkyTE5FLUY5OXZaVUJReGlWM00yOWMyR2ZETkoySDhacF9YYmVuR0x0TEx4eUVQd1E5aXl4MkNtMFhJamVESnlkWDA4R2tvQ3E5a0JJMDJXSjhj?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔽[📈 外国インデックス] AI支出減速の影響 S&amp;P500の動向</title>
+      <link>https://news.google.com/rss/articles/CBMicEFVX3lxTFBtMVpjT2lSdVV3MUg3S3Byb3czbk00VlNSY1htTmdpOHN0MFRjZVJUSVBPOC1nOHhFYmN3TmhFVzJBZ1ZoajlFSmsyVHZKUHQ2TkdGU1pxcWNpQTNUbHRyWXJiRDJNSnNsLWFURnl5Yjc?oc=5</link>
       <description>★★★★☆ 重要度4/5
-・ホルムズ海峡の再開が遅れる可能性でオイル価格が上昇
-・イランの対立が拡大し、海峡の安全性が懸念される
-・世界のエネルギー市場への影響を懸念する
-ベースシナリオ: メインシナリオでは、ホルムズ海峡の再開が遅れる可能性があるため、オイル価格が上昇する。
-市場影響: 🔼 強気
-出典: Investing.com</description>
-      <pubDate>Fri, 07 Aug 2026 00:48:31 GMT</pubDate>
-      <guid>https://www.investing.com/news/commodities-news/oil-rises-on-concerns-over-strait-of-hormuz-reopening-plans-4844992</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔽[📈 外国インデックス] マイケル・バリー氏がS&amp;amp;P500最高値で1987年型暴落を警告</title>
-      <link>https://news.google.com/rss/articles/CBMia0FVX3lxTE53am5vSG5wY21pY093bWwzSXQ0R0ZubGtKS09nVjZCUnJoeGZScjFCWlFLZnFjRURsUnpDazY3WmhESTdsZDhVa0JVSDI2RUZyNFB1REpfWHhSRndVTzY1cm5HQWo0Mkl6Y18w?oc=5</link>
-      <description>★★★★★ 重要度5/5
-・マイケル・バリー氏がS&amp;amp;P500の最高値で1987年型暴落を警告
-・バリー氏は市場が過度にバブル化している可能性を指摘
-・1987年型暴落は市場が過度にバブル化した結果として発生
-ベースシナリオ: 市場が過度にバブル化している可能性があるため、下落が続く可能性が高い
+・AI関連企業の株価が下落
+・S&amp;P500の下落が加速
+・AI関連企業の減速が米国経済に与える影響
+ベースシナリオ: AI関連企業の減速が継続し、S&amp;P500が下落する。
 市場影響: 🔽 弱気
 出典: Google News (S&amp;P500)</description>
-      <pubDate>Thu, 06 Aug 2026 15:00:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMia0FVX3lxTE53am5vSG5wY21pY093bWwzSXQ0R0ZubGtKS09nVjZCUnJoeGZScjFCWlFLZnFjRURsUnpDazY3WmhESTdsZDhVa0JVSDI2RUZyNFB1REpfWHhSRndVTzY1cm5HQWo0Mkl6Y18w?oc=5</guid>
+      <pubDate>Sun, 09 Aug 2026 18:23:29 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMicEFVX3lxTFBtMVpjT2lSdVV3MUg3S3Byb3czbk00VlNSY1htTmdpOHN0MFRjZVJUSVBPOC1nOHhFYmN3TmhFVzJBZ1ZoajlFSmsyVHZKUHQ2TkdGU1pxcWNpQTNUbHRyWXJiRDJNSnNsLWFURnl5Yjc?oc=5</guid>
       <category>📈 外国インデックス</category>
     </item>
     <item>
-      <title>➡️[💱 為替・マクロ] ナヴィエントの収益、業績予想を上回る</title>
-      <link>https://www.investing.com/news/earnings/navient-earnings-beat-by-010-revenue-topped-estimates-4844985</link>
-      <description>★★★☆☆ 重要度3/5
-・ナヴィエントの業績は市場の予想を上回り、収益は$1.43億を達成
-・株価は市場反応なし、$10.50に推移
-ベースシナリオ: 市場の反応は控えめ、収益の伸びが続く
-市場影響: ➡️ 中立
-出典: Investing.com</description>
-      <pubDate>Fri, 07 Aug 2026 00:33:12 GMT</pubDate>
-      <guid>https://www.investing.com/news/earnings/navient-earnings-beat-by-010-revenue-topped-estimates-4844985</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] Nerdwallet Earningsミス、収益は予想を上回る</title>
-      <link>https://www.investing.com/news/earnings/nerdwallet-earnings-missed-by-003-revenue-topped-estimates-4844984</link>
-      <description>★★★☆☆ 重要度3/5
-・NerdwalletのEarningsミスは$0.03、収益は予想を上回る
-・米国株式市場への影響は限定的
-・株価は小幅な変動
-ベースシナリオ: メインシナリオでは、Nerdwalletの株価は小幅な変動で、収益と利益の発表による影響が限定的となる。
-市場影響: ➡️ 中立
-出典: Investing.com</description>
-      <pubDate>Fri, 07 Aug 2026 00:33:10 GMT</pubDate>
-      <guid>https://www.investing.com/news/earnings/nerdwallet-earnings-missed-by-003-revenue-topped-estimates-4844984</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>➡️[💱 為替・マクロ] ドル・円158円台、原油価格上昇</title>
-      <link>https://news.google.com/rss/articles/CBMiUkFVX3lxTE5iVXlrYUF1VFZYRm1oaXF5SnZlR0ZFLWZrbnE1ZlJscXN5V2h5REJWN3BOMjQ1R05aODFYS0Z3M1FYUEFZNXZuQzRncV9ScTNObEE?oc=5</link>
-      <description>★★★☆☆ 重要度3/5
-・ドル円は158円台に上昇、原油価格も上昇
-・原油価格上昇により、インフレリスクが高まる
-・為替市場ではドルが買われ、円が売れ
-ベースシナリオ: 原油価格の上昇により、インフレリスクが高まる。為替市場ではドルが買われ、円が売れる。
+      <title>➡️[💱 為替・マクロ] エクソンモービル、利益2倍に達の14.5億ドル</title>
+      <link>https://news.google.com/rss/articles/CBMirAFBVV95cUxQX3FOUWpHd0xRLWcwdFJDYnBObUtDN29mZDhaVXJFY1hqa1FIY1RIVHlrazljWUpZNzBLNlhxM01CYkZKUVBFazdvSTVfdUR6cXFnS3dxOEtKQWNIUm5wWHFQdkN3eXV4d2JCek5XNnZaTFkxNGJ6MGpfc2pjZEVidl9BbC1KWjhpckNfejMtUGsySzdmMU5kODdnWW5Vel9WbFFQbmNDdnc3Z09Q?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+・エクソンモービルの利益が2倍に達し、14.5億ドルに
+・石油価格の低下が企業の実績をテストする
+・エクソンモービルの財務状況が好調
+ベースシナリオ: エクソンモービルの財務状況が好調なまま、石油価格の低下が企業の実績をテストする
 市場影響: ➡️ 中立
 出典: Google News (原油価格)</description>
-      <pubDate>Thu, 06 Aug 2026 14:16:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiUkFVX3lxTE5iVXlrYUF1VFZYRm1oaXF5SnZlR0ZFLWZrbnE1ZlJscXN5V2h5REJWN3BOMjQ1R05aODFYS0Z3M1FYUEFZNXZuQzRncV9ScTNObEE?oc=5</guid>
+      <pubDate>Sun, 09 Aug 2026 16:44:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMirAFBVV95cUxQX3FOUWpHd0xRLWcwdFJDYnBObUtDN29mZDhaVXJFY1hqa1FIY1RIVHlrazljWUpZNzBLNlhxM01CYkZKUVBFazdvSTVfdUR6cXFnS3dxOEtKQWNIUm5wWHFQdkN3eXV4d2JCek5XNnZaTFkxNGJ6MGpfc2pjZEVidl9BbC1KWjhpckNfejMtUGsySzdmMU5kODdnWW5Vel9WbFFQbmNDdnc3Z09Q?oc=5</guid>
       <category>💱 為替・マクロ</category>
     </item>
     <item>
-      <title>🔼[💱 為替・マクロ] 日銀、来月利上げ観測　米財務長官発言で高まる</title>
-      <link>https://news.google.com/rss/articles/CBMid0FVX3lxTE0zVWEyN28xOUllNWdHZ3FoaGd0ZmxacHdQZlgzY29NNVBqWXAyLVd5dDNqdHVfX1VJS0VyS2VCRXR6ZEs3MWpKSXJnd1l3VmplQmxDd3pTMjVDUEVWR1E5WG10ZEhCMWk3SG1nZVhlSF9JbEx0QTZj0gF8QVVfeXFMTVF3U1NFNkxCZUJIajN5VHlQdmNmLTNwcnBiRzYtUlJIQUdXcWdkYVJzWHhaMXU1UFpmNXRBQ3EtR3BkNFAxbmJMcnlTdmlaclFwNUNzWlNxdmhGMGNXS1FoV2FkMEFFc192aG9NMy1lU2FPbllvT2N2TTU2eg?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・米財務長官が来月の日銀の利上げ観測を高める発言
-・日銀の利上げ予想が高まり、円安の可能性が増す
-・米国と日米の経済関係が影響する可能性
-ベースシナリオ: 日銀の利上げ予想が高まり、円安の可能性が増す。
-市場影響: 🔼 強気
-出典: Google News (日銀 金融政策)</description>
-      <pubDate>Thu, 06 Aug 2026 11:58:55 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMid0FVX3lxTE0zVWEyN28xOUllNWdHZ3FoaGd0ZmxacHdQZlgzY29NNVBqWXAyLVd5dDNqdHVfX1VJS0VyS2VCRXR6ZEs3MWpKSXJnd1l3VmplQmxDd3pTMjVDUEVWR1E5WG10ZEhCMWk3SG1nZVhlSF9JbEx0QTZj0gF8QVVfeXFMTVF3U1NFNkxCZUJIajN5VHlQdmNmLTNwcnBiRzYtUlJIQUdXcWdkYVJzWHhaMXU1UFpmNXRBQ3EtR3BkNFAxbmJMcnlTdmlaclFwNUNzWlNxdmhGMGNXS1FoV2FkMEFFc192aG9NMy1lU2FPbllvT2N2TTU2eg?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔽[📊 日本インデックス] 日経平均下げ幅600円超え</title>
-      <link>https://news.google.com/rss/articles/CBMiUkFVX3lxTE9ZNFBQTlFrVDdUeG5EZW1QOEV4TDJNSnRaMVpLRFpLazYtQi1hdTMybHdXelk0Y0JIN01LU0xpbTE3MkRnOW5NOUxBOHN5R01TVWc?oc=5</link>
-      <description>★★★★★ 重要度5/5
-・日経平均下げ幅600円超え
-・株価下落の幅が大きくなり
-・株探が注意喚起
-ベースシナリオ: メインシナリオは株価が下落し続けます。
-市場影響: 🔽 弱気
-出典: Google News (日経平均)</description>
-      <pubDate>Fri, 07 Aug 2026 00:52:01 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiUkFVX3lxTE9ZNFBQTlFrVDdUeG5EZW1QOEV4TDJNSnRaMVpLRFpLazYtQi1hdTMybHdXelk0Y0JIN01LU0xpbTE3MkRnOW5NOUxBOHN5R01TVWc?oc=5</guid>
-      <category>📊 日本インデックス</category>
-    </item>
-    <item>
-      <title>🔽[💱 為替・マクロ] 政府・日銀、為替介入額が明らか</title>
-      <link>https://news.google.com/rss/articles/CBMiVkFVX3lxTE9XS1ViaHlRZVI0ZDFWenZsX19KUWREZWREY19yN29RX09NSlByaHdtVjZsMjZuWEJmRTdEdDV1ajVWTHJpV1NLVm9INks3aUl5YWtwNjhB?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・政府と日銀が4月30日に6.2兆円の為替介入を行った
-・5月4日には7800億円、6日には4.6兆円の為替介入を行った
-・為替介入額が明らかになり、市場の注目を集めた
-ベースシナリオ: 為替介入は為替市場の安定を目的としているため、為替介入額が減少する可能性が高い。
-市場影響: 🔽 弱気
-出典: Google News (日銀 金融政策)</description>
-      <pubDate>Fri, 07 Aug 2026 00:45:04 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiVkFVX3lxTE9XS1ViaHlRZVI0ZDFWenZsX19KUWREZWREY19yN29RX09NSlByaHdtVjZsMjZuWEJmRTdEdDV1ajVWTHJpV1NLVm9INks3aUl5YWtwNjhB?oc=5</guid>
-      <category>💱 為替・マクロ</category>
-    </item>
-    <item>
-      <title>🔼[📈 外国インデックス] キャタピラーがS&amp;amp;P500最高値更新に大役を果たす</title>
-      <link>https://news.google.com/rss/articles/CBMivwFBVV95cUxNMjRySjQ4bjBUcEVpWl9ta2piYTBraWNFcXlpN216U0VGWGhBdzRyaENlQm10NnU5OTdjbV9nTFBpc2R0aGRJR1J0aGdIUUN3WDZEVjlacHZpOFVlTXEtdUtzVGFueEhhbFh6d2V3MVUtenl1QlpfSEdPek1wN1RrbEwzSWk2ejlLZGJ6V1pEV0RfWERjcUMtVXFxRjU1NjFDTzlvNC1GMGZXT3RSNFppZnh1a2xqVFlHaW56QmdkQQ?oc=5</link>
-      <description>★★★★☆ 重要度4/5
-・キャタピラーがS&amp;amp;P500の最高値を更新する
-・AI含みの二刀流が企業の強さを示す
-・業界のトップに立つ可能性が高まる
-ベースシナリオ: AI含みの二刀流が企業の強さを示し、業界のトップに立つ可能性が高まる
-市場影響: 🔼 強気
+      <title>➡️[📈 外国インデックス] フィルダン週間トレードレポート（8月第1週）</title>
+      <link>https://news.google.com/rss/articles/CBMiogFBVV95cUxOT3lTVDVzVERWdWJiR3Z0d0pra3Rnd0pzNnJLei1BWVhRZ0ZTd2RjMGtQVmIydlp6TmRHMlBYMzhYczk3UHFpUkxJa2Y2U1NqZVFVdHZGZ0pHZ3ZORzlQZVRyWWg0YldBVHNrVFFydHlJcWtYVEVONzZYVWlVcG5CdnB4Rkk4YkVEQ1NOWVcycTNCUWRhVUpTX1gxcGdnSmh0bGc?oc=5</link>
+      <description>★★☆☆☆ 重要度2/5
+・フィルダンが8月第1週のトレードレポートを発表
+・米国株価指数は前週比+1.2%上昇
+・日本株価指数は前週比+0.8%上昇
+ベースシナリオ: 市場は経済成長とインフレ率の影響を受け、上昇が続く。
+市場影響: ➡️ 中立
 出典: Google News (S&amp;P500)</description>
-      <pubDate>Fri, 07 Aug 2026 00:40:00 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMivwFBVV95cUxNMjRySjQ4bjBUcEVpWl9ta2piYTBraWNFcXlpN216U0VGWGhBdzRyaENlQm10NnU5OTdjbV9nTFBpc2R0aGRJR1J0aGdIUUN3WDZEVjlacHZpOFVlTXEtdUtzVGFueEhhbFh6d2V3MVUtenl1QlpfSEdPek1wN1RrbEwzSWk2ejlLZGJ6V1pEV0RfWERjcUMtVXFxRjU1NjFDTzlvNC1GMGZXT3RSNFppZnh1a2xqVFlHaW56QmdkQQ?oc=5</guid>
+      <pubDate>Sun, 09 Aug 2026 15:41:16 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiogFBVV95cUxOT3lTVDVzVERWdWJiR3Z0d0pra3Rnd0pzNnJLei1BWVhRZ0ZTd2RjMGtQVmIydlp6TmRHMlBYMzhYczk3UHFpUkxJa2Y2U1NqZVFVdHZGZ0pHZ3ZORzlQZVRyWWg0YldBVHNrVFFydHlJcWtYVEVONzZYVWlVcG5CdnB4Rkk4YkVEQ1NOWVcycTNCUWRhVUpTX1gxcGdnSmh0bGc?oc=5</guid>
       <category>📈 外国インデックス</category>
     </item>
     <item>
-      <title>➡️[📊 日本インデックス] 日経平均株価、62円87銭高で始まる</title>
-      <link>https://news.google.com/rss/articles/CBMiVEFVX3lxTE5DcHpIUzN3REJ1U3o5TlRmb1NJbU5vQk15Y1VpY0dKMm56RC1vLV9fRzI4VlZfQWdxM3pob08xR3pzdDhjQk9ycGlSa3pjclY3NHdieQ?oc=5</link>
+      <title>🔼[💱 為替・マクロ] 米ドル/円 150円台に突入か</title>
+      <link>https://news.google.com/rss/articles/CBMihwFBVV95cUxPaFFjelhSaFczeW16Q1BoTGYzYXdJd1h3dm5Xb2VTVFh5Y1IzckVsNjdjN0V4elllOEpOVm1zVGJaM003WDA2RVF3bzRySTE1YUJXVXUtXzNNS3dYZnE5WkwzR2RvY0FKemNZSEdEamYwSkJnaHgtZURjZ3FhUWZJTnlpTkFwbTg?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+・米ドル/円は150円台に突入する可能性が高まっている
+・米ドル高・円安の終焉を迎え、2026年中に140円の大台打診もサプライズではない
+・今回の介入は成功するとみられる
+ベースシナリオ: メインシナリオでは、米ドル/円が150円台に突入する。
+市場影響: 🔼 強気
+出典: Google News (ドル円 為替)</description>
+      <pubDate>Sun, 09 Aug 2026 00:01:00 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMihwFBVV95cUxPaFFjelhSaFczeW16Q1BoTGYzYXdJd1h3dm5Xb2VTVFh5Y1IzckVsNjdjN0V4elllOEpOVm1zVGJaM003WDA2RVF3bzRySTE1YUJXVXUtXzNNS3dYZnE5WkwzR2RvY0FKemNZSEdEamYwSkJnaHgtZURjZ3FhUWZJTnlpTkFwbTg?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>🔼[📈 外国インデックス] エヌビディアCEOが推奨するAI株がS&amp;amp;P500を上回る</title>
+      <link>https://news.google.com/rss/articles/CBMidEFVX3lxTFBpbzVQUkZhMFhxNHBaTl9iVnV3eVl3U0w4M29QNWNGRVhZNmxmSGNvZGRkVVRjcFM4amNqcE9wcE43Z2NHWU5ZNVdybjBPZHQ1Rk5RQlJYWC14ZXF3Q3V2RWhIYTRTOUVRUk14TFVEZlZ1SC01?oc=5</link>
       <description>★★★☆☆ 重要度3/5
-・日経平均株価が62円87銭高で始まる
-・東京株式市場は上昇
-・市場の動きは慎重
-ベースシナリオ: 市場は上昇を続ける可能性がありますが、慎重な動きが続く可能性もあります。
+・エヌビディアCEOが推奨するAI株がS&amp;amp;P500を上回る
+・エヌビディアCEOがAI株の買いを推奨
+・AI株がS&amp;amp;P500を上回る
+ベースシナリオ: エヌビディアCEOが推奨するAI株がS&amp;amp;P500を上回り続ける
+市場影響: 🔼 強気
+出典: Google News (S&amp;P500)</description>
+      <pubDate>Sun, 09 Aug 2026 12:09:26 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMidEFVX3lxTFBpbzVQUkZhMFhxNHBaTl9iVnV3eVl3U0w4M29QNWNGRVhZNmxmSGNvZGRkVVRjcFM4amNqcE9wcE43Z2NHWU5ZNVdybjBPZHQ1Rk5RQlJYWC14ZXF3Q3V2RWhIYTRTOUVRUk14TFVEZlZ1SC01?oc=5</guid>
+      <category>📈 外国インデックス</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] ガソリン・ディーゼル燃料価格3日連続下落</title>
+      <link>https://news.google.com/rss/articles/CBMimgFBVV95cUxQZklFVGxtelNucFdnS2hLLUR6RjFqMnppbU1qNjdkdDFGUVNsVTVnSmNrRzNFREd6QndKN3FWU1NBM0h1dXhQRWFVSVVucGRLY3ZwSE8tTWZoaUgzZkRhNmJCLVQ2N1ZHVy0zbkVDeWd5a2ZwUmJ0Z0dabFJ6eXhzaEVlLUFaZWlENlRxeWVDZXJhNTRrMUV4d3NB?oc=5</link>
+      <description>★★☆☆☆ 重要度2/5
+・ガソリンとディーゼル燃料の価格が3日間連続で下落
+・市場が冷え込んだ理由は明らかになっていない
+・価格の変動は輸入コストや需給状況に影響
+ベースシナリオ: 市場が冷え込んだ理由は明らかになっていないが、価格の変動は輸入コストや需給状況に影響している可能性がある。
+市場影響: ➡️ 中立
+出典: Google News (原油価格)</description>
+      <pubDate>Sun, 09 Aug 2026 11:55:15 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMimgFBVV95cUxQZklFVGxtelNucFdnS2hLLUR6RjFqMnppbU1qNjdkdDFGUVNsVTVnSmNrRzNFREd6QndKN3FWU1NBM0h1dXhQRWFVSVVucGRLY3ZwSE8tTWZoaUgzZkRhNmJCLVQ2N1ZHVy0zbkVDeWd5a2ZwUmJ0Z0dabFJ6eXhzaEVlLUFaZWlENlRxeWVDZXJhNTRrMUV4d3NB?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[💱 為替・マクロ] 8月9日ガソリン価格大幅値下げ</title>
+      <link>https://news.google.com/rss/articles/CBMiiwFBVV95cUxNUUctXy1PbWx1R3pkd0hrZ0lLd2VvNjc2ZWVPY3J3R0xiNGh3blhDZ3YtUTU3NVlKRVE2R3RTZTVlYjY1d1M0b0VocnpXOGNLV2VXaExkZnpGc1NJUzhTaTJyelRBc3U0cVJaY2lRQUJHd3pJVmhTZkRoWnJlcWFjVzE4c2VnT0YtLXlv?oc=5</link>
+      <description>★★★☆☆ 重要度3/5
+・ベトナムガソリン価格8月9日大幅値下げ
+・軽油平均価格約2.5%下げ
+・軽油最大値約1.2%下げ
+ベースシナリオ: ガソリン価格の値下げは経済活動の活性化に寄与する可能性があるが、市場の反応は微妙になる可能性がある。
+市場影響: ➡️ 中立
+出典: Google News (原油価格)</description>
+      <pubDate>Sun, 09 Aug 2026 10:54:36 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiiwFBVV95cUxNUUctXy1PbWx1R3pkd0hrZ0lLd2VvNjc2ZWVPY3J3R0xiNGh3blhDZ3YtUTU3NVlKRVE2R3RTZTVlYjY1d1M0b0VocnpXOGNLV2VXaExkZnpGc1NJUzhTaTJyelRBc3U0cVJaY2lRQUJHd3pJVmhTZkRoWnJlcWFjVzE4c2VnT0YtLXlv?oc=5</guid>
+      <category>💱 為替・マクロ</category>
+    </item>
+    <item>
+      <title>➡️[📊 日本インデックス] 伊藤智洋が読むマーケット・シナリオ【週間展望】8月9日版</title>
+      <link>https://news.google.com/rss/articles/CBMiYEFVX3lxTE5RWkVjRFE2djdmSGZVdm9zOFB3OWV3SEZsdXRTdzVoQUVFTVpOOXFJOWl4NzN2ZUpFbmF5ZmZXRzl2UlBnVlgtS3BHUWU3MmcwNE9JS2hsclI3LXNkUlk2aw?oc=5</link>
+      <description>★★★★☆ 重要度4/5
+・伊藤智洋氏が週間展望を発表、市場の動向について分析
+・株価の推移や経済指標の影響についての見解
+・市場のリスクと機会についての考察
+ベースシナリオ: 市場は上昇傾向が続くが、リスクも高まっている。
 市場影響: ➡️ 中立
 出典: Google News (日経平均)</description>
-      <pubDate>Fri, 07 Aug 2026 00:39:12 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiVEFVX3lxTE5DcHpIUzN3REJ1U3o5TlRmb1NJbU5vQk15Y1VpY0dKMm56RC1vLV9fRzI4VlZfQWdxM3pob08xR3pzdDhjQk9ycGlSa3pjclY3NHdieQ?oc=5</guid>
+      <pubDate>Sun, 09 Aug 2026 05:25:09 GMT</pubDate>
+      <guid>https://news.google.com/rss/articles/CBMiYEFVX3lxTE5RWkVjRFE2djdmSGZVdm9zOFB3OWV3SEZsdXRTdzVoQUVFTVpOOXFJOWl4NzN2ZUpFbmF5ZmZXRzl2UlBnVlgtS3BHUWU3MmcwNE9JS2hsclI3LXNkUlk2aw?oc=5</guid>
       <category>📊 日本インデックス</category>
-    </item>
-    <item>
-      <title>🔽[📈 外国インデックス] S&amp;amp;P500 4年連続2ケタ成長は暴落の前兆か</title>
-      <link>https://news.google.com/rss/articles/CBMiiAFBVV95cUxNMzJsZU1lZkZzTjgyN0lDM3FFdjRVVmpvVjZxcUhnbjIydlBkc2E2VFFFLXNxbDFTMjlpSHZiNlZBS0lqYlhuLS11Z3ZuNHB4VXNLRU4yb3FrcjdkTlkxN2tYZjE5N3lRZ0twYWZpaDZsdUdic3lRdjZTbE4xU1hxNkxJYVV4NVlX?oc=5</link>
-      <description>★★★☆☆ 重要度3/5
-・S&amp;amp;P500が4年連続2ケタ成長を記録
-・著名投資家が「現金が最強の投資手段」
-・市場が過度に高値に固執している可能性
-ベースシナリオ: 市場が安定し、上昇が続く
-市場影響: 🔽 弱気
-出典: Google News (S&amp;P500)</description>
-      <pubDate>Thu, 06 Aug 2026 10:10:09 GMT</pubDate>
-      <guid>https://news.google.com/rss/articles/CBMiiAFBVV95cUxNMzJsZU1lZkZzTjgyN0lDM3FFdjRVVmpvVjZxcUhnbjIydlBkc2E2VFFFLXNxbDFTMjlpSHZiNlZBS0lqYlhuLS11Z3ZuNHB4VXNLRU4yb3FrcjdkTlkxN2tYZjE5N3lRZ0twYWZpaDZsdUdic3lRdjZTbE4xU1hxNkxJYVV4NVlX?oc=5</guid>
-      <category>📈 外国インデックス</category>
     </item>
   </channel>
 </rss>
