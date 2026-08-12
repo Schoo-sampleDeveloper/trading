@@ -2,13 +2,13 @@
   "symbol": "^N225",
   "name": "日経平均株価",
   "currency": "JPY",
-  "current": 66970.2188,
-  "previous_close": 65666.6094,
-  "change": 1303.6094,
-  "change_percent": 1.9852,
-  "open": 65905.1016,
-  "day_high": 67006.8438,
-  "day_low": 65848.5781,
+  "current": 67524.06,
+  "previous_close": 66949.9609,
+  "change": 574.0991,
+  "change_percent": 0.8575,
+  "open": 66994.0469,
+  "day_high": 67569.3594,
+  "day_low": 66735.7578,
   "year_high": 72831.7266,
   "year_high_date": "2026-06-22",
   "year_low": 41835.1719,
@@ -2696,5 +2696,5 @@
     65309.3216,
     65417.926
   ],
-  "updated_at": "2026-08-12T07:22:10+09:00"
+  "updated_at": "2026-08-13T07:21:31+09:00"
 }
